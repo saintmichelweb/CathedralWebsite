@@ -29,10 +29,3 @@ export function readEnvAsBoolean (key: string, defaultValue: string): boolean {
   const value = readEnv(key, defaultValue) as string
   return value === 'true'
 }
-
-export const EncryptionTransformerObject = {
-  key: readEnv('KEY', '') as string,
-  algorithm: readEnv('ALGORITHM', '') as string,
-  ivLength: readEnv('IVLENGTH', '', true) as number,
-  iv: readEnv('IV', '') as string
-}

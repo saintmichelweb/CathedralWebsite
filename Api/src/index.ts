@@ -6,10 +6,10 @@ import setupMiddlewares from "./setup/middlewaresSetup";
 import setupRoutes from "./setup/routesSetup";
 import setupServer from "./setup/serverSetup";
 import { readEnv } from "./setup/readEnv";
-import {
-  tryInitializeDatabase,
-  tryInitializeS3,
-} from "./setup/serviceInitializersSetup";
+// import {
+  // tryInitializeDatabase,
+  // tryInitializeS3,
+// } from "./setup/serviceInitializersSetup";
 import ms from "ms";
 import logger from "./services/logger";
 
@@ -31,4 +31,10 @@ if (ms(JWT_EXPIRES_IN) === undefined) {
   process.exit(1);
 }
 
-setupServer(app, HOSTNAME, PORT, tryInitializeS3, tryInitializeDatabase);
+setupServer(
+  app, 
+  HOSTNAME, 
+  PORT, 
+  // tryInitializeS3, 
+  // tryInitializeDatabase
+)

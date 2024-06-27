@@ -2,6 +2,8 @@ import { AppDataSource } from './dataSource'
 import path from 'path'
 import logger from '../services/logger'
 import {
+  CurrencyCodes,
+  CurrencyDescriptions,
   PortalUserStatus
 } from '../../../shared-lib'
 import { hashPassword } from '../utils/utils'
@@ -10,6 +12,10 @@ import { PortalRoleEntity } from '../entity/PortalRoleEntity'
 import { DefaultHubSuperAdmin } from './defaultUsers'
 import { type DataSource } from 'typeorm'
 import { ApplicationStateEntity } from '../entity/ApplicationStateEntity'
+import { CurrencyEntity } from '../entity/CurrencyEntity'
+import { PortalPermissionEntity } from '../entity/PortalPermissionEntity'
+import { DefaultRoles } from './defaultRoles'
+import { PermissionsEnum } from '../types/permissions'
 
 export const initializeDatabase = async (): Promise<void> => {
   logger.info('Connecting MySQL database...')
@@ -17,6 +23,9 @@ export const initializeDatabase = async (): Promise<void> => {
   await AppDataSource.initialize()
     .then(async () => {
       logger.info('MySQL Database Connection success.')
+
+      await seedCurrency(AppDataSource)
+      await seedDefaultRoles(AppDataSource)
 
       let applicationState = await AppDataSource.manager.findOne(ApplicationStateEntity, { where: {} })
       if (applicationState == null) {
@@ -28,20 +37,12 @@ export const initializeDatabase = async (): Promise<void> => {
       if (!applicationState.is_hub_onboarding_complete) {
         await seedDefaultHubSuperAdmin(AppDataSource)
       }
-
-      
-      if (process.env.NODE_ENV !== 'test') {
-        // only seed countries, subdivisions, districts in non-test environment
-        // because it takes a long time to seed
-        const filePath = path.join(__dirname, 'countries.json')
-      }
     })
     .catch((error) => {
       
       throw error
     })
 }
-
 
 export async function seedDefaultHubSuperAdmin (appDataSource: DataSource): Promise<void> {
   logger.info('Seeding Default Hub Super Admin...')
@@ -73,13 +74,49 @@ export async function seedDefaultHubSuperAdmin (appDataSource: DataSource): Prom
   await appDataSource.manager.save(newUser)
 }
 
-export interface SubdivisionData {
-  name: string
-  districts: string[]
+export async function seedCurrency(appDataSource: DataSource): Promise<void> {
+  // skip if already seeded by checking size
+  // TODO: Is there a better way?
+  logger.info("Seeding Currency Codes...")
+  const alreadySeedSize = await appDataSource.manager.count(CurrencyEntity)
+  if (Object.keys(CurrencyCodes).length <= alreadySeedSize) {
+    logger.info("Currency Codes already seeded. Skipping...")
+    return
+  }
+
+  for (const currencyCode in CurrencyCodes) {
+    const currency = new CurrencyEntity()
+    currency.iso_code =
+      CurrencyCodes[currencyCode as keyof typeof CurrencyCodes]
+    currency.description =
+      CurrencyDescriptions[currencyCode as keyof typeof CurrencyDescriptions]
+    await appDataSource.manager.save(currency)
+  }
+  logger.info("Seeding Currency Codes... Done")
 }
 
-export interface CountryData {
-  name: string
-  code: string
-  country_subdivisions: SubdivisionData[]
+export async function seedDefaultRoles(
+  appDataSource: DataSource
+): Promise<void> {
+  logger.info("Seeding Default Roles...")
+  const permissions = await appDataSource.manager.find(PortalPermissionEntity)
+
+  for (const role of DefaultRoles) {
+    const filteredPermissions = permissions.filter((permission) =>
+      role.permissions?.includes(permission.name as unknown as PermissionsEnum)
+    )
+
+    const roleEntity = await appDataSource.manager.findOne(PortalRoleEntity, {
+      where: { name: role.name },
+    })
+
+    if (roleEntity == null) {
+      const newRole = new PortalRoleEntity();
+      newRole.name = role.name;
+      newRole.description = role.name;
+      newRole.permissions = filteredPermissions
+      await appDataSource.manager.save(newRole)
+    }
+  }
+  logger.info("Seeding Default Roles... Done")
 }

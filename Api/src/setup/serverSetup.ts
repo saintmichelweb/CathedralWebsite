@@ -6,8 +6,8 @@ export default function setupServer (
   app: Application,
   HOSTNAME: string,
   PORT: number,
-  tryInitializeMinio: () => Promise<void>,
-  tryInitializeDatabase: () => Promise<void>
+  // tryInitializeMinio: () => Promise<void>,
+  // tryInitializeDatabase: () => Promise<void>
 ): void {
   app.listen(PORT, HOSTNAME, async () => {
     logger.info(`API is running on http://${HOSTNAME}:${PORT}/api/v1`)

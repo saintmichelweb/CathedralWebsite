@@ -1,5 +1,4 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm'
-import { MerchantEntity } from './MerchantEntity'
 
 @Entity('currencies')
 export class CurrencyEntity {
@@ -9,6 +8,4 @@ export class CurrencyEntity {
   @Column({ nullable: false, length: 255 })
     description!: string
 
-  @OneToMany(() => MerchantEntity, merchant => merchant.currency_code)
-    merchants!: MerchantEntity[]
 }

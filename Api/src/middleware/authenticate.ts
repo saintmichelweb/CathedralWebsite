@@ -22,7 +22,7 @@ export async function authenticateJWT(req: Request, res: Response, next: NextFun
   const INACTIVITY_LIMIT_MS = ms(INACTIVITY_LIMIT)
 
   if (isUndefinedOrNull(authorization)) {
-    logger.error("Authorization Failed as no token provided");
+    logger.error("Authorization Failed as no token provided")
     return res.status(401).send({ message: 'Authorization Failed' })
   }
 

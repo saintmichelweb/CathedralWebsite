@@ -47,16 +47,6 @@ export function generateJwtToken (user: PortalUserEntity): string {
   return token
 }
 
-// export function generateApiKey (): string {
-//   // Constant prefix
-
-//   // const randomPayload = base64url(crypto.randomBytes(API_KEY_LENGTH))
-
-//   const apiKey = `${API_KEY_PREFIX}.${randomPayload}`
-
-//   return apiKey
-// }
-
 export function isUndefinedOrNull (value: any): boolean {
   return value === undefined || value === null
 }

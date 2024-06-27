@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm i
 COPY . .
 
-EXPOSE 5000
+EXPOSE 3551
 
 # Run the app when the container launches
 CMD [ "npm", "run", "start" ]

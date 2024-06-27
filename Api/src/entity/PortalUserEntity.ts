@@ -1,47 +1,62 @@
-import { Entity, Column, OneToMany, ManyToOne } from 'typeorm'
-import { MerchantEntity } from './MerchantEntity'
+import { Entity, Column, OneToMany, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 import { PortalUserStatus } from '../../../shared-lib'
-import { PersonEntity } from './PersonEntity'
-import { DFSPEntity } from './DFSPEntity'
 import { PortalRoleEntity } from './PortalRoleEntity'
-import { EmailVerificationTokenEntity } from './EmailVerificationToken'
 import { JwtTokenEntity } from './JwtTokenEntity'
+import { EncryptionTransformer } from "typeorm-encrypted"
+import { EncryptionTransformerObject } from '../types/encryptionObject';
 
-@Entity('portal_users')
-export class PortalUserEntity extends PersonEntity {
+@Entity("portal_users")
+export class PortalUserEntity {
   // password hashed
-  @Column({ nullable: true, length: 2048 })
-    password!: string
+  @PrimaryGeneratedColumn()
+  id!: number
 
   @Column({
-    type: 'simple-enum',
+    nullable: false,
+    length: 255,
+    transformer: new EncryptionTransformer(EncryptionTransformerObject),
+  })
+  name!: string
+
+  @Column({
+    nullable: true,
+    length: 255,
+    transformer: new EncryptionTransformer(EncryptionTransformerObject),
+  })
+  email!: string
+
+  @Column({
+    nullable: true,
+    length: 255,
+    transformer: new EncryptionTransformer(EncryptionTransformerObject),
+  })
+  phone_number!: string
+  @Column({ nullable: true, length: 2048 })
+  password!: string
+
+  @Column({
+    type: "simple-enum",
     enum: PortalUserStatus,
     nullable: false,
-    default: PortalUserStatus.UNVERIFIED
+    default: PortalUserStatus.UNVERIFIED,
   })
-    status!: PortalUserStatus
+  status!: PortalUserStatus
 
-  @OneToMany(() => MerchantEntity, merchant => merchant.created_by)
-    created_merchants!: MerchantEntity[]
+  @CreateDateColumn()
+  created_at!: Date
 
-  @OneToMany(() => MerchantEntity, merchant => merchant.checked_by)
-    checked_merchants!: MerchantEntity[]
+  @UpdateDateColumn()
+  updated_at!: Date
 
-  @OneToMany(() => EmailVerificationTokenEntity, emailToken => emailToken.portal_user)
-    email_verification_tokens!: EmailVerificationTokenEntity[]
+  @ManyToOne(() => PortalRoleEntity, (role) => role.users)
+  role!: PortalRoleEntity
 
-  @ManyToOne(() => DFSPEntity, dfsp => dfsp.portal_users)
-    dfsp!: DFSPEntity
+  @OneToMany(() => JwtTokenEntity, (jwtToken) => jwtToken.user)
+  tokens!: JwtTokenEntity[]
 
-  @ManyToOne(() => PortalRoleEntity, role => role.users)
-    role!: PortalRoleEntity
+  @OneToMany(() => PortalUserEntity, (user) => user.created_by)
+  created_users!: PortalUserEntity[]
 
-  @OneToMany(() => JwtTokenEntity, jwtToken => jwtToken.user)
-    tokens!: JwtTokenEntity[]
-
-  @OneToMany(() => PortalUserEntity, user => user.created_by)
-    created_users!: PortalUserEntity[]
-
-  @ManyToOne(() => PortalUserEntity, user => user.created_users)
-    created_by!: PortalUserEntity
+  @ManyToOne(() => PortalUserEntity, (user) => user.created_users)
+  created_by!: PortalUserEntity
 }

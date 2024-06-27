@@ -1,11 +1,10 @@
 import {
     Entity, Column, PrimaryGeneratedColumn,
-    CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn
+    CreateDateColumn
   } from 'typeorm'
-  import { BusinessPersonLocationEntity } from './BusinessPersonLocationEntity'
   import { EncryptionTransformer } from 'typeorm-encrypted'
-  import { EncryptionTransformerObject } from '../setup/readEnv'
-  
+  import { EncryptionTransformerObject } from '../types/encryptionObject';
+
   @Entity('otps')
   export class OPTEntity {
     @PrimaryGeneratedColumn()

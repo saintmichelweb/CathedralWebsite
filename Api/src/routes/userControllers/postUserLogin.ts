@@ -86,7 +86,7 @@ export async function postUserLogin (req: Request, res: Response) {
   } catch (err) {
     if (err instanceof z.ZodError) {
       logger.error('Validation error: %o', err)
-      logger.error("Validation error: %o", req.body);
+      logger.error("Validation error: %o", req.body)
       return res.status(422).send({ message: 'Validation error' })
     }
   }

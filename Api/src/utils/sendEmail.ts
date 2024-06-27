@@ -104,53 +104,53 @@ export async function sendForgotPasswordEmail (email: string, token: string): Pr
   )
 }
 
-interface errorObject {
-  status: number
-  message: any
-  merchant_code: string
-  lineNumber: number
-}
+// interface errorObject {
+//   status: number
+//   message: any
+//   merchant_code: string
+//   lineNumber: number
+// }
 
-export async function bulkMerchantRegistrationStatusEmail (
-  email: string,
-  dfspName: string,
-  fileName: string,
-  batchSize: number,
-  succeeded_registrations: number,
-  failed_registrations: number,
-  status: string,
-  errors: Array<errorObject>
-): Promise<void> {
-  let errorList = ''
-  if (errors.length) {
-    errorList += 'Errors and Details:<br/><ul>'
-    for (let i = 0; i < errors.length; i++) {
-      errorList += `
-        <li>
-          Line Number: ${errors[i].lineNumber}<br/>
-          Merchant Code: ${errors[i].merchant_code}<br/>
-        </li>
-      `
-    }
-    errorList += '</ul><br/>'
-  }
+// export async function bulkMerchantRegistrationStatusEmail (
+//   email: string,
+//   dfspName: string,
+//   fileName: string,
+//   batchSize: number,
+//   succeeded_registrations: number,
+//   failed_registrations: number,
+//   status: string,
+//   errors: Array<errorObject>
+// ): Promise<void> {
+//   let errorList = ''
+//   if (errors.length) {
+//     errorList += 'Errors and Details:<br/><ul>'
+//     for (let i = 0; i < errors.length; i++) {
+//       errorList += `
+//         <li>
+//           Line Number: ${errors[i].lineNumber}<br/>
+//           Merchant Code: ${errors[i].merchant_code}<br/>
+//         </li>
+//       `
+//     }
+//     errorList += '</ul><br/>'
+//   }
 
-  sendEmail(
-    email,
-    `RSwitch Bulk Processing Result - ${fileName}`,
-    `
-      Dear ${dfspName} team,<br/><br/>
-      This email is to inform you about the recent bulk merchant registration file you uploaded to our system, named <strong>${fileName}</strong>.<br/><br/>
-      Here is a summary of the processing status:<br/>
-      - Batch Size: ${batchSize} records<br/>
-      - Successfully registered: ${succeeded_registrations} merchants<br/>
-      - Failed registrations: ${failed_registrations} merchants<br/>
-      - Overall Status: ${status}<br/>
-      <br/>
-      ${errorList}
-      If you have any questions or need further assistance, please let us know.<br/><br/>
-      Best regards,<br/>
-      The RSwitch team
-    `
-  )
-}
+//   sendEmail(
+//     email,
+//     `RSwitch Bulk Processing Result - ${fileName}`,
+//     `
+//       Dear ${dfspName} team,<br/><br/>
+//       This email is to inform you about the recent bulk merchant registration file you uploaded to our system, named <strong>${fileName}</strong>.<br/><br/>
+//       Here is a summary of the processing status:<br/>
+//       - Batch Size: ${batchSize} records<br/>
+//       - Successfully registered: ${succeeded_registrations} merchants<br/>
+//       - Failed registrations: ${failed_registrations} merchants<br/>
+//       - Overall Status: ${status}<br/>
+//       <br/>
+//       ${errorList}
+//       If you have any questions or need further assistance, please let us know.<br/><br/>
+//       Best regards,<br/>
+//       The RSwitch team
+//     `
+//   )
+// }

@@ -3,9 +3,9 @@ import multer from 'multer'
 import logger from './logger'
 import dotenv from 'dotenv'
 import { Client } from 'minio'
-import { convertURLFriendly } from '../utils/utils'
-import { type MerchantEntity } from '../entity/MerchantEntity'
-import { type DFSPEntity } from '../entity/DFSPEntity'
+// import { convertURLFriendly } from '../utils/utils'
+// import { type MerchantEntity } from '../entity/MerchantEntity'
+// import { type DFSPEntity } from '../entity/DFSPEntity'
 import { UploadedObjectInfo } from 'minio/dist/main/internal/type'
 
 if (process.env.NODE_ENV === 'test') {
@@ -38,7 +38,8 @@ export const pdfUpload = multer({
   fileFilter: function (_req, file, cb) {
     // Only allow PDF files
     if (path.extname(file.originalname) !== '.pdf') {
-      cb(new Error('Only PDFs are allowed')); return
+      cb(new Error('Only PDFs are allowed'))
+      return
     }
     cb(null, true)
   }
@@ -125,78 +126,6 @@ export async function uploadCheckoutAliasQRImage (
   return objectName
 }
 
-export async function uploadMerchantDocument (
-  merchant: MerchantEntity,
-  licenseNumber: string,
-  file: Express.Multer.File
-): Promise<string | null> {
-  const metaData = {
-    'Content-Type': 'application/pdf',
-    'X-Amz-Meta-Testing': 1234
-  }
-
-  const name = convertURLFriendly(merchant.dba_trading_name)
-  file.originalname = convertURLFriendly(file.originalname)
-  const postfix = convertURLFriendly(licenseNumber)
-  const objectName = `${name}/${file.originalname}-${postfix}.pdf`
-  let uploadedPDFInfo: UploadedObjectInfo | null = null
-  try {
-    uploadedPDFInfo = await minioClient.putObject(
-      merchantDocumentBucketName,
-      objectName,
-      file.buffer,
-      file.buffer.length,
-      metaData
-    )
-  } catch (e) {
-    logger.error('Storage Server document upload error: %s', e)
-    return null
-  }
-  if (uploadedPDFInfo == null) {
-    logger.error('Storage Server document upload error: %s', 'uploadedPDFInfo is null')
-    return null
-  }
-
-  logger.info('Storage Server document uploaded: %s', objectName)
-  return objectName
-}
-
-export async function uploadDFSPLogo (
-  dfsp: DFSPEntity,
-  file: Express.Multer.File
-): Promise<string | null> {
-  const metaData = {
-    'Content-Type': file.mimetype
-  }
-
-  const name = convertURLFriendly(dfsp.name)
-  file.originalname = convertURLFriendly(file.originalname)
-  const postfix = convertURLFriendly(dfsp.name)
-  const ext = path.extname(file.originalname)
-  const objectName = `${name}/${file.originalname}-${postfix}${ext}`
-
-  let uploadedLogoInfo: UploadedObjectInfo | null = null
-  try {
-    uploadedLogoInfo = await minioClient.putObject(
-      merchantDocumentBucketName,
-      objectName,
-      file.buffer,
-      file.buffer.length,
-      metaData
-    )
-  } catch (e) {
-    logger.error('Storage Server Logo upload error: %s', e)
-    return null
-  }
-  if (uploadedLogoInfo == null) {
-    logger.error('Storage Server Logo upload error: %s', 'uploadedLogoInfo is null')
-    return null
-  }
-
-  logger.info('Storage Server Logo uploaded: %s', objectName)
-  return objectName
-}
-
 export async function getQRImageUrl (qrPath: string): Promise<string> {
   // qrPath example.. qr_images/000001.png
   if (qrPath == null || qrPath.length === 0) {
@@ -241,3 +170,76 @@ export async function getDFSPLogoURL (logoPath: string): Promise<string> {
     return ''
   }
 }
+
+
+// export async function uploadMerchantDocument (
+//   merchant: MerchantEntity,
+//   licenseNumber: string,
+//   file: Express.Multer.File
+// ): Promise<string | null> {
+//   const metaData = {
+//     'Content-Type': 'application/pdf',
+//     'X-Amz-Meta-Testing': 1234
+//   }
+
+//   const name = convertURLFriendly(merchant.dba_trading_name)
+//   file.originalname = convertURLFriendly(file.originalname)
+//   const postfix = convertURLFriendly(licenseNumber)
+//   const objectName = `${name}/${file.originalname}-${postfix}.pdf`
+//   let uploadedPDFInfo: UploadedObjectInfo | null = null
+//   try {
+//     uploadedPDFInfo = await minioClient.putObject(
+//       merchantDocumentBucketName,
+//       objectName,
+//       file.buffer,
+//       file.buffer.length,
+//       metaData
+//     )
+//   } catch (e) {
+//     logger.error('Storage Server document upload error: %s', e)
+//     return null
+//   }
+//   if (uploadedPDFInfo == null) {
+//     logger.error('Storage Server document upload error: %s', 'uploadedPDFInfo is null')
+//     return null
+//   }
+
+//   logger.info('Storage Server document uploaded: %s', objectName)
+//   return objectName
+// }
+
+// export async function uploadDFSPLogo (
+//   dfsp: DFSPEntity,
+//   file: Express.Multer.File
+// ): Promise<string | null> {
+//   const metaData = {
+//     'Content-Type': file.mimetype
+//   }
+
+//   const name = convertURLFriendly(dfsp.name)
+//   file.originalname = convertURLFriendly(file.originalname)
+//   const postfix = convertURLFriendly(dfsp.name)
+//   const ext = path.extname(file.originalname)
+//   const objectName = `${name}/${file.originalname}-${postfix}${ext}`
+
+//   let uploadedLogoInfo: UploadedObjectInfo | null = null
+//   try {
+//     uploadedLogoInfo = await minioClient.putObject(
+//       merchantDocumentBucketName,
+//       objectName,
+//       file.buffer,
+//       file.buffer.length,
+//       metaData
+//     )
+//   } catch (e) {
+//     logger.error('Storage Server Logo upload error: %s', e)
+//     return null
+//   }
+//   if (uploadedLogoInfo == null) {
+//     logger.error('Storage Server Logo upload error: %s', 'uploadedLogoInfo is null')
+//     return null
+//   }
+
+//   logger.info('Storage Server Logo uploaded: %s', objectName)
+//   return objectName
+// }
