@@ -10,35 +10,35 @@ export enum PortalRolesStatus {
 @Entity('portal_roles')
 export class PortalRoleEntity {
   @PrimaryGeneratedColumn()
-    id!: number
+  id!: number
 
   @Column({ nullable: false, length: 255 })
-    name!: string
+  name!: string
 
   @Column({ nullable: false, length: 255, default: '' })
-    description!: string
+  description!: string
 
   @ManyToMany(() => PortalPermissionEntity, permission => permission.roles)
   @JoinTable()
-    permissions!: PortalPermissionEntity[]
+  permissions!: PortalPermissionEntity[]
 
   @OneToMany(() => PortalUserEntity, user => user.role)
-    users!: PortalUserEntity[]
+  users!: PortalUserEntity[]
 
   @CreateDateColumn()
-    created_at!: Date
+  created_at!: Date
 
   @UpdateDateColumn()
-    updated_at!: Date
-  
+  updated_at!: Date
+
   @Column({
     type: 'simple-enum',
     enum: PortalRolesStatus,
     nullable: false,
     default: PortalRolesStatus.ACTIVATED
   })
-    status!: string
-    
+  status!: string
+
   @Column({ nullable: true, default: 0 })
-    blocked!: boolean
+  blocked!: boolean
 }

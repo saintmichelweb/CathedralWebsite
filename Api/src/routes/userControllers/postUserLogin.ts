@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { type Request, type Response } from 'express'
 import * as z from 'zod'
-import axios from 'axios'
+// import axios from 'axios'
 import { AppDataSource } from '../../database/dataSource'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
 import logger from '../../services/logger'
@@ -9,8 +9,8 @@ import jwt from 'jsonwebtoken'
 import { PortalUserStatus } from '../../../../shared-lib'
 import { readEnv, readEnvAsBoolean } from '../../setup/readEnv'
 import { JwtTokenEntity } from '../../entity/JwtTokenEntity'
-import { OPTEntity } from '../../entity/OTPEntity'
-import { sendOTPEmail } from '../../utils/sendEmail'
+// import { OPTEntity } from '../../entity/OTPEntity'
+// import { sendOTPEmail } from '../../utils/sendEmail'
 import ms from 'ms'
 
 export const LoginFormSchema = z.object({
@@ -80,7 +80,7 @@ const JWT_EXPIRES_IN_MS = ms(JWT_EXPIRES_IN)
  *
  */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postUserLogin (req: Request, res: Response) {
+export async function postUserLogin(req: Request, res: Response) {
   try {
     LoginFormSchema.parse(req.body)
   } catch (err) {
@@ -137,7 +137,7 @@ export async function postUserLogin (req: Request, res: Response) {
       last_used: new Date()
     })
     await AppDataSource.manager.save(jwtTokenObj)
-    res.json({ success: true, message: 'Login successful', token: token})
+    res.json({ success: true, message: 'Login successful', token: token })
   } catch (error: any) {
     logger.error('User %s login failed: %s', req.body.email, error.message)
     res.status(400).send({ success: false, message: error.message })

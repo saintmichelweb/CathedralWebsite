@@ -15,20 +15,20 @@ export enum APIRouteMethod {
 @Entity('portal_permissions')
 export class PortalPermissionEntity {
   @PrimaryGeneratedColumn()
-    id!: number
+  id!: number
 
   @Column({ nullable: false, length: 255 })
-    name!: string
+  name!: string
 
   @Column({ nullable: false, length: 255, default: '' })
-    description!: string
+  description!: string
 
   @ManyToMany(() => PortalRoleEntity, role => role.permissions)
-    roles!: PortalRoleEntity[]
+  roles!: PortalRoleEntity[]
 
   @CreateDateColumn()
-    created_at!: Date
+  created_at!: Date
 
   @UpdateDateColumn()
-    updated_at!: Date
+  updated_at!: Date
 }

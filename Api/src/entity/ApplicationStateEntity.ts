@@ -6,8 +6,8 @@ import {
 @Entity('application_state')
 export class ApplicationStateEntity {
   @PrimaryGeneratedColumn()
-    id!: number
+  id!: number
 
   @Column({ type: 'boolean', default: false })
-    is_hub_onboarding_complete!: boolean
+  is_hub_onboarding_complete!: boolean
 }

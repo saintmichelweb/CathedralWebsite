@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express from 'express'
-import { postUserLogin } from './userControllers/postUserLogin'
+import { GetHomePageMessage } from "./homePageRoutes/getHomePageMessage";
+// import { authenticateJWT } from '../middleware/authenticate';
 
 // /**
 //  * @openapi
@@ -18,6 +19,9 @@ import { postUserLogin } from './userControllers/postUserLogin'
 
 const router = express.Router()
 
-router.post('/users/login', postUserLogin)
+router.get('/homePage',
+    // authenticateJWT, 
+    GetHomePageMessage
+)
 
 export default router
