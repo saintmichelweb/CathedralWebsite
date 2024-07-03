@@ -20,6 +20,13 @@ export class TopParishNewsAndNoticesEntity {
   })
   description!: string
 
+  @Column({
+    nullable: false,
+    // length: 255
+    default: false,
+  })
+  isActive!: boolean;
+
   // @Column({
   //   nullable: false,
   //   length: 255

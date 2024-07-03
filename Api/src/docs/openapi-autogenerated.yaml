@@ -62,14 +62,4 @@ paths:
                     example: Invalid credentials
         '422':
           description: Validation error
-  /users:
-    get:
-      tags:
-        - Portal Users
-      security:
-        - Authorization: []
-      summary: GET Portal Users List
-      responses:
-        '200':
-          description: GET Portal Users List
 tags: []

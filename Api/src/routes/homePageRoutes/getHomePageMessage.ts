@@ -5,7 +5,7 @@ import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function GetHomePageMessage(req: Request, res: Response) {
+export async function getHomePageMessage(req: Request, res: Response) {
     // let portalUser = req.user
     // if (isUndefinedOrNull(portalUser)) {
     //     return res.status(401).send({ message: 'Unauthorized!' })

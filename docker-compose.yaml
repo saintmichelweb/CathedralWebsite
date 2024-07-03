@@ -4,14 +4,14 @@ networks:
     name: stmp-net
 
 services:
-  acquirer-backend:
+  api:
     build:
       context: .
-      dockerfile: Dockerfile-acquirer-backend
+      dockerfile: ./Api/Dockerfile
     restart: unless-stopped
-    command: ["npm", "run", "acquirer-backend:start"]
+    # command: ["npm", "run", "start"]
     ports:
-      - "5555:5555"
+      - "3551:3551"
     networks:
       - stmp-net
 
@@ -23,7 +23,7 @@ services:
     container_name: stmp-db
     image: mysql:8.0.33
     command: --default-authentication-plugin=mysql_native_password
-    restart: unless-stopped
+    # restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=password
     ports:
@@ -32,6 +32,6 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ./mysql-init-scripts:/docker-entrypoint-initdb.d
-      - data:/data/db
+      # - data:/data/db
     networks:
-      - mojaloop-net
+      - stmp-net

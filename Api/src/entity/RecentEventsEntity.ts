@@ -26,6 +26,13 @@ export class RecentEventsEntity {
   })
   backgroungImageUrl!: string
 
+  @Column({
+    nullable: false,
+    // length: 255
+    default: false,
+  })
+  isActive!: boolean;
+
   @CreateDateColumn()
   created_at!: Date
 
