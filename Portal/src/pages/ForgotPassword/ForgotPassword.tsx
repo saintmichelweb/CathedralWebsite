@@ -47,7 +47,7 @@ const ForgotPassword = () => {
 
           <Box alignSelf='center' color='black' fontSize='sm' fontWeight='medium'>
             <Text>Hotline: +250-788-387-632</Text>
-            <Text>Email: info@rswitch.co.rw</Text>
+            <Text>Email: info@St Michael Parish.co.rw</Text>
           </Box>
         </VStack>
 

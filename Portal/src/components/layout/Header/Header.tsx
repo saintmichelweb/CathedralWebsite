@@ -18,8 +18,6 @@ import { AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
 import { FiMenu } from 'react-icons/fi'
 import { TbLogout, TbPasswordUser } from 'react-icons/tb'
 
-import mojaloopLogo from '../../../assets/mojaloop-logo.png'
-import { useLogout } from '../../../api/hooks/auth'
 import { useDrawerDisclosure } from '../../../contexts/DrawerDisclosureContext'
 import { useUserContext } from '../../../contexts/UserContext'
 import CustomModal from '../../../components/ui/CustomModal/CustomModal'
@@ -29,7 +27,7 @@ import { SetPasswordBody } from '../../../pages/SetPassword/SetPassword'
 const Header = () => {
   const { onOpen } = useDrawerDisclosure()
   const { loggedUser } = useUserContext()
-  const logout = useLogout()
+  // const logout = useLogout()
   const [changePasswordPopup, setChangePasswordPopup] = useState<boolean>(false)
 
   return (
@@ -56,7 +54,7 @@ const Header = () => {
         onClick={onOpen}
       />
 
-      <Image src={mojaloopLogo} h='9' alt='Mojaloop Logo' />
+      <Image h='9' alt='Logo' />
       <Drawer />
       <HStack spacing='4'>
         <Popover offset={[-125, 0]}>
@@ -119,7 +117,8 @@ const Header = () => {
                 p='1.5'
                 _hover={{ bg: 'gray.100' }}
                 onClick={() => {
-                  logout.mutate()
+                  // logout.mutate()
+                  console.log('tried to logout')
                 }}
               >
                 <HStack spacing='2'>

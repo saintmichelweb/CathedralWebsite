@@ -4,20 +4,16 @@ import { Box, Card, Checkbox, Divider, Heading, HStack, Stack } from '@chakra-ui
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import { SelectOption } from '@/types/forms'
-import type { RoleInfo } from '@/types/roles'
-import { User } from '@/types/users'
+import { SelectOption } from '../../types/forms'
+import type { RoleInfo } from '../../types/roles'
+import { User } from '../../types/users'
 import {
   addNewUserSchema,
   EditUserForm,
   type AddNewUserForm,
-} from '@/lib/validations/addNewUser'
-import { useDfsps } from '@/api/hooks/dfsps'
-import { useRoles } from '@/api/hooks/roles'
-import { useCreateUser, useUpdateUser, useUserProfile } from '@/api/hooks/users'
-import { AlertDialog, CustomButton, Skeleton } from '@/components/ui'
-import { CustomFormSelect, FormInput } from '@/components/form'
-import { PortalRolesLevels } from 'shared-lib'
+} from '../../lib/validations/addNewUser'
+import { AlertDialog, CustomButton, Skeleton } from '../../components/ui'
+import { CustomFormSelect, FormInput } from '../../components/form'
 
 interface AddNewUserProps {
   user?: User | null
@@ -29,11 +25,6 @@ const AddNewUser = (props: AddNewUserProps) => {
   const user: User | null | undefined = props.user
   const navigate = useNavigate()
 
-  const roles = useRoles()
-  const dfsps = useDfsps({ all: true })
-  const createUser = useCreateUser()
-  const updateUser = useUpdateUser()
-  const userProfile = useUserProfile()
   const {
     register,
     formState: { errors },
@@ -45,7 +36,7 @@ const AddNewUser = (props: AddNewUserProps) => {
   })
   let roleOptions: SelectOption[] = []
 
-  const [isDfspUser, setIsDfspUser] = useState(false)
+  // const [isDfspUser, setIsDfspUser] = useState(false)
   const [userRole, setUserRole] = useState<SelectOption | null>(null)
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const [newUserPayload, setNewUserPayload] = useState<AddNewUserForm>()
@@ -60,32 +51,6 @@ const AddNewUser = (props: AddNewUserProps) => {
     }
   }, [setValue, user])
 
-  if (roles.isSuccess && userProfile.isSuccess && roles.data) {
-    const roleData = roles.data
-    let createAccesses: RoleInfo[] = Array.isArray(roleData) ? roleData : roleData.data
-    if (userProfile.data.role?.level === PortalRolesLevels.Hub) {
-      createAccesses = createAccesses.filter((role: RoleInfo) => role.level !== PortalRolesLevels.DFSP && role.level !== PortalRolesLevels.DFSP_USER )
-    }
-
-    if (createAccesses) {
-      roleOptions = user
-        ? createAccesses.map((roleInfo: RoleInfo) => ({
-          label: roleInfo.name,
-          value: roleInfo.id,
-        }))
-        : createAccesses.map(({ id, name }) => ({
-          label: name,
-          value: id,
-        }))
-
-      if (userProfile.data.role.name !== 'Hub Super Admin') {
-        roleOptions = roleOptions.filter(role => role.label !== 'Hub Admin')
-      }
-    } else {
-      roleOptions = []
-    }
-  }
-
   const onSubmit = async (values: AddNewUserForm) => {
     setNewUserPayload(values)
     setIsOpenModal(true)
@@ -94,23 +59,21 @@ const AddNewUser = (props: AddNewUserProps) => {
   const onConfirm = async (payload: AddNewUserForm | undefined) => {
     setIsOpenModal(false)
     if (payload) {
-      if (user && props.onCloseModal) {
-        const updatePayload: EditUserForm = {
-          ...payload,
-          userId: user.id,
-        }
-        updateUser.mutate(updatePayload)
-        props.onCloseModal()
-      } else {
-        await createUser.mutateAsync(payload)
-      }
+      // if (user && props.onCloseModal) {
+      //   const updatePayload: EditUserForm = {
+      //     ...payload,
+      //     userId: user.id,
+      //   }
+      //   props.onCloseModal()
+      // } else {
+      // }
       reset()
     }
   }
 
-  useEffect(() => {
-    if (updateUser.isSuccess && props.onFetch) props.onFetch()
-  }, [props, updateUser.isSuccess])
+  // useEffect(() => {
+  //   if (updateUser.isSuccess && props.onFetch) props.onFetch()
+  // }, [props, updateUser.isSuccess])
 
   return (
     <Box
@@ -129,7 +92,7 @@ const AddNewUser = (props: AddNewUserProps) => {
         </Heading>
       )}
 
-      {roles.isLoading && (
+      {/* {roles.isLoading && (
         <Stack spacing='6'>
           {new Array(3).fill(0).map((_, index) => (
             <Box key={index}>
@@ -138,7 +101,7 @@ const AddNewUser = (props: AddNewUserProps) => {
             </Box>
           ))}
         </Stack>
-      )}
+      )} */}
 
       <Card p={5} maxW={{ lg: user ? 'full' : '25rem', sm: 'full' }}>
         <Stack as='form' spacing='4' onSubmit={handleSubmit(onSubmit)}>
@@ -169,7 +132,7 @@ const AddNewUser = (props: AddNewUserProps) => {
             maxW={{ base: '25rem', sm: '90vw' }}
           />
 
-          {!user && !userProfile.data?.dfsp && (
+          {/* {!user && !userProfile.data?.dfsp && (
             <Checkbox
               name='isDfspUser'
               isChecked={isDfspUser}
@@ -177,9 +140,9 @@ const AddNewUser = (props: AddNewUserProps) => {
             >
               Is DFSP User
             </Checkbox>
-          )}
+          )} */}
 
-          {isDfspUser ? (
+          {/* {isDfspUser ? (
             dfsps.isSuccess && (
               <CustomFormSelect
                 selectValue={userRole}
@@ -216,10 +179,10 @@ const AddNewUser = (props: AddNewUserProps) => {
               }}
               maxWVal={{ lg: '25rem', sm: '90vw' }}
             />
-          )}
+          )} */}
           <Divider mt={2} color={'gray.400'} />
           <HStack spacing='3' alignSelf='center' mt='2'>
-            <CustomButton type='submit' isLoading={createUser.isPending} minW={'8rem'}>
+            <CustomButton type='submit' isLoading={false} minW={'8rem'}>
               Submit
             </CustomButton>
 
