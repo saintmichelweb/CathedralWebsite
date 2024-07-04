@@ -9,6 +9,7 @@ import {
   // SetPassword,
 } from '../pages'
 import AddNewUser from '../pages/AddNewUser/AddNewUser'
+import UpdateHomePage from '../pages/UpdateHomePage/updateHomePage'
 
 const Routes = () => {
   // const [isLoading, setIsLoading] = useState(false)
@@ -22,6 +23,11 @@ const Routes = () => {
         {
           index: true,
           element: <AddNewUser />,
+        },
+        {
+          path: 'home-page',
+          index: true,
+          element: <UpdateHomePage />,
         },
       ]
     },

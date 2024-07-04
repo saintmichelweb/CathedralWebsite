@@ -18,6 +18,12 @@ export class MassTimesEntity {
     nullable: true,
     length: 255,
   })
+  massLanguage!: string
+
+  @Column({
+    nullable: true,
+    length: 255,
+  })
   massDay!: string
 
   @Column({

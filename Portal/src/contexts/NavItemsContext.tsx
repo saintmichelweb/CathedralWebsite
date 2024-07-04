@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { AiOutlineAudit } from 'react-icons/ai'
-// import { FaMoneyBillTrendUp } from 'react-icons/fa6'
+import { FaHouse } from 'react-icons/fa6'
 import { MdDashboard, MdHub } from 'react-icons/md'
 // import { RiGitPullRequestFill, RiShieldUserLine } from 'react-icons/ri'
 import { TbFileText, TbUserSearch } from 'react-icons/tb'
@@ -11,20 +11,20 @@ import { getUserProfile } from '../api/users'
 import { useUserContext } from './UserContext'
 
 export const NAV_ITEMS = [
-  {
-    name: 'Dashboard',
-    to: '/',
-    label: 'Go to dashboard page',
-    icon: MdDashboard,
-    permissions: ['View Transactions'],
-  },
   // {
-  //   name: 'Transactions',
-  //   to: '/transactions',
-  //   label: 'Go to transactions page',
-  //   icon: FaMoneyBillTrendUp,
+  //   name: 'Dashboard',
+  //   to: '/',
+  //   label: 'Go to dashboard page',
+  //   icon: MdDashboard,
   //   permissions: ['View Transactions'],
   // },
+  {
+    name: 'Homepage',
+    to: '/home-page',
+    label: 'Go to home page',
+    icon: FaHouse,
+    // permissions: ['View Transactions'],
+  },
   // {
   //   name: 'Reconciliations',
   //   to: '/reconciliations',
