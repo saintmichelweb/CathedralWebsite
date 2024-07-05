@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'test') {
 export async function sendOTPEmail (email: string, otp: string): Promise<void> {
   await sendEmail(
     email,
-    'St Michael Parish Portal User Verification Code',
+    'St Michael Parish Portal User Verification OTP',
     `
       Dear Mr/Mrs,<br/>
       <br/> 

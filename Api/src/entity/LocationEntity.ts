@@ -10,16 +10,17 @@ import {
   
     @Column({
       nullable: false,
-      length: 255
+      length: 255,
+      unique: true
     })
-    name!: string
+    location!: string
   
-    @Column({
-      nullable: false,
-      // length: 255
-      default: false
-    })
-    isActive!: boolean
+    // @Column({
+    //   nullable: false,
+    //   // length: 255
+    //   default: false
+    // })
+    // isActive!: boolean
   
     @CreateDateColumn()
     created_at!: Date

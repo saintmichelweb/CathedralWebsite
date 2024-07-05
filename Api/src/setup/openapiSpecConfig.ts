@@ -41,17 +41,17 @@ const generatedSwagger = swaggerJSDoc(options)
 export const openAPISpecification: any = cloneDeep(generatedSwagger)
 
 const tagOrder = [
-  'Health Check',
-  'Portal Users',
-  'Merchants',
-  'Merchant Status',
-  'Merchant Locations',
-  'Countries',
-  'Business Owners',
-  'Contact Persons',
-  'Exports / Imports',
-  'Roles'
-]
+  "Portal HomePage",
+  "Portal Users",
+  "Merchants",
+  "Merchant Status",
+  "Merchant Locations",
+  "Countries",
+  "Business Owners",
+  "Contact Persons",
+  "Exports / Imports",
+  "Roles",
+];
 
 openAPISpecification.tags.sort((a: any, b: any) => {
   const indexA = tagOrder.indexOf(a.name)
