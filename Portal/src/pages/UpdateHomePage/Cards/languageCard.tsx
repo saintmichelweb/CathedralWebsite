@@ -16,7 +16,7 @@ import { SelectOption } from "../../../types/forms";
 import {
   type MassLanguageForm,
   massLanguageSchema,
-} from "../../../lib/validations/updateHomePage";
+} from "../../../lib/validations/language";
 import { AlertDialog, CustomButton, Skeleton } from "../../../components/ui";
 import { CustomFormSelect, FormInput } from "../../../components/form";
 

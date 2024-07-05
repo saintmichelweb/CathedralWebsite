@@ -16,7 +16,7 @@ import { SelectOption } from "../../../types/forms";
 import {
   type MassLocationForm,
   massLocationSchema,
-} from "../../../lib/validations/updateHomePage";
+} from "../../../lib/validations/location";
 import { AlertDialog, CustomButton, Skeleton } from "../../../components/ui";
 import { CustomFormSelect, FormInput } from "../../../components/form";
 
@@ -61,7 +61,7 @@ const MassLocationCard = () => {
         </Heading>
         <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
           <FormInput
-            name="locationName"
+            name="location"
             register={register}
             errors={errors}
             label="location"

@@ -16,7 +16,7 @@ import { SelectOption } from "../../../types/forms";
 import {
     recentEventsSchema,
   type RecentEventsForm,
-} from "../../../lib/validations/updateHomePage";
+} from "../../../lib/validations/recentEvents";
 import { AlertDialog, CustomButton, Skeleton } from "../../../components/ui";
 import { CustomFormSelect, FormInput } from "../../../components/form";
 

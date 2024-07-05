@@ -16,7 +16,7 @@ import { SelectOption } from "../../../types/forms";
 import {
   MassTimesSchema,
   type MassTimesForm,
-} from "../../../lib/validations/updateHomePage";
+} from "../../../lib/validations/massTimes";
 import { AlertDialog, CustomButton, Skeleton } from "../../../components/ui";
 import { CustomFormSelect, FormInput } from "../../../components/form";
 
