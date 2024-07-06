@@ -13,7 +13,7 @@ const logger: Logger = winston.createLogger({
     winston.format.timestamp(),
     winston.format.json()
   ),
-  defaultMeta: { service: 'merchant-system' },
+  defaultMeta: { service: 'Backend-system' },
   transports: [
     new winston.transports.File({ filename: path.join(logPath, 'error.log'), level: 'error' }),
     new winston.transports.File({ filename: path.join(logPath, 'info.log'), level: 'info' }),

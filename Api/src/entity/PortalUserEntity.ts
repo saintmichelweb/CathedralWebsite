@@ -1,6 +1,5 @@
 import { Entity, Column, OneToMany, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
-import { PortalUserStatus } from '../../../shared-lib'
-import { PortalRoleEntity } from './PortalRoleEntity'
+import { PortalUserStatus } from '../../../shared-lib/src'
 import { JwtTokenEntity } from './JwtTokenEntity'
 import { EncryptionTransformer } from "typeorm-encrypted"
 import { EncryptionTransformerObject } from '../types/encryptionObject';
@@ -31,6 +30,7 @@ export class PortalUserEntity {
     transformer: new EncryptionTransformer(EncryptionTransformerObject),
   })
   phone_number!: string
+  
   @Column({ nullable: true, length: 2048 })
   password!: string
 
@@ -47,9 +47,6 @@ export class PortalUserEntity {
 
   @UpdateDateColumn()
   updated_at!: Date
-
-  @ManyToOne(() => PortalRoleEntity, (role) => role.users)
-  role!: PortalRoleEntity
 
   @OneToMany(() => JwtTokenEntity, (jwtToken) => jwtToken.user)
   tokens!: JwtTokenEntity[]

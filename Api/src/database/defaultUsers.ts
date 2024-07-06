@@ -5,5 +5,4 @@ export const DefaultHubSuperAdmin = {
   name: readEnv('Portal_SUPERADMIN_NAME', '') as string,
   password: readEnv('Portal_SUPERADMIN_PASSWORD', '') as string,
   phone_number: readEnv('Portal_SUPERADMIN_PHONE_NUMBER', '') as string,
-  role: 'Portal Super Admin'
 }

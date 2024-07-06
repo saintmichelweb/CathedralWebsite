@@ -13,6 +13,106 @@ components:
       bearerFormat: JWT
       value: Bearer <JWT token here>
 paths:
+  /location/:id:
+    put:
+      tags:
+        - Portal HomePage
+      security:
+        - Authorization: []
+      summary: Update a new Mass location
+      responses:
+        '200':
+          description: Location saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Location updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Location not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  example: St Michael Parish
+                  description: location of the Mass
+  /location:
+    post:
+      tags:
+        - Portal HomePage
+      security:
+        - Authorization: []
+      summary: Add a new Mass location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  example: St Michael Parish
+                  description: location of the Mass
+      responses:
+        '200':
+          description: Location saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Location saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /users/login:
     post:
       tags:

@@ -2,3 +2,38 @@
 {"level":"info","message":"Swagger API Documentation UI is running on http://localhost:3000/docs","service":"merchant-system","timestamp":"2024-06-27T09:34:42.243Z"}
 {"level":"info","message":"API is running on http://localhost:3000/api/v1","service":"merchant-system","timestamp":"2024-07-03T05:38:40.130Z"}
 {"level":"info","message":"Swagger API Documentation UI is running on http://localhost:3000/docs","service":"merchant-system","timestamp":"2024-07-03T05:38:40.132Z"}
+{"level":"info","message":"API is running on http://localhost:3000/api/v1","service":"merchant-system","timestamp":"2024-07-06T10:13:53.203Z"}
+{"level":"info","message":"Swagger API Documentation UI is running on http://localhost:3000/docs","service":"merchant-system","timestamp":"2024-07-06T10:13:53.205Z"}
+{"level":"info","message":"Connecting MySQL database...","service":"merchant-system","timestamp":"2024-07-06T10:13:53.205Z"}
+{"level":"error","message":"MySQL Database Initializing error: connect ECONNREFUSED 127.0.0.1:3306","service":"merchant-system","timestamp":"2024-07-06T10:13:53.216Z"}
+{"level":"info","message":"API is running on http://localhost:3000/api/v1","service":"merchant-system","timestamp":"2024-07-06T10:14:46.886Z"}
+{"level":"info","message":"Swagger API Documentation UI is running on http://localhost:3000/docs","service":"merchant-system","timestamp":"2024-07-06T10:14:46.887Z"}
+{"level":"info","message":"Connecting MySQL database...","service":"merchant-system","timestamp":"2024-07-06T10:14:46.888Z"}
+{"level":"error","message":"MySQL Database Initializing error: Access denied for user 'newuser'@'172.19.0.1' (using password: YES)","service":"merchant-system","timestamp":"2024-07-06T10:14:46.919Z"}
+{"level":"info","message":"API is running on http://localhost:3000/api/v1","service":"merchant-system","timestamp":"2024-07-06T10:15:12.988Z"}
+{"level":"info","message":"Swagger API Documentation UI is running on http://localhost:3000/docs","service":"merchant-system","timestamp":"2024-07-06T10:15:12.990Z"}
+{"level":"info","message":"Connecting MySQL database...","service":"merchant-system","timestamp":"2024-07-06T10:15:12.990Z"}
+{"level":"info","message":"MySQL Database Connection success.","service":"merchant-system","timestamp":"2024-07-06T10:15:13.559Z"}
+{"level":"info","message":"Seeding Default Portal Super Admin...","service":"merchant-system","timestamp":"2024-07-06T10:15:13.560Z"}
+{"level":"error","message":"MySQL Database Initializing error: The \"size\" argument must be of type number. Received type string ('')","service":"merchant-system","timestamp":"2024-07-06T10:15:13.562Z"}
+{"level":"info","message":"API is running on http://localhost:3000/api/v1","service":"merchant-system","timestamp":"2024-07-06T10:16:02.257Z"}
+{"level":"info","message":"Swagger API Documentation UI is running on http://localhost:3000/docs","service":"merchant-system","timestamp":"2024-07-06T10:16:02.259Z"}
+{"level":"info","message":"Connecting MySQL database...","service":"merchant-system","timestamp":"2024-07-06T10:16:02.259Z"}
+{"level":"error","message":"MySQL Database Initializing error: connect ECONNREFUSED 127.0.0.1:3306","service":"merchant-system","timestamp":"2024-07-06T10:16:02.266Z"}
+{"level":"info","message":"API is running on http://localhost:3000/api/v1","service":"merchant-system","timestamp":"2024-07-06T10:16:22.429Z"}
+{"level":"info","message":"Swagger API Documentation UI is running on http://localhost:3000/docs","service":"merchant-system","timestamp":"2024-07-06T10:16:22.431Z"}
+{"level":"info","message":"Connecting MySQL database...","service":"merchant-system","timestamp":"2024-07-06T10:16:22.431Z"}
+{"level":"info","message":"MySQL Database Connection success.","service":"merchant-system","timestamp":"2024-07-06T10:16:23.120Z"}
+{"level":"info","message":"Seeding Default Portal Super Admin...","service":"merchant-system","timestamp":"2024-07-06T10:16:23.121Z"}
+{"level":"error","message":"MySQL Database Initializing error: The \"size\" argument must be of type number. Received type string ('')","service":"merchant-system","timestamp":"2024-07-06T10:16:23.122Z"}
+{"level":"info","message":"API is running on http://localhost:3000/api/v1","service":"merchant-system","timestamp":"2024-07-06T10:17:02.255Z"}
+{"level":"info","message":"Swagger API Documentation UI is running on http://localhost:3000/docs","service":"merchant-system","timestamp":"2024-07-06T10:17:02.257Z"}
+{"level":"info","message":"Connecting MySQL database...","service":"merchant-system","timestamp":"2024-07-06T10:17:02.257Z"}
+{"level":"info","message":"MySQL Database Connection success.","service":"merchant-system","timestamp":"2024-07-06T10:17:02.846Z"}
+{"level":"info","message":"Seeding Default Portal Super Admin...","service":"merchant-system","timestamp":"2024-07-06T10:17:02.847Z"}
+{"level":"error","message":"MySQL Database Initializing error: The \"size\" argument must be of type number. Received type string ('')","service":"merchant-system","timestamp":"2024-07-06T10:17:02.849Z"}
+{"level":"info","message":"API is running on http://0.0.0.0:3554/api/v1","service":"merchant-system","timestamp":"2024-07-06T10:17:53.676Z"}
+{"level":"info","message":"Swagger API Documentation UI is running on http://0.0.0.0:3554/docs","service":"merchant-system","timestamp":"2024-07-06T10:17:53.677Z"}
+{"level":"info","message":"Connecting MySQL database...","service":"merchant-system","timestamp":"2024-07-06T10:17:53.678Z"}
+{"level":"info","message":"MySQL Database Connection success.","service":"merchant-system","timestamp":"2024-07-06T10:17:54.247Z"}
+{"level":"info","message":"Seeding Default Portal Super Admin...","service":"merchant-system","timestamp":"2024-07-06T10:17:54.248Z"}

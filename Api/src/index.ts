@@ -6,10 +6,10 @@ import setupMiddlewares from "./setup/middlewaresSetup";
 import setupRoutes from "./setup/routesSetup";
 import setupServer from "./setup/serverSetup";
 import { readEnv } from "./setup/readEnv";
-// import {
-  // tryInitializeDatabase,
+import {
+  tryInitializeDatabase,
   // tryInitializeS3,
-// } from "./setup/serviceInitializersSetup";
+} from "./setup/serviceInitializersSetup";
 import ms from "ms";
 import logger from "./services/logger";
 
@@ -36,5 +36,5 @@ setupServer(
   HOSTNAME, 
   PORT, 
   // tryInitializeS3, 
-  // tryInitializeDatabase
+  tryInitializeDatabase
 )

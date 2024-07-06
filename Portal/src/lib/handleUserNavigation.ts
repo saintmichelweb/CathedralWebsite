@@ -21,7 +21,7 @@ export async function handleUserNavigation(setLoggedUser:any, setNavItems: any, 
 
       setLoggedUser(userProfile)
       
-      if (userProfile.name === 'Hub Super Admin') {
+      if (userProfile.name === 'Portal Super Admin') {
         return
       }
       // Remove navigation item from sidebar if the user doesn't have the required permissions

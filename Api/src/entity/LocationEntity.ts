@@ -3,7 +3,7 @@ import {
     CreateDateColumn
   } from 'typeorm'
   
-  @Entity('mass_times')
+  @Entity('locations')
   export class LocationEntity {
     @PrimaryGeneratedColumn()
     id!: number

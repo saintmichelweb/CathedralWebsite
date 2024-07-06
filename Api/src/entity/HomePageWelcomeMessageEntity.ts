@@ -2,15 +2,9 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
-  ManyToMany,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinTable,
 } from "typeorm";
-import { PortalPermissionEntity } from "./PortalPermissionEntity";
-import { PortalUserEntity } from "./PortalUserEntity";
-import { MassTimesEntity } from "./MasstimesEntity";
 
 @Entity("home_page")
 export class HomePageWelcomeMessageEntity {

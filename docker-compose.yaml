@@ -4,10 +4,20 @@ networks:
     name: stmp-net
 
 services:
+  portal:
+    build: 
+      context: .
+      dockerfile: ./DockerFile-Portal
+    restart: unless-stopped
+    ports:
+      - "3550:3550"
+    networks:
+      - stmp-net
+
   api:
     build:
       context: .
-      dockerfile: ./Api/Dockerfile
+      dockerfile: ./Dockerfile-Api
     restart: unless-stopped
     # command: ["npm", "run", "start"]
     ports:
@@ -18,7 +28,7 @@ services:
     depends_on:
       - stmp-db
       # - minio
-  
+
   stmp-db:
     container_name: stmp-db
     image: mysql:8.0.33

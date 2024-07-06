@@ -1,0 +1,6 @@
+{"level":"error","message":"MySQL Database Initializing error: connect ECONNREFUSED 127.0.0.1:3306","service":"merchant-system","timestamp":"2024-07-06T10:13:53.216Z"}
+{"level":"error","message":"MySQL Database Initializing error: Access denied for user 'newuser'@'172.19.0.1' (using password: YES)","service":"merchant-system","timestamp":"2024-07-06T10:14:46.919Z"}
+{"level":"error","message":"MySQL Database Initializing error: The \"size\" argument must be of type number. Received type string ('')","service":"merchant-system","timestamp":"2024-07-06T10:15:13.562Z"}
+{"level":"error","message":"MySQL Database Initializing error: connect ECONNREFUSED 127.0.0.1:3306","service":"merchant-system","timestamp":"2024-07-06T10:16:02.266Z"}
+{"level":"error","message":"MySQL Database Initializing error: The \"size\" argument must be of type number. Received type string ('')","service":"merchant-system","timestamp":"2024-07-06T10:16:23.122Z"}
+{"level":"error","message":"MySQL Database Initializing error: The \"size\" argument must be of type number. Received type string ('')","service":"merchant-system","timestamp":"2024-07-06T10:17:02.849Z"}

@@ -159,7 +159,7 @@ const NavItemsProvider = ({ children }: { children: React.ReactNode }) => {
 
         setLoggedUser(userProfile)
 
-        if (userProfile.name === 'Hub Super Admin') {
+        if (userProfile.name === 'Portal Super Admin') {
           return
         }
         // Remove navigation item from sidebar if the user doesn't have the required permissions
