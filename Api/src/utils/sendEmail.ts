@@ -77,7 +77,7 @@ export async function sendVerificationEmail (email: string, token: string, role:
           padding: 14px 20px; margin: 8px 0; border: none; 
           cursor: pointer; width: 100%; text-align: center;
           text-decoration: none;"
-          href="${backendAppUrl}/api/v1/users/verify?token=${token}" class="verify-button">Verify email</a><br/>
+          href="${backendAppUrl}/api/users/verify?token=${token}" class="verify-button">Verify email</a><br/>
       <br/>
       Best regards,<br/>
       The St Michael Parish Team

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import express from "express";
-import { authenticateJWT } from '../middleware/authenticate';
 import { postLocation } from "./locationControllers/postLocation";
 import { deleteLocation } from "./locationControllers/deletLocation";
 import { putLocation } from "./locationControllers/putLocation";
+import { authenticateJWT } from "../middleware/authenticate";
 
 const router = express.Router();
 

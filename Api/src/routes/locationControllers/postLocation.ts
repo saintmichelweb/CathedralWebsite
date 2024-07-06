@@ -1,9 +1,10 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { LocationEntity } from "../../entity/LocationEntity";
+import { AuthRequest } from "../../types/express";
 
 const massLocationSchema = z.object({
   location: z
@@ -67,7 +68,7 @@ const massLocationSchema = z.object({
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postLocation(req: Request, res: Response) {
+export async function postLocation(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
