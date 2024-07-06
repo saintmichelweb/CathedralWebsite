@@ -31,7 +31,7 @@ export async function authenticateJWT(req: Request, res: Response, next: NextFun
 
   const jwtTokenRecord = await AppDataSource.manager.findOne(JwtTokenEntity, {
     where: { token },
-    relations: ['user', 'user.role', 'user.role.permissions', 'user.dfsp']
+    relations: ['user']
   })
 
   try {

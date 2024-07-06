@@ -1,7 +1,4 @@
-import type { PortalUserStatus } from 'shared-lib'
-
-import type { DFSP } from './merchantDetails'
-import type { Role } from './roles'
+import type { PortalUserStatus } from '../../../shared-lib/src'
 
 export interface User {
   id: number
@@ -20,13 +17,9 @@ export type ServerUser = {
   name: string
   email: string
   phone_number: string
-  role: Role
-  dfsp: DFSP
   status: PortalUserStatus
   created_at: string
   updated_at: string
-  email_verification_status: string
-  role_id: number
 }
 
 export interface ChangePassword {

@@ -9,7 +9,7 @@ import { LocationEntity } from "../../entity/LocationEntity";
  * /location/:id:
  *   put:
  *     tags:
- *       - Portal HomePage
+ *       - Location
  *     security:
  *       - Authorization: []
  *     summary: Update a new Mass location

@@ -14,7 +14,7 @@ const massLocationSchema = z.object({
  * /location/:id:
  *   put:
  *     tags:
- *       - Portal HomePage
+ *       - Location
  *     security:
  *       - Authorization: []
  *     summary: Update a new Mass location

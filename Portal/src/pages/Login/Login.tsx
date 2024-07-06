@@ -18,7 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 
-import mojaloopLogo from '../../assets/mojaloop-logo.png'
+import LogoDiosceseKigali from '../../assets/LogoDiosceseKigali.png'
 import { loginSchema, type LoginForm } from '../../lib/validations/login'
 import { CustomButton } from '../../components/ui'
 import { FormInput } from '../../components/form'
@@ -50,18 +50,17 @@ const Login = () => {
     setIsPending(true)
     await login(
       values.email,
-      values.password,
-      ''
-    ).then(async (data) => {
+      values.password
+    ).then((data) => {
+      console.log('data', data)
       if (data.token) {
         cookies.set('token', data.token);
-        navigate('/')
-      } else {
-        setShowOtpComponent(true)
+        navigate('/home-page')
       }
       setIsPending(false)
     }).catch((error) => {
       setIsPending(false)
+      console.log('error', error)
       toast({
         title: 'Login message!',
         description:
@@ -97,10 +96,10 @@ const Login = () => {
           // bg='#F5F5F5'
           bg='#F0F9FF'
         >
-          <Image src={mojaloopLogo} w='60' />
+          <Image src={LogoDiosceseKigali} w='60' />
 
           <Heading as='h1' color='black' textAlign='center'>
-            Switch Portal
+             Portal
           </Heading>
 
           <Box alignSelf='center' color='black' fontSize='sm' fontWeight='medium'>
@@ -232,12 +231,11 @@ const TwoFactorAuth = (props: TwoFactorAuthProps) => {
     setIsPending(true)
     await login(
       props.userEmail,
-      props.userPassword,
-      ''
-    ).then(async (res) => {
+      props.userPassword
+    ).then(async () => {
       toast({
         title: 'OTP message!',
-        description: res?.message || 'OTP Resent successfully',
+        description: 'OTP Resent successfully',
         status: 'success',
       })
       setIsPending(false)

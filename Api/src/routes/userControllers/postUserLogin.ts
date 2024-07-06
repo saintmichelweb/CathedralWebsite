@@ -9,6 +9,7 @@ import { PortalUserStatus } from '../../../../shared-lib'
 import { readEnv, readEnvAsBoolean } from '../../setup/readEnv'
 import { JwtTokenEntity } from '../../entity/JwtTokenEntity'
 import ms from 'ms'
+import { comparePassword } from '../../utils/utils'
 
 export const LoginFormSchema = z.object({
   email: z.string().email('Please enter a valid email'),
@@ -24,7 +25,7 @@ const JWT_EXPIRES_IN_MS = ms(JWT_EXPIRES_IN)
  * /users/login:
  *   post:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     summary: Authenticate a user
  *     requestBody:
  *       required: true
@@ -105,9 +106,10 @@ export async function postUserLogin(req: Request, res: Response) {
 
     // TODO: check why bcrypt is failing
     // const passwordMatch = await bcrypt.compare(req.body.password, user.password)
-    // if (!passwordMatch) {
-    //   throw new Error('Invalid credentials')
-    // }
+    const passwordMatch = comparePassword(req.body.password, user.password)
+    if (!passwordMatch) {
+      throw new Error('Invalid credentials')
+    }
 
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
     const jwtTokenObj = AppDataSource.manager.create(JwtTokenEntity, {
@@ -117,7 +119,7 @@ export async function postUserLogin(req: Request, res: Response) {
       last_used: new Date()
     })
     await AppDataSource.manager.save(jwtTokenObj)
-    res.json({ success: true, message: 'Login successful', token: token })
+    res.status(200).send({ message: 'Login successful', token: token })
   } catch (error: any) {
     logger.error('User %s login failed: %s', req.body.email, error.message)
     res.status(400).send({ success: false, message: error.message })

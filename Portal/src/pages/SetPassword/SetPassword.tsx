@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { AiFillEye, AiFillEyeInvisible, AiFillWarning } from 'react-icons/ai'
 
-import mojaloopLogo from '../../assets/mojaloop-logo.png'
+import LogoDiosceseKigali from '../../assets/LogoDiosceseKigali.png'
 import { setPasswordSchema, type SetPasswordForm } from '../../lib/validations/setPassword'
 // import { useSetPassword } from '../../api/hooks/auth'
 import { CustomButton } from '../../components/ui'
@@ -85,10 +85,10 @@ const SetPassword = () => {
           justify='space-between'
           bg='#F0F9FF'
         >
-          <Image src={mojaloopLogo} w='60' />
+          <Image src={LogoDiosceseKigali} w='60' />
 
           <Heading as='h1' color='black' textAlign='center'>
-            Switch Portal
+             Portal
           </Heading>
 
           <Box alignSelf='center' color='black' fontSize='sm' fontWeight='medium'>

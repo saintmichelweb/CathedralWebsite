@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Image, Stack, Text, VStack } from '@chakra-ui/react
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 
-import mojaloopLogo from '../../assets/mojaloop-logo.png'
+import LogoDiosceseKigali from '../../assets/LogoDiosceseKigali.png'
 import {
   ForgotPasswordForm,
   forgotPasswordSchema,
@@ -39,10 +39,10 @@ const ForgotPassword = () => {
           justify='space-between'
           bg='#F0F9FF'
         >
-          <Image src={mojaloopLogo} w='60' />
+          <Image src={LogoDiosceseKigali} w='60' />
 
           <Heading as='h1' color='black' textAlign='center'>
-            Switch Portal
+             Portal
           </Heading>
 
           <Box alignSelf='center' color='black' fontSize='sm' fontWeight='medium'>

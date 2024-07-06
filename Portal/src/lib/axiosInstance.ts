@@ -38,6 +38,7 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(
   response => response,
   error => {
+    console.log('error api', error)
     if (error.response.status === 401) {
       if (window.location.pathname !== '/set-password') {
         logOutFn()
