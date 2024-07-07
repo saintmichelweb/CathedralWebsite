@@ -3,30 +3,20 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { LocationEntity } from "../../entity/LocationEntity";
+import { LanguageEntity } from "../../entity/languageEntity";
 
 /**
  * @openapi
- * /location/:id:
- *   delete:
+ * /language/all:
+ *   get:
  *     tags:
- *       - Location
+ *       - Language
  *     security:
  *       - Authorization: []
- *     summary: delete a Mass location
+ *     summary: get all Mass languages
  *     responses:
  *       200:
- *         description: Location deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                   example: "Location deleted successfully"
+ *         description: Get Languages
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -34,9 +24,6 @@ import { LocationEntity } from "../../entity/LocationEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"
@@ -46,21 +33,17 @@ import { LocationEntity } from "../../entity/LocationEntity";
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function deleteLocation(req: Request, res: Response) {
+export async function getLanguages(req: Request, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const locationRepository = AppDataSource.getRepository(LocationEntity);
+  const languageRepository = AppDataSource.getRepository(LanguageEntity);
+  const queryBuilder = languageRepository.createQueryBuilder('languages')
   try {
-    const id = Number(req.params.id);
-    const oldLocation = await locationRepository.findOne({ where: { id } });
-    if (oldLocation === null) {
-      return res.status(404).send({ message: "Location does not exist!" });
-    }
-    await locationRepository.delete(oldLocation);
-    return res.status(201).send({ message: "Location deleted successfully!" });
+    const [totalLanguages, numberOfAllLanguages] = await queryBuilder.getManyAndCount()
+    return res.status(200).send({ message: "Languages retrieved successfully!", languagesCount: numberOfAllLanguages, languages: totalLanguages });
   } catch (error: any) {
     logger.error("Updating location failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

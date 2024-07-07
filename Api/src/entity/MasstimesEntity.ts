@@ -18,19 +18,19 @@ export class MassTimesEntity {
     nullable: true,
     length: 255,
   })
-  massLanguage!: string
+  language!: string
 
   @Column({
     nullable: true,
     length: 255,
   })
-  massDay!: string
+  day!: string
 
   @Column({
     nullable: false,
     length: 255
   })
-  massTime!: string
+  time!: string
 
   @Column({
     nullable: false,

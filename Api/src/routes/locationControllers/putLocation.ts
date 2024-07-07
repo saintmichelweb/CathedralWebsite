@@ -79,15 +79,15 @@ export async function putLocation(req: Request, res: Response) {
     return res.status(422).send({ message: "Validation error!" });
   }
 
-  const massLocationRepository = AppDataSource.getRepository(LocationEntity);
+  const locationRepository = AppDataSource.getRepository(LocationEntity);
   try {
     const id = Number(req.params.id);
-    const oldLocation = await massLocationRepository.findOne({ where: { id } });
+    const oldLocation = await locationRepository.findOne({ where: { id } });
     if (oldLocation === null) {
       return res.status(404).send({ message: "Location does not exist!" });
     }
     oldLocation.location = parsedBody.data.location;
-    await massLocationRepository.save(oldLocation);
+    await locationRepository.save(oldLocation);
     return res.status(201).send({ message: "Location updated successfully." });
   } catch (error: any) {
     logger.error("Updating location failed: %s", error);

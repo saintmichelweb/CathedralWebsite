@@ -24,6 +24,9 @@ import {
   
     @CreateDateColumn()
     created_at!: Date
+
+    @CreateDateColumn()
+    updated_at!: Date
   
   }
   

@@ -3,26 +3,37 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
-import { LocationEntity } from "../../entity/LocationEntity";
 import { AuthRequest } from "../../types/express";
-import { LanguageEntity } from "../../entity/languageEntity";
+import { MassTimesEntity } from "../../entity/MasstimesEntity";
 
-const massLanguageSchema = z.object({
+const massTimesSchema = z.object({
   language: z
     .string()
     .trim()
-    .min(1, { message: "Language Name is required" }),
+    .min(1, { message: "Language is required" }),
+  location: z
+    .string()
+    .trim()
+    .min(1, { message: "Location is required" }),
+  day: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  time: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
 });
 
 /**
  * @openapi
- * /language:
+ * /mass-times:
  *   post:
  *     tags:
- *       - Language
+ *       - Mass Times
  *     security:
  *       - Authorization: []
- *     summary: Add a new Mass location
+ *     summary: Add a new Mass Time
  *     requestBody:
  *       required: true
  *       content:
@@ -34,9 +45,21 @@ const massLanguageSchema = z.object({
  *                 type: string
  *                 example: "Kinyarwanda"
  *                 description: "language of the Mass"
+ *               location:
+ *                 type: string
+ *                 example: "St Michel Parish"
+ *                 description: "location of the Mass"
+ *               day:
+ *                 type: string
+ *                 example: "Sunday 07 July 2024"
+ *                 description: "day of the Mass"
+ *               time:
+ *                 type: string
+ *                 example: "9 AM"
+ *                 description: "time of the Mass"
  *     responses:
  *       200:
- *         description: Location saved successfully
+ *         description: Mass Time saved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -47,7 +70,7 @@ const massLanguageSchema = z.object({
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Language saved successfully"
+ *                   example: "Mass Time saved successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -75,20 +98,23 @@ export async function postMassTime(req: AuthRequest, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = massLanguageSchema.safeParse(req.body)
+  const parsedBody = massTimesSchema.safeParse(req.body)
     if (!parsedBody.success) {
       logger.error("Validation error: %o", parsedBody.error.issues);
       logger.error("Validation error: %o", req.body);
       return res.status(422).send({ message: "Validation error" });
     }
 
-  const newLanguageRepository = AppDataSource.getRepository(LanguageEntity)
+  const newMassTimeRepository = AppDataSource.getRepository(MassTimesEntity)
   try {
-    const newLanguage = new LanguageEntity();
-    newLanguage.language = parsedBody.data.language
-    newLanguage.isActive = true
-    await newLanguageRepository.save(newLanguage)
-    return res.status(201).send({ message: "Language created successfully" });
+    const newMassTime = new MassTimesEntity();
+    newMassTime.language = parsedBody.data.language
+    newMassTime.location = parsedBody.data.location
+    newMassTime.day = parsedBody.data.day
+    newMassTime.time = parsedBody.data.time
+    newMassTime.isActive = true
+    await newMassTimeRepository.save(newMassTime)
+    return res.status(201).send({ message: "Mass Time saved successfully" });
   } catch (error: any) {
     logger.error("Creating Language failed: %s", error);
     res.status(500).send({ success: false,  });

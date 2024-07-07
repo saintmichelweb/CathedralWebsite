@@ -81,12 +81,12 @@ export async function postLocation(req: AuthRequest, res: Response) {
       return res.status(422).send({ message: "Validation error" });
     }
 
-  const massLocationRepository = AppDataSource.getRepository(LocationEntity)
+  const locationRepository = AppDataSource.getRepository(LocationEntity)
   try {
     const newLocation = new LocationEntity();
     newLocation.location = parsedBody.data.location
     newLocation.isActive = true
-    await massLocationRepository.save(newLocation)
+    await locationRepository.save(newLocation)
     return res.status(201).send({ message: "Location created successfully" });
   } catch (error: any) {
     logger.error("Getting home page failed with error: %s", error);

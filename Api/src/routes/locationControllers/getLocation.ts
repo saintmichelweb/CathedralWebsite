@@ -6,27 +6,16 @@ import { LocationEntity } from "../../entity/LocationEntity";
 
 /**
  * @openapi
- * /location/:id:
- *   delete:
+ * /location/all:
+ *   get:
  *     tags:
  *       - Location
  *     security:
  *       - Authorization: []
- *     summary: delete a Mass location
+ *     summary: get all Mass locations
  *     responses:
  *       200:
- *         description: Location deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                   example: "Location deleted successfully"
+ *         description: Get Locations
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -34,9 +23,6 @@ import { LocationEntity } from "../../entity/LocationEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"
@@ -46,21 +32,17 @@ import { LocationEntity } from "../../entity/LocationEntity";
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function deleteLocation(req: Request, res: Response) {
+export async function getLocations(req: Request, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const massLocationRepository = AppDataSource.getRepository(LocationEntity);
+  const locationRepository = AppDataSource.getRepository(LocationEntity);
+  const queryBuilder = locationRepository.createQueryBuilder('locations')
   try {
-    const id = Number(req.params.id);
-    const oldLocation = await massLocationRepository.findOne({ where: { id } });
-    if (oldLocation === null) {
-      return res.status(404).send({ message: "Location does not exist!" });
-    }
-    await massLocationRepository.delete(oldLocation);
-    return res.status(201).send({ message: "Location deleted successfully!" });
+    const [totalLocations, numberOfAllLocations] = await queryBuilder.getManyAndCount()
+    return res.status(200).send({ message: "Locations retrieved successfully!", locationsCount: numberOfAllLocations, locations: totalLocations });
   } catch (error: any) {
     logger.error("Updating location failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

@@ -43,6 +43,7 @@ export const openAPISpecification: any = cloneDeep(generatedSwagger)
 const tagOrder = [
   "Language",
   "Location",
+  "Mass Times",
   "Recent Events",
   "Top News And Notices",
   "Users",
