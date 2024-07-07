@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   Box,
   Card,
-  Checkbox,
+  // Checkbox,
   Divider,
   Heading,
   HStack,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { SelectOption } from "../../../types/forms";
 import {
   type MassLanguageForm,
   massLanguageSchema,
 } from "../../../lib/validations/language";
-import { AlertDialog, CustomButton, Skeleton } from "../../../components/ui";
-import { CustomFormSelect, FormInput } from "../../../components/form";
+import { AlertDialog, CustomButton } from "../../../components/ui";
+import { FormInput } from "../../../components/form";
+import { addNewLanguage } from "../../../api/language";
 
 const MassLanguageCard = () => {
   const {
@@ -26,10 +26,11 @@ const MassLanguageCard = () => {
     formState: { errors },
     handleSubmit,
     reset,
-    setValue,
+    // setValue,
   } = useForm<MassLanguageForm>({
     resolver: zodResolver(massLanguageSchema),
   });
+  const toast = useToast()
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newUserPayload, setNewUserPayload] = useState<MassLanguageForm>();
 
@@ -41,6 +42,19 @@ const MassLanguageCard = () => {
   const onConfirm = async (payload: MassLanguageForm | undefined) => {
     setIsOpenModal(false);
     if (payload) {
+      await addNewLanguage(payload).then((res) => {
+        toast({
+          title: 'Add Language message!',
+          description: res?.message || 'Language saved successfully',
+          status: 'success',
+        })
+      }).catch(error => {
+        toast({
+          title: 'Add Language message',
+          description: error.response.data?.message || 'Error saving language!',
+          status: 'error',
+        })
+      })
       // if (user && props.onCloseModal) {
       //   const updatePayload: EditUserForm = {
       //     ...payload,

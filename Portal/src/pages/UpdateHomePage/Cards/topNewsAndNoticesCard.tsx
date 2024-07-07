@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   Box,
   Card,
-  Checkbox,
+  // Checkbox,
   Divider,
   Heading,
   HStack,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { SelectOption } from "../../../types/forms";
 import {
     topParishNewsAndNoticesSchema,
-  type TopParishNewsAndNoticesForm,
+  type TopNewsAndNoticesForm,
 } from "../../../lib/validations/recentEvents";
-import { AlertDialog, CustomButton, Skeleton } from "../../../components/ui";
-import { CustomFormSelect, FormInput } from "../../../components/form";
+import { AlertDialog, CustomButton } from "../../../components/ui";
+import { FormInput } from "../../../components/form";
+import { addNewTopNewsAndNotices } from "../../../api/topNewsAndNotices";
 
 
 const TopParishNewsAndNoticesCard = () => {
@@ -27,21 +27,35 @@ const TopParishNewsAndNoticesCard = () => {
       formState: { errors },
       handleSubmit,
       reset,
-      setValue,
-    } = useForm<TopParishNewsAndNoticesForm>({
+      // setValue,
+    } = useForm<TopNewsAndNoticesForm>({
       resolver: zodResolver(topParishNewsAndNoticesSchema),
     });
+    const toast = useToast()
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-    const [newUserPayload, setNewUserPayload] = useState<TopParishNewsAndNoticesForm>();
+    const [newUserPayload, setNewUserPayload] = useState<TopNewsAndNoticesForm>();
   
-    const onSubmit = async (values: TopParishNewsAndNoticesForm) => {
+    const onSubmit = async (values: TopNewsAndNoticesForm) => {
       setNewUserPayload(values);
       setIsOpenModal(true);
     };
   
-    const onConfirm = async (payload: TopParishNewsAndNoticesForm | undefined) => {
+    const onConfirm = async (payload: TopNewsAndNoticesForm | undefined) => {
       setIsOpenModal(false);
       if (payload) {
+        await addNewTopNewsAndNotices(payload).then((res) => {
+          toast({
+            title: 'Add Top News And Notices message!',
+            description: res?.message || 'Top News And Notices saved successfully',
+            status: 'success',
+          })
+        }).catch(error => {
+          toast({
+            title: 'Add Top News And Noticesmessage',
+            description: error.response.data?.message || 'Error saving Top News And Notices!',
+            status: 'error',
+          })
+        })
         // if (user && props.onCloseModal) {
         //   const updatePayload: EditUserForm = {
         //     ...payload,

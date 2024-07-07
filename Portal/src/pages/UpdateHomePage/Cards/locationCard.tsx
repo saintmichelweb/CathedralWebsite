@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
-  Checkbox,
+  // Checkbox,
   Divider,
   Heading,
   HStack,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { SelectOption } from "../../../types/forms";
+// import { SelectOption } from "../../../types/forms";
 import {
   type MassLocationForm,
   massLocationSchema,
 } from "../../../lib/validations/location";
-import { AlertDialog, CustomButton, Skeleton } from "../../../components/ui";
-import { CustomFormSelect, FormInput } from "../../../components/form";
+import { AlertDialog, CustomButton } from "../../../components/ui";
+import { FormInput } from "../../../components/form";
+import { addNewLocation } from "../../../api/location";
 
 const MassLocationCard = () => {
   const {
@@ -26,10 +28,11 @@ const MassLocationCard = () => {
     formState: { errors },
     handleSubmit,
     reset,
-    setValue,
+    // setValue,
   } = useForm<MassLocationForm>({
     resolver: zodResolver(massLocationSchema),
   });
+  const toast = useToast()
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newUserPayload, setNewUserPayload] = useState<MassLocationForm>();
 
@@ -41,6 +44,19 @@ const MassLocationCard = () => {
   const onConfirm = async (payload: MassLocationForm | undefined) => {
     setIsOpenModal(false);
     if (payload) {
+      await addNewLocation(payload).then((res) => {
+        toast({
+          title: 'Add Location message!',
+          description: res?.message || 'Location saved successfully',
+          status: 'success',
+        })
+      }).catch(error => {
+        toast({
+          title: 'Add Location message',
+          description: error.response.data?.message || 'Error saving location!',
+          status: 'error',
+        })
+      })
       // if (user && props.onCloseModal) {
       //   const updatePayload: EditUserForm = {
       //     ...payload,

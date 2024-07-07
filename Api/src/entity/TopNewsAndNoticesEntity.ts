@@ -3,8 +3,8 @@ import {
   CreateDateColumn
 } from 'typeorm'
 
-@Entity('top_parish_news_and_notices')
-export class TopParishNewsAndNoticesEntity {
+@Entity('top_news_and_notices')
+export class TopNewsAndNoticesEntity {
   @PrimaryGeneratedColumn()
   id!: number
 

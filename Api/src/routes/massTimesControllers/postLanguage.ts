@@ -5,20 +5,21 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { LocationEntity } from "../../entity/LocationEntity";
 import { AuthRequest } from "../../types/express";
+import { LanguageEntity } from "../../entity/languageEntity";
 
-const massLocationSchema = z.object({
-  location: z
+const massLanguageSchema = z.object({
+  language: z
     .string()
     .trim()
-    .min(1, { message: "Location Name is required" }),
+    .min(1, { message: "Language Name is required" }),
 });
 
 /**
  * @openapi
- * /location:
+ * /language:
  *   post:
  *     tags:
- *       - Location
+ *       - Language
  *     security:
  *       - Authorization: []
  *     summary: Add a new Mass location
@@ -29,10 +30,10 @@ const massLocationSchema = z.object({
  *           schema:
  *             type: object
  *             properties:
- *               location:
+ *               language:
  *                 type: string
- *                 example: "St Michael Parish"
- *                 description: "location of the Mass"
+ *                 example: "Kinyarwanda"
+ *                 description: "language of the Mass"
  *     responses:
  *       200:
  *         description: Location saved successfully
@@ -46,7 +47,7 @@ const massLocationSchema = z.object({
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Location saved successfully"
+ *                   example: "Language saved successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -68,28 +69,28 @@ const massLocationSchema = z.object({
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postLocation(req: AuthRequest, res: Response) {
+export async function postMassTime(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = massLocationSchema.safeParse(req.body)
+  const parsedBody = massLanguageSchema.safeParse(req.body)
     if (!parsedBody.success) {
       logger.error("Validation error: %o", parsedBody.error.issues);
       logger.error("Validation error: %o", req.body);
       return res.status(422).send({ message: "Validation error" });
     }
 
-  const massLocationRepository = AppDataSource.getRepository(LocationEntity)
+  const newLanguageRepository = AppDataSource.getRepository(LanguageEntity)
   try {
-    const newLocation = new LocationEntity();
-    newLocation.location = parsedBody.data.location
-    newLocation.isActive = true
-    await massLocationRepository.save(newLocation)
-    return res.status(201).send({ message: "Location created successfully" });
+    const newLanguage = new LanguageEntity();
+    newLanguage.language = parsedBody.data.language
+    newLanguage.isActive = true
+    await newLanguageRepository.save(newLanguage)
+    return res.status(201).send({ message: "Language created successfully" });
   } catch (error: any) {
-    logger.error("Getting home page failed with error: %s", error);
-    res.status(400).send({ success: false, message: error.message });
+    logger.error("Creating Language failed: %s", error);
+    res.status(500).send({ success: false,  });
   }
 }

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export type TopParishNewsAndNoticesForm = z.infer<
+export type TopNewsAndNoticesForm = z.infer<
   typeof topParishNewsAndNoticesSchema
 >;
 

@@ -4,15 +4,15 @@ networks:
     name: stmp-net
 
 services:
-  portal:
-    build: 
-      context: .
-      dockerfile: ./DockerFile-Portal
-    # restart: unless-stopped
-    ports:
-      - "3550:3550"
-    # networks:
-    #   - stmp-net
+  # portal:
+  #   build: 
+  #     context: .
+  #     dockerfile: ./DockerFile-Portal
+  #   restart: unless-stopped
+  #   ports:
+  #     - "3550:3550"
+  #   networks:
+  #     - stmp-net
 
   api:
     build:

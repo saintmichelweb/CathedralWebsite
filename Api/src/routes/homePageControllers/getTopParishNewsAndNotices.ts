@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
-import { TopParishNewsAndNoticesEntity } from "../../entity/TopParishNewsAndNoticesEntity";
+import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getTopParishNewsAndNotices(req: Request, res: Response) {
@@ -12,7 +12,7 @@ export async function getTopParishNewsAndNotices(req: Request, res: Response) {
     // }
 
     try {
-        const topParishNewsAndNotices = await AppDataSource.manager.findOne(TopParishNewsAndNoticesEntity, {
+        const topParishNewsAndNotices = await AppDataSource.manager.findOne(TopNewsAndNoticesEntity, {
             where: { isActive: true }
         })
         console.log('homePage', topParishNewsAndNotices)

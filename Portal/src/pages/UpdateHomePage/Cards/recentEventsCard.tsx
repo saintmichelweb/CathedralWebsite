@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   Box,
   Card,
-  Checkbox,
+  // Checkbox,
   Divider,
   Heading,
   HStack,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { SelectOption } from "../../../types/forms";
 import {
     recentEventsSchema,
   type RecentEventsForm,
 } from "../../../lib/validations/recentEvents";
-import { AlertDialog, CustomButton, Skeleton } from "../../../components/ui";
-import { CustomFormSelect, FormInput } from "../../../components/form";
+import { AlertDialog, CustomButton } from "../../../components/ui";
+import { FormInput } from "../../../components/form";
+import { addNewRecentEvent } from "../../../api/recentEvents";
 
 
 const RecentEventsCard = () => {
@@ -27,10 +27,11 @@ const RecentEventsCard = () => {
       formState: { errors },
       handleSubmit,
       reset,
-      setValue,
+      // setValue,
     } = useForm<RecentEventsForm>({
       resolver: zodResolver(recentEventsSchema),
     });
+    const toast = useToast()
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
     const [newUserPayload, setNewUserPayload] = useState<RecentEventsForm>();
   
@@ -42,6 +43,19 @@ const RecentEventsCard = () => {
     const onConfirm = async (payload: RecentEventsForm | undefined) => {
       setIsOpenModal(false);
       if (payload) {
+        await addNewRecentEvent(payload).then((res) => {
+          toast({
+            title: 'Add Recent Event message!',
+            description: res?.message || 'Recent Event saved successfully',
+            status: 'success',
+          })
+        }).catch(error => {
+          toast({
+            title: 'Add Recent Event message',
+            description: error.response.data?.message || 'Error saving recent Event!',
+            status: 'error',
+          })
+        })
         // if (user && props.onCloseModal) {
         //   const updatePayload: EditUserForm = {
         //     ...payload,

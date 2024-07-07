@@ -41,7 +41,10 @@ const generatedSwagger = swaggerJSDoc(options)
 export const openAPISpecification: any = cloneDeep(generatedSwagger)
 
 const tagOrder = [
+  "Language",
   "Location",
+  "Recent Events",
+  "Top News And Notices",
   "Users",
 ];
 

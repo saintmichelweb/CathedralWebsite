@@ -3,8 +3,8 @@ import {
     CreateDateColumn
   } from 'typeorm'
   
-  @Entity('locations')
-  export class LocationEntity {
+  @Entity('languages')
+  export class LanguageEntity {
     @PrimaryGeneratedColumn()
     id!: number
   
@@ -13,7 +13,7 @@ import {
       length: 255,
       unique: true
     })
-    location!: string
+    language!: string
   
     @Column({
       nullable: false,

@@ -3,25 +3,29 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
-import { LocationEntity } from "../../entity/LocationEntity";
 import { AuthRequest } from "../../types/express";
+import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
 
-const massLocationSchema = z.object({
-  location: z
+const topNewsAndNoticesSchema = z.object({
+  title: z
     .string()
     .trim()
-    .min(1, { message: "Location Name is required" }),
+    .min(1, { message: "Title is required" }),
+  description: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
 });
 
 /**
  * @openapi
- * /location:
+ * /top-news-and-notices:
  *   post:
  *     tags:
- *       - Location
+ *       - Top News And Notices
  *     security:
  *       - Authorization: []
- *     summary: Add a new Mass location
+  *     summary: Add a top news and notices
  *     requestBody:
  *       required: true
  *       content:
@@ -29,13 +33,17 @@ const massLocationSchema = z.object({
  *           schema:
  *             type: object
  *             properties:
- *               location:
+ *               title:
  *                 type: string
- *                 example: "St Michael Parish"
- *                 description: "location of the Mass"
+ *                 example: "Recent event"
+ *                 description: "Recent event title"
+ *               description:
+ *                 type: string
+ *                 example: "description"
+ *                 description: "Recent event description"
  *     responses:
  *       200:
- *         description: Location saved successfully
+ *         description: Recent Event saved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -46,7 +54,7 @@ const massLocationSchema = z.object({
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Location saved successfully"
+ *                   example: "Recent Event  saved successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -68,28 +76,29 @@ const massLocationSchema = z.object({
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postLocation(req: AuthRequest, res: Response) {
+export async function postTopParishNewsAndNotices(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = massLocationSchema.safeParse(req.body)
+  const parsedBody = topNewsAndNoticesSchema.safeParse(req.body)
     if (!parsedBody.success) {
       logger.error("Validation error: %o", parsedBody.error.issues);
       logger.error("Validation error: %o", req.body);
       return res.status(422).send({ message: "Validation error" });
     }
 
-  const massLocationRepository = AppDataSource.getRepository(LocationEntity)
+  const newTopNewsAndNoticesRepository = AppDataSource.getRepository(TopNewsAndNoticesEntity)
   try {
-    const newLocation = new LocationEntity();
-    newLocation.location = parsedBody.data.location
-    newLocation.isActive = true
-    await massLocationRepository.save(newLocation)
-    return res.status(201).send({ message: "Location created successfully" });
+    const newTopNewsAndNotices = new TopNewsAndNoticesEntity();
+    newTopNewsAndNotices.title = parsedBody.data.title
+    newTopNewsAndNotices.description = parsedBody.data.description
+    newTopNewsAndNotices.isActive = true
+    await newTopNewsAndNoticesRepository.save(newTopNewsAndNotices)
+    return res.status(201).send({ message: "Top parish news and notice created successfully" });
   } catch (error: any) {
-    logger.error("Getting home page failed with error: %s", error);
-    res.status(400).send({ success: false, message: error.message });
+    logger.error("Creating Language failed: %s", error);
+    res.status(500).send({ message: "Internal server error" });
   }
 }

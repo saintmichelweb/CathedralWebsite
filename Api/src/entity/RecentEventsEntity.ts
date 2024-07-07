@@ -12,7 +12,7 @@ export class RecentEventsEntity {
     nullable: false,
     length: 255
   })
-  Title!: string
+  title!: string
 
   @Column({
     nullable: true,
@@ -20,11 +20,11 @@ export class RecentEventsEntity {
   })
   description!: string
 
-  @Column({
-    nullable: false,
-    length: 255
-  })
-  backgroungImageUrl!: string
+  // @Column({
+  //   nullable: true,
+  //   length: 255
+  // })
+  // backgroungImageUrl!: string
 
   @Column({
     nullable: false,
