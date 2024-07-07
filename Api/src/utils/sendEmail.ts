@@ -45,16 +45,16 @@ if (process.env.NODE_ENV === 'test') {
 export async function sendOTPEmail (email: string, otp: string): Promise<void> {
   await sendEmail(
     email,
-    'RSwitch Portal User Verification Code',
+    'St Michael Parish Portal User Verification OTP',
     `
       Dear Mr/Mrs,<br/>
       <br/> 
-      Here is the verification code for your RSwitch Portal User account: 
+      Here is the verification code for your St Michael Parish Portal User account: 
       <strong>${otp}</strong>,<br/>
       This code can only be used within the next 4 minutes.<br/>
       <br/>
       Best regards,<br/>
-      The RSwitch Team
+      The St Michael Parish Team
     `
   )
 }
@@ -62,12 +62,12 @@ export async function sendOTPEmail (email: string, otp: string): Promise<void> {
 export async function sendVerificationEmail (email: string, token: string, role: string): Promise<void> {
   sendEmail(
     email,
-    'RSwitch Portal User Email Verification',
+    'St Michael Parish Portal User Email Verification',
     `
       Dear Mr/Mrs,<br/>
       <br/>
       Your email address has been registered and assigned as <strong>${role}</strong>
-      in RSwitch Portal.<br/>
+      in St Michael Parish Portal.<br/>
       Please verify your email address below and set your password:<br/>
       <br/>
       <a 
@@ -77,10 +77,10 @@ export async function sendVerificationEmail (email: string, token: string, role:
           padding: 14px 20px; margin: 8px 0; border: none; 
           cursor: pointer; width: 100%; text-align: center;
           text-decoration: none;"
-          href="${backendAppUrl}/api/v1/users/verify?token=${token}" class="verify-button">Verify email</a><br/>
+          href="${backendAppUrl}/api/users/verify?token=${token}" class="verify-button">Verify email</a><br/>
       <br/>
       Best regards,<br/>
-      The RSwitch Team
+      The St Michael Parish Team
     `
   )
 }
@@ -88,18 +88,18 @@ export async function sendVerificationEmail (email: string, token: string, role:
 export async function sendForgotPasswordEmail (email: string, token: string): Promise<void> {
   sendEmail(
     email,
-    'RSwitch Portal User Reset Password Link',
+    'St Michael Parish Portal User Reset Password Link',
     `
       Dear Mr/Mrs,<br/>
       Please ignore this email if you did not request to reset your password. <br />
-      Your reset Password Link for RSwitch Portal: <br />
+      Your reset Password Link for St Michael Parish Portal: <br />
       <a href="${FRONTEND_SET_PASSWORD_URL}?token=${token}"> 
       ${FRONTEND_SET_PASSWORD_URL}?token=${token}
       </a> 
       <br/>
       <br/>
       Best regards,<br/>
-      The RSwitch Team
+      The St Michael Parish Team
     `
   )
 }
@@ -137,7 +137,7 @@ export async function sendForgotPasswordEmail (email: string, token: string): Pr
 
 //   sendEmail(
 //     email,
-//     `RSwitch Bulk Processing Result - ${fileName}`,
+//     `St Michael Parish Bulk Processing Result - ${fileName}`,
 //     `
 //       Dear ${dfspName} team,<br/><br/>
 //       This email is to inform you about the recent bulk merchant registration file you uploaded to our system, named <strong>${fileName}</strong>.<br/><br/>
@@ -150,7 +150,7 @@ export async function sendForgotPasswordEmail (email: string, token: string): Pr
 //       ${errorList}
 //       If you have any questions or need further assistance, please let us know.<br/><br/>
 //       Best regards,<br/>
-//       The RSwitch team
+//       The St Michael Parish team
 //     `
 //   )
 // }

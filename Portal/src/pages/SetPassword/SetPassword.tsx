@@ -16,17 +16,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { AiFillEye, AiFillEyeInvisible, AiFillWarning } from 'react-icons/ai'
 
-import mojaloopLogo from '../../assets/mojaloop-logo.png'
-import { setPasswordSchema, type SetPasswordForm } from '@/lib/validations/setPassword'
-import { useSetPassword } from '@/api/hooks/auth'
-import { CustomButton } from '@/components/ui'
-import { FormInput } from '@/components/form'
-import { ChangePassword } from '@/types/users'
+import LogoDiosceseKigali from '../../assets/LogoDiosceseKigali.png'
+import { setPasswordSchema, type SetPasswordForm } from '../../lib/validations/setPassword'
+// import { useSetPassword } from '../../api/hooks/auth'
+import { CustomButton } from '../../components/ui'
+import { FormInput } from '../../components/form'
+import { ChangePassword } from '../../types/users'
 import Cookies from 'universal-cookie'
-import { getUserProfile } from '@/api/users'
+import { getUserProfile } from '../../api/users'
 import { isAxiosError } from 'axios'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { logout } from '@/api/auth'
+import { logout } from '../../api/auth'
 
 interface Props {
   isChangePassword: boolean | null,
@@ -85,15 +85,15 @@ const SetPassword = () => {
           justify='space-between'
           bg='#F0F9FF'
         >
-          <Image src={mojaloopLogo} w='60' />
+          <Image src={LogoDiosceseKigali} w='60' />
 
           <Heading as='h1' color='black' textAlign='center'>
-            Switch Portal
+             Portal
           </Heading>
 
           <Box alignSelf='center' color='black' fontSize='sm' fontWeight='medium'>
             <Text>Hotline: +250-788-387-632</Text>
-            <Text>Email: info@rswitch.co.rw</Text>
+            <Text>Email: info@St Michael Parish.co.rw</Text>
           </Box>
         </VStack>
 
@@ -180,7 +180,7 @@ export const SetPasswordBody = (props: Props) => {
     })
   }
 
-  const setPassword = useSetPassword()
+  // const setPassword = useSetPassword()
 
   const onSubmit = (values: SetPasswordForm) => {
     if (token && !isChangePassword) {
@@ -189,7 +189,7 @@ export const SetPasswordBody = (props: Props) => {
       errorToast('Please enter your old password.')
     } else {
       const objectToSend: ChangePassword = { oldPassword: values.oldPassword, newPassword: values.newPassword }
-      setPassword.mutate(objectToSend)
+      // setPassword.mutate(objectToSend)
     }
   }
 
@@ -302,7 +302,7 @@ export const SetPasswordBody = (props: Props) => {
         type='submit'
         size='md'
         mt={isChangePassword ? '4' : '8'}
-        isLoading={setPassword.isPending}
+        isLoading={false}
       >
         Confirm
       </CustomButton>

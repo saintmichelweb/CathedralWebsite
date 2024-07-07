@@ -1,0 +1,12 @@
+# Use an official Node runtime as the base image
+FROM node:20.15.0-alpine AS builder
+WORKDIR /app
+COPY . .
+
+WORKDIR /app/Api
+RUN npm i
+
+EXPOSE 3551
+CMD [ "npm", "run", "start" ]
+
+# Run the app when the container launches

@@ -7,13 +7,13 @@ export default function setupServer (
   HOSTNAME: string,
   PORT: number,
   // tryInitializeMinio: () => Promise<void>,
-  // tryInitializeDatabase: () => Promise<void>
+  tryInitializeDatabase: () => Promise<void>
 ): void {
   app.listen(PORT, HOSTNAME, async () => {
-    logger.info(`API is running on http://${HOSTNAME}:${PORT}/api/v1`)
+    logger.info(`API is running on http://${HOSTNAME}:${PORT}/api`)
     logger.info(`Swagger API Documentation UI is running on http://${HOSTNAME}:${PORT}/docs`)
 
     // await tryInitializeMinio()
-    // await tryInitializeDatabase()
+    await tryInitializeDatabase()
   })
 }

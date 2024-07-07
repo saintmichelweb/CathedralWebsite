@@ -26,10 +26,10 @@ export async function tryInitializeDatabase (): Promise<void> {
     await initializeDatabase()
   } catch (error: any) {
     logger.error('MySQL Database Initializing error: %s', error.message)
-    logger.info('Retrying in 3 seconds...')
+    // logger.info('Retrying in 3 seconds...')
 
     // Retry after 3 seconds
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    setTimeout(tryInitializeDatabase, 3000)
+    // setTimeout(tryInitializeDatabase, 3000)
   }
 }

@@ -3,13 +3,11 @@ import { ChangePassword } from '../types/users'
 
 export async function login(
   email: string,
-  password: string,
-  recaptchaToken: string | null
+  password: string
 ) {
   const response = await instance.post<{ token: string }>('/users/login', {
     email,
-    password,
-    recaptchaToken,
+    password
   })
   return response.data
 }

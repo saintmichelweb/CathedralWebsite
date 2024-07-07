@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt'
 import { type Request, type Response } from 'express'
 import * as z from 'zod'
-import axios from 'axios'
 import { AppDataSource } from '../../database/dataSource'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
 import logger from '../../services/logger'
@@ -9,29 +8,24 @@ import jwt from 'jsonwebtoken'
 import { PortalUserStatus } from '../../../../shared-lib'
 import { readEnv, readEnvAsBoolean } from '../../setup/readEnv'
 import { JwtTokenEntity } from '../../entity/JwtTokenEntity'
-import { OPTEntity } from '../../entity/OTPEntity'
-import { sendOTPEmail } from '../../utils/sendEmail'
 import ms from 'ms'
+import { comparePassword } from '../../utils/utils'
 
 export const LoginFormSchema = z.object({
   email: z.string().email('Please enter a valid email'),
   password: z.string().min(8),
-  recaptchaToken: z.string().optional() // optional to pass the e2e tests
 })
 
 const JWT_SECRET = readEnv('JWT_SECRET', 'secret') as string
 const JWT_EXPIRES_IN = readEnv('JWT_EXPIRES_IN', '1d') as string
 const JWT_EXPIRES_IN_MS = ms(JWT_EXPIRES_IN)
-// const RECAPTCHA_SECRET_KEY = readEnv('RECAPTCHA_SECRET_KEY', '') as string
-// const RECAPTCHA_ENABLED = readEnvAsBoolean('RECAPTCHA_ENABLED', 'false')
-// const OTP_VERIFICATION_ENABLED = readEnvAsBoolean('OTP_VERIFICATION_ENABLED', 'false')
 
 /**
  * @openapi
  * /users/login:
  *   post:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     summary: Authenticate a user
  *     requestBody:
  *       required: true
@@ -80,7 +74,7 @@ const JWT_EXPIRES_IN_MS = ms(JWT_EXPIRES_IN)
  *
  */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postUserLogin (req: Request, res: Response) {
+export async function postUserLogin(req: Request, res: Response) {
   try {
     LoginFormSchema.parse(req.body)
   } catch (err) {
@@ -96,7 +90,8 @@ export async function postUserLogin (req: Request, res: Response) {
       where: { email: req.body.email }
     })
     logger.info('User %s login attempt.', req.body.email)
-
+    
+    
     if (user == null) {
       throw new Error('Invalid credentials')
     } else if (user.status === PortalUserStatus.UNVERIFIED) {
@@ -109,25 +104,12 @@ export async function postUserLogin (req: Request, res: Response) {
       throw new Error('User needs to be active to login')
     }
 
-    const passwordMatch = await bcrypt.compare(req.body.password, user.password)
+    // TODO: check why bcrypt is failing
+    // const passwordMatch = await bcrypt.compare(req.body.password, user.password)
+    const passwordMatch = comparePassword(req.body.password, user.password)
     if (!passwordMatch) {
       throw new Error('Invalid credentials')
     }
-    // if(OTP_VERIFICATION_ENABLED){
-    //   // generate OTP and send to user
-    //   try {
-    //     // const generatedOTP = await generateOTP(user.email)
-    //     if(generatedOTP){
-    //       sendOTPEmail(user.email, generatedOTP.toString())
-    //       return res.status(200).send({ success: true, message: 'OTP sent successfully' })
-    //     }else{
-    //       return res.status(500).send({ success: false, message: 'Error generating OTP' })
-    //     }
-    //   }catch (error) {
-    //     logger.error('Error generating OTP: %o', error)
-    //     return res.status(500).send({ success: false, message: 'Error generating OTP' })
-    //   }
-    // }
 
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
     const jwtTokenObj = AppDataSource.manager.create(JwtTokenEntity, {
@@ -137,31 +119,9 @@ export async function postUserLogin (req: Request, res: Response) {
       last_used: new Date()
     })
     await AppDataSource.manager.save(jwtTokenObj)
-    res.json({ success: true, message: 'Login successful', token: token})
+    res.status(200).send({ message: 'Login successful', token: token })
   } catch (error: any) {
     logger.error('User %s login failed: %s', req.body.email, error.message)
     res.status(400).send({ success: false, message: error.message })
   }
 }
-
-// async function generateOTP(userEmail: string) {
-//   try{
-//     const OTPEntityRepository = AppDataSource.getRepository(OPTEntity)
-//     const existingOTP = await OTPEntityRepository.findOne({ where: { email: userEmail } })
-//     if (existingOTP) {
-//       await OTPEntityRepository.delete({ email: userEmail })
-//     }
-//     const otp = Math.floor(100000 + Math.random() * 900000)
-//     const otpEntity = await OTPEntityRepository.create({
-//       email: userEmail,
-//       otp: otp.toString(),
-//       issued_at: new Date(Date.now()),
-//       expires_at: new Date(Date.now() + ms('4m'))
-//     })
-//     await OTPEntityRepository.save(otpEntity)
-//   return otp
-//   }catch (error) {
-//     logger.error('Error generating OTP: %o', error)
-//     return 
-//   }
-// }

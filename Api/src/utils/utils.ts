@@ -3,8 +3,6 @@ import path from 'path'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { type PortalUserEntity } from '../entity/PortalUserEntity'
-// import base64url from 'base64url'
-import crypto from 'crypto'
 import { readEnv } from '../setup/readEnv'
 
 if (process.env.NODE_ENV === 'test') {
@@ -14,9 +12,6 @@ if (process.env.NODE_ENV === 'test') {
 const JWT_SECRET = readEnv('JWT_SECRET', '', true) as string
 const JWT_EXPIRES_IN = readEnv('JWT_EXPIRES_IN', '1d', true) as string
 
-const API_KEY_LENGTH = readEnv('API_KEY_LENGTH', 64, true) as number
-const API_KEY_PREFIX = readEnv('API_KEY_PREFIX', 'MR')
-
 const saltRounds = 10
 export async function hashPassword (password: string): Promise<string> {
   // 10 is the number of rounds to use, higher means more secure but slower
@@ -24,6 +19,7 @@ export async function hashPassword (password: string): Promise<string> {
   const hashedPassword = await bcrypt.hash(password, salt)
   return hashedPassword
 }
+
 export async function comparePassword (password: string, dbPassword: string): Promise<boolean> {
   const match = await bcrypt.compare(password, dbPassword);
   return match;

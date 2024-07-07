@@ -12,14 +12,14 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'Merchant Acquirer API',
+      title: 'St Michel Website API',
       version: '0.1.0',
       // eslint-disable-next-line max-len
-      description: 'Merchant Acquirer Backend'
+      description: 'St Michel Website Backend'
     },
     servers: [
       {
-        url: '/api/v1'
+        url: '/api'
       }
     ],
     components: {
@@ -41,17 +41,13 @@ const generatedSwagger = swaggerJSDoc(options)
 export const openAPISpecification: any = cloneDeep(generatedSwagger)
 
 const tagOrder = [
-  'Health Check',
-  'Portal Users',
-  'Merchants',
-  'Merchant Status',
-  'Merchant Locations',
-  'Countries',
-  'Business Owners',
-  'Contact Persons',
-  'Exports / Imports',
-  'Roles'
-]
+  "Language",
+  "Location",
+  "Mass Times",
+  "Recent Events",
+  "Top News And Notices",
+  "Users",
+];
 
 openAPISpecification.tags.sort((a: any, b: any) => {
   const indexA = tagOrder.indexOf(a.name)

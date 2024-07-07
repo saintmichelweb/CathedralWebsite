@@ -52,7 +52,7 @@ export async function updateUser(user: EditUserForm) {
 
 export async function getUserProfile() {
   const response = await instance.get<{ data: ServerUser }>('/users/profile')
-  return response.data.data
+  return response.data
 }
 
 export async function updateUserStatus(userId: string | number, newStatus: string) {

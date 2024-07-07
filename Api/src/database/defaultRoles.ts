@@ -8,12 +8,5 @@ export const DefaultRoles = [
   {
     name: "Portal Admin",
     description: "Portal Admin Role",
-    level: "Portal",
-    permissions: [
-      PermissionsEnum.CREATE_PORTAL_USERS,
-      PermissionsEnum.VIEW_PORTAL_USERS,
-      PermissionsEnum.VIEW_ROLES,
-      PermissionsEnum.EDIT_PORTAL_USERS,
-    ],
   },
 ]

@@ -1,29 +1,36 @@
 // import { useState } from 'react'
 import { useRoutes } from 'react-router-dom'
 
-// import { Layout } from '../components/layout'
+import { Layout } from '../components/layout'
 import {
   // Dashboard,
   ForgotPassword,
   Login,
   // SetPassword,
 } from '../pages'
+import AddNewUser from '../pages/AddNewUser/AddNewUser'
+import UpdateHomePage from '../pages/UpdateHomePage/updateHomePage'
 
 const Routes = () => {
   // const [isLoading, setIsLoading] = useState(false)
 
   const element = useRoutes([
-    // {
-    //   path: '/',
-    //   element: <Layout />,
-    //   errorElement: <div>Oops! something went wrong</div>,
-    //   children: [
-    //     {
-    //       index: true,
-    //       element: <Dashboard />,
-    //     },
-    //   ]
-    // },
+    {
+      path: '/',
+      element: <Layout />,
+      errorElement: <div>Oops! something went wrong</div>,
+      children: [
+        {
+          index: true,
+          element: <AddNewUser />,
+        },
+        {
+          path: 'home-page',
+          index: true,
+          element: <UpdateHomePage />,
+        },
+      ]
+    },
     {
       path: '/login',
       element: <Login />,

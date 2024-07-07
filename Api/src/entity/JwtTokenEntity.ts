@@ -11,23 +11,23 @@ import { PortalUserEntity } from './PortalUserEntity'
 @Entity('jwt_tokens')
 export class JwtTokenEntity {
   @PrimaryGeneratedColumn()
-    id!: number
+  id!: number
 
   @ManyToOne(() => PortalUserEntity, user => user.tokens, { onDelete: 'CASCADE' })
-    user!: PortalUserEntity
+  user!: PortalUserEntity
 
   @Column({
     type: 'varchar',
     length: 512
   })
-    token!: string
+  token!: string
 
   @CreateDateColumn()
-    issued_at!: Date
+  issued_at!: Date
 
   @Column('datetime')
-    expires_at!: Date
+  expires_at!: Date
 
   @UpdateDateColumn()
-    last_used!: Date
+  last_used!: Date
 }
