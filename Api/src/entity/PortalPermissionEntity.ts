@@ -23,9 +23,6 @@ export class PortalPermissionEntity {
   @Column({ nullable: false, length: 255, default: '' })
     description!: string
 
-  @Column('simple-array', { nullable: false })
-    levels!: string[]
-
   @ManyToMany(() => PortalRoleEntity, role => role.permissions)
     roles!: PortalRoleEntity[]
 

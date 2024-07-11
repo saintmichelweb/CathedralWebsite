@@ -1,8 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToMany, CreateDateColumn, UpdateDateColumn, JoinTable, ManyToOne, Unique } from 'typeorm';
 import { PortalPermissionEntity } from './PortalPermissionEntity';
 import { PortalUserEntity } from './PortalUserEntity';
-import { DFSPEntity } from './DFSPEntity';
-import { PortalRolesLevels } from 'shared-lib';
 
 export enum PortalRolesStatus {
   ACTIVATED = 1,
@@ -17,14 +15,6 @@ export class PortalRoleEntity {
 
   @Column({ nullable: false, length: 255 })
     name!: string
-  
-  @Column({
-    type: 'simple-enum',
-    enum: PortalRolesLevels,
-    nullable: false,
-    default: PortalRolesLevels.HUB_USER
-  })
-    level!: PortalRolesLevels
 
   @Column({ nullable: false, length: 255, default: '' })
     description!: string
@@ -53,11 +43,4 @@ export class PortalRoleEntity {
     
   @Column({ nullable: true, default: 0 })
     blocked!: boolean
-
-  @ManyToOne(
-    () => DFSPEntity,
-    dfsp => dfsp.fspId,
-    { nullable: true }
-  )
-    dfsp!: DFSPEntity
 }

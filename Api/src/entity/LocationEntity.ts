@@ -1,7 +1,9 @@
 import {
     Entity, Column, PrimaryGeneratedColumn,
-    CreateDateColumn
+    CreateDateColumn,
+    ManyToOne
   } from 'typeorm'
+import { MassTimesEntity } from './MasstimesEntity'
   
   @Entity('locations')
   export class LocationEntity {
@@ -20,13 +22,18 @@ import {
       // length: 255
       default: false
     })
-    isActive!: boolean
-  
+    
     @CreateDateColumn()
     created_at!: Date
-
+    
     @CreateDateColumn()
     updated_at!: Date
+
+    @CreateDateColumn()
+    isActive!: boolean
+
+    @ManyToOne(() => MassTimesEntity, massTime => massTime.location)
+    locationMassTimes!: MassTimesEntity[]
   
   }
   
