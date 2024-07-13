@@ -2,7 +2,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import MasstimesCard from "./Cards/massTimesCard";
-import MassLocationCard from "./Cards/locationCard";
+import MassLocationCard from "../Locations/Components/LocationCard";
 import MassLanguageCard from "./Cards/languageCard";
 import RecentEventsCard from "./Cards/recentEventsCard";
 import TopParishNewsAndNoticesCard from "./Cards/topNewsAndNoticesCard";
@@ -23,8 +23,8 @@ const UpdateHomePage = () => {
       // alignSelf={"center"}
       // alignItems={"center"}
     >
-      <MasstimesCard />
-      <MassLocationCard/>
+      {/* <MasstimesCard /> */}
+      {/* <MassLocationCard/> */}
       <MassLanguageCard/>
       <RecentEventsCard/>
       <TopParishNewsAndNoticesCard/>

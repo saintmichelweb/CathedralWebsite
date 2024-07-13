@@ -19,18 +19,15 @@ import { MassTimesEntity } from './MasstimesEntity'
   
     @Column({
       nullable: false,
-      // length: 255
       default: false
     })
+    isActive!: boolean
     
     @CreateDateColumn()
     created_at!: Date
     
     @CreateDateColumn()
     updated_at!: Date
-
-    @CreateDateColumn()
-    isActive!: boolean
 
     @ManyToOne(() => MassTimesEntity, massTime => massTime.location)
     locationMassTimes!: MassTimesEntity[]

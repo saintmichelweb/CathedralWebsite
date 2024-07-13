@@ -59,7 +59,7 @@ export async function deleteLocation(req: Request, res: Response) {
     if (oldLocation === null) {
       return res.status(404).send({ message: "Location does not exist!" });
     }
-    await locationRepository.delete(oldLocation);
+    await locationRepository.delete(oldLocation.id);
     return res.status(201).send({ message: "Location deleted successfully!" });
   } catch (error: any) {
     logger.error("Updating location failed: %s", error);

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   createColumnHelper,
   type PaginationState,
@@ -8,7 +8,6 @@ import {
   Divider,
   Flex,
   Heading,
-  // HStack,
   Icon,
   Menu,
   MenuButton,
@@ -16,79 +15,71 @@ import {
   MenuList,
   Stack,
   Text,
-  // useToast,
+  useToast,
 } from "@chakra-ui/react";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
 import { MdAdd, MdMoreVert } from "react-icons/md";
-// import {
-//   RolesFilterForm,
-//   rolesFilterSchema,
-// } from "@/lib/validations/listFilters";
-// import { getRoles } from "@/api/roles";
 import {
-  // AlertDialog,
+  AlertDialog,
   CommonIcons,
-  // CustomButton,
+  CustomButton,
   CustomLink,
   DataTable,
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-// import SearchInput from "../../components/ui/SearchInput/SearchInput";
-// import { CustomFormSelect, FormSelect } from "../../components/form";
 import { LocationResponse } from "../../types/apiResponses";
-import { formatTheDate } from "../../utils";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
+import {
+  deletLocation,
+  getLocations,
+  updateLocation,
+} from "../../api/location";
+import CustomModal from "../../components/ui/CustomModal/CustomModal";
+import AddLocationCard from "./Components/LocationCard";
+import { UpdateLocationForm } from "../../lib/validations/location";
 
 const LocationsManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
   });
-  const locations: LocationResponse[] = [
-    {
-      id: 1,
-      location: "kigali",
-      isActive: true,
-      created_at: formatTheDate(Date.now()),
-      updated_at: formatTheDate(Date.now()),
-    },
-    {
-      id: 2,
-      location: "Nyarugenge",
-      isActive: true,
-      created_at: formatTheDate(Date.now()),
-      updated_at: formatTheDate(Date.now()),
-    },
-    {
-      id: 3,
-      location: "Kicukiro",
-      isActive: true,
-      created_at: formatTheDate(Date.now()),
-      updated_at: formatTheDate(Date.now()),
-    },
-    {
-      id: 4,
-      location: "Gasabo",
-      isActive: false,
-      created_at: formatTheDate(Date.now()),
-      updated_at: formatTheDate(Date.now()),
-    },
-  ];
 
-  const [locationData, setLocationData] =
-    useState<LocationResponse[]>(locations);
+  const toast = useToast();
+  const [locationData, setLocationData] = useState<LocationResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
-  const [isOpenActivateModal, setIsOpenActivateModal] = useState(false);
-  const [isOpenBlockModal, setIsOpenBlockModal] = useState(false);
+  const [openNewLocationModel, setOpenNewLocationModel] = useState(false);
+  const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
+    useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenDisableModal, setIsOpenDisableModal] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<number | null>(null);
+  const [selectedLocation, setSelectedLocation] =
+    useState<LocationResponse | null>(null);
   // const toast = useToast();
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [totalPages, setTotalPages] = useState<number | undefined>(undefined);
+  const [numberPages, setNumberPages] = useState<number>(1);
+
+  const fetchLocations = async () => {
+    await getLocations()
+      .then((data) => {
+        console.log(data.locations);
+        setLocationData(data.locations);
+        setNumberPages(data.numberOfPages || 1);
+      })
+      .catch((error) => {
+        toast({
+          title: "Get Locations Message",
+          description:
+            error.response.data?.message || "Error geting locations time!",
+          status: "error",
+        });
+      });
+  };
+
+  useEffect(() => {
+    fetchLocations();
+  }, []);
 
   const ActionButton = (action: string) => {
     return (
@@ -101,7 +92,7 @@ const LocationsManagement = () => {
             ? "danger"
             : action == "activate"
             ? "success"
-            : "accent-outline"
+            : "accent"
         }
         w={"8rem"}
         mx="2"
@@ -122,10 +113,59 @@ const LocationsManagement = () => {
             ? "Delete"
             : action == "activate"
             ? "Activate"
-            : "Disable"}
+            : "Deactivate"}
         </Text>
       </CustomLink>
     );
+  };
+
+  const handleLocationStatus = async (location: LocationResponse) => {
+    const editPayload: UpdateLocationForm = {
+      location: location.location,
+      locationId: location.id,
+      isActive: !location.isActive,
+    };
+    await updateLocation(editPayload)
+      .then((res: any) => {
+        toast({
+          title: "Change Location Status Message",
+          description: res?.message || "Location status changed successfully",
+          status: "success",
+        });
+        setIsOpenActivateOrDeactivateModal(false);
+        fetchLocations();
+        setSelectedLocation(null);
+      })
+      .catch((error: any) => {
+        toast({
+          title: "Change Location Status Message",
+          description:
+            error.response.data?.message || "Error editing location status!",
+          status: "error",
+        });
+      });
+  };
+
+  const handleLocationDelete = async (locationId: number) => {
+    await deletLocation(locationId)
+      .then((res: any) => {
+        toast({
+          title: "Delete Location Message",
+          description: res?.message || "Location deleted successfully",
+          status: "success",
+        });
+        setIsOpenDeleteModal(false);
+        fetchLocations();
+        setSelectedLocation(null);
+      })
+      .catch((error: any) => {
+        toast({
+          title: "Delete Location Message",
+          description:
+            error.response.data?.message || "Error deleting location!",
+          status: "error",
+        });
+      });
   };
 
   const columns = useMemo(() => {
@@ -171,26 +211,21 @@ const LocationsManagement = () => {
       }),
       columnHelper.accessor("id", {
         cell: (info) => {
-          const roleId = info.getValue();
           const status = info.row.original.isActive;
 
+          const handleActivateOrDeactivate = () => {
+            setSelectedLocation(info.row.original);
+            setIsOpenActivateOrDeactivateModal(true);
+          };
+
           const handleEdit = () => {
-            setSelectedLocation(roleId);
-          };
-
-          const handleDisable = () => {
-            // setSelectedRole(info.row.original);
-            setIsOpenDisableModal(true);
-          };
-
-          const handleActivate = () => {
-            // setSelectedRole(info.row.original);
-            setIsOpenActivateModal(true);
+            setSelectedLocation(info.row.original);
+            setOpenNewLocationModel(true);
           };
 
           const handledelete = () => {
-            // setSelectedRole(info.row.original);
-            setIsOpenBlockModal(true);
+            setSelectedLocation(info.row.original);
+            setIsOpenDeleteModal(true);
           };
           return (
             <Menu autoSelect={false}>
@@ -201,7 +236,7 @@ const LocationsManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  onClick={status ? handleDisable : handleActivate}
+                  onClick={handleActivateOrDeactivate}
                 >
                   {ActionButton(status ? "deactivate" : "activate")}
                 </MenuItem>
@@ -241,14 +276,22 @@ const LocationsManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={4} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Role Management</Heading>
+          <Heading size="md">Locations Management</Heading>
         </Stack>
-        <CustomLink
+        {/* <CustomLink
           to="/portal-user-management/role-management/create-role"
           mr={{ base: 0, lg: 2 }}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Role
-        </CustomLink>
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
+        </CustomLink> */}
+        <CustomButton
+          type="button"
+          isLoading={false}
+          minW={"8rem"}
+          onClick={() => setOpenNewLocationModel(true)}
+        >
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
+        </CustomButton>
       </Flex>
       <Box
         bg="primaryBackground"
@@ -271,7 +314,7 @@ const LocationsManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={totalPages}
+              numberPages={numberPages}
               // onFetch={onPageChange}
               useCustomPagination
             />
@@ -281,6 +324,52 @@ const LocationsManagement = () => {
           <EmptyState text="There are no roles to present yet." mt="10" />
         )}
       </Box>
+      <CustomModal
+        headerTitle={`${selectedLocation ? "Update" : "Add"} Location`}
+        isOpen={openNewLocationModel}
+        onClose={() => setOpenNewLocationModel(false)}
+        child={
+          <AddLocationCard
+            onClose={() => {
+              setSelectedLocation(null);
+              setOpenNewLocationModel(false);
+            }}
+            fetchLocations={fetchLocations}
+            location={selectedLocation}
+          />
+        }
+        showFooter={false}
+        isCentered={true}
+        widthSize="25vw"
+      />
+      <AlertDialog
+        alertText={`Are you sure you want to delete this location?`}
+        isOpen={isOpenDeleteModal}
+        onClose={() => {
+          setSelectedLocation(null);
+          setIsOpenDeleteModal(false);
+        }}
+        onConfirm={() => {
+          if (selectedLocation) {
+            handleLocationDelete(selectedLocation?.id);
+          }
+        }}
+      />
+      <AlertDialog
+        alertText={`Are you sure you want to ${
+          selectedLocation?.isActive ? "deactivate" : "activate"
+        } this location?`}
+        isOpen={isOpenActivateOrDeactivateModal}
+        onClose={() => {
+          setSelectedLocation(null);
+          setIsOpenActivateOrDeactivateModal(false);
+        }}
+        onConfirm={() => {
+          if (selectedLocation) {
+            handleLocationStatus(selectedLocation);
+          }
+        }}
+      />
     </Stack>
   );
 };

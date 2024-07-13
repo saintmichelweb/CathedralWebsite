@@ -4,7 +4,7 @@ import { postLocation } from "./locationControllers/postLocation";
 import { deleteLocation } from "./locationControllers/deletLocation";
 import { putLocation } from "./locationControllers/putLocation";
 import { authenticateJWT } from "../middleware/authenticate";
-import { getLocations } from "./locationControllers/getLocation";
+import { getLocations } from "./locationControllers/getLocations";
 
 const router = express.Router();
 

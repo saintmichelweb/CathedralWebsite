@@ -5,6 +5,7 @@ import { Layout } from '../components/layout'
 import {
   // Dashboard,
   ForgotPassword,
+  LocationsManagement,
   Login,
   // SetPassword,
 } from '../pages'
@@ -32,7 +33,7 @@ const Routes = () => {
         {
           path: 'locations',
           index: true,
-          element: <Location />,
+          element: <LocationsManagement />,
         },
       ]
     },

@@ -1,10 +1,21 @@
 import { z } from "zod";
 
-export type MassLocationForm = z.infer<typeof massLocationSchema>;
+export type LocationForm = z.infer<typeof LocationSchema>;
 
-export const massLocationSchema = z.object({
+export const LocationSchema = z.object({
   location: z
     .string()
     .trim()
     .min(1, { message: "Location Name is required" }),
+});
+
+export type UpdateLocationForm = z.infer<typeof updateMassLocationSchema>;
+
+export const updateMassLocationSchema = z.object({
+  location: z
+    .string()
+    .trim()
+    .min(1, { message: "Location Name is required" }),
+  locationId: z.number(),
+  isActive: z.boolean()
 });
