@@ -42,7 +42,7 @@ export async function getLocations(req: Request, res: Response) {
   const queryBuilder = locationRepository.createQueryBuilder('locations')
   try {
     const [totalLocations, numberOfAllLocations] = await queryBuilder.getManyAndCount()
-    return res.status(200).send({ message: "Locations retrieved successfully!", locationsCount: numberOfAllLocations, locations: totalLocations });
+    return res.status(200).send({ message: "Locations retrieved successfully!", locationsCount: numberOfAllLocations, locations: totalLocations, numberOfPages: 2 });
   } catch (error: any) {
     logger.error("Updating location failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

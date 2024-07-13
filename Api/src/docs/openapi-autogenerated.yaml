@@ -1,10 +1,10 @@
 openapi: 3.0.0
 info:
-  title: Merchant Acquirer API
+  title: St Michel Website API
   version: 0.1.0
-  description: Merchant Acquirer Backend
+  description: St Michel Website Backend
 servers:
-  - url: /api/v1
+  - url: /api
 components:
   securitySchemes:
     Authorization:
@@ -13,13 +13,134 @@ components:
       bearerFormat: JWT
       value: Bearer <JWT token here>
 paths:
+  /language/all:
+    get:
+      tags:
+        - Language
+      security:
+        - Authorization: []
+      summary: get all Mass languages
+      responses:
+        '200':
+          description: Get Languages
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /language:
+    post:
+      tags:
+        - Language
+      security:
+        - Authorization: []
+      summary: Add a new Mass location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  example: Kinyarwanda
+                  description: language of the Mass
+      responses:
+        '200':
+          description: Location saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Language saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /location/:id:
+    delete:
+      tags:
+        - Location
+      security:
+        - Authorization: []
+      summary: delete a Mass location
+      responses:
+        '200':
+          description: Location deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Location deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
     put:
       tags:
-        - Portal HomePage
+        - Location
       security:
         - Authorization: []
       summary: Update a new Mass location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: string
+                  example: St Michael Parish
+                  description: location of the Mass
+                isActive:
+                  type: boolean
+                  example: 'false'
+                  description: Activation state of the location
       responses:
         '200':
           description: Location saved successfully
@@ -53,21 +174,32 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                location:
-                  type: string
-                  example: St Michael Parish
-                  description: location of the Mass
+  /location/all:
+    get:
+      tags:
+        - Location
+      security:
+        - Authorization: []
+      summary: get all Mass locations
+      responses:
+        '200':
+          description: Get Locations
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
   /location:
     post:
       tags:
-        - Portal HomePage
+        - Location
       security:
         - Authorization: []
       summary: Add a new Mass location
@@ -113,10 +245,519 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
+  /mass-times:
+    post:
+      tags:
+        - Mass Times
+      security:
+        - Authorization: []
+      summary: Add a new Mass Time
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  example: Kinyarwanda
+                  description: language of the Mass
+                location:
+                  type: string
+                  example: St Michel Parish
+                  description: location of the Mass
+                day:
+                  type: string
+                  example: Sunday 07 July 2024
+                  description: day of the Mass
+                time:
+                  type: string
+                  example: 9 AM
+                  description: time of the Mass
+      responses:
+        '200':
+          description: Mass Time saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Mass Time saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+  /recent-events:
+    post:
+      tags:
+        - Recent Events
+      security:
+        - Authorization: []
+      summary: Add a recent event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Recent event
+                  description: Recent event title
+                description:
+                  type: string
+                  example: description
+                  description: Recent event description
+      responses:
+        '200':
+          description: Recent Event saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Recent Event  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+  /roles/delete/{id}:
+    get:
+      tags:
+        - Roles
+      security:
+        - Authorization: []
+      summary: Update if whether Role users are blocked or not
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Numeric ID of the Role
+      responses:
+        '200':
+          description: User statuses updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                    example: OK
+  /roles:
+    get:
+      tags:
+        - Roles
+      security:
+        - Authorization: []
+      summary: GET Roles
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: number
+          required: false
+          description: Numeric ID of the Role
+        - in: query
+          name: type
+          schema:
+            type: string
+          required: false
+          description: type of role ['Hub', 'DFSP', 'DFSP_USER']
+      responses:
+        '200':
+          description: GET Roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                    example: OK
+                  data:
+                    type: array
+                    description: The list of roles with their permissions and users
+                    items:
+                      type: object
+    post:
+      tags:
+        - Roles
+      security:
+        - Authorization: []
+      summary: POST Role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: DFSP Operator
+                  description: The name of the role
+                description:
+                  type: string
+                  example: DFSP Operator
+                  description: The description of the role
+                roleLevel:
+                  type: string
+                  example: DFSP
+                  description: The level of the role
+                permissions:
+                  type: array
+                  items:
+                    type: string
+                    example: View Merchants
+                    description: The permissions for the role
+      responses:
+        '201':
+          description: Role created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                    example: Role created successfully
+  /roles/levels:
+    get:
+      tags:
+        - Roles
+      security:
+        - Authorization: []
+      summary: GET Role Levels
+      responses:
+        '200':
+          description: GET Role Levels
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                    example: OK
+                  data:
+                    type: array
+                    description: The list of role levels
+                    items:
+                      type: string
+  /{id}/roles:
+    get:
+      summary: Get user roles
+      description: Retrieve roles for a specific user by ID.
+      tags:
+        - Roles
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: User ID
+      responses:
+        '200':
+          description: Successful retrieval of user roles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    level:
+                      type: string
+        '400':
+          description: Bad request
+        '404':
+          description: User or user role not found
+        '500':
+          description: Internal server error
+  /roles/{id}:
+    put:
+      tags:
+        - Roles
+      security:
+        - Authorization: []
+      summary: Update Permissions for Role
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Numeric ID of the Role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: DFSP Operator
+                  description: The name of the role
+                description:
+                  type: string
+                  example: DFSP Operator
+                  description: The description of the role
+                roleLevel:
+                  type: string
+                  example: DFSP
+                  description: The level of the role
+                permissions:
+                  type: array
+                  items:
+                    type: string
+                    example:
+                      - VIEW_MERCHANTS
+                      - REJECT_MERCHANTS
+                    description: The permissions for the role
+      responses:
+        '200':
+          description: Role Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                    example: OK
+  /roles/status/{id}:
+    put:
+      tags:
+        - Roles
+      security:
+        - Authorization: []
+      summary: Update status for Role
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Numeric ID of the Role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: ACTIVATED
+                  description: The status you are updating to
+      responses:
+        '200':
+          description: Role status updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                    example: OK
+  /roles/block/{id}:
+    put:
+      tags:
+        - Roles
+      security:
+        - Authorization: []
+      summary: Update if whether Role users are blocked or not
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: number
+          required: true
+          description: Numeric ID of the Role
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                blockStatus:
+                  type: string
+                  example: true
+                  description: The block status
+      responses:
+        '200':
+          description: User statuses updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: The response message
+                    example: OK
+  /top-news-and-notices:
+    post:
+      tags:
+        - Top News And Notices
+      security:
+        - Authorization: []
+      summary: Add a top news and notices
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Recent event
+                  description: Recent event title
+                description:
+                  type: string
+                  example: description
+                  description: Recent event description
+      responses:
+        '200':
+          description: Recent Event saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Recent Event  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+  /user/profile:
+    get:
+      tags:
+        - Users
+      security:
+        - Authorization: []
+      summary: Get user profile
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                  name:
+                    type: string
+                    example: full names
+                  email:
+                    type: number
+                    example: stmichelparishkigali@gmail.com
+                  phoneNumber:
+                    type: string
+                    example: '0780001234'
+                  status:
+                    type: string
+                    example: Active
+                  created_at:
+                    type: date
+                    example: '2024-07-06 10:17:54.312552'
+                  updated_at:
+                    type: date
+                    example: '2024-07-06 10:17:54.312552'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Unauthorized
+        '500':
+          description: Internal Server error
   /users/login:
     post:
       tags:
-        - Portal Users
+        - Users
       summary: Authenticate a user
       requestBody:
         required: true
@@ -162,4 +803,5 @@ paths:
                     example: Invalid credentials
         '422':
           description: Validation error
-tags: []
+tags:
+  - name: Roles

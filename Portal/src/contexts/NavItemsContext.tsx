@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaHouse } from 'react-icons/fa6'
 import { TbUserSearch } from 'react-icons/tb'
+import { IoLocationOutline } from "react-icons/io5";
 import Cookies from 'universal-cookie'
 
 import { getUserProfile } from '../api/users'
@@ -14,25 +15,32 @@ export const NAV_ITEMS = [
     to: '/home-page',
     label: 'Go to home page',
     icon: FaHouse,
-    permissions: ['View Transactions'],
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'Locations',
+    to: '/locations',
+    label: 'Go to locations',
+    icon: IoLocationOutline,
+    // permissions: ['View Transactions'],
   },
   {
     name: 'Portal User Management',
     label: 'Open portal user management nav menu',
     icon: TbUserSearch,
-    permissions: ['View Portal Users'],
+    // permissions: ['View Portal Users'],
     subNavItems: [
       {
         name: 'User Management',
         shortName: 'User',
         to: '/portal-user-management/user-management',
-        permissions: ['View Portal Users'],
+        // permissions: ['View Portal Users'],
       },
       {
         name: 'Role Management',
         shortName: 'Role',
         to: '/portal-user-management/role-management',
-        permissions: ['View Roles'],
+        // permissions: ['View Roles'],
       },
     ],
   },

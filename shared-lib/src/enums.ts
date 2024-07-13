@@ -10,3 +10,8 @@ export enum CommonStatusType {
   PROCESSING = 'Processing',
   FAILED = 'Failed'
 }
+
+export enum StatusType {
+  ACTIVATED = 'Activated',
+  DEACTIVATED = 'Deactivated'
+}

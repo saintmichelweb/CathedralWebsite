@@ -1,24 +1,15 @@
 import {
   Entity, Column, PrimaryGeneratedColumn,
-  CreateDateColumn
+  CreateDateColumn,
+  OneToMany
 } from 'typeorm'
+import { LocationEntity } from './LocationEntity'
+import { LanguageEntity } from './languageEntity'
 
 @Entity('mass_times')
 export class MassTimesEntity {
   @PrimaryGeneratedColumn()
   id!: number
-
-  @Column({
-    nullable: false,
-    length: 255
-  })
-  location!: string
-
-  @Column({
-    nullable: true,
-    length: 255,
-  })
-  language!: string
 
   @Column({
     nullable: true,
@@ -41,5 +32,11 @@ export class MassTimesEntity {
 
   @CreateDateColumn()
   created_at!: Date
+
+  @OneToMany(() => LocationEntity, location => location.locationMassTimes)
+  location!: LocationEntity
+
+  @OneToMany(() => LanguageEntity, language => language.languageMassTimes)
+  language!: LanguageEntity
 
 }

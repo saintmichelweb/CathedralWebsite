@@ -5,8 +5,9 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { LocationEntity } from "../../entity/LocationEntity";
 
-const massLocationSchema = z.object({
-  location: z.string().trim().min(1, { message: "Location Name is required!" }),
+const LocationSchema = z.object({
+  location: z.string().trim().min(1, { message: 'Location is required!' }),
+  isActive: z.boolean(),
 });
 
 /**
@@ -29,6 +30,10 @@ const massLocationSchema = z.object({
  *                 type: string
  *                 example: "St Michael Parish"
  *                 description: "location of the Mass"
+ *               isActive:
+ *                 type: boolean
+ *                 example: "false"
+ *                 description: "Activation state of the location"
  *     responses:
  *       200:
  *         description: Location saved successfully
@@ -72,7 +77,7 @@ export async function putLocation(req: Request, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = massLocationSchema.safeParse(req.body);
+  const parsedBody = LocationSchema.safeParse(req.body);
   if (!parsedBody.success) {
     logger.error("Validation error: %o", parsedBody.error.issues);
     logger.error("Validation error: %o", req.body);
@@ -86,7 +91,14 @@ export async function putLocation(req: Request, res: Response) {
     if (oldLocation === null) {
       return res.status(404).send({ message: "Location does not exist!" });
     }
-    oldLocation.location = parsedBody.data.location;
+    if (parsedBody.data.location) {
+      oldLocation.location = parsedBody.data.location;
+    }
+
+    if (parsedBody.data.isActive !== null && parsedBody.data.isActive !== undefined) {
+      oldLocation.isActive = parsedBody.data.isActive;
+    }
+
     await locationRepository.save(oldLocation);
     return res.status(201).send({ message: "Location updated successfully." });
   } catch (error: any) {

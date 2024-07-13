@@ -1,7 +1,9 @@
 import {
     Entity, Column, PrimaryGeneratedColumn,
-    CreateDateColumn
+    CreateDateColumn,
+    ManyToOne
   } from 'typeorm'
+import { MassTimesEntity } from './MasstimesEntity'
   
   @Entity('languages')
   export class LanguageEntity {
@@ -27,6 +29,9 @@ import {
 
     @CreateDateColumn()
     updated_at!: Date
+
+    @ManyToOne(() => MassTimesEntity, massTime => massTime.language)
+    languageMassTimes!: MassTimesEntity[]
   
   }
   

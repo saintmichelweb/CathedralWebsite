@@ -5,6 +5,7 @@ import { Layout } from '../components/layout'
 import {
   // Dashboard,
   ForgotPassword,
+  LocationsManagement,
   Login,
   // SetPassword,
 } from '../pages'
@@ -28,6 +29,11 @@ const Routes = () => {
           path: 'home-page',
           index: true,
           element: <UpdateHomePage />,
+        },
+        {
+          path: 'locations',
+          index: true,
+          element: <LocationsManagement />,
         },
       ]
     },

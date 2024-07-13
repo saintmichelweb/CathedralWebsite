@@ -6,7 +6,7 @@ import { z } from "zod";
 import { LocationEntity } from "../../entity/LocationEntity";
 import { AuthRequest } from "../../types/express";
 
-const massLocationSchema = z.object({
+const LocationSchema = z.object({
   location: z
     .string()
     .trim()
@@ -74,7 +74,7 @@ export async function postLocation(req: AuthRequest, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = massLocationSchema.safeParse(req.body)
+  const parsedBody = LocationSchema.safeParse(req.body)
     if (!parsedBody.success) {
       logger.error("Validation error: %o", parsedBody.error.issues);
       logger.error("Validation error: %o", req.body);
@@ -89,7 +89,7 @@ export async function postLocation(req: AuthRequest, res: Response) {
     await locationRepository.save(newLocation)
     return res.status(201).send({ message: "Location created successfully" });
   } catch (error: any) {
-    logger.error("Getting home page failed with error: %s", error);
+    logger.error("Adding location failed with error: %s", error);
     res.status(400).send({ success: false, message: error.message });
   }
 }

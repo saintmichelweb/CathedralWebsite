@@ -3,6 +3,7 @@ import { PortalUserStatus } from '../../../shared-lib/src'
 import { JwtTokenEntity } from './JwtTokenEntity'
 import { EncryptionTransformer } from "typeorm-encrypted"
 import { EncryptionTransformerObject } from '../types/encryptionObject';
+import { PortalRoleEntity } from './PortalRoleEntity';
 
 @Entity("portal_users")
 export class PortalUserEntity {
@@ -56,4 +57,7 @@ export class PortalUserEntity {
 
   @ManyToOne(() => PortalUserEntity, (user) => user.created_users)
   created_by!: PortalUserEntity
+
+  // @ManyToOne(() => PortalRoleEntity, (role) => role.users)
+  // role!: PortalUserEntity
 }
