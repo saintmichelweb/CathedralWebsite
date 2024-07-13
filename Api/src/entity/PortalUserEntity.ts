@@ -58,6 +58,6 @@ export class PortalUserEntity {
   @ManyToOne(() => PortalUserEntity, (user) => user.created_users)
   created_by!: PortalUserEntity
 
-  @ManyToOne(() => PortalRoleEntity, role => role.users)
-  role!: PortalRoleEntity
+  // @ManyToOne(() => PortalRoleEntity, (role) => role.users)
+  // role!: PortalUserEntity
 }

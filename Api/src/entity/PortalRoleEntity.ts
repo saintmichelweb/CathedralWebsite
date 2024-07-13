@@ -8,7 +8,7 @@ export enum PortalRolesStatus {
 }
 
 @Entity('portal_roles')
-@Unique(['name', 'level', 'dfsp'])
+@Unique(['name'])
 export class PortalRoleEntity {
   @PrimaryGeneratedColumn()
     id!: number
@@ -24,8 +24,8 @@ export class PortalRoleEntity {
   @JoinTable()
     permissions!: PortalPermissionEntity[]
 
-  @OneToMany(() => PortalUserEntity, user => user.role)
-    users!: PortalUserEntity[]
+  // @OneToMany(() => PortalUserEntity, user => user.role)
+  //   users!: PortalUserEntity[]
 
   @CreateDateColumn()
     created_at!: Date
