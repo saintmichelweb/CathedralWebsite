@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   createColumnHelper,
   type PaginationState,
@@ -8,7 +8,7 @@ import {
   Divider,
   Flex,
   Heading,
-  HStack,
+  // HStack,
   Icon,
   Menu,
   MenuButton,
@@ -16,95 +16,79 @@ import {
   MenuList,
   Stack,
   Text,
-  useToast,
+  // useToast,
 } from "@chakra-ui/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { useForm } from "react-hook-form";
 import { MdAdd, MdMoreVert } from "react-icons/md";
-
-import { searchParams } from "@/types/merchants";
 // import {
 //   RolesFilterForm,
 //   rolesFilterSchema,
 // } from "@/lib/validations/listFilters";
 // import { getRoles } from "@/api/roles";
-import { useTable } from "@/hooks";
 import {
-  AlertDialog,
+  // AlertDialog,
   CommonIcons,
-  CustomButton,
+  // CustomButton,
   CustomLink,
   DataTable,
   EmptyState,
   TableSkeleton,
-} from "@/components/ui";
-import ExportButton from "@/components/ui/ExportButton/ExportButton";
-import SearchInput from "@/components/ui/SearchInput/SearchInput";
-import { CustomFormSelect, FormSelect } from "@/components/form";
+} from "../../components/ui";
+// import SearchInput from "../../components/ui/SearchInput/SearchInput";
+// import { CustomFormSelect, FormSelect } from "../../components/form";
 import { LocationResponse } from "../../types/apiResponses";
 import { formatTheDate } from "../../utils";
 import { StatusType } from "../../../../shared-lib/src";
+import { useTable } from "../../hooks";
 
 const LocationsManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
   });
-const locations: LocationResponse= [
+  const locations: LocationResponse[] = [
     {
-    id: 1,
-    location: 'kigali',
-    isActive: true,
-    created_at: formatTheDate(Date.now()),
-    updated_at: formatTheDate(Date.now())
-},
+      id: 1,
+      location: "kigali",
+      isActive: true,
+      created_at: formatTheDate(Date.now()),
+      updated_at: formatTheDate(Date.now()),
+    },
     {
-    id: 2,
-    location: 'Nyarugenge',
-    isActive: true,
-    created_at: formatTheDate(Date.now()),
-    updated_at: formatTheDate(Date.now())
-},
+      id: 2,
+      location: "Nyarugenge",
+      isActive: true,
+      created_at: formatTheDate(Date.now()),
+      updated_at: formatTheDate(Date.now()),
+    },
     {
-    id: 3,
-    location: 'Kicukiro',
-    isActive: true,
-    created_at: formatTheDate(Date.now()),
-    updated_at: formatTheDate(Date.now())
-},
+      id: 3,
+      location: "Kicukiro",
+      isActive: true,
+      created_at: formatTheDate(Date.now()),
+      updated_at: formatTheDate(Date.now()),
+    },
     {
-    id: 4,
-    location: 'Gasabo',
-    isActive: false,
-    created_at: formatTheDate(Date.now()),
-    updated_at: formatTheDate(Date.now())
-},
-]
+      id: 4,
+      location: "Gasabo",
+      isActive: false,
+      created_at: formatTheDate(Date.now()),
+      updated_at: formatTheDate(Date.now()),
+    },
+  ];
 
-  const [locationData, setLocationData] = useState<LocationResponse[]>([locations]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const ignore = useRef(false);
+  const [locationData, setLocationData] =
+    useState<LocationResponse[]>(locations);
+  const [loading, setLoading] = useState<boolean>(false);
+  // const ignore = useRef(false);
   const [isOpenActivateModal, setIsOpenActivateModal] = useState(false);
   const [isOpenBlockModal, setIsOpenBlockModal] = useState(false);
   const [isOpenDisableModal, setIsOpenDisableModal] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState<number | null>(null);
-  const toast = useToast();
-  const [searchOn, setSearchOn] = useState<boolean>(false);
+  // const toast = useToast();
+  // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [totalPages, setTotalPages] = useState<number | undefined>(undefined);
-
-  const {
-    register,
-    formState: { errors },
-    getValues,
-    setValue,
-    reset,
-    handleSubmit,
-  } = useForm<RolesFilterForm>({
-    resolver: zodResolver(rolesFilterSchema),
-    defaultValues: {
-      status: null,
-    },
-  });
 
   const ActionButton = (action: string) => {
     return (
@@ -144,67 +128,13 @@ const locations: LocationResponse= [
     );
   };
 
-  const fetchRolesRecords = async (query: RolesFilterForm | searchParams) => {
-    setLoading(true);
-    // await getRoles(query)
-    //   .then((response) => {
-    //     setlocationData(response.data);
-    //     setTotalPages(response.totalPages);
-    //   })
-    //   .catch((error) => {
-    //     toast({
-    //       title: "Error fetching data!",
-    //       description:
-    //         error?.response?.data?.message ||
-    //         "Failed to fetch data. Please try again.",
-    //       status: "error",
-    //     });
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   });
-  };
-
-  const onSearchFn = async (query: string) => {
-    fetchRolesRecords({
-      ...getValues(),
-      search: query,
-      page: 1,
-    });
-  };
-
-  useEffect(() => {
-    if (!query && searchOn) {
-      fetchRolesRecords({
-        page: 1,
-      });
-      setSearchOn(false);
-    }
-  }, [query, searchOn]);
-
-  const onPageChange = (currentPageVal: number) => {
-    fetchRolesRecords({
-      page: currentPageVal,
-    });
-  };
-
-  useEffect(() => {
-    if (ignore.current) {
-      return;
-    }
-    ignore.current = true;
-    fetchRolesRecords({
-      page: 1,
-    });
-  }, []);
-
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<LocationResponse>();
     return [
       columnHelper.display({
-        id: 'identifier',
-        header: 'Id',
-        cell: ({row}) => row.original.id,
+        id: "identifier",
+        header: "Id",
+        cell: ({ row }) => row.original.id,
       }),
       columnHelper.accessor("location", {
         cell: (info) => info.getValue(),
@@ -242,24 +172,24 @@ const locations: LocationResponse= [
       columnHelper.accessor("id", {
         cell: (info) => {
           const roleId = info.getValue();
-          const status = info.row.original.status;
+          const status = info.row.original.isActive;
 
           const handleEdit = () => {
             setSelectedLocation(roleId);
           };
 
           const handleDisable = () => {
-            setSelectedRole(info.row.original);
+            // setSelectedRole(info.row.original);
             setIsOpenDisableModal(true);
           };
 
           const handleActivate = () => {
-            setSelectedRole(info.row.original);
+            // setSelectedRole(info.row.original);
             setIsOpenActivateModal(true);
           };
 
           const handledelete = () => {
-            setSelectedRole(info.row.original);
+            // setSelectedRole(info.row.original);
             setIsOpenBlockModal(true);
           };
           return (
@@ -300,68 +230,6 @@ const locations: LocationResponse= [
     ];
   }, []);
 
-  const onFilterSubmit = () => {
-    fetchRolesRecords({
-      ...getValues(),
-      page: 1,
-    });
-  };
-
-  const filterBody = (
-    <Flex
-      as="form"
-      flexDir={{ base: "column", md: "row" }}
-      gap="8"
-      data-testid="filter-form"
-      onSubmit={handleSubmit(onFilterSubmit)}
-    >
-      <FormSelect
-        name="status"
-        register={register}
-        errors={errors}
-        label="Status"
-        placeholder="Choose role status"
-        options={COMMON_STATUSES}
-      />
-      <CustomFormSelect
-        label="Level"
-        placeholder="Choose role level"
-        options={roleLevels.data?.data.map((e: string) => ({
-          label: `${e}`,
-          value: e,
-        }))}
-        selectValue={selectedRoleLevel}
-        onChangeFn={(val) => {
-          if (val) {
-            setSelectedRoleLevel(val);
-            setValue("level", val.value.toString());
-          }
-        }}
-      />
-
-      <HStack alignSelf="end" gap="3">
-        <CustomButton
-          colorVariant="accent-outline"
-          mb="1"
-          minW={"7.5rem"}
-          onClick={() => {
-            fetchRolesRecords({
-              page: 1,
-            });
-            setSelectedRoleLevel(null);
-            reset();
-          }}
-        >
-          Clear
-        </CustomButton>
-
-        <CustomButton type="submit" mb="1" minW={"7.5rem"}>
-          Filter
-        </CustomButton>
-      </HStack>
-    </Flex>
-  );
-
   const table = useTable({
     data: locationData || [],
     columns,
@@ -382,33 +250,6 @@ const locations: LocationResponse= [
           <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Role
         </CustomLink>
       </Flex>
-      {viewType === "list" && (
-        <SearchInput
-          filterBody={filterBody}
-          onReset={() => {
-            setSelectedRoleLevel(null);
-            reset();
-          }}
-          onSearch={(query: string) => {
-            onSearchFn(query);
-            setSearchOn(true);
-          }}
-          setQuery={setQuery}
-          exportButton={
-            <ExportButton
-              onExportCSV={() => {
-                setExport("csv");
-                handleExport();
-              }}
-              onExportExcel={() => {
-                setExport("xlsx");
-                handleExport();
-              }}
-              isDisable={locationData.length === 0}
-            />
-          }
-        />
-      )}
       <Box
         bg="primaryBackground"
         mx={{ base: "-4", sm: "-6", lg: "-8" }}
@@ -431,7 +272,7 @@ const locations: LocationResponse= [
               alwaysVisibleColumns={[0]}
               hidePagination={false}
               totalPages={totalPages}
-              onFetch={onPageChange}
+              // onFetch={onPageChange}
               useCustomPagination
             />
           )}
@@ -440,34 +281,6 @@ const locations: LocationResponse= [
           <EmptyState text="There are no roles to present yet." mt="10" />
         )}
       </Box>
-      {/* alert Dialogues */}
-      <AlertDialog
-        alertText={`Are you sure you wan't to Activate  ${selectedRole?.name}?`}
-        isOpen={isOpenActivateModal}
-        onClose={() => setIsOpenActivateModal(false)}
-        onConfirm={() => {
-          handleStatusClick(selectedRole?.id, "1");
-          setIsOpenActivateModal(false);
-        }}
-      />
-      <AlertDialog
-        alertText={`are you sure you wan't to Disable ${selectedRole?.name}?`}
-        isOpen={isOpenDisableModal}
-        onClose={() => setIsOpenDisableModal(false)}
-        onConfirm={() => {
-          handleStatusClick(selectedRole?.id, "0");
-          setIsOpenDisableModal(false);
-        }}
-      />
-      <AlertDialog
-        alertText={`Are you sure you wan't to Delete ${selectedRole?.name}?`}
-        isOpen={isOpenBlockModal}
-        onClose={() => setIsOpenBlockModal(false)}
-        onConfirm={() => {
-          handleDeleteClick(selectedRole?.id);
-          setIsOpenBlockModal(false);
-        }}
-      />
     </Stack>
   );
 };

@@ -29,6 +29,11 @@ const Routes = () => {
           index: true,
           element: <UpdateHomePage />,
         },
+        {
+          path: 'locations',
+          index: true,
+          element: <Location />,
+        },
       ]
     },
     {

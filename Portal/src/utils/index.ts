@@ -45,7 +45,7 @@ export function downloadBlobAsCsv(blobData: Blob, name: string) {
 //   return expirationTimestamp <= Date.now()
 // }
 
-export function formatTheDate(date: string | Date, format?: string){
+export function formatTheDate(date: string | Date | number, format?: string){
   const formatDate = format ? format : "DD/MM/YYYY HH:mm:ss";
   return moment(date).format(formatDate);
 }
