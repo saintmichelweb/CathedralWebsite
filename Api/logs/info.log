@@ -218,3 +218,9 @@
 {"level":"info","message":"GET \"/api/location/all\" 200 \"Referer http://127.0.0.1:3550/\" - 32.954 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:51:44.766Z"}
 {"level":"info","message":"POST \"/api/location\" 201 \"Referer http://127.0.0.1:3550/\" - 40.369 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:51:50.589Z"}
 {"level":"info","message":"GET \"/api/location/all\" 200 \"Referer http://127.0.0.1:3550/\" - 28.005 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:51:50.633Z"}
+{"level":"info","message":"GET \"/api/location/all\" 304 \"Referer http://127.0.0.1:3550/\" - 17.449 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:53:34.807Z"}
+{"level":"info","message":"GET \"/api/location/all\" 304 \"Referer http://127.0.0.1:3550/\" - 33.517 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:53:51.951Z"}
+{"level":"info","message":"GET \"/api/users/profile\" 304 \"Referer http://127.0.0.1:3550/\" - 15.555 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:53:51.968Z"}
+{"level":"info","message":"GET \"/api/location/all\" 304 \"Referer http://127.0.0.1:3550/\" - 12.351 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:53:51.981Z"}
+{"level":"info","message":"GET \"/api/users/profile\" 304 \"Referer http://127.0.0.1:3550/\" - 6.768 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:53:51.989Z"}
+{"level":"info","message":"GET \"/api/location/all\" 304 \"Referer http://127.0.0.1:3550/\" - 13.974 ms - (remote 127.0.0.1)","service":"Backend-system","timestamp":"2024-07-13T17:54:53.801Z"}

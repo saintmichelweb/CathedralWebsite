@@ -61,13 +61,16 @@ const LocationsManagement = () => {
   const [numberPages, setNumberPages] = useState<number>(1);
 
   const fetchLocations = async () => {
+    setLoading(true)
     await getLocations()
       .then((data) => {
         console.log(data.locations);
         setLocationData(data.locations);
         setNumberPages(data.numberOfPages || 1);
+        setLoading(false)
       })
       .catch((error) => {
+        setLoading(false)
         toast({
           title: "Get Locations Message",
           description:
