@@ -27,11 +27,10 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { LocationResponse } from "../../types/apiResponses";
+import { LocationResponse, MessageResponse } from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
 import {
-  deletLocation,
   getLocations,
   updateLocation,
 } from "../../api/location";
@@ -52,7 +51,7 @@ const LocationsManagement = () => {
   const [openNewLocationModel, setOpenNewLocationModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedLocation, setSelectedLocation] =
     useState<LocationResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
@@ -93,7 +92,7 @@ const LocationsManagement = () => {
             ? "danger"
             : action == "activate"
             ? "success"
-            : "accent"
+            : "danger"
         }
         w={"8rem"}
         mx="2"
@@ -127,7 +126,7 @@ const LocationsManagement = () => {
       isActive: !location.isActive,
     };
     await updateLocation(editPayload)
-      .then((res: any) => {
+      .then((res: MessageResponse) => {
         toast({
           title: "Change Location Status Message",
           description: res?.message || "Location status changed successfully",
@@ -137,7 +136,7 @@ const LocationsManagement = () => {
         fetchLocations();
         setSelectedLocation(null);
       })
-      .catch((error: any) => {
+      .catch((error) => {
         toast({
           title: "Change Location Status Message",
           description:
@@ -147,27 +146,27 @@ const LocationsManagement = () => {
       });
   };
 
-  const handleLocationDelete = async (locationId: number) => {
-    await deletLocation(locationId)
-      .then((res: any) => {
-        toast({
-          title: "Delete Location Message",
-          description: res?.message || "Location deleted successfully",
-          status: "success",
-        });
-        setIsOpenDeleteModal(false);
-        fetchLocations();
-        setSelectedLocation(null);
-      })
-      .catch((error: any) => {
-        toast({
-          title: "Delete Location Message",
-          description:
-            error.response.data?.message || "Error deleting location!",
-          status: "error",
-        });
-      });
-  };
+  // const handleLocationDelete = async (locationId: number) => {
+  //   await deletLocation(locationId)
+  //     .then((res: MessageResponse) => {
+  //       toast({
+  //         title: "Delete Location Message",
+  //         description: res?.message || "Location deleted successfully",
+  //         status: "success",
+  //       });
+  //       setIsOpenDeleteModal(false);
+  //       fetchLocations();
+  //       setSelectedLocation(null);
+  //     })
+  //     .catch((error) => {
+  //       toast({
+  //         title: "Delete Location Message",
+  //         description:
+  //           error.response.data?.message || "Error deleting location!",
+  //         status: "error",
+  //       });
+  //     });
+  // };
 
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<LocationResponse>();
@@ -224,10 +223,10 @@ const LocationsManagement = () => {
             setOpenNewLocationModel(true);
           };
 
-          const handledelete = () => {
-            setSelectedLocation(info.row.original);
-            setIsOpenDeleteModal(true);
-          };
+          // const handledelete = () => {
+          //   setSelectedLocation(info.row.original);
+          //   setIsOpenDeleteModal(true);
+          // };
           return (
             <Menu autoSelect={false}>
               <MenuButton>
@@ -241,14 +240,14 @@ const LocationsManagement = () => {
                 >
                   {ActionButton(status ? "deactivate" : "activate")}
                 </MenuItem>
-                <Divider />
+                {/* <Divider />
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
                   onClick={handledelete}
                 >
                   {ActionButton("delete")}
-                </MenuItem>
+                </MenuItem> */}
                 <Divider />
                 <MenuItem
                   px={0}
@@ -343,7 +342,7 @@ const LocationsManagement = () => {
         isCentered={true}
         widthSize="25vw"
       />
-      <AlertDialog
+      {/* <AlertDialog
         alertText={`Are you sure you want to delete this location?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
@@ -355,7 +354,7 @@ const LocationsManagement = () => {
             handleLocationDelete(selectedLocation?.id);
           }
         }}
-      />
+      /> */}
       <AlertDialog
         alertText={`Are you sure you want to ${
           selectedLocation?.isActive ? "deactivate" : "activate"

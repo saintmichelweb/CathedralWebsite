@@ -12,13 +12,20 @@ const LocationSchema = z.object({
 
 /**
  * @openapi
- * /language/:id:
+ * /language/{id}:
  *   put:
  *     tags:
  *       - Language
  *     security:
  *       - Authorization: []
- *     summary: Update a new Mass language
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *            type: integer
+ *         description: Language ID
+ *     summary: Update a Mass language
  *     requestBody:
  *       required: true
  *       content:
@@ -91,6 +98,7 @@ export async function putLanguage(req: Request, res: Response) {
     if (oldLocation === null) {
       return res.status(404).send({ message: "Language does not exist!" });
     }
+
     if (parsedBody.data.language) {
       oldLocation.language = parsedBody.data.language;
     }

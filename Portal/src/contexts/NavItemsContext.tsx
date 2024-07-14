@@ -4,6 +4,7 @@ import { FaHouse } from 'react-icons/fa6'
 import { TbUserSearch } from 'react-icons/tb'
 import { IoLocationOutline } from "react-icons/io5";
 import { FaLanguage } from "react-icons/fa";
+import { IoTimeOutline } from "react-icons/io5";
 import Cookies from 'universal-cookie'
 
 import { getUserProfile } from '../api/users'
@@ -30,6 +31,13 @@ export const NAV_ITEMS = [
     to: '/languages',
     label: 'Go to languages',
     icon: FaLanguage,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'Mass Times',
+    to: '/mass-times',
+    label: 'Go to mass times',
+    icon: IoTimeOutline,
     // permissions: ['View Transactions'],
   },
   {

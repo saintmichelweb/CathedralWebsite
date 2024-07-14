@@ -1,7 +1,8 @@
 import {
     Entity, Column, PrimaryGeneratedColumn,
     CreateDateColumn,
-    ManyToOne
+    ManyToOne,
+    OneToMany
   } from 'typeorm'
 import { MassTimesEntity } from './MasstimesEntity'
   
@@ -29,7 +30,7 @@ import { MassTimesEntity } from './MasstimesEntity'
     @CreateDateColumn()
     updated_at!: Date
 
-    @ManyToOne(() => MassTimesEntity, massTime => massTime.location)
+    @OneToMany(() => MassTimesEntity, massTime => massTime.location)
     locationMassTimes!: MassTimesEntity[]
   
   }

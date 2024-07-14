@@ -7,21 +7,21 @@ export async function addNewLanguage(languageObj: LanguageForm) {
   return response.data
 }
 
-export async function getLanguages() {
-    const response = await instance.get<{ languages: LanguageResponse [], message: string, numberOfPages: number }>('/language/all')
-    return response.data
-  }
+export async function getLanguages(isActive?: boolean) {
+  const response = await instance.get<{ languages: LanguageResponse[], message: string, numberOfPages: number }>(`/language/all${isActive ? `?isActive=${isActive}` : ''}`)
+  return response.data
+}
 
 
-  export async function updateLanguage(updateLocationObj: UpdateLanguageForm) {
-    const response = await instance.put<{ message: string }>(`/language/${updateLocationObj.languageId}`, {
-      language: updateLocationObj.language,
-      isActive: updateLocationObj.isActive
-    })
-    return response.data
-  }
-  
-  export async function deletLanguage(langaugeId: number) {
-    const response = await instance.delete<{ message: string }>(`/language/${langaugeId}`)
-    return response.data
-  }
+export async function updateLanguage(updateLocationObj: UpdateLanguageForm) {
+  const response = await instance.put<{ message: string }>(`/language/${updateLocationObj.languageId}`, {
+    language: updateLocationObj.language,
+    isActive: updateLocationObj.isActive
+  })
+  return response.data
+}
+
+export async function deletLanguage(langaugeId: number) {
+  const response = await instance.delete<{ message: string }>(`/language/${langaugeId}`)
+  return response.data
+}

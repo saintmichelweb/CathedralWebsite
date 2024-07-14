@@ -13,6 +13,13 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *       - Language
  *     security:
  *       - Authorization: []
+ *     parameters:
+ *      - in: query
+ *        name: isActive
+ *        schema:
+ *          type: boolean
+ *        required: false
+ *        description: Activity status of language
  *     summary: get all Mass languages
  *     responses:
  *       200:
@@ -35,17 +42,22 @@ import { LanguageEntity } from "../../entity/languageEntity";
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getLanguages(req: Request, res: Response) {
   let portalUser = req.user;
+  const isActive = req.query.isActive
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
   const languageRepository = AppDataSource.getRepository(LanguageEntity);
   const queryBuilder = languageRepository.createQueryBuilder('languages')
+  if (isActive !==null && isActive !== undefined) {
+    queryBuilder.where('languages.isActive = :isActive', {isActive: isActive? 1: 0})
+  }
+
   try {
     const [totalLanguages, numberOfAllLanguages] = await queryBuilder.getManyAndCount()
     return res.status(200).send({ message: "Languages retrieved successfully!", languagesCount: numberOfAllLanguages, languages: totalLanguages });
   } catch (error: any) {
-    logger.error("Updating location failed: %s", error);
+    logger.error("Get language failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

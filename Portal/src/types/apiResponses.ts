@@ -12,4 +12,20 @@ export interface LanguageResponse {
     isActive: boolean
     created_at: string
     updated_at: string
-  }
+}
+
+export interface MassTimesResponse {
+    id: number
+    day: string
+    time: string
+    isActive: boolean
+    created_at: string
+    updated_at: string
+    location: LocationResponse
+    language: LanguageResponse
+}
+
+
+export interface MessageResponse {
+    message: string
+}

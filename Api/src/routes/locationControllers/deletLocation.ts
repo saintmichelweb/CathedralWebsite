@@ -6,12 +6,19 @@ import { LocationEntity } from "../../entity/LocationEntity";
 
 /**
  * @openapi
- * /location/:id:
+ * /location/{id}:
  *   delete:
  *     tags:
  *       - Location
  *     security:
  *       - Authorization: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *            type: integer
+ *         description: Location ID
  *     summary: delete a Mass location
  *     responses:
  *       200:
@@ -62,7 +69,7 @@ export async function deleteLocation(req: Request, res: Response) {
     await locationRepository.delete(oldLocation.id);
     return res.status(201).send({ message: "Location deleted successfully!" });
   } catch (error: any) {
-    logger.error("Updating location failed: %s", error);
+    logger.error("Deleting location failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

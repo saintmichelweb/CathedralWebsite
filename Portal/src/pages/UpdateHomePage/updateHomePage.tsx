@@ -1,9 +1,6 @@
 import {
   Box,
 } from "@chakra-ui/react";
-import MasstimesCard from "./Cards/massTimesCard";
-import MassLocationCard from "../Locations/Components/LocationCard";
-import MassLanguageCard from "../Languages/Components/languageCard";
 import RecentEventsCard from "./Cards/recentEventsCard";
 import TopParishNewsAndNoticesCard from "./Cards/topNewsAndNoticesCard";
 

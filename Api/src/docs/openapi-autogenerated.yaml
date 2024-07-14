@@ -13,12 +13,19 @@ components:
       bearerFormat: JWT
       value: Bearer <JWT token here>
 paths:
-  /language/:id:
+  /language/{id}:
     delete:
       tags:
         - Language
       security:
         - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Language ID
       summary: delete a Mass language
       responses:
         '200':
@@ -54,7 +61,14 @@ paths:
         - Language
       security:
         - Authorization: []
-      summary: Update a new Mass language
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Language ID
+      summary: Update a Mass language
       requestBody:
         required: true
         content:
@@ -109,6 +123,13 @@ paths:
         - Language
       security:
         - Authorization: []
+      parameters:
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          required: false
+          description: Activity status of language
       summary: get all Mass languages
       responses:
         '200':
@@ -174,12 +195,19 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
-  /location/:id:
+  /location/{id}:
     delete:
       tags:
         - Location
       security:
         - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Location ID
       summary: delete a Mass location
       responses:
         '200':
@@ -215,7 +243,14 @@ paths:
         - Location
       security:
         - Authorization: []
-      summary: Update a new Mass location
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Location ID
+      summary: Update a Mass location
       requestBody:
         required: true
         content:
@@ -270,6 +305,13 @@ paths:
         - Location
       security:
         - Authorization: []
+      parameters:
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          required: false
+          description: Activity status of location
       summary: get all Mass locations
       responses:
         '200':
@@ -335,6 +377,28 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
+  /mass-times/all:
+    get:
+      tags:
+        - Mass Times
+      security:
+        - Authorization: []
+      summary: Get all mass times
+      responses:
+        '200':
+          description: Get Mass Times
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
   /mass-times:
     post:
       tags:
@@ -396,6 +460,80 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
+  /mass-times/{id}:
+    put:
+      tags:
+        - Mass Times
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Mass time ID
+      summary: Update a Mass Time
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                location:
+                  type: number
+                  example: 1
+                  description: location of the Mass
+                language:
+                  type: number
+                  example: 1
+                  description: language of the Mass
+                day:
+                  type: string
+                  example: Sunday
+                  description: day of the Mass
+                time:
+                  type: string
+                  example: 9 AM
+                  description: time of the Mass
+                isActive:
+                  type: boolean
+                  example: 'false'
+                  description: Activation state of the location
+      responses:
+        '200':
+          description: Mass Time Update
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Mass Time updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
   /recent-events:
     post:
       tags:

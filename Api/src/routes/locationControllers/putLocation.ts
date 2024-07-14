@@ -12,13 +12,20 @@ const LocationSchema = z.object({
 
 /**
  * @openapi
- * /location/:id:
+ * /location/{id}:
  *   put:
  *     tags:
  *       - Location
  *     security:
  *       - Authorization: []
- *     summary: Update a new Mass location
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *            type: integer
+ *         description: Location ID
+ *     summary: Update a Mass location
  *     requestBody:
  *       required: true
  *       content:

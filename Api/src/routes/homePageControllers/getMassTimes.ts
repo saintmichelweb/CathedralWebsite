@@ -12,15 +12,11 @@ export async function getMassTimes(req: Request, res: Response) {
     // }
 
     try {
-        const masstimes = await AppDataSource.manager.findOne(MassTimesEntity, {
+        const masstimes = await AppDataSource.manager.find(MassTimesEntity, {
             where: { isActive: true }
         })
-        console.log('homePage', masstimes)
-        if (isUndefinedOrNull(masstimes)) {
-            return res.status(404).send()
-        }
-
-        res.status(200).send({...masstimes})
+        console.log('homePage MassTimes', masstimes)
+        res.status(200).send({ data: masstimes})
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)
         res.status(400).send({ success: false, message: error.message })

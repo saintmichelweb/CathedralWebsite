@@ -5,15 +5,15 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { AuthRequest } from "../../types/express";
 import { MassTimesEntity } from "../../entity/MasstimesEntity";
+import { LanguageEntity } from "../../entity/languageEntity";
+import { LocationEntity } from "../../entity/LocationEntity";
 
 const massTimesSchema = z.object({
   language: z
-    .string()
-    .trim()
+    .number()
     .min(1, { message: "Language is required" }),
   location: z
-    .string()
-    .trim()
+    .number()
     .min(1, { message: "Location is required" }),
   day: z
     .string()
@@ -106,17 +106,30 @@ export async function postMassTime(req: AuthRequest, res: Response) {
     }
 
   const newMassTimeRepository = AppDataSource.getRepository(MassTimesEntity)
+  const massLocationRepository =  AppDataSource.getRepository(LocationEntity)
+  const massLanguageRepository =  AppDataSource.getRepository(LanguageEntity)
+
+  
   try {
     const newMassTime = new MassTimesEntity();
-    newMassTime.language = parsedBody.data.language
-    newMassTime.location = parsedBody.data.location
+    const massLocation =  await massLocationRepository.findOne({where: {id: parsedBody.data.location}})
+    const massLanguage =  await massLanguageRepository.findOne({where: {id: parsedBody.data.language}})
+
+    if ( massLanguage !== null && massLocation !== null) {
+      newMassTime.language = massLanguage
+      newMassTime.location = massLocation
+    } else {
+      return res.status(404).send({ message: "Location or Language does not exist!" });
+    }
+
     newMassTime.day = parsedBody.data.day
     newMassTime.time = parsedBody.data.time
     newMassTime.isActive = true
+    console.log('newMassTime', newMassTime)
     await newMassTimeRepository.save(newMassTime)
     return res.status(201).send({ message: "Mass Time saved successfully" });
   } catch (error: any) {
-    logger.error("Creating Language failed: %s", error);
+    logger.error("Creating Mass Times failed: %s", error);
     res.status(500).send({ success: false,  });
   }
 }
