@@ -13,6 +13,96 @@ components:
       bearerFormat: JWT
       value: Bearer <JWT token here>
 paths:
+  /language/:id:
+    delete:
+      tags:
+        - Language
+      security:
+        - Authorization: []
+      summary: delete a Mass language
+      responses:
+        '200':
+          description: Language deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Language deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Language
+      security:
+        - Authorization: []
+      summary: Update a new Mass language
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  example: St Michael Parish
+                  description: language of the Mass
+                isActive:
+                  type: boolean
+                  example: 'false'
+                  description: Activation state of the language
+      responses:
+        '200':
+          description: Language saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Language updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Language not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
   /language/all:
     get:
       tags:
