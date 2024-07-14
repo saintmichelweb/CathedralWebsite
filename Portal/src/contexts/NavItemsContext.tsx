@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaHouse } from 'react-icons/fa6'
 import { TbUserSearch } from 'react-icons/tb'
 import { IoLocationOutline } from "react-icons/io5";
+import { FaLanguage } from "react-icons/fa";
 import Cookies from 'universal-cookie'
 
 import { getUserProfile } from '../api/users'
@@ -22,6 +23,13 @@ export const NAV_ITEMS = [
     to: '/locations',
     label: 'Go to locations',
     icon: IoLocationOutline,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'Languages',
+    to: '/languages',
+    label: 'Go to languages',
+    icon: FaLanguage,
     // permissions: ['View Transactions'],
   },
   {

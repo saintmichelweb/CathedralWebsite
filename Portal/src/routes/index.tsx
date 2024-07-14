@@ -5,6 +5,7 @@ import { Layout } from '../components/layout'
 import {
   // Dashboard,
   ForgotPassword,
+  LanguagesManagement,
   LocationsManagement,
   Login,
   // SetPassword,
@@ -34,6 +35,11 @@ const Routes = () => {
           path: 'locations',
           index: true,
           element: <LocationsManagement />,
+        },
+        {
+          path: 'languages',
+          index: true,
+          element: <LanguagesManagement />,
         },
       ]
     },

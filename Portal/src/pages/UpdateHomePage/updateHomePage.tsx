@@ -3,7 +3,7 @@ import {
 } from "@chakra-ui/react";
 import MasstimesCard from "./Cards/massTimesCard";
 import MassLocationCard from "../Locations/Components/LocationCard";
-import MassLanguageCard from "./Cards/languageCard";
+import MassLanguageCard from "../Languages/Components/languageCard";
 import RecentEventsCard from "./Cards/recentEventsCard";
 import TopParishNewsAndNoticesCard from "./Cards/topNewsAndNoticesCard";
 
@@ -25,7 +25,7 @@ const UpdateHomePage = () => {
     >
       {/* <MasstimesCard /> */}
       {/* <MassLocationCard/> */}
-      <MassLanguageCard/>
+      {/* <MassLanguageCard/> */}
       <RecentEventsCard/>
       <TopParishNewsAndNoticesCard/>
     </Box>

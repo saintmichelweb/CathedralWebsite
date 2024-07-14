@@ -27,7 +27,7 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { LocationResponse } from "../../types/apiResponses";
+import { LanguageResponse } from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
 import {
@@ -38,48 +38,51 @@ import {
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import AddLocationCard from "./Components/LocationCard";
 import { UpdateLocationForm } from "../../lib/validations/location";
+import { deletLanguage, getLanguages, updateLanguage } from "../../api/language";
+import { UpdateLanguageForm } from "../../lib/validations/language";
+import AddLanguageCard from "./Components/languageCard";
 
-const LocationsManagement = () => {
+const LanguagesManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
   });
 
   const toast = useToast();
-  const [locationData, setLocationData] = useState<LocationResponse[]>([]);
+  const [languagesData, setLanguagesData] = useState<LanguageResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
-  const [openNewLocationModel, setOpenNewLocationModel] = useState(false);
+  const [openNewLanguageModel, setOpenNewLanguageModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [selectedLocation, setSelectedLocation] =
-    useState<LocationResponse | null>(null);
+  const [selectedLanguage, setSelectedLanguage] =
+    useState<LanguageResponse | null>(null);
+  // const toast = useToast();
   // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberPages, setNumberPages] = useState<number>(1);
 
-  const fetchLocations = async () => {
+  const fetchLanguages = async () => {
     setLoading(true)
-    await getLocations()
+    await getLanguages()
       .then((data) => {
-        console.log(data.locations);
-        setLocationData(data.locations);
+        setLanguagesData(data.languages);
         setNumberPages(data.numberOfPages || 1);
         setLoading(false)
       })
       .catch((error) => {
         setLoading(false)
         toast({
-          title: "Get Locations Message",
+          title: "Get Languages Message",
           description:
-            error.response.data?.message || "Error geting locations time!",
+            error.response.data?.message || "Error getting languages time!",
           status: "error",
         });
       });
   };
 
   useEffect(() => {
-    fetchLocations();
+    fetchLanguages();
   }, []);
 
   const ActionButton = (action: string) => {
@@ -120,64 +123,64 @@ const LocationsManagement = () => {
     );
   };
 
-  const handleLocationStatus = async (location: LocationResponse) => {
-    const editPayload: UpdateLocationForm = {
-      location: location.location,
-      locationId: location.id,
-      isActive: !location.isActive,
+  const handleLanguageStatus = async (language: LanguageResponse) => {
+    const editPayload: UpdateLanguageForm = {
+      language: language.language,
+      languageId: language.id,
+      isActive: !language.isActive,
     };
-    await updateLocation(editPayload)
+    await updateLanguage(editPayload)
       .then((res: any) => {
         toast({
-          title: "Change Location Status Message",
-          description: res?.message || "Location status changed successfully",
+          title: "Change Language Status Message",
+          description: res?.message || "Language status changed successfully",
           status: "success",
         });
         setIsOpenActivateOrDeactivateModal(false);
-        fetchLocations();
-        setSelectedLocation(null);
+        fetchLanguages();
+        setSelectedLanguage(null);
       })
       .catch((error: any) => {
         toast({
-          title: "Change Location Status Message",
+          title: "Change Language Status Message",
           description:
-            error.response.data?.message || "Error editing location status!",
+            error.response.data?.message || "Error editing language status!",
           status: "error",
         });
       });
   };
 
-  const handleLocationDelete = async (locationId: number) => {
-    await deletLocation(locationId)
+  const handleLanguageDelete = async (languageId: number) => {
+    await deletLanguage(languageId)
       .then((res: any) => {
         toast({
-          title: "Delete Location Message",
-          description: res?.message || "Location deleted successfully",
+          title: "Delete Language Message",
+          description: res?.message || "Language deleted successfully",
           status: "success",
         });
         setIsOpenDeleteModal(false);
-        fetchLocations();
-        setSelectedLocation(null);
+        fetchLanguages();
+        setSelectedLanguage(null);
       })
       .catch((error: any) => {
         toast({
-          title: "Delete Location Message",
+          title: "Delete Language Message",
           description:
-            error.response.data?.message || "Error deleting location!",
+            error.response.data?.message || "Error deleting language!",
           status: "error",
         });
       });
   };
 
   const columns = useMemo(() => {
-    const columnHelper = createColumnHelper<LocationResponse>();
+    const columnHelper = createColumnHelper<LanguageResponse>();
     return [
       columnHelper.display({
         id: "identifier",
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("location", {
+      columnHelper.accessor("language", {
         cell: (info) => info.getValue(),
         header: "location",
       }),
@@ -215,17 +218,17 @@ const LocationsManagement = () => {
           const status = info.row.original.isActive;
 
           const handleActivateOrDeactivate = () => {
-            setSelectedLocation(info.row.original);
+            setSelectedLanguage(info.row.original);
             setIsOpenActivateOrDeactivateModal(true);
           };
 
           const handleEdit = () => {
-            setSelectedLocation(info.row.original);
-            setOpenNewLocationModel(true);
+            setSelectedLanguage(info.row.original);
+            setOpenNewLanguageModel(true);
           };
 
           const handledelete = () => {
-            setSelectedLocation(info.row.original);
+            setSelectedLanguage(info.row.original);
             setIsOpenDeleteModal(true);
           };
           return (
@@ -267,7 +270,7 @@ const LocationsManagement = () => {
   }, []);
 
   const table = useTable({
-    data: locationData || [],
+    data: languagesData || [],
     columns,
     pagination,
     setPagination,
@@ -277,7 +280,7 @@ const LocationsManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={4} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Locations Management</Heading>
+          <Heading size="md">Languages Management</Heading>
         </Stack>
         {/* <CustomLink
           to="/portal-user-management/role-management/create-role"
@@ -289,9 +292,9 @@ const LocationsManagement = () => {
           type="button"
           isLoading={false}
           minW={"8rem"}
-          onClick={() => setOpenNewLocationModel(true)}
+          onClick={() => setOpenNewLanguageModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Language
         </CustomButton>
       </Flex>
       <Box
@@ -321,22 +324,22 @@ const LocationsManagement = () => {
             />
           )}
         </>
-        {!loading && locationData.length === 0 && (
-          <EmptyState text="There are no locations to present yet." mt="10" />
+        {!loading && languagesData.length === 0 && (
+          <EmptyState text="There are no languages to present yet." mt="10" />
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedLocation ? "Update" : "Add"} Location`}
-        isOpen={openNewLocationModel}
-        onClose={() => setOpenNewLocationModel(false)}
+        headerTitle={`${selectedLanguage ? "Update" : "Add"} Location`}
+        isOpen={openNewLanguageModel}
+        onClose={() => setOpenNewLanguageModel(false)}
         child={
-          <AddLocationCard
+          <AddLanguageCard
             onClose={() => {
-              setSelectedLocation(null);
-              setOpenNewLocationModel(false);
+              setSelectedLanguage(null);
+              setOpenNewLanguageModel(false);
             }}
-            fetchLocations={fetchLocations}
-            location={selectedLocation}
+            fetchLanguages={fetchLanguages}
+            language={selectedLanguage}
           />
         }
         showFooter={false}
@@ -344,30 +347,30 @@ const LocationsManagement = () => {
         widthSize="25vw"
       />
       <AlertDialog
-        alertText={`Are you sure you want to delete this location?`}
+        alertText={`Are you sure you want to delete this language?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
-          setSelectedLocation(null);
+          setSelectedLanguage(null);
           setIsOpenDeleteModal(false);
         }}
         onConfirm={() => {
-          if (selectedLocation) {
-            handleLocationDelete(selectedLocation?.id);
+          if (selectedLanguage) {
+            handleLanguageDelete(selectedLanguage?.id);
           }
         }}
       />
       <AlertDialog
         alertText={`Are you sure you want to ${
-          selectedLocation?.isActive ? "deactivate" : "activate"
-        } this location?`}
+          selectedLanguage?.isActive ? "deactivate" : "activate"
+        } this language?`}
         isOpen={isOpenActivateOrDeactivateModal}
         onClose={() => {
-          setSelectedLocation(null);
+          setSelectedLanguage(null);
           setIsOpenActivateOrDeactivateModal(false);
         }}
         onConfirm={() => {
-          if (selectedLocation) {
-            handleLocationStatus(selectedLocation);
+          if (selectedLanguage) {
+            handleLanguageStatus(selectedLanguage);
           }
         }}
       />
@@ -375,4 +378,4 @@ const LocationsManagement = () => {
   );
 };
 
-export default LocationsManagement;
+export default LanguagesManagement;
