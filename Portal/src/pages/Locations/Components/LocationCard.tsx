@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import {
   Box,
-  Card,
-  // Checkbox,
   Divider,
-  Heading,
   HStack,
   Stack,
   useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-// import { SelectOption } from "../../../types/forms";
 import {
   type LocationForm,
   LocationSchema,
@@ -78,6 +72,7 @@ const AddLocationCard = (props: AddLocationProps) => {
               status: "error",
             });
           });
+          reset();
       } else if(locationToEdit){
         const editPayload: UpdateLocationForm = {
           location: payload.location,

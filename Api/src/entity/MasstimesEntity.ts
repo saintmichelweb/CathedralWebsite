@@ -1,7 +1,8 @@
 import {
   Entity, Column, PrimaryGeneratedColumn,
   CreateDateColumn,
-  OneToMany
+  OneToMany,
+  ManyToOne
 } from 'typeorm'
 import { LocationEntity } from './LocationEntity'
 import { LanguageEntity } from './languageEntity'
@@ -33,10 +34,10 @@ export class MassTimesEntity {
   @CreateDateColumn()
   created_at!: Date
 
-  @OneToMany(() => LocationEntity, location => location.locationMassTimes)
+  @ManyToOne(() => LocationEntity, location => location.locationMassTimes)
   location!: LocationEntity
 
-  @OneToMany(() => LanguageEntity, language => language.languageMassTimes)
+  @ManyToOne(() => LanguageEntity, language => language.languageMassTimes)
   language!: LanguageEntity
 
 }

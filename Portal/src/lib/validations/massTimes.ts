@@ -3,8 +3,39 @@ import { z } from "zod";
 export type MassTimesForm = z.infer<typeof MassTimesSchema>;
 
 export const MassTimesSchema = z.object({
-  location: z.string().min(1, { message: "Mass location is required" }),
-  language: z.string().min(1, { message: "Mass language is required" }),
-  day: z.string(),
-  time: z.string(),
+  language: z
+    .number()
+    .min(1, { message: "Language is required" }),
+  location: z
+    .number()
+    .min(1, { message: "Location is required" }),
+  day: z
+    .string()
+    .trim()
+    .min(1, { message: "Day is required" }),
+  time: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+});
+
+export type UpdateMassTimesForm = z.infer<typeof UpdateMassTimesSchema>;
+
+export const UpdateMassTimesSchema = z.object({
+  massTimeId: z.number(),
+  language: z
+    .number()
+    .min(1, { message: "Language is required" }),
+  location: z
+    .number()
+    .min(1, { message: "Location is required" }),
+  day: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  time: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  isActive: z.boolean()
 });

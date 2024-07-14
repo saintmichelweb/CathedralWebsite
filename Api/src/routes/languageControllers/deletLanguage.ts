@@ -7,12 +7,19 @@ import { LanguageEntity } from "../../entity/languageEntity";
 
 /**
  * @openapi
- * /language/:id:
+ * /language/{id}:
  *   delete:
  *     tags:
  *       - Language
  *     security:
  *       - Authorization: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *            type: integer
+ *         description: Language ID
  *     summary: delete a Mass language
  *     responses:
  *       200:
@@ -63,7 +70,7 @@ export async function deleteLanguage(req: Request, res: Response) {
     await languageRepository.delete(oldLanguage.id);
     return res.status(201).send({ message: "Language deleted successfully!" });
   } catch (error: any) {
-    logger.error("Updating language failed: %s", error);
+    logger.error("Deleting language failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

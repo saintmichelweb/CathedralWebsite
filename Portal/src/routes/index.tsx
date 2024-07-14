@@ -8,6 +8,7 @@ import {
   LanguagesManagement,
   LocationsManagement,
   Login,
+  MassTimesManagement,
   // SetPassword,
 } from '../pages'
 import AddNewUser from '../pages/AddNewUser/AddNewUser'
@@ -40,6 +41,11 @@ const Routes = () => {
           path: 'languages',
           index: true,
           element: <LanguagesManagement />,
+        },
+        {
+          path: 'mass-times',
+          index: true,
+          element: <MassTimesManagement />,
         },
       ]
     },

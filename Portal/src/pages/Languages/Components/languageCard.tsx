@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  Card,
-  // Checkbox,
   Divider,
   Heading,
   HStack,
@@ -20,7 +18,7 @@ import {
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput } from "../../../components/form";
 import { addNewLanguage, updateLanguage } from "../../../api/language";
-import { LanguageResponse } from "../../../types/apiResponses";
+import { LanguageResponse, MessageResponse } from "../../../types/apiResponses";
 
 interface AddLanguageProps {
   onClose: () => void;
@@ -60,7 +58,7 @@ const AddLanguageCard = (props: AddLanguageProps) => {
     if (payload) {
       if (!languageToEdit) {
         await addNewLanguage(payload)
-          .then((res) => {
+          .then((res: MessageResponse) => {
             toast({
               title: "Add Language message!",
               description: res?.message || "Language saved successfully",
@@ -85,7 +83,7 @@ const AddLanguageCard = (props: AddLanguageProps) => {
           isActive: languageToEdit.isActive,
         };
         await updateLanguage(editPayload)
-          .then((res: any) => {
+          .then((res: MessageResponse) => {
             toast({
               title: "Edit Location message!",
               description: res?.message || "Location edited successfully",
@@ -94,11 +92,11 @@ const AddLanguageCard = (props: AddLanguageProps) => {
             props.fetchLanguages();
             props.onClose();
           })
-          .catch((error: any) => {
+          .catch((error) => {
             toast({
               title: "Edit Location message",
               description:
-                error.response.data?.message || "Error editing location!",
+                error.response?.data?.message || "Error editing location!",
               status: "error",
             });
           });
@@ -109,9 +107,6 @@ const AddLanguageCard = (props: AddLanguageProps) => {
 
   return (
     <Box py={"2rem"}>
-      <Heading size="md" mb="10">
-        Add Mass Language
-      </Heading>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           name="language"

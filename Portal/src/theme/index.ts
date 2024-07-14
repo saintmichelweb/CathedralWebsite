@@ -19,8 +19,8 @@ const theme = extendTheme({
     lg: '65em',
   },
   colors: {
-    primary: '#be2130',
-    secondary: '#F4A60B',
+    primary: '#3C8CFF',
+    secondary: '#36454F',
     accent: '#F4A60B',
     info: '#3C8CFF',
     danger: '#CE4911',

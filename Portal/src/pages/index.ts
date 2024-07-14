@@ -4,6 +4,7 @@ import Login from './Login/Login'
 // import SetPassword from './SetPassword/SetPassword'
 import LocationsManagement from './Locations/Locations';
 import LanguagesManagement from './Languages/Languages';
+import MassTimesManagement from './MassTimes/MassTimes';
 
 export {
   // AddNewUser,
@@ -11,5 +12,6 @@ export {
   // SetPassword,
   ForgotPassword,
   LocationsManagement,
-  LanguagesManagement
+  LanguagesManagement,
+  MassTimesManagement
 }

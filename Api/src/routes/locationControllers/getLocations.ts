@@ -12,6 +12,13 @@ import { LocationEntity } from "../../entity/LocationEntity";
  *       - Location
  *     security:
  *       - Authorization: []
+ *     parameters:
+ *      - in: query
+ *        name: isActive
+ *        schema:
+ *          type: boolean
+ *        required: false
+ *        description: Activity status of location
  *     summary: get all Mass locations
  *     responses:
  *       200:
@@ -33,18 +40,24 @@ import { LocationEntity } from "../../entity/LocationEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getLocations(req: Request, res: Response) {
-  let portalUser = req.user;
+  const portalUser = req.user;
+  const isActive = req.query.isActive
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
   const locationRepository = AppDataSource.getRepository(LocationEntity);
   const queryBuilder = locationRepository.createQueryBuilder('locations')
+
+  if (isActive !==null && isActive !== undefined) {
+    queryBuilder.where('locations.isActive = :isActive', {isActive: isActive? 1: 0})
+  }
+
   try {
     const [totalLocations, numberOfAllLocations] = await queryBuilder.getManyAndCount()
     return res.status(200).send({ message: "Locations retrieved successfully!", locationsCount: numberOfAllLocations, locations: totalLocations, numberOfPages: 2 });
   } catch (error: any) {
-    logger.error("Updating location failed: %s", error);
+    logger.error("Getting location failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }
