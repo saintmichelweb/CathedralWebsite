@@ -314,7 +314,7 @@ const LocationsManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              numberPages={numberPages}
+              totalPages={numberPages}
               // onFetch={onPageChange}
               useCustomPagination
             />
