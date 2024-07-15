@@ -1,8 +1,6 @@
-import {
-  Box,
-} from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 // import RecentEventsCard from "../RecentEvents/Components/recentEventsCard";
-import TopParishNewsAndNoticesCard from "./Cards/topNewsAndNoticesCard";
+// import TopParishNewsAndNoticesCard from "../TopNewsAndNotices/Components/topNewsAndNoticesCard";
 
 const UpdateHomePage = () => {
   // useEffect(() => {
@@ -11,24 +9,48 @@ const UpdateHomePage = () => {
 
   return (
     <Box
-      minH="full"
+      h={"full"}
       bg="primaryBackground"
-      pt={"6"}
-      px={{ base: "4", sm: "6", md: "12", xl: "20" }}
-      pb={"14"}
+      // pt={"6"}
+      // px={{ base: "4", sm: "6", md: "12", xl: "20" }}
+      // pb={"14"}
       // flexGrow="1"
-      // alignSelf={"center"}
-      // alignItems={"center"}
+      alignSelf={"center"}
+      alignItems={"center"}
     >
-      {/* <MasstimesCard /> */}
-      {/* <MassLocationCard/> */}
-      {/* <MassLanguageCard/> */}
-      {/* <RecentEventsCard/> */}
-      <TopParishNewsAndNoticesCard/>
+      <Box
+        minH="full"
+        w={'full'}
+        // bg="accent"
+        // pt={"6"}
+        // px={{ base: "4", sm: "6", md: "12", xl: "20" }}
+        // pb={"14"}
+        // flexGrow="1"
+        // alignSelf={"center"}
+        // justifySelf={'center'}
+        alignContent={"center"}
+        // justifyItems={"center"}
+        justifyContent={"center"}
+      >
+        {/* <MasstimesCard /> */}
+        {/* <MassLocationCard/> */}
+        {/* <MassLanguageCard/> */}
+        {/* <RecentEventsCard/> */}
+        {/* <TopParishNewsAndNoticesCard/> */}
+        <Box>
+          <Heading
+            size={"4xl"}
+            alignSelf={"center"}
+            justifySelf={"center"}
+            width={"fit-content"}
+            color={"primary"}
+          >
+            Welcome To Saint Michael Website Portal
+          </Heading>
+        </Box>
+      </Box>
     </Box>
   );
 };
 
-export default UpdateHomePage
-
-
+export default UpdateHomePage;

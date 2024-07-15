@@ -6,6 +6,7 @@ import LocationsManagement from './Locations/Locations';
 import LanguagesManagement from './Languages/Languages';
 import MassTimesManagement from './MassTimes/MassTimes';
 import RecentEventsManagement from './RecentEvents/RecentEvents';
+import TopNewsAndNoticesManagement from './TopNewsAndNotices/TopNewsAndNotices';
 
 export {
   // AddNewUser,
@@ -15,5 +16,6 @@ export {
   LocationsManagement,
   LanguagesManagement,
   MassTimesManagement,
-  RecentEventsManagement
+  RecentEventsManagement,
+  TopNewsAndNoticesManagement
 }
