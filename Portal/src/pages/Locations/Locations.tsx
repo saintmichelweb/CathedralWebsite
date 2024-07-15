@@ -30,13 +30,11 @@ import {
 import { LocationResponse, MessageResponse } from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
-import {
-  getLocations,
-  updateLocation,
-} from "../../api/location";
+import { getLocations, updateLocation } from "../../api/location";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import AddLocationCard from "./Components/LocationCard";
 import { UpdateLocationForm } from "../../lib/validations/location";
+import ActionButton from "../../components/ui/ActionButton/ActionButton";
 
 const LocationsManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -58,16 +56,16 @@ const LocationsManagement = () => {
   const [numberPages, setNumberPages] = useState<number>(1);
 
   const fetchLocations = async () => {
-    setLoading(true)
+    setLoading(true);
     await getLocations()
       .then((data) => {
         console.log(data.locations);
         setLocationData(data.locations);
         setNumberPages(data.numberOfPages || 1);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         toast({
           title: "Get Locations Message",
           description:
@@ -80,44 +78,6 @@ const LocationsManagement = () => {
   useEffect(() => {
     fetchLocations();
   }, []);
-
-  const ActionButton = (action: string) => {
-    return (
-      <CustomLink
-        to={"#"}
-        colorVariant={
-          action === "edit"
-            ? "info"
-            : action === "delete"
-            ? "danger"
-            : action == "activate"
-            ? "success"
-            : "danger"
-        }
-        w={"8rem"}
-        mx="2"
-      >
-        {action === "edit" ? (
-          <CommonIcons iconName="edit" />
-        ) : action === "delete" ? (
-          <CommonIcons iconName="delete" />
-        ) : action == "activate" ? (
-          <CommonIcons iconName="active" />
-        ) : (
-          <CommonIcons iconName="disable" />
-        )}
-        <Text>
-          {action === "edit"
-            ? "Edit"
-            : action === "delete"
-            ? "Delete"
-            : action == "activate"
-            ? "Activate"
-            : "Deactivate"}
-        </Text>
-      </CustomLink>
-    );
-  };
 
   const handleLocationStatus = async (location: LocationResponse) => {
     const editPayload: UpdateLocationForm = {
@@ -228,36 +188,43 @@ const LocationsManagement = () => {
           //   setIsOpenDeleteModal(true);
           // };
           return (
-            <Menu autoSelect={false}>
-              <MenuButton>
-                <Icon as={MdMoreVert} color={"black"} boxSize={7} />
-              </MenuButton>
-              <MenuList minW="0" w={"8.5rem"}>
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handleActivateOrDeactivate}
-                >
-                  {ActionButton(status ? "deactivate" : "activate")}
-                </MenuItem>
-                {/* <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handledelete}
-                >
-                  {ActionButton("delete")}
-                </MenuItem> */}
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handleEdit}
-                >
-                  {ActionButton("edit")}
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            <Box>
+              {ActionButton("edit", handleEdit)}
+              {ActionButton(
+                status ? "deactivate" : "activate",
+                handleActivateOrDeactivate
+              )}
+            </Box>
+            // <Menu autoSelect={false}>
+            //   <MenuButton>
+            //     <Icon as={MdMoreVert} color={"black"} boxSize={7} />
+            //   </MenuButton>
+            //   <MenuList minW="0" w={"8.5rem"}>
+            //     <MenuItem
+            //       px={0}
+            //       _focus={{ bg: "transparent" }}
+            //       onClick={handleActivateOrDeactivate}
+            //     >
+            //       {ActionButton(status ? "deactivate" : "activate")}
+            //     </MenuItem>
+            //     {/* <Divider />
+            //     <MenuItem
+            //       px={0}
+            //       _focus={{ bg: "transparent" }}
+            //       onClick={handledelete}
+            //     >
+            //       {ActionButton("delete")}
+            //     </MenuItem> */}
+            //     <Divider />
+            //     <MenuItem
+            //       px={0}
+            //       _focus={{ bg: "transparent" }}
+            //       onClick={handleEdit}
+            //     >
+            //       {ActionButton("edit")}
+            //     </MenuItem>
+            //   </MenuList>
+            // </Menu>
           );
         },
         header: "Action",

@@ -12,14 +12,9 @@ export async function getRecentEvents(req: Request, res: Response) {
     // }
 
     try {
-        const recentEvents = await AppDataSource.manager.findOne(RecentEventsEntity, {
+        const recentEvents = await AppDataSource.manager.find(RecentEventsEntity, {
             where: { isActive: true }
         })
-        console.log('homePage', recentEvents)
-        if (isUndefinedOrNull(recentEvents)) {
-            return res.status(404).send()
-        }
-
         res.status(200).send({...recentEvents})
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)

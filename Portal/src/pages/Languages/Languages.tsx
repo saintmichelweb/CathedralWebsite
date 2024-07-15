@@ -34,6 +34,7 @@ import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import { getLanguages, updateLanguage } from "../../api/language";
 import { UpdateLanguageForm } from "../../lib/validations/language";
 import AddLanguageCard from "./Components/languageCard";
+import ActionButton from "../../components/ui/ActionButton/ActionButton";
 
 const LanguagesManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -56,15 +57,15 @@ const LanguagesManagement = () => {
   const [numberPages, setNumberPages] = useState<number>(1);
 
   const fetchLanguages = async () => {
-    setLoading(true)
+    setLoading(true);
     await getLanguages()
       .then((data) => {
         setLanguagesData(data.languages);
         setNumberPages(data.numberOfPages || 1);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         toast({
           title: "Get Languages Message",
           description:
@@ -77,44 +78,6 @@ const LanguagesManagement = () => {
   useEffect(() => {
     fetchLanguages();
   }, []);
-
-  const ActionButton = (action: string) => {
-    return (
-      <CustomLink
-        to={"#"}
-        colorVariant={
-          action === "edit"
-            ? "info"
-            : action === "delete"
-            ? "danger"
-            : action == "activate"
-            ? "success"
-            : "danger"
-        }
-        w={"8rem"}
-        mx="2"
-      >
-        {action === "edit" ? (
-          <CommonIcons iconName="edit" />
-        ) : action === "delete" ? (
-          <CommonIcons iconName="delete" />
-        ) : action == "activate" ? (
-          <CommonIcons iconName="active" />
-        ) : (
-          <CommonIcons iconName="disable" />
-        )}
-        <Text>
-          {action === "edit"
-            ? "Edit"
-            : action === "delete"
-            ? "Delete"
-            : action == "activate"
-            ? "Activate"
-            : "Deactivate"}
-        </Text>
-      </CustomLink>
-    );
-  };
 
   const handleLanguageStatus = async (language: LanguageResponse) => {
     const editPayload: UpdateLanguageForm = {
@@ -225,36 +188,43 @@ const LanguagesManagement = () => {
           //   setIsOpenDeleteModal(true);
           // };
           return (
-            <Menu autoSelect={false}>
-              <MenuButton>
-                <Icon as={MdMoreVert} color={"black"} boxSize={7} />
-              </MenuButton>
-              <MenuList minW="0" w={"8.5rem"}>
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handleActivateOrDeactivate}
-                >
-                  {ActionButton(status ? "deactivate" : "activate")}
-                </MenuItem>
-                {/* <Divider /> */}
-                {/* <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handledelete}
-                >
-                  {ActionButton("delete")}
-                </MenuItem> */}
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handleEdit}
-                >
-                  {ActionButton("edit")}
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            <Box>
+              {ActionButton("edit", handleEdit)}
+              {ActionButton(
+                status ? "deactivate" : "activate",
+                handleActivateOrDeactivate
+              )}
+            </Box>
+            // <Menu autoSelect={false}>
+            //   <MenuButton>
+            //     <Icon as={MdMoreVert} color={"black"} boxSize={7} />
+            //   </MenuButton>
+            //   <MenuList minW="0" w={"8.5rem"}>
+            //     <MenuItem
+            //       px={0}
+            //       _focus={{ bg: "transparent" }}
+            //       onClick={handleActivateOrDeactivate}
+            //     >
+            //       {ActionButton(status ? "deactivate" : "activate")}
+            //     // </MenuItem>
+            //     <Divider />
+            //     <MenuItem
+            //       px={0}
+            //       _focus={{ bg: "transparent" }}
+            //       onClick={handledelete}
+            //     >
+            //       {/* {ActionButton("delete")} */}
+            //     </MenuItem>
+            //     {/* // <Divider />
+            //     // <MenuItem
+            //     //   px={0}
+            //     //   _focus={{ bg: "transparent" }}
+            //     //   onClick={handleEdit}
+            //     // > */}
+            //       {ActionButton("edit")}
+            // //     </MenuItem>
+            // //   </MenuList>
+            // // </Menu>
           );
         },
         header: "Action",

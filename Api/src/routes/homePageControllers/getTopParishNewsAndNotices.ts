@@ -12,14 +12,9 @@ export async function getTopParishNewsAndNotices(req: Request, res: Response) {
     // }
 
     try {
-        const topParishNewsAndNotices = await AppDataSource.manager.findOne(TopNewsAndNoticesEntity, {
+        const topParishNewsAndNotices = await AppDataSource.manager.find(TopNewsAndNoticesEntity, {
             where: { isActive: true }
         })
-        console.log('homePage', topParishNewsAndNotices)
-        if (isUndefinedOrNull(topParishNewsAndNotices)) {
-            return res.status(404).send()
-        }
-
         res.status(200).send({...topParishNewsAndNotices})
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)

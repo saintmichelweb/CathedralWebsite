@@ -12,13 +12,9 @@ export async function getHomePageMessage(req: Request, res: Response) {
     // }
 
     try {
-        const homePageWelcomeMessage = await AppDataSource.manager.findOne(HomePageWelcomeMessageEntity, {
+        const homePageWelcomeMessage = await AppDataSource.manager.find(HomePageWelcomeMessageEntity, {
             where: { isActive: true }
         })
-        console.log('homePage', homePageWelcomeMessage)
-        if (isUndefinedOrNull(homePageWelcomeMessage)) {
-            return res.status(404).send()
-        }
 
         res.status(200).send({...homePageWelcomeMessage})
     } catch (error: any) {
