@@ -1,7 +1,7 @@
 import {
   Box,
 } from "@chakra-ui/react";
-import RecentEventsCard from "./Cards/recentEventsCard";
+// import RecentEventsCard from "../RecentEvents/Components/recentEventsCard";
 import TopParishNewsAndNoticesCard from "./Cards/topNewsAndNoticesCard";
 
 const UpdateHomePage = () => {
@@ -23,7 +23,7 @@ const UpdateHomePage = () => {
       {/* <MasstimesCard /> */}
       {/* <MassLocationCard/> */}
       {/* <MassLanguageCard/> */}
-      <RecentEventsCard/>
+      {/* <RecentEventsCard/> */}
       <TopParishNewsAndNoticesCard/>
     </Box>
   );

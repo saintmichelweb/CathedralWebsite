@@ -15,7 +15,7 @@ export async function getRecentEvents(req: Request, res: Response) {
         const recentEvents = await AppDataSource.manager.find(RecentEventsEntity, {
             where: { isActive: true }
         })
-        res.status(200).send({...recentEvents})
+        res.status(200).send({ data: recentEvents })
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)
         res.status(400).send({ success: false, message: error.message })

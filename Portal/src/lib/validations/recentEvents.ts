@@ -12,7 +12,7 @@ export const topParishNewsAndNoticesSchema = z.object({
     .min(1, { message: "News description is required" }),
 });
 
-export type RecentEventsForm = z.infer<typeof recentEventsSchema>;
+export type AddRecentEventsForm = z.infer<typeof recentEventsSchema>;
 
 export const recentEventsSchema = z.object({
   title: z.string().trim().min(1, { message: "Event title is required" }),
@@ -20,4 +20,16 @@ export const recentEventsSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Event description is required" }),
+});
+
+export type UpdateRecentEventsForm = z.infer<typeof updateRecentEventsSchema>;
+
+export const updateRecentEventsSchema = z.object({
+  title: z.string().trim().min(1, { message: "Event title is required" }),
+  description: z
+    .string()
+    .trim()
+    .min(1, { message: "Event description is required" }),
+  recentEventId: z.number(),
+  isActive: z.boolean()
 });

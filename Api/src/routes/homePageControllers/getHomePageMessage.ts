@@ -16,7 +16,7 @@ export async function getHomePageMessage(req: Request, res: Response) {
             where: { isActive: true }
         })
 
-        res.status(200).send({...homePageWelcomeMessage})
+        res.status(200).send({ data: homePageWelcomeMessage })
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)
         res.status(400).send({ success: false, message: error.message })

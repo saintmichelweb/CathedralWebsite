@@ -5,6 +5,7 @@ import Login from './Login/Login'
 import LocationsManagement from './Locations/Locations';
 import LanguagesManagement from './Languages/Languages';
 import MassTimesManagement from './MassTimes/MassTimes';
+import RecentEventsManagement from './RecentEvents/RecentEvents';
 
 export {
   // AddNewUser,
@@ -13,5 +14,6 @@ export {
   ForgotPassword,
   LocationsManagement,
   LanguagesManagement,
-  MassTimesManagement
+  MassTimesManagement,
+  RecentEventsManagement
 }

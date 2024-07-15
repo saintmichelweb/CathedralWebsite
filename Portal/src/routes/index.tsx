@@ -9,6 +9,7 @@ import {
   LocationsManagement,
   Login,
   MassTimesManagement,
+  RecentEventsManagement,
   // SetPassword,
 } from '../pages'
 import AddNewUser from '../pages/AddNewUser/AddNewUser'
@@ -46,6 +47,11 @@ const Routes = () => {
           path: 'mass-times',
           index: true,
           element: <MassTimesManagement />,
+        },
+        {
+          path: 'recent-events',
+          index: true,
+          element: <RecentEventsManagement />,
         },
       ]
     },

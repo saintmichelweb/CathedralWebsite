@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import {
   Box,
   Divider,
-  Heading,
   HStack,
   Stack,
   useToast,

@@ -138,7 +138,7 @@ const LanguagesManagement = () => {
       }),
       columnHelper.accessor("language", {
         cell: (info) => info.getValue(),
-        header: "location",
+        header: "Language",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
