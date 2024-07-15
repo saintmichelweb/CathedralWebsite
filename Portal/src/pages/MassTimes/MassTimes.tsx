@@ -31,9 +31,10 @@ import { MassTimesResponse, MessageResponse } from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
-import { UpdateMassTimesForm } from '../../lib/validations/massTimes';
+import { UpdateMassTimesForm } from "../../lib/validations/massTimes";
 import { getAllMassTimes, updateMassTime } from "../../api/massTimes";
 import AddMasstimeCard from "./Components/MassTimesCard";
+import ActionButton from "../../components/ui/ActionButton/ActionButton";
 
 const MassTimesManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -55,15 +56,15 @@ const MassTimesManagement = () => {
   const [numberPages, setNumberPages] = useState<number>(1);
 
   const fetchMassTimes = async () => {
-    setLoading(true)
+    setLoading(true);
     await getAllMassTimes()
       .then((data) => {
         setMassTimesData(data.massTimes);
         setNumberPages(data.numberOfPages || 1);
-        setLoading(false)
+        setLoading(false);
       })
       .catch((error) => {
-        setLoading(false)
+        setLoading(false);
         toast({
           title: "Get Mass Times Message",
           description:
@@ -77,44 +78,6 @@ const MassTimesManagement = () => {
     fetchMassTimes();
   }, []);
 
-  const ActionButton = (action: string) => {
-    return (
-      <CustomLink
-        to={"#"}
-        colorVariant={
-          action === "edit"
-            ? "info"
-            : action === "delete"
-            ? "danger"
-            : action == "activate"
-            ? "success"
-            : "danger"
-        }
-        w={"8rem"}
-        mx="2"
-      >
-        {action === "edit" ? (
-          <CommonIcons iconName="edit" />
-        ) : action === "delete" ? (
-          <CommonIcons iconName="delete" />
-        ) : action == "activate" ? (
-          <CommonIcons iconName="active" />
-        ) : (
-          <CommonIcons iconName="disable" />
-        )}
-        <Text>
-          {action === "edit"
-            ? "Edit"
-            : action === "delete"
-            ? "Delete"
-            : action == "activate"
-            ? "Activate"
-            : "Deactivate"}
-        </Text>
-      </CustomLink>
-    );
-  };
-
   const handleMassTimesStatus = async (massTime: MassTimesResponse) => {
     const editPayload: UpdateMassTimesForm = {
       massTimeId: massTime.id,
@@ -122,7 +85,7 @@ const MassTimesManagement = () => {
       language: massTime.language.id,
       isActive: !massTime.isActive,
       day: massTime.day,
-      time: massTime.time
+      time: massTime.time,
     };
     await updateMassTime(editPayload)
       .then((res: MessageResponse) => {
@@ -176,21 +139,21 @@ const MassTimesManagement = () => {
         cell: ({ row }) => row.original.id,
       }),
       columnHelper.accessor("day", {
-          cell: (info) => info.getValue(),
-          header: "Day",
-        }),
-        columnHelper.accessor("time", {
-            cell: (info) => info.getValue(),
-            header: "Time",
-        }),
-        columnHelper.accessor("language", {
-          cell: (info) => info.getValue().language,
-          header: "Language",
-        }),
-        columnHelper.accessor("location", {
-          cell: (info) => info.getValue().location,
-          header: "location",
-        }),
+        cell: (info) => info.getValue(),
+        header: "Day",
+      }),
+      columnHelper.accessor("time", {
+        cell: (info) => info.getValue(),
+        header: "Time",
+      }),
+      columnHelper.accessor("language", {
+        cell: (info) => info.getValue().language,
+        header: "Language",
+      }),
+      columnHelper.accessor("location", {
+        cell: (info) => info.getValue().location,
+        header: "location",
+      }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
           const status_ = info.getValue();
@@ -239,36 +202,43 @@ const MassTimesManagement = () => {
           //   setIsOpenDeleteModal(true);
           // };
           return (
-            <Menu autoSelect={false}>
-              <MenuButton>
-                <Icon as={MdMoreVert} color={"black"} boxSize={7} />
-              </MenuButton>
-              <MenuList minW="0" w={"8.5rem"}>
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handleActivateOrDeactivate}
-                >
-                  {ActionButton(status ? "deactivate" : "activate")}
-                </MenuItem>
-                {/* <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handledelete}
-                >
-                  {ActionButton("delete")}
-                </MenuItem> */}
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  onClick={handleEdit}
-                >
-                  {ActionButton("edit")}
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            <Box>
+              {ActionButton("edit", handleEdit)}
+              {ActionButton(
+                status ? "deactivate" : "activate",
+                handleActivateOrDeactivate
+              )}
+            </Box>
+            // <Menu autoSelect={false}>
+            //   <MenuButton>
+            //     <Icon as={MdMoreVert} color={"black"} boxSize={7} />
+            //   </MenuButton>
+            //   <MenuList minW="0" w={"8.5rem"}>
+            //     <MenuItem
+            //       px={0}
+            //       _focus={{ bg: "transparent" }}
+            //       onClick={handleActivateOrDeactivate}
+            //     >
+            //       {ActionButton(status ? "deactivate" : "activate")}
+            //     </MenuItem>
+            //     {/* <Divider />
+            //     <MenuItem
+            //       px={0}
+            //       _focus={{ bg: "transparent" }}
+            //       onClick={handledelete}
+            //     >
+            //       {ActionButton("delete")}
+            //     </MenuItem> */}
+            //     <Divider />
+            //     <MenuItem
+            //       px={0}
+            //       _focus={{ bg: "transparent" }}
+            //       onClick={handleEdit}
+            //     >
+            //       {ActionButton("edit")}
+            //     </MenuItem>
+            //   </MenuList>
+            // </Menu>
           );
         },
         header: "Action",
@@ -325,7 +295,7 @@ const MassTimesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              numberPages={numberPages}
+              totalPages={numberPages}
               // onFetch={onPageChange}
               useCustomPagination
             />

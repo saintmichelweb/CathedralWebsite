@@ -14,6 +14,24 @@ export interface LanguageResponse {
     updated_at: string
 }
 
+export interface TopNewsAndNoticesResponse {
+    id: number
+    title: string
+    description: string
+    isActive: boolean
+    created_at: string
+    updated_at: string
+}
+
+export interface RecentEventResponse {
+    id: number
+    title: string
+    description: string
+    isActive: boolean
+    created_at: string
+    updated_at: string
+}
+
 export interface MassTimesResponse {
     id: number
     day: string

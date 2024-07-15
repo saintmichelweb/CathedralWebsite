@@ -15,7 +15,7 @@ import {
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput } from "../../../components/form";
 import { addNewLocation, updateLocation } from "../../../api/location";
-import { LocationResponse } from "../../../types/apiResponses";
+import { LocationResponse, MessageResponse } from "../../../types/apiResponses";
 import { UpdateLocationForm } from '../../../lib/validations/location';
 
 interface AddLocationProps {
@@ -55,7 +55,7 @@ const AddLocationCard = (props: AddLocationProps) => {
     if (payload) {
       if (!locationToEdit) {
         await addNewLocation(payload)
-          .then((res: any) => {
+          .then((res: MessageResponse) => {
             toast({
               title: "Add Location message!",
               description: res?.message || "Location saved successfully",
@@ -64,7 +64,7 @@ const AddLocationCard = (props: AddLocationProps) => {
             props.fetchLocations()
             props.onClose()
           })
-          .catch((error: any) => {
+          .catch((error) => {
             toast({
               title: "Add Location message",
               description:
@@ -79,7 +79,7 @@ const AddLocationCard = (props: AddLocationProps) => {
           locationId: locationToEdit.id,
           isActive: locationToEdit.isActive
         }
-        await updateLocation(editPayload).then((res: any) => {
+        await updateLocation(editPayload).then((res: MessageResponse) => {
           toast({
             title: "Edit Location message!",
             description: res?.message || "Location edited successfully",
@@ -88,7 +88,7 @@ const AddLocationCard = (props: AddLocationProps) => {
           props.fetchLocations()
           props.onClose()
         })
-        .catch((error: any) => {
+        .catch((error) => {
           toast({
             title: "Edit Location message",
             description:

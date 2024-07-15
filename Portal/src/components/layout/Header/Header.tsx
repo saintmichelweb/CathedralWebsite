@@ -17,6 +17,7 @@ import {
 import { AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
 import { FiMenu } from 'react-icons/fi'
 import { TbLogout, TbPasswordUser } from 'react-icons/tb'
+import diosceseKigaliLogo from '../../../assets/LogoDiosceseKigali.png'
 
 import { useDrawerDisclosure } from '../../../contexts/DrawerDisclosureContext'
 import { useUserContext } from '../../../contexts/UserContext'
@@ -54,7 +55,7 @@ const Header = () => {
         onClick={onOpen}
       />
 
-      <Image h='9' alt='Logo' />
+      <Image h='9' alt='Logo' src={diosceseKigaliLogo}/>
       <Drawer />
       <HStack spacing='4'>
         <Popover offset={[-125, 0]}>

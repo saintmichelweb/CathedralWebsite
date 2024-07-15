@@ -21,79 +21,80 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { LocationResponse, MessageResponse } from "../../types/apiResponses";
+import { RecentEventResponse, MessageResponse } from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
-import { getLocations, updateLocation } from "../../api/location";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
-import AddLocationCard from "./Components/LocationCard";
-import { UpdateLocationForm } from "../../lib/validations/location";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
+import { getAllRecentEvents, updateRecentEvent } from "../../api/recentEvents";
+import { UpdateRecentEventsForm } from "../../lib/validations/recentEvents";
+import AddRecentEventsCard from "./Components/RecentEventsCard";
 
-const LocationsManagement = () => {
+const RecentEventsManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
   });
 
   const toast = useToast();
-  const [locationData, setLocationData] = useState<LocationResponse[]>([]);
+  const [recentEventsData, setRecentEventsData] = useState<RecentEventResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
-  const [openNewLocationModel, setOpenNewLocationModel] = useState(false);
+  const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
   // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [selectedLocation, setSelectedLocation] =
-    useState<LocationResponse | null>(null);
+  const [selectedRecentEvent, setSelectedRecentEvent] =
+    useState<RecentEventResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberPages, setNumberPages] = useState<number>(1);
 
-  const fetchLocations = async () => {
+  const fetchRecentEvents = async () => {
     setLoading(true);
-    await getLocations()
+    await getAllRecentEvents()
       .then((data) => {
-        setLocationData(data.locations);
+        setRecentEventsData(data.recentEvents);
         setNumberPages(data.numberOfPages || 1);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         toast({
-          title: "Get Locations Message",
+          title: "Get Recent Events Message",
           description:
-            error.response.data?.message || "Error geting locations time!",
+            error.response.data?.message || "Error geting recent events time!",
           status: "error",
         });
       });
   };
 
   useEffect(() => {
-    fetchLocations();
+    fetchRecentEvents();
   }, []);
 
-  const handleLocationStatus = async (location: LocationResponse) => {
-    const editPayload: UpdateLocationForm = {
-      location: location.location,
-      locationId: location.id,
-      isActive: !location.isActive,
+  const handleLocationStatus = async (recentEvent: RecentEventResponse) => {
+    const editPayload: UpdateRecentEventsForm = {
+      title: recentEvent.title,
+      description: recentEvent.description,
+      isActive: !recentEvent.isActive,
+      recentEventId: recentEvent.id
     };
-    await updateLocation(editPayload)
+    await updateRecentEvent(editPayload)
       .then((res: MessageResponse) => {
         toast({
-          title: "Change Location Status Message",
-          description: res?.message || "Location status changed successfully",
+          title: "Change Recent Event Status Message",
+          description: res?.message || "Recent event status changed successfully",
           status: "success",
         });
         setIsOpenActivateOrDeactivateModal(false);
-        fetchLocations();
-        setSelectedLocation(null);
+        fetchRecentEvents();
+        setSelectedRecentEvent(null);
       })
       .catch((error) => {
         toast({
-          title: "Change Location Status Message",
+          title: "Change Recent Event Status Message",
           description:
-            error.response.data?.message || "Error editing location status!",
+            error.response.data?.message || "Error editing recent event status!",
           status: "error",
         });
       });
@@ -108,8 +109,8 @@ const LocationsManagement = () => {
   //         status: "success",
   //       });
   //       setIsOpenDeleteModal(false);
-  //       fetchLocations();
-  //       setSelectedLocation(null);
+  //       fetchRecentEvents();
+  //       setSelectedRecentEvent(null);
   //     })
   //     .catch((error) => {
   //       toast({
@@ -122,16 +123,20 @@ const LocationsManagement = () => {
   // };
 
   const columns = useMemo(() => {
-    const columnHelper = createColumnHelper<LocationResponse>();
+    const columnHelper = createColumnHelper<RecentEventResponse>();
     return [
       columnHelper.display({
         id: "identifier",
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("location", {
+      columnHelper.accessor("title", {
         cell: (info) => info.getValue(),
-        header: "location",
+        header: "Title",
+      }),
+      columnHelper.accessor("description", {
+        cell: (info) => info.getValue(),
+        header: "Description",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
@@ -167,17 +172,17 @@ const LocationsManagement = () => {
           const status = info.row.original.isActive;
 
           const handleActivateOrDeactivate = () => {
-            setSelectedLocation(info.row.original);
+            setSelectedRecentEvent(info.row.original);
             setIsOpenActivateOrDeactivateModal(true);
           };
 
           const handleEdit = () => {
-            setSelectedLocation(info.row.original);
-            setOpenNewLocationModel(true);
+            setSelectedRecentEvent(info.row.original);
+            setOpenNewRecentEventModel(true);
           };
 
           // const handledelete = () => {
-          //   setSelectedLocation(info.row.original);
+          //   setSelectedRecentEvent(info.row.original);
           //   setIsOpenDeleteModal(true);
           // };
           return (
@@ -226,7 +231,7 @@ const LocationsManagement = () => {
   }, []);
 
   const table = useTable({
-    data: locationData || [],
+    data: recentEventsData || [],
     columns,
     pagination,
     setPagination,
@@ -236,7 +241,7 @@ const LocationsManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={4} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Locations Management</Heading>
+          <Heading size="md">Recent Events Management</Heading>
         </Stack>
         {/* <CustomLink
           to="/portal-user-management/role-management/create-role"
@@ -248,9 +253,9 @@ const LocationsManagement = () => {
           type="button"
           isLoading={false}
           minW={"8rem"}
-          onClick={() => setOpenNewLocationModel(true)}
+          onClick={() => setOpenNewRecentEventModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Recent Event
         </CustomButton>
       </Flex>
       <Box
@@ -280,22 +285,22 @@ const LocationsManagement = () => {
             />
           )}
         </>
-        {!loading && locationData.length === 0 && (
-          <EmptyState text="There are no locations to present yet." mt="10" />
+        {!loading && recentEventsData.length === 0 && (
+          <EmptyState text="There are no events to present yet." mt="10" />
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedLocation ? "Update" : "Add"} Location`}
-        isOpen={openNewLocationModel}
-        onClose={() => setOpenNewLocationModel(false)}
+        headerTitle={`${selectedRecentEvent ? "Update" : "Add"} recent event`}
+        isOpen={openNewRecentEventModel}
+        onClose={() => setOpenNewRecentEventModel(false)}
         child={
-          <AddLocationCard
+          <AddRecentEventsCard
             onClose={() => {
-              setSelectedLocation(null);
-              setOpenNewLocationModel(false);
+              setSelectedRecentEvent(null);
+              setOpenNewRecentEventModel(false);
             }}
-            fetchLocations={fetchLocations}
-            location={selectedLocation}
+            fetchRecentEvents={fetchRecentEvents}
+            recentEvent={selectedRecentEvent}
           />
         }
         showFooter={false}
@@ -306,27 +311,27 @@ const LocationsManagement = () => {
         alertText={`Are you sure you want to delete this location?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
-          setSelectedLocation(null);
+          setSelectedRecentEvent(null);
           setIsOpenDeleteModal(false);
         }}
         onConfirm={() => {
-          if (selectedLocation) {
-            handleLocationDelete(selectedLocation?.id);
+          if (selectedRecentEvent) {
+            handleLocationDelete(selectedRecentEvent?.id);
           }
         }}
       /> */}
       <AlertDialog
         alertText={`Are you sure you want to ${
-          selectedLocation?.isActive ? "deactivate" : "activate"
-        } this location?`}
+          selectedRecentEvent?.isActive ? "deactivate" : "activate"
+        } this recent event?`}
         isOpen={isOpenActivateOrDeactivateModal}
         onClose={() => {
-          setSelectedLocation(null);
+          setSelectedRecentEvent(null);
           setIsOpenActivateOrDeactivateModal(false);
         }}
         onConfirm={() => {
-          if (selectedLocation) {
-            handleLocationStatus(selectedLocation);
+          if (selectedRecentEvent) {
+            handleLocationStatus(selectedRecentEvent);
           }
         }}
       />
@@ -334,4 +339,4 @@ const LocationsManagement = () => {
   );
 };
 
-export default LocationsManagement;
+export default RecentEventsManagement;

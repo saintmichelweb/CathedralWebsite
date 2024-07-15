@@ -1,4 +1,4 @@
-import type { PortalUserStatus } from '../../../shared-lib/src'
+import { PortalUserStatus } from "../../../shared-lib/src"
 
 export interface User {
   id: number

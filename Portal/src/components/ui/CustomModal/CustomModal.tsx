@@ -59,14 +59,14 @@ const CustomModal = ({
         mt='14'
         mb={{ base: '14', lg: '0' }}
       >
-        <ModalHeader py='3' borderBottom='1px' borderColor='gray.100'>
+        <ModalHeader py='5' borderBottom='1px' borderColor='gray.100'>
           <Heading as='h3' size='md'>
             {headerTitle}
           </Heading>
         </ModalHeader>
         <ModalCloseButton top='2.5' right='4' />
 
-        <ModalBody py='5' px={{ base: '4', md: '6' }}>
+        <ModalBody py='5' px={{ base: '4', md: '6' }} bg={'primaryBackground'}>
           {isLoading && <SectionLoader />}
 
           {child}

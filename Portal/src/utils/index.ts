@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import moment from "moment";
 
-
-import type { Decoded } from '../types/auth'
-
 export function scrollToTop() {
   document.getElementById('main')?.scrollTo({ top: 0, behavior: 'smooth' })
 }
@@ -38,12 +35,6 @@ export function downloadBlobAsCsv(blobData: Blob, name: string) {
   document.body.removeChild(link)
   URL.revokeObjectURL(url)
 }
-
-// export function isTokenExpired(token: string) {
-//   const decoded: Decoded = jwtDecode(token)
-//   const expirationTimestamp = decoded.exp * 1000
-//   return expirationTimestamp <= Date.now()
-// }
 
 export function formatTheDate(date: string | Date | number, format?: string){
   const formatDate = format ? format : "DD/MM/YYYY HH:mm:ss";

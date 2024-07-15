@@ -3,9 +3,7 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
-import { LocationEntity } from "../../entity/LocationEntity";
 import { AuthRequest } from "../../types/express";
-import { LanguageEntity } from "../../entity/languageEntity";
 import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
 
 const recentEventSchema = z.object({

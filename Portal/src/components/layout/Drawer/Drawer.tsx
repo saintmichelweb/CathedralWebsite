@@ -22,7 +22,7 @@ const Drawer = () => {
     <ChakraDrawer isOpen={isOpen} placement='left' onClose={onClose}>
       <DrawerOverlay bg='hsl(0, 0%, 100%, 0.6)' backdropFilter='blur(4px)' />
       <DrawerContent w='72 !important'>
-        <Box bg='white' h='12' shadow='sm' zIndex='sticky'>
+        <Box bg='' h='12' shadow='sm' zIndex='sticky'>
           <DrawerCloseButton />
         </Box>
 

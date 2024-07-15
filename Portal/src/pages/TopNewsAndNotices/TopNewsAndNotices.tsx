@@ -21,79 +21,80 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { LocationResponse, MessageResponse } from "../../types/apiResponses";
+import { TopNewsAndNoticesResponse, MessageResponse } from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
-import { getLocations, updateLocation } from "../../api/location";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
-import AddLocationCard from "./Components/LocationCard";
-import { UpdateLocationForm } from "../../lib/validations/location";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
+import AddTopParishNewsOrNoticeCard from "./Components/TopNewsAndNoticesCard";
+import { getAllTopNewsAndNotices, updateTopNewsAndNotices } from "../../api/topNewsAndNotices";
+import { UpdateTopNewsAndNoticesForm } from "../../lib/validations/topParishNewsAndNotices";
 
-const LocationsManagement = () => {
+const TopNewsAndNoticesManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
   });
 
   const toast = useToast();
-  const [locationData, setLocationData] = useState<LocationResponse[]>([]);
+  const [topNewsAndNoticesData, setTopNewsAndNoticesData] = useState<TopNewsAndNoticesResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
-  const [openNewLocationModel, setOpenNewLocationModel] = useState(false);
+  const [openNewTopNewsAndNoticeModel, setOpenNewTopNewsAndNoticeModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
   // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [selectedLocation, setSelectedLocation] =
-    useState<LocationResponse | null>(null);
+  const [selectedTopNewsAndNotice, setSelectedTopNewsAndNotice] =
+    useState<TopNewsAndNoticesResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberPages, setNumberPages] = useState<number>(1);
 
-  const fetchLocations = async () => {
+  const fetchTopNewsAndNotices = async () => {
     setLoading(true);
-    await getLocations()
+    await getAllTopNewsAndNotices()
       .then((data) => {
-        setLocationData(data.locations);
+        setTopNewsAndNoticesData(data.topParishNewsAndNotices);
         setNumberPages(data.numberOfPages || 1);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         toast({
-          title: "Get Locations Message",
+          title: "Get Top Parish News And Notices Message",
           description:
-            error.response.data?.message || "Error geting locations time!",
+            error.response.data?.message || "Error geting top parish news and notices!",
           status: "error",
         });
       });
   };
 
   useEffect(() => {
-    fetchLocations();
+    fetchTopNewsAndNotices();
   }, []);
 
-  const handleLocationStatus = async (location: LocationResponse) => {
-    const editPayload: UpdateLocationForm = {
-      location: location.location,
-      locationId: location.id,
-      isActive: !location.isActive,
+  const handleTopParishNewsAndNoticesStatus = async (topParishNewsAndEvent: TopNewsAndNoticesResponse) => {
+    const editPayload: UpdateTopNewsAndNoticesForm = {
+      title: topParishNewsAndEvent.title,
+      description: topParishNewsAndEvent.description,
+      isActive: !topParishNewsAndEvent.isActive,
+      topNewsOrNoticeId: topParishNewsAndEvent.id
     };
-    await updateLocation(editPayload)
+    await updateTopNewsAndNotices(editPayload)
       .then((res: MessageResponse) => {
         toast({
-          title: "Change Location Status Message",
-          description: res?.message || "Location status changed successfully",
+          title: "Change Top Parish News / Notices Status Message",
+          description: res?.message || "Top parish news / notice status changed successfully",
           status: "success",
         });
         setIsOpenActivateOrDeactivateModal(false);
-        fetchLocations();
-        setSelectedLocation(null);
+        fetchTopNewsAndNotices();
+        setSelectedTopNewsAndNotice(null);
       })
       .catch((error) => {
         toast({
-          title: "Change Location Status Message",
+          title: "Change Top Parish News / Notices Status Message",
           description:
-            error.response.data?.message || "Error editing location status!",
+            error.response.data?.message || "Error editing top parish news / notice status!",
           status: "error",
         });
       });
@@ -108,8 +109,8 @@ const LocationsManagement = () => {
   //         status: "success",
   //       });
   //       setIsOpenDeleteModal(false);
-  //       fetchLocations();
-  //       setSelectedLocation(null);
+  //       fetchTopNewsAndNotices();
+  //       setSelectedTopNewsAndNotice(null);
   //     })
   //     .catch((error) => {
   //       toast({
@@ -122,16 +123,20 @@ const LocationsManagement = () => {
   // };
 
   const columns = useMemo(() => {
-    const columnHelper = createColumnHelper<LocationResponse>();
+    const columnHelper = createColumnHelper<TopNewsAndNoticesResponse>();
     return [
       columnHelper.display({
         id: "identifier",
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("location", {
+      columnHelper.accessor("title", {
         cell: (info) => info.getValue(),
-        header: "location",
+        header: "Title",
+      }),
+      columnHelper.accessor("description", {
+        cell: (info) => info.getValue(),
+        header: "Description",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
@@ -167,17 +172,17 @@ const LocationsManagement = () => {
           const status = info.row.original.isActive;
 
           const handleActivateOrDeactivate = () => {
-            setSelectedLocation(info.row.original);
+            setSelectedTopNewsAndNotice(info.row.original);
             setIsOpenActivateOrDeactivateModal(true);
           };
 
           const handleEdit = () => {
-            setSelectedLocation(info.row.original);
-            setOpenNewLocationModel(true);
+            setSelectedTopNewsAndNotice(info.row.original);
+            setOpenNewTopNewsAndNoticeModel(true);
           };
 
           // const handledelete = () => {
-          //   setSelectedLocation(info.row.original);
+          //   setSelectedTopNewsAndNotice(info.row.original);
           //   setIsOpenDeleteModal(true);
           // };
           return (
@@ -226,7 +231,7 @@ const LocationsManagement = () => {
   }, []);
 
   const table = useTable({
-    data: locationData || [],
+    data: topNewsAndNoticesData || [],
     columns,
     pagination,
     setPagination,
@@ -236,7 +241,7 @@ const LocationsManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={4} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Locations Management</Heading>
+          <Heading size="md">Top Parish News / Notices Management</Heading>
         </Stack>
         {/* <CustomLink
           to="/portal-user-management/role-management/create-role"
@@ -248,9 +253,9 @@ const LocationsManagement = () => {
           type="button"
           isLoading={false}
           minW={"8rem"}
-          onClick={() => setOpenNewLocationModel(true)}
+          onClick={() => setOpenNewTopNewsAndNoticeModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New News/Notice
         </CustomButton>
       </Flex>
       <Box
@@ -280,22 +285,22 @@ const LocationsManagement = () => {
             />
           )}
         </>
-        {!loading && locationData.length === 0 && (
-          <EmptyState text="There are no locations to present yet." mt="10" />
+        {!loading && topNewsAndNoticesData.length === 0 && (
+          <EmptyState text="There are no events to present yet." mt="10" />
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedLocation ? "Update" : "Add"} Location`}
-        isOpen={openNewLocationModel}
-        onClose={() => setOpenNewLocationModel(false)}
+        headerTitle={`${selectedTopNewsAndNotice ? "Update" : "Add"} news/notice`}
+        isOpen={openNewTopNewsAndNoticeModel}
+        onClose={() => setOpenNewTopNewsAndNoticeModel(false)}
         child={
-          <AddLocationCard
+          <AddTopParishNewsOrNoticeCard
             onClose={() => {
-              setSelectedLocation(null);
-              setOpenNewLocationModel(false);
+              setSelectedTopNewsAndNotice(null);
+              setOpenNewTopNewsAndNoticeModel(false);
             }}
-            fetchLocations={fetchLocations}
-            location={selectedLocation}
+            fetchTopNewsAndNotices={fetchTopNewsAndNotices}
+            topParishNewsOrNotice={selectedTopNewsAndNotice}
           />
         }
         showFooter={false}
@@ -306,27 +311,27 @@ const LocationsManagement = () => {
         alertText={`Are you sure you want to delete this location?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
-          setSelectedLocation(null);
+          setSelectedTopNewsAndNotice(null);
           setIsOpenDeleteModal(false);
         }}
         onConfirm={() => {
-          if (selectedLocation) {
-            handleLocationDelete(selectedLocation?.id);
+          if (selectedTopNewsAndNotice) {
+            handleLocationDelete(selectedTopNewsAndNotice?.id);
           }
         }}
       /> */}
       <AlertDialog
         alertText={`Are you sure you want to ${
-          selectedLocation?.isActive ? "deactivate" : "activate"
-        } this location?`}
+          selectedTopNewsAndNotice?.isActive ? "deactivate" : "activate"
+        } this news/notice?`}
         isOpen={isOpenActivateOrDeactivateModal}
         onClose={() => {
-          setSelectedLocation(null);
+          setSelectedTopNewsAndNotice(null);
           setIsOpenActivateOrDeactivateModal(false);
         }}
         onConfirm={() => {
-          if (selectedLocation) {
-            handleLocationStatus(selectedLocation);
+          if (selectedTopNewsAndNotice) {
+            handleTopParishNewsAndNoticesStatus(selectedTopNewsAndNotice);
           }
         }}
       />
@@ -334,4 +339,4 @@ const LocationsManagement = () => {
   );
 };
 
-export default LocationsManagement;
+export default TopNewsAndNoticesManagement;

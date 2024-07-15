@@ -534,6 +534,35 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
+  /recent-events/all:
+    get:
+      tags:
+        - Recent Events
+      security:
+        - Authorization: []
+      parameters:
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          required: false
+          description: Activity status of recent event
+      summary: get all Mass recent events
+      responses:
+        '200':
+          description: Get Recent Events
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
   /recent-events:
     post:
       tags:
@@ -587,6 +616,72 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
+  /recent-events/{id}:
+    put:
+      tags:
+        - Recent Events
+      security:
+        - Authorization: []
+      summary: Update a recent event
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Recent Event ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Recent event
+                  description: Recent event title
+                description:
+                  type: string
+                  example: description
+                  description: Recent event description
+                isActive:
+                  type: boolean
+                  example: 'false'
+                  description: Activation state of the recent event
+      responses:
+        '200':
+          description: Recent Event saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Recent Event updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Recent Event not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
   /roles/delete/{id}:
     get:
       tags:
@@ -881,6 +976,35 @@ paths:
                     type: string
                     description: The response message
                     example: OK
+  /top-news-and-notices/all:
+    get:
+      tags:
+        - Top News And Notices
+      security:
+        - Authorization: []
+      parameters:
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          required: false
+          description: Activity status of top news and notices
+      summary: get all top news and notices
+      responses:
+        '200':
+          description: Get Recent Events
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
   /top-news-and-notices:
     post:
       tags:
@@ -934,6 +1058,72 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
+  /top-news-and-notices/{id}:
+    put:
+      tags:
+        - Top News And Notices
+      security:
+        - Authorization: []
+      summary: Update a Top News And Notices
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Top News And Notices ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Top News And Notices
+                  description: Top News And Notices title
+                description:
+                  type: string
+                  example: description
+                  description: Top News And Notices description
+                isActive:
+                  type: boolean
+                  example: 'false'
+                  description: Activation state of the top news and notices
+      responses:
+        '200':
+          description: Top News And Notices saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Top News And Notices updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Top News And Notices not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
   /user/profile:
     get:
       tags:

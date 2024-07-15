@@ -2,7 +2,9 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaHouse } from 'react-icons/fa6'
 import { TbUserSearch } from 'react-icons/tb'
+import { FaRegNewspaper } from "react-icons/fa";
 import { IoLocationOutline } from "react-icons/io5";
+import { MdEventNote } from "react-icons/md";
 import { FaLanguage } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import Cookies from 'universal-cookie'
@@ -41,25 +43,39 @@ export const NAV_ITEMS = [
     // permissions: ['View Transactions'],
   },
   {
-    name: 'Portal User Management',
-    label: 'Open portal user management nav menu',
-    icon: TbUserSearch,
-    // permissions: ['View Portal Users'],
-    subNavItems: [
-      {
-        name: 'User Management',
-        shortName: 'User',
-        to: '/portal-user-management/user-management',
-        // permissions: ['View Portal Users'],
-      },
-      {
-        name: 'Role Management',
-        shortName: 'Role',
-        to: '/portal-user-management/role-management',
-        // permissions: ['View Roles'],
-      },
-    ],
+    name: 'Recent Events',
+    to: '/recent-events',
+    label: 'Go to recent events',
+    icon: MdEventNote,
+    // permissions: ['View Transactions'],
   },
+  {
+    name: 'Top News And Notices',
+    to: '/top-news-and-notices',
+    label: 'Go to top news and notices',
+    icon: FaRegNewspaper,
+    // permissions: ['View Transactions'],
+  },
+  // {
+  //   name: 'Portal User Management',
+  //   label: 'Open portal user management nav menu',
+  //   icon: TbUserSearch,
+  //   // permissions: ['View Portal Users'],
+  //   subNavItems: [
+  //     {
+  //       name: 'User Management',
+  //       shortName: 'User',
+  //       to: '/portal-user-management/user-management',
+  //       // permissions: ['View Portal Users'],
+  //     },
+  //     {
+  //       name: 'Role Management',
+  //       shortName: 'Role',
+  //       to: '/portal-user-management/role-management',
+  //       // permissions: ['View Roles'],
+  //     },
+  //   ],
+  // },
 ]
 
 interface NavItemsContextProps {
