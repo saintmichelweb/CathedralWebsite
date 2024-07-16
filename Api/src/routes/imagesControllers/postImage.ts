@@ -23,8 +23,9 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
     const newImage = new ImageEntity();
     newImage.imageUrl = `http://localhost:${PORT}/api/image/${uploadedFile.filename}`
     newImage.isActive = true
-    await imageRepository.save(newImage)
-    return res.status(201).send({ message: 'Image uploaded successfully' });
+    newImage.imagePath = uploadedFile.path
+    const savedImage = await imageRepository.save(newImage)
+    return res.status(201).send({ message: 'Image uploaded successfully',  image: savedImage});
   } catch (error) {
     logger.error("Getting location failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

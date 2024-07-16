@@ -4,7 +4,6 @@ import {
     ManyToOne,
     OneToMany
   } from 'typeorm'
-import { MassTimesEntity } from './MasstimesEntity'
 import { RecentEventsEntity } from './RecentEventsEntity'
   
   @Entity('images')
@@ -18,6 +17,13 @@ import { RecentEventsEntity } from './RecentEventsEntity'
       unique: true
     })
     imageUrl!: string
+
+    @Column({
+      nullable: false,
+      length: 255,
+      unique: true
+    })
+    imagePath!: string
   
     @Column({
       nullable: false,
@@ -27,12 +33,9 @@ import { RecentEventsEntity } from './RecentEventsEntity'
     
     @CreateDateColumn()
     created_at!: Date
-    
-    @CreateDateColumn()
-    updated_at!: Date
 
-    @OneToMany(() => RecentEventsEntity, recentEvents => recentEvents.backgroungImageUrl)
-    locationRecentEventss!: RecentEventsEntity[]
+    @OneToMany(() => RecentEventsEntity, recentEvents => recentEvents.backgroundImage)
+    recentEvents!: RecentEventsEntity[]
   
   }
   

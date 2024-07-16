@@ -5,6 +5,7 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { AuthRequest } from "../../types/express";
 import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
+import { ImageEntity } from "../../entity/ImagesEntity";
 
 const recentEventSchema = z.object({
   title: z
@@ -15,6 +16,9 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
+  backgroungImageId: z
+    .number()
+    .nullable()
 });
 
 /**
@@ -83,18 +87,27 @@ export async function postRecentEvent(req: AuthRequest, res: Response) {
   }
 
   const parsedBody = recentEventSchema.safeParse(req.body)
-    if (!parsedBody.success) {
-      logger.error("Validation error: %o", parsedBody.error.issues);
-      logger.error("Validation error: %o", req.body);
-      return res.status(422).send({ message: "Validation error" });
-    }
+  if (!parsedBody.success) {
+    logger.error("Validation error: %o", parsedBody.error.issues);
+    logger.error("Validation error: %o", req.body);
+    return res.status(422).send({ message: "Validation error" });
+  }
+  
 
   const newRecentEventRepository = AppDataSource.getRepository(RecentEventsEntity)
+
   try {
     const newRecentEvent = new RecentEventsEntity();
     newRecentEvent.title = parsedBody.data.title
     newRecentEvent.description = parsedBody.data.description
     newRecentEvent.isActive = true
+    if (parsedBody.data.backgroungImageId) {
+      const imageRepository = AppDataSource.getRepository(ImageEntity);
+      const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });
+      if (savedImage){
+        newRecentEvent.backgroundImage = savedImage
+      } 
+    }
     await newRecentEventRepository.save(newRecentEvent)
     return res.status(201).send({ message: "Recent Event created successfully" });
   } catch (error: any) {
