@@ -25,6 +25,7 @@ import {
   MessageResponse,
   RecentEventResponse,
 } from "../../../types/apiResponses";
+import ImageUploader from "./ImageUpload";
 
 interface AddRecentEventProps {
   onClose: () => void;
@@ -133,6 +134,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
+        <ImageUploader/>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
