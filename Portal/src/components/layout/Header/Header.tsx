@@ -61,19 +61,19 @@ const Header = () => {
         <Popover offset={[-125, 0]}>
           <PopoverTrigger>
             <Button variant='unstyled'>
-              <Avatar size='sm' />
+              <Avatar size='sm' bg={'primary'}/>
             </Button>
           </PopoverTrigger>
 
           <PopoverContent shadow='lg' w='72'>
-            <PopoverHeader fontWeight='medium' borderColor='gray.100'>
+            <PopoverHeader fontWeight='medium' borderColor='gray.100' color={'primary'}>
               Profile
             </PopoverHeader>
 
             <PopoverBody display='flex' flexDir='column'>
               <HStack spacing='2' p='1.5'>
                 <Box w='6' h='6' display='flex' justifyItems='center' alignItems='center'>
-                  <Icon as={AiOutlineUser} w='6' />
+                  <Icon color={'primary'} as={AiOutlineUser} w='6' />
                 </Box>
                 <Text fontSize='sm' wordBreak='break-all'>
                   {loggedUser?.name}
@@ -82,7 +82,7 @@ const Header = () => {
 
               <HStack spacing='2' p='1.5'>
                 <Box w='6' h='6' display='flex' justifyItems='center' alignItems='center'>
-                  <Icon as={AiOutlineMail} w='6' />
+                  <Icon color={'primary'} as={AiOutlineMail} w='6' />
                 </Box>
                 <Text fontSize='sm' wordBreak='break-all'>
                   {loggedUser?.email}
@@ -105,7 +105,7 @@ const Header = () => {
                     justifyItems='center'
                     alignItems='center'
                   >
-                    <Icon as={TbPasswordUser} w='6' />
+                    <Icon color={'primary'} as={TbPasswordUser} w='6' />
                   </Box>
                   <Box as='span' fontSize='sm' fontWeight='normal'>
                     Change password
@@ -130,7 +130,7 @@ const Header = () => {
                     justifyItems='center'
                     alignItems='center'
                   >
-                    <Icon as={TbLogout} w='6' />
+                    <Icon color={'primary'} as={TbLogout} w='6' />
                   </Box>
                   <Box as='span' fontSize='sm' fontWeight='normal'>
                     Logout

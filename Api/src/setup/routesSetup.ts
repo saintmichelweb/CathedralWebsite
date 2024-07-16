@@ -5,6 +5,7 @@ import language_routes from '../routes/languageRoutes'
 import recent_events_routes from '../routes/recentEventsRoutes'
 import top_parish_news_and_notices_routes from '../routes/topNewsAndNoticesRoutes'
 import mass_times_routes from '../routes/massTimesRoutes'
+import image_routes from '../routes/imageRoutes'
 
 
 export default function setupRoutes (app: Application): void {
@@ -14,6 +15,7 @@ export default function setupRoutes (app: Application): void {
   app.use('/api', recent_events_routes)
   app.use('/api', top_parish_news_and_notices_routes)
   app.use('/api', mass_times_routes)
+  app.use('/api', image_routes)
 
   // Catch-all route to handle 404s
   app.use('*', (req, res) => {

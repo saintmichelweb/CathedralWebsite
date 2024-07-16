@@ -20,15 +20,13 @@ export class RecentEventsEntity {
   })
   description!: string
 
-  // @Column({
-  //   nullable: true,
-  //   length: 255
-  // })
-  // backgroungImageUrl!: string
+  @Column({
+    nullable: true,
+  })
+  backgroungImageUrl!: number
 
   @Column({
     nullable: false,
-    // length: 255
     default: false,
   })
   isActive!: boolean;
