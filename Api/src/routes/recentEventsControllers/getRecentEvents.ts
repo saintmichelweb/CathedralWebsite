@@ -56,7 +56,6 @@ export async function getAllRecentEvents(req: Request, res: Response) {
 
   try {
     const [totalRecentEvents, numberOfAllRecentEvents] = await queryBuilder.getManyAndCount()
-    console.log('totalRecentEvents', totalRecentEvents)
     return res.status(200).send({ message: "Recent Events retrieved successfully!", recentEventsCount: numberOfAllRecentEvents, recentEvents: totalRecentEvents, numberOfPages: 2 });
   } catch (error: any) {
     logger.error("Getting recent events failed: %s", error);

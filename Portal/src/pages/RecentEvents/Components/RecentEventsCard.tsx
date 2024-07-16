@@ -64,7 +64,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
     if (payload) {
       if (selectedImage) {
         console.log("adding new image");
-        addNewImage({ image: selectedImage })
+        addNewImage({ image: selectedImage, isBannerImage: false })
           .then((res) => {
             toast({
               title: "Add Image message!",
