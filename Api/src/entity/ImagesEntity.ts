@@ -33,10 +33,9 @@ export class ImageEntity {
 
   @Column({
     nullable: false,
-    length: 255,
-    default: 'N/A'
+    default: false
   })
-  bannerDescription!: string
+  bannerDescription!: boolean
 
   @CreateDateColumn()
   created_at!: Date

@@ -10,10 +10,11 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   const PORT: number = readEnv("PORT", 3000, true) as number;
   const uploadedFile: Express.Multer.File | undefined = req.file;
   const portalUser = req.user;
-  // const isBannerImage = req.query.isBannerImage
-  if (isUndefinedOrNull(portalUser)) {
-    return res.status(401).send({ message: "Unauthorized!" });
-  }
+  const isBannerImage = req.query.isBannerImage
+  
+  // if (isUndefinedOrNull(portalUser)) {
+  //   return res.status(401).send({ message: "Unauthorized!" });
+  // }
 
   if (!uploadedFile) {
     return res.status(400).json({ message: 'No image uploaded' });
@@ -23,7 +24,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   try {
     const newImage = new ImageEntity();
     newImage.imageUrl = `http://localhost:${PORT}/api/image/${uploadedFile.filename}`
-    // newImage.isBannerImage = isBannerImage ? true : false
+    newImage.isBannerImage = isBannerImage ? true : false
     newImage.imagePath = uploadedFile.path
     const savedImage = await imageRepository.save(newImage)
     return res.status(201).send({ message: 'Image uploaded successfully', image: savedImage });

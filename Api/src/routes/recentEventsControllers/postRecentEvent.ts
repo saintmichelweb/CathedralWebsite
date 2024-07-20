@@ -45,6 +45,10 @@ const recentEventSchema = z.object({
  *                 type: string
  *                 example: "description"
  *                 description: "Recent event description"
+ *               backgroungImageId:
+ *                 type: number
+ *                 example: "description"
+ *                 description: "Recent event backgroungImageId"
  *     responses:
  *       200:
  *         description: Recent Event saved successfully
@@ -101,6 +105,7 @@ export async function postRecentEvent(req: AuthRequest, res: Response) {
     newRecentEvent.title = parsedBody.data.title
     newRecentEvent.description = parsedBody.data.description
     newRecentEvent.isActive = true
+    console.log('data', parsedBody.data)
     if (parsedBody.data.backgroungImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });

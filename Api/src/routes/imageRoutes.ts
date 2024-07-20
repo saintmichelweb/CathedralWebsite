@@ -22,7 +22,7 @@ const upload = multer({ storage: storage });
 
 router.use('/image', express.static('upload/images'));
 router.post('/upload/image',
-    authenticateJWT, 
+    authenticateJWT,
     upload.single('image'), ImageUpload);
 
 export default router;
