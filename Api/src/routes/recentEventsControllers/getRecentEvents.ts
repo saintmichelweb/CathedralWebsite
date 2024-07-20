@@ -48,6 +48,7 @@ export async function getAllRecentEvents(req: Request, res: Response) {
 
   const recentEventsRepository = AppDataSource.getRepository(RecentEventsEntity);
   const queryBuilder = recentEventsRepository.createQueryBuilder('recent_events')
+    .leftJoinAndSelect('recent_events.backgroundImage', 'backgoundImage')
 
   // if (isActive !==null && isActive !== undefined) {
   //   queryBuilder.where('recent_events.isActive = :isActive', {isActive: isActive? 1: 0})

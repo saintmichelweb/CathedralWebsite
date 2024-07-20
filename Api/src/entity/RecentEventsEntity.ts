@@ -1,7 +1,9 @@
 import {
   Entity, Column, PrimaryGeneratedColumn,
-  CreateDateColumn
+  CreateDateColumn,
+  ManyToOne
 } from 'typeorm'
+import { ImageEntity } from './ImagesEntity'
 
 @Entity('recent_events')
 export class RecentEventsEntity {
@@ -19,21 +21,17 @@ export class RecentEventsEntity {
     length: 255,
   })
   description!: string
-
-  // @Column({
-  //   nullable: true,
-  //   length: 255
-  // })
-  // backgroungImageUrl!: string
-
+  
   @Column({
     nullable: false,
-    // length: 255
     default: false,
   })
   isActive!: boolean;
-
+  
   @CreateDateColumn()
   created_at!: Date
+
+  @ManyToOne(() => ImageEntity, image => image.recentEvents)
+  backgroundImage!: ImageEntity
 
 }

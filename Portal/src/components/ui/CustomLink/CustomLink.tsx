@@ -4,7 +4,7 @@ import { Link as ChakraLink, type LinkProps } from '@chakra-ui/react'
 
 type CustomLinkProps = LinkProps &
   NavLinkProps & {
-    colorVariant?: 'accent' | 'accent-outline' | 'success' | 'danger' | 'info' | 'black-outline' | 'green-outline' | 'info-outline'
+    colorVariant?: 'accent' | 'accent-outline' | 'success' | 'danger' | 'info' | 'black-outline' | 'green-outline' | 'info-outline'| 'link-outline'
     isDisabled?: boolean
   }
 
@@ -61,6 +61,13 @@ const CustomLink = forwardRef<HTMLAnchorElement, CustomLinkProps>(
         bg: 'transparent',
         border: '1px',
         borderColor: 'info',
+        _hover: { opacity: 0.6, bg: 'transparent' },
+      },
+      'link-outline': {
+        color: 'info',
+        bg: 'transparent',
+        border: '1px',
+        borderColor: 'transparent',
         _hover: { opacity: 0.6, bg: 'transparent' },
       },
     }

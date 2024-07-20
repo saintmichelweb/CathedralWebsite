@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { LocationEntity } from "../../entity/LocationEntity";
+import { AuthRequest } from "../../types/express";
 
 /**
  * @openapi
@@ -53,7 +54,7 @@ import { LocationEntity } from "../../entity/LocationEntity";
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function deleteLocation(req: Request, res: Response) {
+export async function deleteLocation(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });

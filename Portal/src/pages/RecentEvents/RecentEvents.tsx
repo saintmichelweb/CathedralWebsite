@@ -17,6 +17,7 @@ import {
   AlertDialog,
   CommonIcons,
   CustomButton,
+  CustomLink,
   DataTable,
   EmptyState,
   TableSkeleton,
@@ -37,7 +38,9 @@ const RecentEventsManagement = () => {
   });
 
   const toast = useToast();
-  const [recentEventsData, setRecentEventsData] = useState<RecentEventResponse[]>([]);
+  const [recentEventsData, setRecentEventsData] = useState<
+    RecentEventResponse[]
+  >([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
   const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
@@ -72,18 +75,20 @@ const RecentEventsManagement = () => {
     fetchRecentEvents();
   }, []);
 
-  const handleLocationStatus = async (recentEvent: RecentEventResponse) => {
+  const handleEventStatus = async (recentEvent: RecentEventResponse) => {
     const editPayload: UpdateRecentEventsForm = {
       title: recentEvent.title,
       description: recentEvent.description,
       isActive: !recentEvent.isActive,
-      recentEventId: recentEvent.id
+      recentEventId: recentEvent.id,
+      backgroungImageId: recentEvent.backgroundImage?.id || null
     };
     await updateRecentEvent(editPayload)
       .then((res: MessageResponse) => {
         toast({
           title: "Change Recent Event Status Message",
-          description: res?.message || "Recent event status changed successfully",
+          description:
+            res?.message || "Recent event status changed successfully",
           status: "success",
         });
         setIsOpenActivateOrDeactivateModal(false);
@@ -94,7 +99,8 @@ const RecentEventsManagement = () => {
         toast({
           title: "Change Recent Event Status Message",
           description:
-            error.response.data?.message || "Error editing recent event status!",
+            error.response.data?.message ||
+            "Error editing recent event status!",
           status: "error",
         });
       });
@@ -137,6 +143,30 @@ const RecentEventsManagement = () => {
       columnHelper.accessor("description", {
         cell: (info) => info.getValue(),
         header: "Description",
+      }),
+      columnHelper.accessor("backgroundImage", {
+        cell: (info) => {
+          const imageUrl = info.row.original.backgroundImage?.imageUrl;
+          return (
+            <>
+              {imageUrl ? (
+                <CustomLink
+                  to="#"
+                  mr={{ base: 0, lg: 2 }}
+                  colorVariant={"link-outline"}
+                  onClick={() =>
+                    window.open(imageUrl, "_blank", "noopener,noreferrer")
+                  }
+                >
+                  <Text decoration="underline">{imageUrl}</Text>
+                </CustomLink>
+              ) : (
+                <Text>N/A</Text>
+              )}
+            </>
+          );
+        },
+        header: "Background Image",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
@@ -255,7 +285,8 @@ const RecentEventsManagement = () => {
           minW={"8rem"}
           onClick={() => setOpenNewRecentEventModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Recent Event
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Recent
+          Event
         </CustomButton>
       </Flex>
       <Box
@@ -331,7 +362,7 @@ const RecentEventsManagement = () => {
         }}
         onConfirm={() => {
           if (selectedRecentEvent) {
-            handleLocationStatus(selectedRecentEvent);
+            handleEventStatus(selectedRecentEvent);
           }
         }}
       />

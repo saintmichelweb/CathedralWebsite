@@ -30,6 +30,7 @@ export interface RecentEventResponse {
     isActive: boolean
     created_at: string
     updated_at: string
+    backgroundImage: imageResponse | null
 }
 
 export interface MassTimesResponse {
@@ -46,4 +47,12 @@ export interface MassTimesResponse {
 
 export interface MessageResponse {
     message: string
+}
+
+export interface imageResponse {
+    id: number
+    imageUrl: string
+    imagePath: string
+    isActive: boolean
+    created_at: Date
 }

@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Divider,
-  Heading,
-  HStack,
-  Stack,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -25,6 +18,8 @@ import {
   MessageResponse,
   RecentEventResponse,
 } from "../../../types/apiResponses";
+import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
+import { addNewImage } from "../../../api/images";
 
 interface AddRecentEventProps {
   onClose: () => void;
@@ -48,6 +43,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newRecentEventPayload, setNewRecentEventPayload] =
     useState<AddRecentEventsForm>();
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const onSubmit = async (values: AddRecentEventsForm) => {
     setNewRecentEventPayload(values);
@@ -59,11 +55,35 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
       setValue("title", recentEventToEdit.title);
       setValue("description", recentEventToEdit.description);
     }
+    setValue("backgroungImageId", recentEventToEdit?.backgroundImage?.id || null);
   }, [recentEventToEdit]);
 
   const onConfirm = async (payload: AddRecentEventsForm | undefined) => {
     setIsOpenModal(false);
+    console.log('pay')
     if (payload) {
+      if (selectedImage) {
+        console.log("adding new image");
+        await addNewImage({ image: selectedImage, isBannerImage: false })
+          .then((res) => {
+            toast({
+              title: "Add Image message!",
+              description: res?.message || "Recent Event saved successfully",
+              status: "success",
+            });
+            payload.backgroungImageId = res.image.id;
+            console.log("imageResponse", res);
+          })
+          .catch((error) => {
+            toast({
+              title: "Add Image message",
+              description:
+                error.response.data?.message || "Error saving recent Event!",
+              status: "error",
+            });
+          });
+      }
+
       if (!recentEventToEdit) {
         await addNewRecentEvent(payload)
           .then((res: MessageResponse) => {
@@ -73,7 +93,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               status: "success",
             });
             props.fetchRecentEvents();
-            props.onClose()
+            props.onClose();
           })
           .catch((error) => {
             toast({
@@ -90,6 +110,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           description: payload.description,
           isActive: recentEventToEdit.isActive,
           recentEventId: recentEventToEdit.id,
+          backgroungImageId: recentEventToEdit.backgroundImage?.id || null,
         };
         await updateRecentEvent(editPayload)
           .then((res: MessageResponse) => {
@@ -133,6 +154,11 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
+        {!recentEventToEdit && (
+          <ImageUploader
+            parentSetSelectedImage={(file: File) => setSelectedImage(file)}
+          />
+        )}
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
@@ -144,7 +170,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
             minW={"8rem"}
             onClick={() => {
               reset();
-              props.onClose()
+              props.onClose();
             }}
           >
             Cancel

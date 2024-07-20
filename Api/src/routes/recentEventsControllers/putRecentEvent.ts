@@ -4,6 +4,7 @@ import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
+import { ImageEntity } from "../../entity/ImagesEntity";
 
 const recentEventSchema = z.object({
   title: z
@@ -15,6 +16,9 @@ const recentEventSchema = z.object({
     .trim()
     .min(1, { message: "Description is required" }),
   isActive: z.boolean(),
+  backgroungImageId: z
+  .number()
+  .nullable()
 });
 
 /**
@@ -120,6 +124,14 @@ export async function putRecentEvent(req: Request, res: Response) {
 
     if (parsedBody.data.isActive !== null && parsedBody.data.isActive !== undefined) {
       oldRecentEvent.isActive = parsedBody.data.isActive;
+    }
+
+    if (parsedBody.data.backgroungImageId) {
+      const imageRepository = AppDataSource.getRepository(ImageEntity);
+      const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });
+      if (savedImage){
+        oldRecentEvent.backgroundImage = savedImage
+      } 
     }
 
     await recentEventRepository.save(oldRecentEvent);

@@ -17,6 +17,7 @@ export async function updateRecentEvent(UpdateRecentEventObj: UpdateRecentEvents
     title: UpdateRecentEventObj.title,
     description: UpdateRecentEventObj.description,
     isActive: UpdateRecentEventObj.isActive,
+    backgroungImageId: UpdateRecentEventObj.backgroungImageId
   })
   return response.data
 }
