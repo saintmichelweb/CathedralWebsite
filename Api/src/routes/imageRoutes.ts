@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import { authenticateJWT } from '../middleware/authenticate';
 import { ImageUpload } from './imagesControllers/postImage';
+import { getBannerImages } from './imagesControllers/getBannerImages';
 
 const router = express.Router()
 
@@ -21,8 +22,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.use('/image', express.static('upload/images'));
-router.post('/upload/image',
+router.post('/image/upload',
     authenticateJWT,
     upload.single('image'), ImageUpload);
+router.get('/images/all',
+    // authenticateJWT,
+    getBannerImages);
 
 export default router;

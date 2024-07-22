@@ -72,7 +72,6 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               status: "success",
             });
             payload.backgroungImageId = res.image.id;
-            console.log("imageResponse", res);
           })
           .catch((error) => {
             toast({

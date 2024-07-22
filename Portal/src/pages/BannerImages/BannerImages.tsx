@@ -5,14 +5,19 @@ import {
 } from "@tanstack/react-table";
 import {
   Box,
+  Divider,
   Flex,
   Heading,
   Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Stack,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdMoreVert } from "react-icons/md";
 import {
   AlertDialog,
   CommonIcons,
@@ -22,14 +27,15 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { RecentEventResponse, MessageResponse } from "../../types/apiResponses";
+import { BannerImageResponse, MessageResponse } from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
+import { getLanguages, updateLanguage } from "../../api/language";
+import AddLanguageCard from "./Components/languageCard";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
-import { getAllRecentEvents, updateRecentEvent } from "../../api/recentEvents";
-import { UpdateRecentEventsForm } from "../../lib/validations/recentEvents";
-import AddRecentEventsCard from "./Components/RecentEventsCard";
+import { getBannerImages } from "../../api/images";
+import { UpdateLanguageForm } from '../../lib/validations/language';
 
 const BannerImagesManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -38,135 +44,106 @@ const BannerImagesManagement = () => {
   });
 
   const toast = useToast();
-  const [recentEventsData, setRecentEventsData] = useState<
-    RecentEventResponse[]
-  >([]);
+  const [bannerImagesData, setBannerImagesData] = useState<BannerImageResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
-  const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
+  const [openNewBannerImageModel, setOpenNewBannerImageModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
   // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [selectedRecentEvent, setSelectedRecentEvent] =
-    useState<RecentEventResponse | null>(null);
+  const [selectedBannerImage, setSelectedBannerImage] =
+    useState<BannerImageResponse | null>(null);
+  // const toast = useToast();
   // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberPages, setNumberPages] = useState<number>(1);
 
-  const fetchRecentEvents = async () => {
+  const fetchBannerImages = async () => {
     setLoading(true);
-    await getAllRecentEvents()
+    await getBannerImages(true)
       .then((data) => {
-        setRecentEventsData(data.recentEvents);
+        setBannerImagesData(data.bannerImages);
         setNumberPages(data.numberOfPages || 1);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         toast({
-          title: "Get Recent Events Message",
+          title: "Get Banner Images Message",
           description:
-            error.response.data?.message || "Error geting recent events time!",
+            error.response.data?.message || "Error getting banner images time!",
           status: "error",
         });
       });
   };
 
   useEffect(() => {
-    fetchRecentEvents();
+    fetchBannerImages();
   }, []);
 
-  const handleEventStatus = async (recentEvent: RecentEventResponse) => {
-    const editPayload: UpdateRecentEventsForm = {
-      title: recentEvent.title,
-      description: recentEvent.description,
-      isActive: !recentEvent.isActive,
-      recentEventId: recentEvent.id,
-      backgroungImageId: recentEvent.backgroundImage?.id || null
+  const handleLanguageStatus = async (bannerImage: BannerImageResponse) => {
+    const editPayload: UpdateLanguageForm = {
+      bannerImage: bannerImage.imageUrl,
+      bannerImageId: bannerImage.id,
+      isActive: !bannerImage.isActive,
     };
-    await updateRecentEvent(editPayload)
+    await updateLanguage(editPayload)
       .then((res: MessageResponse) => {
         toast({
-          title: "Change Recent Event Status Message",
-          description:
-            res?.message || "Recent event status changed successfully",
+          title: "Change Banner Image Status Message",
+          description: res?.message || "Banner Image  status changed successfully",
           status: "success",
         });
         setIsOpenActivateOrDeactivateModal(false);
-        fetchRecentEvents();
-        setSelectedRecentEvent(null);
+        fetchBannerImages();
+        setSelectedBannerImage(null);
       })
       .catch((error) => {
         toast({
-          title: "Change Recent Event Status Message",
+          title: "Change Banner Image  Status Message",
           description:
-            error.response.data?.message ||
-            "Error editing recent event status!",
+            error.response.data?.message || "Error editing banner Image status!",
           status: "error",
         });
       });
   };
 
-  // const handleLocationDelete = async (locationId: number) => {
-  //   await deletLocation(locationId)
+  // const handleLanguageDelete = async (bannerImageId: number) => {
+  //   await deletLanguage(bannerImageId)
   //     .then((res: MessageResponse) => {
   //       toast({
-  //         title: "Delete Location Message",
-  //         description: res?.message || "Location deleted successfully",
+  //         title: "Delete Language Message",
+  //         description: res?.message || "Language deleted successfully",
   //         status: "success",
   //       });
   //       setIsOpenDeleteModal(false);
-  //       fetchRecentEvents();
-  //       setSelectedRecentEvent(null);
+  //       fetchBannerImages();
+  //       setSelectedBannerImage(null);
   //     })
   //     .catch((error) => {
   //       toast({
-  //         title: "Delete Location Message",
+  //         title: "Delete Language Message",
   //         description:
-  //           error.response.data?.message || "Error deleting location!",
+  //           error.response.data?.message || "Error deleting bannerImage!",
   //         status: "error",
   //       });
   //     });
   // };
 
   const columns = useMemo(() => {
-    const columnHelper = createColumnHelper<RecentEventResponse>();
+    const columnHelper = createColumnHelper<BannerImageResponse>();
     return [
       columnHelper.display({
         id: "identifier",
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("title", {
+      columnHelper.accessor("imagePath", {
         cell: (info) => info.getValue(),
-        header: "Title",
+        header: "Language",
       }),
-      columnHelper.accessor("description", {
+      columnHelper.accessor("bannerDescription", {
         cell: (info) => info.getValue(),
         header: "Description",
-      }),
-      columnHelper.accessor("backgroundImage", {
-        cell: (info) => {
-          const imageUrl = info.row.original.backgroundImage?.imageUrl;
-          return (
-            <>
-              {imageUrl ? (
-                <CustomLink
-                  to="#"
-                  mr={{ base: 0, lg: 2 }}
-                  colorVariant={"link-outline"}
-                  onClick={() =>
-                    window.open(imageUrl, "_blank", "noopener,noreferrer")
-                  }
-                >
-                  <Text decoration="underline">{imageUrl}</Text>
-                </CustomLink>
-              ) : (
-                <Text>N/A</Text>
-              )}
-            </>
-          );
-        },
-        header: "Background Image",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
@@ -202,17 +179,17 @@ const BannerImagesManagement = () => {
           const status = info.row.original.isActive;
 
           const handleActivateOrDeactivate = () => {
-            setSelectedRecentEvent(info.row.original);
+            setSelectedBannerImage(info.row.original);
             setIsOpenActivateOrDeactivateModal(true);
           };
 
           const handleEdit = () => {
-            setSelectedRecentEvent(info.row.original);
-            setOpenNewRecentEventModel(true);
+            setSelectedBannerImage(info.row.original);
+            setOpenNewBannerImageModel(true);
           };
 
           // const handledelete = () => {
-          //   setSelectedRecentEvent(info.row.original);
+          //   setSelectedBannerImage(info.row.original);
           //   setIsOpenDeleteModal(true);
           // };
           return (
@@ -234,25 +211,25 @@ const BannerImagesManagement = () => {
             //       onClick={handleActivateOrDeactivate}
             //     >
             //       {ActionButton(status ? "deactivate" : "activate")}
-            //     </MenuItem>
-            //     {/* <Divider />
+            //     // </MenuItem>
+            //     <Divider />
             //     <MenuItem
             //       px={0}
             //       _focus={{ bg: "transparent" }}
             //       onClick={handledelete}
             //     >
-            //       {ActionButton("delete")}
-            //     </MenuItem> */}
-            //     <Divider />
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handleEdit}
-            //     >
-            //       {ActionButton("edit")}
+            //       {/* {ActionButton("delete")} */}
             //     </MenuItem>
-            //   </MenuList>
-            // </Menu>
+            //     {/* // <Divider />
+            //     // <MenuItem
+            //     //   px={0}
+            //     //   _focus={{ bg: "transparent" }}
+            //     //   onClick={handleEdit}
+            //     // > */}
+            //       {ActionButton("edit")}
+            // //     </MenuItem>
+            // //   </MenuList>
+            // // </Menu>
           );
         },
         header: "Action",
@@ -261,7 +238,7 @@ const BannerImagesManagement = () => {
   }, []);
 
   const table = useTable({
-    data: recentEventsData || [],
+    data: bannerImagesData || [],
     columns,
     pagination,
     setPagination,
@@ -271,7 +248,7 @@ const BannerImagesManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={4} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Recent Events Management</Heading>
+          <Heading size="md">Banner Images Management</Heading>
         </Stack>
         {/* <CustomLink
           to="/portal-user-management/role-management/create-role"
@@ -283,10 +260,9 @@ const BannerImagesManagement = () => {
           type="button"
           isLoading={false}
           minW={"8rem"}
-          onClick={() => setOpenNewRecentEventModel(true)}
+          onClick={() => setOpenNewBannerImageModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Recent
-          Event
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Image
         </CustomButton>
       </Flex>
       <Box
@@ -316,22 +292,22 @@ const BannerImagesManagement = () => {
             />
           )}
         </>
-        {!loading && recentEventsData.length === 0 && (
-          <EmptyState text="There are no events to present yet." mt="10" />
+        {!loading && bannerImagesData.length === 0 && (
+          <EmptyState text="There are no bannerImages to present yet." mt="10" />
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedRecentEvent ? "Update" : "Add"} recent event`}
-        isOpen={openNewRecentEventModel}
-        onClose={() => setOpenNewRecentEventModel(false)}
+        headerTitle={`${selectedBannerImage ? "Update" : "Add"} Location`}
+        isOpen={openNewBannerImageModel}
+        onClose={() => setOpenNewBannerImageModel(false)}
         child={
-          <AddRecentEventsCard
+          <AddLanguageCard
             onClose={() => {
-              setSelectedRecentEvent(null);
-              setOpenNewRecentEventModel(false);
+              setSelectedBannerImage(null);
+              setOpenNewBannerImageModel(false);
             }}
-            fetchRecentEvents={fetchRecentEvents}
-            recentEvent={selectedRecentEvent}
+            fetchBannerImages={fetchBannerImages}
+            bannerImage={selectedBannerImage}
           />
         }
         showFooter={false}
@@ -339,30 +315,30 @@ const BannerImagesManagement = () => {
         widthSize="25vw"
       />
       {/* <AlertDialog
-        alertText={`Are you sure you want to delete this location?`}
+        alertText={`Are you sure you want to delete this bannerImage?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
-          setSelectedRecentEvent(null);
+          setSelectedBannerImage(null);
           setIsOpenDeleteModal(false);
         }}
         onConfirm={() => {
-          if (selectedRecentEvent) {
-            handleLocationDelete(selectedRecentEvent?.id);
+          if (selectedBannerImage) {
+            handleLanguageDelete(selectedBannerImage?.id);
           }
         }}
       /> */}
       <AlertDialog
         alertText={`Are you sure you want to ${
-          selectedRecentEvent?.isActive ? "deactivate" : "activate"
-        } this recent event?`}
+          selectedBannerImage?.isActive ? "deactivate" : "activate"
+        } this bannerImage?`}
         isOpen={isOpenActivateOrDeactivateModal}
         onClose={() => {
-          setSelectedRecentEvent(null);
+          setSelectedBannerImage(null);
           setIsOpenActivateOrDeactivateModal(false);
         }}
         onConfirm={() => {
-          if (selectedRecentEvent) {
-            handleEventStatus(selectedRecentEvent);
+          if (selectedBannerImage) {
+            handleLanguageStatus(selectedBannerImage);
           }
         }}
       />

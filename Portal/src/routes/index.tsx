@@ -3,6 +3,7 @@ import { useRoutes } from 'react-router-dom'
 
 import { Layout } from '../components/layout'
 import {
+  BannerImagesManagement,
   // Dashboard,
   ForgotPassword,
   LanguagesManagement,
@@ -58,6 +59,11 @@ const Routes = () => {
           path: 'top-news-and-notices',
           index: true,
           element: <TopNewsAndNoticesManagement />,
+        },
+        {
+          path: 'banner-images',
+          index: true,
+          element: <BannerImagesManagement />,
         },
       ]
     },

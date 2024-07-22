@@ -6,6 +6,15 @@ export interface LocationResponse {
     updated_at: string
 }
 
+export interface BannerImageResponse {
+    id: number
+    imageUrl: string
+    imagePath: string
+    isBannerImage: boolean
+    isActive: boolean
+    bannerDescription: string
+    created_at: string
+}
 export interface LanguageResponse {
     id: number
     language: string
