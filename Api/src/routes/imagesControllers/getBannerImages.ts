@@ -45,9 +45,9 @@ export async function getBannerImages(req: Request, res: Response) {
   let portalUser = req.user;
   const isBannerImage = req.query.isBannerImage
 
-  // if (isUndefinedOrNull(portalUser)) {
-  //   return res.status(401).send({ message: "Unauthorized!" });
-  // }
+  if (isUndefinedOrNull(portalUser)) {
+    return res.status(401).send({ message: "Unauthorized!" });
+  }
 
   const languageRepository = AppDataSource.getRepository(ImageEntity);
   const queryBuilder = languageRepository.createQueryBuilder('images')

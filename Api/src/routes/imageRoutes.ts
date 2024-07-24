@@ -26,7 +26,7 @@ router.post('/image/upload',
     authenticateJWT,
     upload.single('image'), ImageUpload);
 router.get('/images/all',
-    // authenticateJWT,
+    authenticateJWT,
     getBannerImages);
 
 export default router;

@@ -32,7 +32,7 @@ import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import { getLanguages, updateLanguage } from "../../api/language";
-import AddLanguageCard from "./Components/languageCard";
+import AddBannerImageCard from "./Components/AddBannerImageCard";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
 import { getBannerImages } from "../../api/images";
 import { UpdateLanguageForm } from '../../lib/validations/language';
@@ -297,11 +297,11 @@ const BannerImagesManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedBannerImage ? "Update" : "Add"} Location`}
+        headerTitle={`${selectedBannerImage ? "Update" : "Add"} Banner Image`}
         isOpen={openNewBannerImageModel}
         onClose={() => setOpenNewBannerImageModel(false)}
         child={
-          <AddLanguageCard
+          <AddBannerImageCard
             onClose={() => {
               setSelectedBannerImage(null);
               setOpenNewBannerImageModel(false);
