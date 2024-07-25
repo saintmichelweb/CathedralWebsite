@@ -13,6 +13,35 @@ components:
       bearerFormat: JWT
       value: Bearer <JWT token here>
 paths:
+  /images/all:
+    get:
+      tags:
+        - Images
+      security:
+        - Authorization: []
+      parameters:
+        - in: query
+          name: isBannerImage
+          schema:
+            type: boolean
+          required: true
+          description: Status of Image
+      summary: get all banner images
+      responses:
+        '200':
+          description: Get images
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
   /language/{id}:
     delete:
       tags:

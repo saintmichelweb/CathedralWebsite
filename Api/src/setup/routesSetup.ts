@@ -1,4 +1,5 @@
 import { type Application } from 'express'
+import website_routes from '../routes/websiteRoutes'
 import user_routes from '../routes/userRoutes'
 import location_routes from '../routes/locationRoutes'
 import language_routes from '../routes/languageRoutes'
@@ -9,6 +10,7 @@ import image_routes from '../routes/imageRoutes'
 
 
 export default function setupRoutes (app: Application): void {
+  app.use('/api', website_routes)
   app.use('/api', user_routes)
   app.use('/api', location_routes)
   app.use('/api', language_routes)

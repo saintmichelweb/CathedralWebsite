@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { FaHouse } from 'react-icons/fa6'
 import { TbUserSearch } from 'react-icons/tb'
 import { FaRegNewspaper } from "react-icons/fa";
-import { IoLocationOutline } from "react-icons/io5";
+import { IoImages, IoLocationOutline } from "react-icons/io5";
 import { MdEventNote } from "react-icons/md";
 import { FaLanguage } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
@@ -54,6 +54,13 @@ export const NAV_ITEMS = [
     to: '/top-news-and-notices',
     label: 'Go to top news and notices',
     icon: FaRegNewspaper,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'Banner Images',
+    to: '/banner-images',
+    label: 'Go to bannerImages',
+    icon: IoImages,
     // permissions: ['View Transactions'],
   },
   // {
