@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../database/dataSource";
-import { HomePageWelcomeMessageEntity } from "../../entity/HomePageWelcomeMessageEntity";
-import logger from "../../services/logger";
+import { AppDataSource } from "../../../database/dataSource";
+import { HomePageWelcomeMessageEntity } from "../../../entity/HomePageWelcomeMessageEntity";
+import logger from "../../../services/logger";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getHomePageMessage(req: Request, res: Response) {

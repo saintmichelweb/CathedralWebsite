@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../database/dataSource";
-import logger from "../../services/logger";
-import { isUndefinedOrNull } from "../../utils/utils";
-import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
+import { AppDataSource } from "../../../database/dataSource";
+import logger from "../../../services/logger";
+import { isUndefinedOrNull } from "../../../utils/utils";
+import { TopNewsAndNoticesEntity } from "../../../entity/TopNewsAndNoticesEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getTopParishNewsAndNotices(req: Request, res: Response) {

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { AppDataSource } from "../../database/dataSource";
-import logger from "../../services/logger";
-import { ImageEntity } from "../../entity/ImagesEntity";
+import { AppDataSource } from "../../../database/dataSource";
+import logger from "../../../services/logger";
+import { ImageEntity } from "../../../entity/ImagesEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getHomePageBannerImages(req: Request, res: Response) {
