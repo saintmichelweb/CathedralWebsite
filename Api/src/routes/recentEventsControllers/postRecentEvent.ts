@@ -105,7 +105,9 @@ export async function postRecentEvent(req: AuthRequest, res: Response) {
     const newRecentEvent = new RecentEventsEntity();
     newRecentEvent.title = parsedBody.data.title
     newRecentEvent.description = parsedBody.data.description
-    newRecentEvent.event_date = parsedBody.data.event_date
+    if (parsedBody.data.event_date) {
+      newRecentEvent.event_date = parsedBody.data.event_date
+    }
     newRecentEvent.isActive = true
     console.log('data', parsedBody.data)
     if (parsedBody.data.backgroungImageId) {

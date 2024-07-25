@@ -23,7 +23,7 @@ export class RecentEventsEntity {
   description!: string
 
   @Column({ nullable: true })
-    event_date!: Date | null;
+    event_date!: Date;
   
   @Column({
     nullable: false,

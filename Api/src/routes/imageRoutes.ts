@@ -4,6 +4,7 @@ import path from 'path';
 import { authenticateJWT } from '../middleware/authenticate';
 import { ImageUpload } from './imagesControllers/postImage';
 import { getBannerImages } from './imagesControllers/getBannerImages';
+import { ImageUpdate } from './imagesControllers/putImage';
 
 const router = express.Router()
 
@@ -28,5 +29,8 @@ router.post('/image/upload',
 router.get('/images/all',
     authenticateJWT,
     getBannerImages);
+router.put('/image/:id',
+    authenticateJWT,
+    ImageUpdate);
 
 export default router;

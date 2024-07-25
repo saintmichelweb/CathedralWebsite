@@ -12,7 +12,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   const portalUser = req.user;
   const isBannerImage = req.body.isBannerImage
   const bannerDescription = req.body.bannerDescription
-  
+
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }

@@ -18,6 +18,6 @@ export const updateBannerImageSchema = z.object({
         .string()
         .trim()
         .min(1, { message: "Location Name is required" }),
-    bannerImageId: z.number(),
+    imageId: z.number(),
     isActive: z.boolean()
 });

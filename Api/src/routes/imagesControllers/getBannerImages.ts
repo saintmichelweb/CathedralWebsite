@@ -49,10 +49,10 @@ export async function getBannerImages(req: Request, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const languageRepository = AppDataSource.getRepository(ImageEntity);
-  const queryBuilder = languageRepository.createQueryBuilder('images')
-  if (isBannerImage !==null && isBannerImage !== undefined) {
-    queryBuilder.where('images.isBannerImage = :isBannerImage', {isBannerImage: isBannerImage === 'true'? 1: 0})
+  const ImageRepostory = AppDataSource.getRepository(ImageEntity);
+  const queryBuilder = ImageRepostory.createQueryBuilder('images')
+  if (isBannerImage !== null && isBannerImage !== undefined) {
+    queryBuilder.where('images.isBannerImage = :isBannerImage', { isBannerImage: isBannerImage === 'true' ? 1 : 0 })
   }
 
   try {

@@ -5,13 +5,12 @@ import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput } from "../../../components/form";
-import { addNewLanguage, updateLanguage } from "../../../api/language";
 import {
   BannerImageResponse,
   MessageResponse,
 } from "../../../types/apiResponses";
 import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
-import { addNewImage } from "../../../api/images";
+import { addNewImage, updateImage } from "../../../api/images";
 import {
   BannerImageForm,
   bannerImageSchema,
@@ -51,7 +50,7 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
 
   useEffect(() => {
     if (bannerImageToEdit) {
-      setValue("language", bannerImageToEdit.language);
+      setValue("bannerDescription", bannerImageToEdit.bannerDescription);
     }
   }, [bannerImageToEdit]);
 
@@ -72,6 +71,7 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
                 status: "success",
               });
               props.fetchBannerImages();
+              setSelectedBannerImage(null);
               props.onClose();
             })
             .catch((error) => {
@@ -86,28 +86,28 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
         }
       } else if (bannerImageToEdit) {
         const editPayload: UpdateBannerImageForm = {
-          bannerImageId: bannerImageToEdit.id,
+          imageId: bannerImageToEdit.id,
           bannerDescription: payload.bannerDescription,
           isActive: bannerImageToEdit.isActive,
         };
-      //   await updateLanguage(editPayload)
-      //     .then((res: MessageResponse) => {
-      //       toast({
-      //         title: "Edit Location message!",
-      //         description: res?.message || "Location edited successfully",
-      //         status: "success",
-      //       });
-      //       props.fetchBannerImages();
-      //       props.onClose();
-      //     })
-      //     .catch((error) => {
-      //       toast({
-      //         title: "Edit Location message",
-      //         description:
-      //           error.response?.data?.message || "Error editing location!",
-      //         status: "error",
-      //       });
-      //     });
+        await updateImage({...editPayload, isBannerImage: bannerImageToEdit.isBannerImage})
+          .then((res: MessageResponse) => {
+            toast({
+              title: "Update Banner Image Message",
+              description: res?.message || "Banner Image updated successfully",
+              status: "success",
+            });
+            props.fetchBannerImages();
+            props.onClose();
+          })
+          .catch((error) => {
+            toast({
+              title: "Update Banner Image Message",
+              description:
+                error.response.data?.message || "Error updating banner Image!",
+              status: "error",
+            });
+          });
       }
       reset();
     }
@@ -124,13 +124,15 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
-        {!bannerImageToEdit && (
+        {!bannerImageToEdit?  (
           <ImageUploader
             parentSetSelectedImage={(file: File) =>
               setSelectedBannerImage(file)
             }
           />
-        )}
+        ): 
+          <img src={bannerImageToEdit.imageUrl} alt="Selected Image" />
+        }
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>

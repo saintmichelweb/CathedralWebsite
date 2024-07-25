@@ -34,8 +34,9 @@ import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import { getLanguages, updateLanguage } from "../../api/language";
 import AddBannerImageCard from "./Components/AddBannerImageCard";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
-import { getBannerImages } from "../../api/images";
+import { getBannerImages, updateImage } from "../../api/images";
 import { UpdateLanguageForm } from '../../lib/validations/language';
+import { UpdateBannerImageForm } from "../../lib/validations/image";
 
 const BannerImagesManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -59,7 +60,7 @@ const BannerImagesManagement = () => {
 
   const fetchBannerImages = async () => {
     setLoading(true);
-    await getBannerImages(true)
+    await getBannerImages()
       .then((data) => {
         setBannerImagesData(data.bannerImages);
         setNumberPages(data.numberOfPages || 1);
@@ -80,13 +81,13 @@ const BannerImagesManagement = () => {
     fetchBannerImages();
   }, []);
 
-  const handleLanguageStatus = async (bannerImage: BannerImageResponse) => {
-    const editPayload: UpdateLanguageForm = {
-      bannerImage: bannerImage.imageUrl,
-      bannerImageId: bannerImage.id,
-      isActive: !bannerImage.isActive,
+  const handleBannerImageStatus = async (bannerImage: BannerImageResponse) => {
+    const editPayload: UpdateBannerImageForm = {
+      imageId: bannerImage.id,
+      bannerDescription: bannerImage.bannerDescription,
+      isActive: bannerImage.isActive,
     };
-    await updateLanguage(editPayload)
+    await updateImage({...editPayload, isBannerImage: !bannerImage.isBannerImage})
       .then((res: MessageResponse) => {
         toast({
           title: "Change Banner Image Status Message",
@@ -145,7 +146,7 @@ const BannerImagesManagement = () => {
         cell: (info) => info.getValue(),
         header: "Description",
       }),
-      columnHelper.accessor("isActive", {
+      columnHelper.accessor("isBannerImage", {
         cell: (info) => {
           const status_ = info.getValue();
 
@@ -172,7 +173,7 @@ const BannerImagesManagement = () => {
           }
           return status_HTML;
         },
-        header: "Status",
+        header: "Banner Visible",
       }),
       columnHelper.accessor("id", {
         cell: (info) => {
@@ -338,7 +339,7 @@ const BannerImagesManagement = () => {
         }}
         onConfirm={() => {
           if (selectedBannerImage) {
-            handleLanguageStatus(selectedBannerImage);
+            handleBannerImageStatus(selectedBannerImage);
           }
         }}
       />
