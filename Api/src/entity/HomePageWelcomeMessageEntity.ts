@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
 } from "typeorm";
+import { ImageEntity } from "./ImagesEntity";
 
 @Entity("home_page")
 export class HomePageWelcomeMessageEntity {
@@ -26,4 +28,7 @@ export class HomePageWelcomeMessageEntity {
 
   @UpdateDateColumn()
   updated_at!: Date;
+
+  @ManyToOne(() => ImageEntity, image => image.connectedEvents)
+  backgroundImage!: ImageEntity
 }

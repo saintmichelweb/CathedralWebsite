@@ -5,6 +5,7 @@ import {
   OneToMany
 } from 'typeorm'
 import { RecentEventsEntity } from './RecentEventsEntity'
+import { HomePageWelcomeMessageEntity } from './HomePageWelcomeMessageEntity'
 
 @Entity('images')
 export class ImageEntity {
@@ -46,7 +47,7 @@ export class ImageEntity {
   @CreateDateColumn()
   created_at!: Date
 
-  @OneToMany(() => RecentEventsEntity, recentEvents => recentEvents.backgroundImage)
-  recentEvents!: RecentEventsEntity[]
+  @OneToMany(() => RecentEventsEntity || HomePageWelcomeMessageEntity, recentEvent => recentEvent.backgroundImage)
+  connectedEvents!: RecentEventsEntity[]
 
 }

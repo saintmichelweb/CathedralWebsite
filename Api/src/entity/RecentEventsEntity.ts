@@ -21,6 +21,9 @@ export class RecentEventsEntity {
     length: 255,
   })
   description!: string
+
+  @Column({ nullable: true })
+    event_date!: Date | null;
   
   @Column({
     nullable: false,
@@ -31,7 +34,7 @@ export class RecentEventsEntity {
   @CreateDateColumn()
   created_at!: Date
 
-  @ManyToOne(() => ImageEntity, image => image.recentEvents)
+  @ManyToOne(() => ImageEntity, image => image.connectedEvents)
   backgroundImage!: ImageEntity
 
 }

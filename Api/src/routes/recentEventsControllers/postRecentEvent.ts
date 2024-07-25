@@ -12,6 +12,7 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Title is required" }),
+  event_date: z.date().nullable(),
   description: z
     .string()
     .trim()
@@ -96,7 +97,7 @@ export async function postRecentEvent(req: AuthRequest, res: Response) {
     logger.error("Validation error: %o", req.body);
     return res.status(422).send({ message: "Validation error" });
   }
-  
+
 
   const newRecentEventRepository = AppDataSource.getRepository(RecentEventsEntity)
 
@@ -104,14 +105,15 @@ export async function postRecentEvent(req: AuthRequest, res: Response) {
     const newRecentEvent = new RecentEventsEntity();
     newRecentEvent.title = parsedBody.data.title
     newRecentEvent.description = parsedBody.data.description
+    newRecentEvent.event_date = parsedBody.data.event_date
     newRecentEvent.isActive = true
     console.log('data', parsedBody.data)
     if (parsedBody.data.backgroungImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });
-      if (savedImage){
+      if (savedImage) {
         newRecentEvent.backgroundImage = savedImage
-      } 
+      }
     }
     await newRecentEventRepository.save(newRecentEvent)
     return res.status(201).send({ message: "Recent Event created successfully" });
