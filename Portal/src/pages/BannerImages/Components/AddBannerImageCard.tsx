@@ -131,7 +131,8 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
             }
           />
         ): 
-          <img src={bannerImageToEdit.imageUrl} alt="Selected Image" />
+          // <img src={bannerImageToEdit.imageUrl} alt="Selected Image" />
+          <></>
         }
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
