@@ -23,14 +23,14 @@ export class RecentEventsEntity {
   description!: string
 
   @Column({ nullable: true })
-    event_date!: Date;
-  
+  event_date!: Date;
+
   @Column({
     nullable: false,
     default: false,
   })
   isActive!: boolean;
-  
+
   @CreateDateColumn()
   created_at!: Date
 
