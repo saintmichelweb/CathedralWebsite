@@ -13,8 +13,8 @@ Get : recent events by id ( image, title, date, entail description)
 
 About:
 
-Get : Banner image (text) for all remaining pages except the home page(*)
-Get : history of the cathedral (Text)
+## Get : Banner image (text) for all remaining pages except the home page(*)
+## Get : history of the cathedral (Text)
 Get : Mission and vision ( title and related text)
 Get : Commission of lay leaders (image and a short description) 
 Get : Top stories All( title, short description, date)

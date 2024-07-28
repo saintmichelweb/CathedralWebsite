@@ -65,3 +65,11 @@ export interface imageResponse {
     isActive: boolean
     created_at: Date
 }
+
+
+export interface ParishHistoryResponse {
+    id: number;
+    history: string;
+    created_at: Date;
+    updated_at: Date;
+}
