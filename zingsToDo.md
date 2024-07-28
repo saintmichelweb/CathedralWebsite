@@ -8,7 +8,7 @@ Home:
 ## Get : welcome message (Image , welcome msg)   
 ## Get : mass times all ( place, Sunday mass schedule, Monday-Friday, Saturday mass schedule)  
 ## Get : recent events all ( image, title, date, small description)   
-Get : recent events by id ( image, title, date, entail description)
+Get : recent events by id ( image, title, date, entail description)  <!-- not for now -->
 ## Get : news and notice (short description) 
 
 About:
@@ -22,13 +22,12 @@ Get : Top stories All( title, short description, date)
 Our Leader:
  
 Get : priests all (Image, name short description )
-Get : priest by id ( all info )
+<!-- Get : priest by id ( all info ) -->
 Get : (*)
 Get : Parish committee council ( description of duties and responsibilities, Image of each leader, names phone, email and responsibility) 
-Get : Parish committee council member by id (all description)
+<!-- Get : Parish committee council member by id (all description) -->
 
-Commission leaders :
-
+## Needs more clarifications <!-- Commission leaders : -->  
 Get : each commission information (image, description, title)
 
 Service:
@@ -37,6 +36,7 @@ Get :(*)
 Get : Schedule of parish services 
 Get : Special event and celebration ( Images , title, description)
 Get : Celebrations
+## Needs more clarifications <!-- Commission leaders : -->  
 
 ###### things not yet decided upon ####
 
