@@ -22,8 +22,8 @@ export class RecentEventsEntity {
   })
   description!: string
 
-  @Column({ nullable: true })
-  event_date!: Date;
+  // @Column({ nullable: true })
+  // event_date!: Date;
 
   @Column({
     nullable: false,
