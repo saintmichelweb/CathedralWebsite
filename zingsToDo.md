@@ -8,7 +8,7 @@ Home:
 ## Get : welcome message (Image , welcome msg)   
 ## Get : mass times all ( place, Sunday mass schedule, Monday-Friday, Saturday mass schedule)  
 ## Get : recent events all ( image, title, date, small description)   
-Get : recent events by id ( image, title, date, entail description)
+<!-- Get : recent events by id ( image, title, date, entail description) -->
 ## Get : news and notice (short description) 
 
 About:

@@ -7,7 +7,7 @@ import { ImageEntity } from "../../entity/ImagesEntity";
 import { AppDataSource } from "../../database/dataSource";
 
 export async function ImageUpload(req: AuthRequest, res: Response) {
-  const PORT: number = readEnv("PORT", 3000, true) as number;
+  const APP_URL: string = readEnv("APP_URL", '') as string;
   const uploadedFile: Express.Multer.File | undefined = req.file;
   const portalUser = req.user;
   const isBannerImage = req.body.isBannerImage
@@ -24,7 +24,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   const imageRepository = AppDataSource.getRepository(ImageEntity)
   try {
     const newImage = new ImageEntity();
-    newImage.imageUrl = `http://localhost:${PORT}/api/image/${uploadedFile.filename}`
+    newImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
     if (isBannerImage) {
       newImage.isBannerImage = isBannerImage === 'true' ? true : false
     }
