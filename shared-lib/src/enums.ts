@@ -15,3 +15,9 @@ export enum StatusType {
   ACTIVATED = 'Activated',
   DEACTIVATED = 'Deactivated'
 }
+
+export enum MassDaysEnum {
+  WEEKDAYS = 'Monday-Friday',
+  SATURDAY = 'saturday',
+  SUNDAY = 'sunday'
+}

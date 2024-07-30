@@ -24,6 +24,7 @@ import { getLocations } from "../../../api/location";
 import { getLanguages } from "../../../api/language";
 import { addNewMassTime, updateMassTime } from "../../../api/massTimes";
 import { MassTimesResponse, MessageResponse } from "../../../types/apiResponses";
+import { MassDaysEnum } from "../../../../../shared-lib/src";
 
 interface AddMassTimesProps {
   onClose: () => void;
@@ -47,8 +48,14 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
   const languageSelectOptions: SelectOption[] = [];
   const [massLocation, setMassLocation] = useState<SelectOption | null>(null);
   const [massLanguage, setMassLanguage] = useState<SelectOption | null>(null);
+  const [massDay, setMassDay] = useState<SelectOption | null>(null);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newUserPayload, setNewUserPayload] = useState<MassTimesForm>();
+
+  const massDaysOptions = Object.values(MassDaysEnum).map(value => ({
+    value,
+    label: value,
+  }))
 
   useEffect(() => {
     if (massTimeToEdit) {
@@ -63,6 +70,10 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
       setMassLanguage({
         value: massTimeToEdit.language.id,
         label: massTimeToEdit.language.language,
+      });
+      setMassDay({
+        value: massTimeToEdit.day,
+        label: massTimeToEdit.day,
       });
     }
   }, [massTimeToEdit]);
@@ -107,52 +118,52 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
     setIsOpenModal(false);
     if (payload) {
       if (!massTimeToEdit) {
-      await addNewMassTime(payload)
-        .then((res) => {
-          toast({
-            title: "Add Mass Time message!",
-            description: res?.message || "Mass Time saved successfully",
-            status: "success",
+        await addNewMassTime(payload)
+          .then((res) => {
+            toast({
+              title: "Add Mass Time message!",
+              description: res?.message || "Mass Time saved successfully",
+              status: "success",
+            });
+          })
+          .catch((error) => {
+            toast({
+              title: "Add Mass Time message",
+              description:
+                error.response.data?.message || "Error saving Mass Time!",
+              status: "error",
+            });
           });
-        })
-        .catch((error) => {
-          toast({
-            title: "Add Mass Time message",
-            description:
-              error.response.data?.message || "Error saving Mass Time!",
-            status: "error",
+        reset();
+      } else if (massTimeToEdit) {
+        const editPayload: UpdateMassTimesForm = {
+          massTimeId: massTimeToEdit.id,
+          location: payload.location,
+          language: payload.language,
+          isActive: massTimeToEdit.isActive,
+          day: payload.day,
+          time: payload.time
+        };
+        await updateMassTime(editPayload)
+          .then((res: MessageResponse) => {
+            toast({
+              title: "Update Mass Times Message",
+              description: res?.message || "Mass Times status changed successfully",
+              status: "success",
+            });
+            props.fetchMassTimes()
+            props.onClose()
+          })
+          .catch((error) => {
+            toast({
+              title: "Update Mass Times Message",
+              description:
+                error.response.data?.message || "Error editing mass times status!",
+              status: "error",
+            });
           });
-        });
-      reset();
-    } else if(massTimeToEdit){
-      const editPayload: UpdateMassTimesForm = {
-        massTimeId: massTimeToEdit.id,
-        location: payload.location,
-        language: payload.language,
-        isActive: massTimeToEdit.isActive,
-        day: payload.day,
-        time: payload.time
-      };
-      await updateMassTime(editPayload)
-        .then((res: MessageResponse) => {
-          toast({
-            title: "Update Mass Times Message",
-            description: res?.message || "Mass Times status changed successfully",
-            status: "success",
-          });
-          props.fetchMassTimes()
-          props.onClose()
-        })
-        .catch((error) => {
-          toast({
-            title: "Update Mass Times Message",
-            description:
-              error.response.data?.message || "Error editing mass times status!",
-            status: "error",
-          });
-        });
+      }
     }
-  }
   };
 
   return (
@@ -188,13 +199,20 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           }}
           maxWVal={{ lg: "full", sm: "90vw" }}
         />
-        <FormInput
-          name="day"
-          register={register}
-          errors={errors}
-          label="Day of the Mass"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
+        <CustomFormSelect
+          selectValue={massDay}
+          isError={errors.day ? true : false}
+          errorMsg={errors.day ? errors.day.message : undefined}
+          label="Day"
+          placeholder="Choose the day of the Mass"
+          options={massDaysOptions}
+          onChangeFn={(selectedVal) => {
+            setMassDay(selectedVal);
+            if (selectedVal) {
+              setValue("day", selectedVal.value.toString());
+            }
+          }}
+          maxWVal={{ lg: "full", sm: "90vw" }}
         />
         <FormInput
           name="time"
@@ -223,9 +241,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`re you sure you want to ${
-          massTimeToEdit ? "update" : "add"
-        } this Mass time?`}
+        alertText={`re you sure you want to ${massTimeToEdit ? "update" : "add"
+          } this Mass time?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newUserPayload)}
