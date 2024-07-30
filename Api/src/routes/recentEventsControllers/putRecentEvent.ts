@@ -16,7 +16,7 @@ const recentEventSchema = z.object({
     .trim()
     .min(1, { message: "Description is required" }),
   isActive: z.boolean(),
-  event_date: z.date().nullable(),
+  // event_date: z.date().nullable(),
   backgroungImageId: z
   .number()
   .nullable()
@@ -123,9 +123,9 @@ export async function putRecentEvent(req: Request, res: Response) {
       oldRecentEvent.description = parsedBody.data.description;
     }
     
-    if (parsedBody.data.event_date) {
-      oldRecentEvent.event_date = parsedBody.data.event_date;
-    }
+    // if (parsedBody.data.event_date) {
+    //   oldRecentEvent.event_date = parsedBody.data.event_date;
+    // }
 
     if (parsedBody.data.isActive !== null && parsedBody.data.isActive !== undefined) {
       oldRecentEvent.isActive = parsedBody.data.isActive;
