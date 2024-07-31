@@ -13,8 +13,8 @@ Get : recent events all ( image, title, date, small description)   ##work on the
 
 About:
 
-Get : Banner image (text) for all remaining pages except the home page(*)
-Get : history of the cathedral (Text)
+## Get : Banner image (text) for all remaining pages except the home page(*)
+## Get : history of the cathedral (Text)
 Get : Mission and vision ( title and related text)
 Get : Commission of lay leaders (image and a short description) 
 Get : Top stories All( title, short description, date)
@@ -22,13 +22,12 @@ Get : Top stories All( title, short description, date)
 Our Leader:
  
 Get : priests all (Image, name short description )
-Get : priest by id ( all info )
+<!-- Get : priest by id ( all info ) -->
 Get : (*)
 Get : Parish committee council ( description of duties and responsibilities, Image of each leader, names phone, email and responsibility) 
-Get : Parish committee council member by id (all description)
+<!-- Get : Parish committee council member by id (all description) -->
 
-Commission leaders :
-
+## Needs more clarifications <!-- Commission leaders : -->  
 Get : each commission information (image, description, title)
 
 Service:
@@ -37,6 +36,7 @@ Get :(*)
 Get : Schedule of parish services 
 Get : Special event and celebration ( Images , title, description)
 Get : Celebrations
+## Needs more clarifications <!-- Commission leaders : -->  
 
 ###### things not yet decided upon ####
 

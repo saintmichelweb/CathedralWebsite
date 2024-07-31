@@ -10,6 +10,7 @@ import {
   LocationsManagement,
   Login,
   MassTimesManagement,
+  ParishHistoryManagement,
   RecentEventsManagement,
   TopNewsAndNoticesManagement,
   // SetPassword,
@@ -64,6 +65,11 @@ const Routes = () => {
           path: 'banner-images',
           index: true,
           element: <BannerImagesManagement />,
+        },
+        {
+          path: 'parish-history',
+          index: true,
+          element: <ParishHistoryManagement />,
         },
       ]
     },
