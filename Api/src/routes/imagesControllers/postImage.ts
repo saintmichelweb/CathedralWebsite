@@ -31,7 +31,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
     if (bannerDescription) {
       newImage.bannerDescription = bannerDescription
     }
-    newImage.imagePath = uploadedFile.path
+    newImage.filename = uploadedFile.filename
     newImage.isActive = true
     const savedImage = await imageRepository.save(newImage)
     return res.status(201).send({ message: 'Image uploaded successfully', image: savedImage });

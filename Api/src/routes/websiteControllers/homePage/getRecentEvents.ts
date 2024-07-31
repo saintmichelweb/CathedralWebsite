@@ -24,7 +24,8 @@ export async function getRecentEvents(req: Request, res: Response) {
 
 
 export async function getRecentEventById(req: Request, res: Response) {
-    const recentEventId = Number(req.query.recentEventId)
+    const recentEventId = Number(req.params.id)
+    console.log(req.params.id)
     if (isUndefinedOrNull(recentEventId)) {
         return res.status(400).send({message: 'recent event id not provided'})
     }

@@ -4,15 +4,14 @@ import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { AuthRequest } from "../../types/express";
-import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
 import { ImageEntity } from "../../entity/ImagesEntity";
+import { PriestsEntity } from "../../entity/PriestsEntity";
 
 const recentEventSchema = z.object({
-  title: z
+  name: z
     .string()
     .trim()
-    .min(1, { message: "Title is required" }),
-  event_date: z.string().trim().min(1, { message: "Event date title is required" }),
+    .min(1, { message: "Name is required" }),
   description: z
     .string()
     .trim()
@@ -24,13 +23,13 @@ const recentEventSchema = z.object({
 
 /**
  * @openapi
- * /recent-events:
+ * /priests:
  *   post:
  *     tags:
- *       - Recent Events
+ *       - Priests
  *     security:
  *       - Authorization: []
- *     summary: Add a recent event
+ *     summary: Add a priest
  *     requestBody:
  *       required: true
  *       content:
@@ -40,19 +39,19 @@ const recentEventSchema = z.object({
  *             properties:
  *               title:
  *                 type: string
- *                 example: "Recent event"
- *                 description: "Recent event title"
+ *                 example: "Priest"
+ *                 description: "Priest title"
  *               description:
  *                 type: string
  *                 example: "description"
- *                 description: "Recent event description"
+ *                 description: "Priest description"
  *               backgroungImageId:
  *                 type: number
  *                 example: "description"
- *                 description: "Recent event backgroungImageId"
+ *                 description: "Priest backgroungImageId"
  *     responses:
  *       200:
- *         description: Recent Event saved successfully
+ *         description: Priest saved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -85,7 +84,7 @@ const recentEventSchema = z.object({
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postRecentEvent(req: AuthRequest, res: Response) {
+export async function postPriests(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
@@ -99,27 +98,24 @@ export async function postRecentEvent(req: AuthRequest, res: Response) {
   }
 
 
-  const newRecentEventRepository = AppDataSource.getRepository(RecentEventsEntity)
+  const newPriestRepository = AppDataSource.getRepository(PriestsEntity)
 
   try {
-    const newRecentEvent = new RecentEventsEntity();
-    newRecentEvent.title = parsedBody.data.title
-    newRecentEvent.description = parsedBody.data.description
-    if (parsedBody.data.event_date) {
-      newRecentEvent.event_date =new Date(parsedBody.data.event_date)
-    }
-    newRecentEvent.isActive = true
+    const newPriest = new PriestsEntity();
+    newPriest.name = parsedBody.data.name
+    newPriest.description = parsedBody.data.description
+
     if (parsedBody.data.backgroungImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });
       if (savedImage) {
-        newRecentEvent.backgroundImage = savedImage
+        newPriest.backgroundImage = savedImage
       }
     }
-    await newRecentEventRepository.save(newRecentEvent)
-    return res.status(201).send({ message: "Recent Event created successfully" });
+    await newPriestRepository.save(newPriest)
+    return res.status(201).send({ message: "Priest details added successfully" });
   } catch (error: any) {
-    logger.error("Creating Language failed: %s", error);
+    logger.error("Creating Priest failed: %s", error);
     res.status(500).send({ message: "Internal server error" });
   }
 }

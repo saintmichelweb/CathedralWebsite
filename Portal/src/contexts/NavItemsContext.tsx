@@ -6,6 +6,7 @@ import { FaRegNewspaper } from "react-icons/fa";
 import { IoImages, IoLocationOutline } from "react-icons/io5";
 import { MdEventNote } from "react-icons/md";
 import { FaLanguage } from "react-icons/fa";
+import { FaHistory } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import Cookies from 'universal-cookie'
 
@@ -59,8 +60,15 @@ export const NAV_ITEMS = [
   {
     name: 'Banner Images',
     to: '/banner-images',
-    label: 'Go to bannerImages',
+    label: 'Go to banner images',
     icon: IoImages,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'Cathedral History',
+    to: '/parish-history',
+    label: 'Go to cathedral history',
+    icon: FaHistory,
     // permissions: ['View Transactions'],
   },
   // {

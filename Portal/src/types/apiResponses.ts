@@ -9,7 +9,7 @@ export interface LocationResponse {
 export interface BannerImageResponse {
     id: number
     imageUrl: string
-    imagePath: string
+    filename: string
     isBannerImage: boolean
     isActive: boolean
     bannerDescription: string
@@ -36,6 +36,7 @@ export interface RecentEventResponse {
     id: number
     title: string
     description: string
+    event_date: string
     isActive: boolean
     created_at: string
     updated_at: string
@@ -61,7 +62,15 @@ export interface MessageResponse {
 export interface imageResponse {
     id: number
     imageUrl: string
-    imagePath: string
+    filename: string
     isActive: boolean
     created_at: Date
+}
+
+
+export interface ParishHistoryResponse {
+    id: number;
+    history: string;
+    created_at: Date;
+    updated_at: Date;
 }

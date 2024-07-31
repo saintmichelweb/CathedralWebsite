@@ -8,7 +8,8 @@ export const recentEventsSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Event description is required" }),
-  backgroungImageId: z.number().nullable()
+  backgroungImageId: z.number().nullable(),
+  event_date: z.string().trim().min(1, { message: "Event date title is required" }),
 });
 
 export type UpdateRecentEventsForm = z.infer<typeof updateRecentEventsSchema>;
@@ -21,5 +22,6 @@ export const updateRecentEventsSchema = z.object({
     .min(1, { message: "Event description is required" }),
   recentEventId: z.number(),
   backgroungImageId: z.number().nullable(),
+  event_date: z.string().trim().min(1, { message: "Event date title is required" }),
   isActive: z.boolean()
 });

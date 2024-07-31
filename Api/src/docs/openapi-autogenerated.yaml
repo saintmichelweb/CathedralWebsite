@@ -412,6 +412,19 @@ paths:
         - Mass Times
       security:
         - Authorization: []
+      parameters:
+        - in: query
+          name: isPortalRequest
+          schema:
+            type: boolean
+          required: false
+          description: boolean representing is the request is from the portal
+        - in: query
+          name: massLocation
+          schema:
+            type: string
+          required: false
+          description: Location of Masses
       summary: Get all mass times
       responses:
         '200':
@@ -563,6 +576,261 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
+  /parish-history:
+    get:
+      tags:
+        - Parish History
+      security:
+        - Authorization: []
+      summary: get Parish History
+      responses:
+        '200':
+          description: Get Parish History
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    post:
+      tags:
+        - Parish History
+      security:
+        - Authorization: []
+      summary: Create/Update Parish History
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                parishHistory:
+                  type: string
+                  example: history
+                  description: Parish History of the Mass
+      responses:
+        '200':
+          description: Location saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Parish History saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+  /priests/{id}:
+    delete:
+      tags:
+        - Priests
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Priests ID
+      summary: delete a Mass priests
+      responses:
+        '200':
+          description: Priests deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Priests deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Priests
+      security:
+        - Authorization: []
+      summary: Update a priest
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Priest ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Priest
+                  description: Priest title
+                description:
+                  type: string
+                  example: description
+                  description: Priest description
+                backgroungImageId:
+                  type: number
+                  example: 1
+                  description: Id of the saved image entity
+      responses:
+        '200':
+          description: Priest saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Priest updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Recent Event not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+  /priests/all:
+    get:
+      tags:
+        - Priests
+      summary: get all priests
+      responses:
+        '200':
+          description: Get Priests
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /priests:
+    post:
+      tags:
+        - Priests
+      security:
+        - Authorization: []
+      summary: Add a priest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Priest
+                  description: Priest title
+                description:
+                  type: string
+                  example: description
+                  description: Priest description
+                backgroungImageId:
+                  type: number
+                  example: description
+                  description: Priest backgroungImageId
+      responses:
+        '200':
+          description: Priest saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Recent Event  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /recent-events/all:
     get:
       tags:

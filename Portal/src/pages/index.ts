@@ -8,6 +8,7 @@ import MassTimesManagement from './MassTimes/MassTimes';
 import RecentEventsManagement from './RecentEvents/RecentEvents';
 import TopNewsAndNoticesManagement from './TopNewsAndNotices/TopNewsAndNotices';
 import BannerImagesManagement from './BannerImages/BannerImages';
+import ParishHistoryManagement from './ParishHistoryPage/ParishHistoryPage';
 
 export {
   // AddNewUser,
@@ -19,5 +20,6 @@ export {
   MassTimesManagement,
   RecentEventsManagement,
   TopNewsAndNoticesManagement,
-  BannerImagesManagement
+  BannerImagesManagement,
+  ParishHistoryManagement
 }

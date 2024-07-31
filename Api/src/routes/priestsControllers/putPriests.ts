@@ -1,18 +1,17 @@
 import { Response } from "express";
+import { AuthRequest } from "../../types/express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
-import { AuthRequest } from "../../types/express";
-import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
 import { ImageEntity } from "../../entity/ImagesEntity";
+import { PriestsEntity } from "../../entity/PriestsEntity";
 
 const recentEventSchema = z.object({
-  title: z
+  name: z
     .string()
     .trim()
-    .min(1, { message: "Title is required" }),
-  event_date: z.string().trim().min(1, { message: "Event date title is required" }),
+    .min(1, { message: "Name is required" }),
   description: z
     .string()
     .trim()
@@ -24,13 +23,20 @@ const recentEventSchema = z.object({
 
 /**
  * @openapi
- * /recent-events:
- *   post:
+ * /priests/{id}:
+ *   put:
  *     tags:
- *       - Recent Events
+ *       - Priests
  *     security:
  *       - Authorization: []
- *     summary: Add a recent event
+ *     summary: Update a priest
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *            type: integer
+ *         description: Priest ID
  *     requestBody:
  *       required: true
  *       content:
@@ -38,21 +44,21 @@ const recentEventSchema = z.object({
  *           schema:
  *             type: object
  *             properties:
- *               title:
+ *               name:
  *                 type: string
- *                 example: "Recent event"
- *                 description: "Recent event title"
+ *                 example: "Priest"
+ *                 description: "Priest title"
  *               description:
  *                 type: string
  *                 example: "description"
- *                 description: "Recent event description"
+ *                 description: "Priest description"
  *               backgroungImageId:
  *                 type: number
- *                 example: "description"
- *                 description: "Recent event backgroungImageId"
+ *                 example: 1
+ *                 description: "Id of the saved image entity"
  *     responses:
  *       200:
- *         description: Recent Event saved successfully
+ *         description: Priest saved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -63,9 +69,9 @@ const recentEventSchema = z.object({
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Recent Event  saved successfully"
+ *                   example: "Priest updated successfully."
  *       401:
- *         description: Invalid credentials
+ *         description: Invalid credentials!
  *         content:
  *           application/json:
  *             schema:
@@ -76,50 +82,58 @@ const recentEventSchema = z.object({
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Invalid credentials"
+ *                   example: "Invalid credentials!"
+ *       404:
+ *         description: Recent Event not found! 
  *       422:
- *         description: Validation error
+ *         description: Validation error!
  *       500:
- *         description: Internal Server error
+ *         description: Internal Server error!
  *
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postRecentEvent(req: AuthRequest, res: Response) {
+export async function putPriests(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = recentEventSchema.safeParse(req.body)
+  const parsedBody = recentEventSchema.safeParse(req.body);
   if (!parsedBody.success) {
     logger.error("Validation error: %o", parsedBody.error.issues);
     logger.error("Validation error: %o", req.body);
-    return res.status(422).send({ message: "Validation error" });
+    return res.status(422).send({ message: "Validation error!" });
   }
 
-
-  const newRecentEventRepository = AppDataSource.getRepository(RecentEventsEntity)
-
+  const priestsRepository = AppDataSource.getRepository(PriestsEntity);
   try {
-    const newRecentEvent = new RecentEventsEntity();
-    newRecentEvent.title = parsedBody.data.title
-    newRecentEvent.description = parsedBody.data.description
-    if (parsedBody.data.event_date) {
-      newRecentEvent.event_date =new Date(parsedBody.data.event_date)
+    const id = Number(req.params.id);
+    const savedPriest = await priestsRepository.findOne({ where: { id } });
+    if (savedPriest === null) {
+      return res.status(404).send({ message: "Recent Event does not exist!" });
     }
-    newRecentEvent.isActive = true
+
+    if (parsedBody.data.name) {
+      savedPriest.name = parsedBody.data.name;
+    }
+
+    if (parsedBody.data.description) {
+      savedPriest.description = parsedBody.data.description;
+    }
+
     if (parsedBody.data.backgroungImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });
-      if (savedImage) {
-        newRecentEvent.backgroundImage = savedImage
-      }
+      if (savedImage){
+        savedPriest.backgroundImage = savedImage
+      } 
     }
-    await newRecentEventRepository.save(newRecentEvent)
-    return res.status(201).send({ message: "Recent Event created successfully" });
+
+    await priestsRepository.save(savedPriest);
+    return res.status(201).send({ message: "Priests updated successfully." });
   } catch (error: any) {
-    logger.error("Creating Language failed: %s", error);
-    res.status(500).send({ message: "Internal server error" });
+    logger.error("Updating priests failed: %s", error);
+    res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

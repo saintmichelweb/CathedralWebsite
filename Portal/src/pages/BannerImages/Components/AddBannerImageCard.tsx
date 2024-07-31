@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
-import { FormInput } from "../../../components/form";
+import { FormTextarea } from "../../../components/form";
 import {
   BannerImageResponse,
   MessageResponse,
@@ -116,12 +116,13 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
   return (
     <Box py={"2rem"}>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
+        <FormTextarea
           name="bannerDescription"
           register={register}
           errors={errors}
           label="Banner description"
-          inputProps={{ bg: "white" }}
+          placeholder="Enter banner description"
+          textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         {!bannerImageToEdit?  (
