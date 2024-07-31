@@ -7,11 +7,14 @@ import { ImageEntity } from "../../../entity/ImagesEntity";
 export async function getHomePageBannerImages(req: Request, res: Response) {
     try {
         const allImages = await AppDataSource.manager.find(ImageEntity, {
-            where: { isActive: true }
+            where: { isBannerImage: true }
                 })
 
-        const homePageBannerImages = allImages.filter(image => image.isBannerImage)
-        res.status(200).send({...homePageBannerImages })
+        const homePageBannerImages = Object.values(allImages).map(BannerImage => ({
+            description: BannerImage.bannerDescription,
+            image: BannerImage.imageUrl,
+          }))
+        res.status(200).send(homePageBannerImages)
     } catch (error: any) {
         logger.error('Getting home page banner images failed with error: %s', error)
         res.status(400).send({ success: false, message: error.message })

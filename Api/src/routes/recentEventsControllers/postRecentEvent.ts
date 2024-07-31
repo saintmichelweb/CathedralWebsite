@@ -12,7 +12,7 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Title is required" }),
-  // event_date: z.date().nullable(),
+  event_date: z.string().trim().min(1, { message: "Event date title is required" }),
   description: z
     .string()
     .trim()
@@ -105,11 +105,10 @@ export async function postRecentEvent(req: AuthRequest, res: Response) {
     const newRecentEvent = new RecentEventsEntity();
     newRecentEvent.title = parsedBody.data.title
     newRecentEvent.description = parsedBody.data.description
-    // if (parsedBody.data.event_date) {
-    //   newRecentEvent.event_date = parsedBody.data.event_date
-    // }
+    if (parsedBody.data.event_date) {
+      newRecentEvent.event_date =new Date(parsedBody.data.event_date)
+    }
     newRecentEvent.isActive = true
-    // console.log('data', parsedBody.data)
     if (parsedBody.data.backgroungImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });

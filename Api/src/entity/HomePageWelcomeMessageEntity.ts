@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { ImageEntity } from "./ImagesEntity";
 
-@Entity("home_page")
+@Entity("welcome_message")
 export class HomePageWelcomeMessageEntity {
   @PrimaryGeneratedColumn()
   id!: number;

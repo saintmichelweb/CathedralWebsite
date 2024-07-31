@@ -9,7 +9,7 @@ import {
   type AddRecentEventsForm,
 } from "../../../lib/validations/recentEvents";
 import { AlertDialog, CustomButton } from "../../../components/ui";
-import { FormInput } from "../../../components/form";
+import { FormInput, FormTextarea } from "../../../components/form";
 import {
   addNewRecentEvent,
   updateRecentEvent,
@@ -55,12 +55,15 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
       setValue("title", recentEventToEdit.title);
       setValue("description", recentEventToEdit.description);
     }
-    setValue("backgroungImageId", recentEventToEdit?.backgroundImage?.id || null);
+    setValue(
+      "backgroungImageId",
+      recentEventToEdit?.backgroundImage?.id || null
+    );
   }, [recentEventToEdit]);
 
   const onConfirm = async (payload: AddRecentEventsForm | undefined) => {
     setIsOpenModal(false);
-    console.log('pay')
+    console.log("pay");
     if (payload) {
       if (selectedImage) {
         console.log("adding new image");
@@ -109,6 +112,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           description: payload.description,
           isActive: recentEventToEdit.isActive,
           recentEventId: recentEventToEdit.id,
+          event_date: payload.event_date,
           backgroungImageId: recentEventToEdit.backgroundImage?.id || null,
         };
         await updateRecentEvent(editPayload)
@@ -146,11 +150,20 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         <FormInput
+          name="event_date"
+          register={register}
+          errors={errors}
+          label="Event Date"
+          inputProps={{ bg: "white", type: "date" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
           name="description"
           register={register}
           errors={errors}
           label="Event description"
-          inputProps={{ bg: "white" }}
+          placeholder="enter event description"
+          textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         {!recentEventToEdit && (

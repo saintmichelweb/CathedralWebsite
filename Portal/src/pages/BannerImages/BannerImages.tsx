@@ -138,9 +138,30 @@ const BannerImagesManagement = () => {
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("imagePath", {
-        cell: (info) => info.getValue(),
-        header: "Language",
+      columnHelper.accessor("filename", {
+        cell: (info) => {
+          const imageUrl = info.row.original?.imageUrl;
+          const filename = info.row.original?.filename;
+          return (
+            <>
+              {imageUrl ? (
+                <CustomLink
+                  to="#"
+                  mr={{ base: 0, lg: 2 }}
+                  colorVariant={"link-outline"}
+                  onClick={() =>
+                    window.open(imageUrl, "_blank", "noopener,noreferrer")
+                  }
+                >
+                  <Text decoration="underline">{filename}</Text>
+                </CustomLink>
+              ) : (
+                <Text>N/A</Text>
+              )}
+            </>
+          );
+        },
+        header: "Image ",
       }),
       columnHelper.accessor("bannerDescription", {
         cell: (info) => info.getValue(),
@@ -177,7 +198,7 @@ const BannerImagesManagement = () => {
       }),
       columnHelper.accessor("id", {
         cell: (info) => {
-          const status = info.row.original.isActive;
+          const status = info.row.original.isBannerImage;
 
           const handleActivateOrDeactivate = () => {
             setSelectedBannerImage(info.row.original);

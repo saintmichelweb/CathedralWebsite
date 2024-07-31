@@ -81,6 +81,7 @@ const BannerImagesManagement = () => {
       description: recentEvent.description,
       isActive: !recentEvent.isActive,
       recentEventId: recentEvent.id,
+      event_date: recentEvent.event_date,
       backgroungImageId: recentEvent.backgroundImage?.id || null
     };
     await updateRecentEvent(editPayload)
@@ -144,9 +145,14 @@ const BannerImagesManagement = () => {
         cell: (info) => info.getValue(),
         header: "Description",
       }),
+      columnHelper.accessor("event_date", {
+        cell: (info) => info.getValue(),
+        header: "Date",
+      }),
       columnHelper.accessor("backgroundImage", {
         cell: (info) => {
           const imageUrl = info.row.original.backgroundImage?.imageUrl;
+          const filename = info.row.original.backgroundImage?.filename;
           return (
             <>
               {imageUrl ? (
@@ -158,7 +164,7 @@ const BannerImagesManagement = () => {
                     window.open(imageUrl, "_blank", "noopener,noreferrer")
                   }
                 >
-                  <Text decoration="underline">{imageUrl}</Text>
+                  <Text decoration="underline">{filename}</Text>
                 </CustomLink>
               ) : (
                 <Text>N/A</Text>

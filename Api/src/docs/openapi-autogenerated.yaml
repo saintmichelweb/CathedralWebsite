@@ -412,6 +412,19 @@ paths:
         - Mass Times
       security:
         - Authorization: []
+      parameters:
+        - in: query
+          name: isPortalRequest
+          schema:
+            type: boolean
+          required: false
+          description: boolean representing is the request is from the portal
+        - in: query
+          name: massLocation
+          schema:
+            type: string
+          required: false
+          description: Location of Masses
       summary: Get all mass times
       responses:
         '200':

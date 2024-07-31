@@ -24,7 +24,7 @@ export class ImageEntity {
     length: 255,
     unique: true
   })
-  imagePath!: string
+  filename!: string
 
   @Column({
     nullable: false,
