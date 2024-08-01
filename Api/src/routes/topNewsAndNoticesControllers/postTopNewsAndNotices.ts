@@ -7,11 +7,27 @@ import { AuthRequest } from "../../types/express";
 import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
 
 const topNewsAndNoticesSchema = z.object({
-  title: z
+  title_en: z
     .string()
     .trim()
     .min(1, { message: "Title is required" }),
-  description: z
+  title_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
+  title_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
+  description_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_rw: z
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
@@ -92,8 +108,12 @@ export async function postTopParishNewsAndNotices(req: AuthRequest, res: Respons
   const newTopNewsAndNoticesRepository = AppDataSource.getRepository(TopNewsAndNoticesEntity)
   try {
     const newTopNewsAndNotices = new TopNewsAndNoticesEntity();
-    newTopNewsAndNotices.title = parsedBody.data.title
-    newTopNewsAndNotices.description = parsedBody.data.description
+    newTopNewsAndNotices.title_en = parsedBody.data.title_en
+    newTopNewsAndNotices.title_fr = parsedBody.data.title_fr
+    newTopNewsAndNotices.title_rw = parsedBody.data.title_rw
+    newTopNewsAndNotices.description_en = parsedBody.data.description_en
+    newTopNewsAndNotices.description_fr = parsedBody.data.description_fr
+    newTopNewsAndNotices.description_rw = parsedBody.data.description_rw
     newTopNewsAndNotices.isActive = true
     await newTopNewsAndNoticesRepository.save(newTopNewsAndNotices)
     return res.status(201).send({ message: "Top parish news and notice created successfully" });

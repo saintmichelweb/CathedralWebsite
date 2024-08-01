@@ -7,7 +7,15 @@ import { AuthRequest } from "../../types/express";
 import { ParishHistoryEntity } from "../../entity/ParishHistoryEntity";
 
 const massParishHistorySchema = z.object({
-    parishHistory: z
+    parishHistory_en: z
+        .string()
+        .trim()
+        .min(1, { message: "Parish History Name is required" }),
+    parishHistory_fr: z
+        .string()
+        .trim()
+        .min(1, { message: "Parish History Name is required" }),
+    parishHistory_rw: z
         .string()
         .trim()
         .min(1, { message: "Parish History Name is required" }),
@@ -91,10 +99,14 @@ export async function postParishHistory(req: AuthRequest, res: Response) {
 
         if (parishHistoryEntries.length) {
             const oldparishHistory = parishHistoryEntries[0]
-            oldparishHistory.history = parsedBody.data.parishHistory
+            oldparishHistory.history_en = parsedBody.data.parishHistory_en
+            oldparishHistory.history_fr = parsedBody.data.parishHistory_fr
+            oldparishHistory.history_rw = parsedBody.data.parishHistory_rw
             await parishHistoryRepository.save(oldparishHistory)
         } else {
-            newParishHistory.history = parsedBody.data.parishHistory
+            newParishHistory.history_en = parsedBody.data.parishHistory_en
+            newParishHistory.history_fr = parsedBody.data.parishHistory_fr
+            newParishHistory.history_rw = parsedBody.data.parishHistory_rw
             await parishHistoryRepository.save(newParishHistory)
         }
 

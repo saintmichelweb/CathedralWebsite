@@ -8,7 +8,7 @@ export async function addNewMassTime(massTimeObj: MassTimesForm) {
 }
 
 export async function getAllMassTimes() {
-  const response = await instance.get<{ massTimes: MassTimesResponse [], message: string, numberOfPages: number }>('/mass-times/all')
+  const response = await instance.get<{ massTimes: MassTimesResponse [], message: string, numberOfPages: number }>('/mass-times/all?isPortalRequest=true')
   return response.data
 }
 
@@ -17,7 +17,9 @@ export async function updateMassTime(UpdateMassTimesForm: UpdateMassTimesForm) {
       location: UpdateMassTimesForm.location,
       language: UpdateMassTimesForm.language,
       isActive: UpdateMassTimesForm.isActive,
-      day: UpdateMassTimesForm.day,
+      day_en: UpdateMassTimesForm.day_en,
+      day_fr: UpdateMassTimesForm.day_fr,
+      day_rw: UpdateMassTimesForm.day_rw,
       time: UpdateMassTimesForm.time
   })
   return response.data

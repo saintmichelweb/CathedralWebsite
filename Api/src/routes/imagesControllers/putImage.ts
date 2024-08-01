@@ -13,7 +13,7 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
     const id = req.params.id
     const isBannerImage = req.body.isBannerImage
     const isActive = req.body.isActive
-    const bannerDescription = req.body.bannerDescription
+    const bannerDescription_en = req.body.bannerDescription
 
     if (!id) {
         return res.status(400).send({ message: "Image id is not provided!" });
@@ -40,8 +40,8 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
             oldImage.isBannerImage = isBannerImage
         }
 
-        if (bannerDescription) {
-            oldImage.bannerDescription = bannerDescription
+        if (bannerDescription_en) {
+            oldImage.bannerDescription_en = bannerDescription_en
         }
 
         if (isActive !== null && isActive !== undefined) {

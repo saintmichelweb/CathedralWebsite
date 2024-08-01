@@ -45,7 +45,9 @@ export interface RecentEventResponse {
 
 export interface MassTimesResponse {
     id: number
-    day: string
+    day_en: string
+    day_fr: string
+    day_rw: string
     time: string
     isActive: boolean
     created_at: string
