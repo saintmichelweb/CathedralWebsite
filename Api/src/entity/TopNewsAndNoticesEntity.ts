@@ -12,13 +12,37 @@ export class TopNewsAndNoticesEntity {
     nullable: false,
     length: 255
   })
-  title!: string
+  title_en!: string
+
+  @Column({
+    nullable: false,
+    length: 255
+  })
+  title_fr!: string
+
+  @Column({
+    nullable: false,
+    length: 255
+  })
+  title_rw!: string
 
   @Column({
     nullable: true,
     length: 255,
   })
-  description!: string
+  description_en!: string
+
+  @Column({
+    nullable: true,
+    length: 255,
+  })
+  description_fr!: string
+
+  @Column({
+    nullable: true,
+    length: 255,
+  })
+  description_rw!: string
 
   @Column({
     nullable: false,

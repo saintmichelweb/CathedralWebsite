@@ -42,7 +42,19 @@ export class ImageEntity {
     nullable: true,
     default: ''
   })
-  bannerDescription!: string
+  bannerDescription_en!: string
+
+  @Column({
+    nullable: true,
+    default: ''
+  })
+  bannerDescription_fr!: string
+
+  @Column({
+    nullable: true,
+    default: ''
+  })
+  bannerDescription_rw!: string
 
   @CreateDateColumn()
   created_at!: Date

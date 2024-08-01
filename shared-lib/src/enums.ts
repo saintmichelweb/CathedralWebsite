@@ -17,7 +17,22 @@ export enum StatusType {
 }
 
 export enum MassDaysEnum {
-  WEEKDAYS = 'Monday-Friday',
+  WEEKDAYS = 'Monday - Friday',
   SATURDAY = 'saturday',
   SUNDAY = 'sunday'
+}
+
+export const MassDaysEnumFrAndRW = {
+  WEEKDAYS : {
+    fr: 'Lundi - Vendredi',
+    rw: 'Kuwa Mbere - Kuwa Gatanu'
+  },
+  SATURDAY : {
+    fr: 'Samedi',
+    rw: 'Kuwa Gatandatu'
+  },
+  SUNDAY : {
+    fr: 'Dimanche',
+    rw: 'Kuwa Cyumweru'
+  } 
 }

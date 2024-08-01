@@ -13,7 +13,19 @@ import {
       nullable: false,
       length: 4096
     })
-    history!: string
+    history_en!: string
+  
+    @Column({
+      nullable: false,
+      length: 4096
+    })
+    history_fr!: string
+  
+    @Column({
+      nullable: false,
+      length: 4096
+    })
+    history_rw!: string
   
     @CreateDateColumn()
     created_at!: Date
