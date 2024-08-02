@@ -13,7 +13,9 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
     const id = req.params.id
     const isBannerImage = req.body.isBannerImage
     const isActive = req.body.isActive
-    const bannerDescription_en = req.body.bannerDescription
+    const bannerDescription_en = req.body.bannerDescription_en
+    const bannerDescription_fr = req.body.bannerDescription_fr
+    const bannerDescription_rw = req.body.bannerDescription_rw
 
     if (!id) {
         return res.status(400).send({ message: "Image id is not provided!" });
@@ -44,12 +46,20 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
             oldImage.bannerDescription_en = bannerDescription_en
         }
 
+        if (bannerDescription_fr) {
+            oldImage.bannerDescription_fr = bannerDescription_fr
+        }
+
+        if (bannerDescription_rw) {
+            oldImage.bannerDescription_rw = bannerDescription_rw
+        }
+
         if (isActive !== null && isActive !== undefined) {
             oldImage.isActive = isActive
         }
 
         await imageRepository.save(oldImage)
-        return res.status(201).send({ message: 'Image updated successfully'});
+        return res.status(201).send({ message: 'Image updated successfully' });
     } catch (error) {
         logger.error("saving image failed: %s", error);
         res.status(500).send({ success: false, message: "Internal server error!" });

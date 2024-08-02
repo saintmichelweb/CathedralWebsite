@@ -16,7 +16,7 @@ const ActionButton = (action: string, onClick: () => void) => {
             ? "danger"
             : action == "activate"
             ? "success"
-            : "danger"
+            : "grayed"
         }
         w={"8rem"}
         mx="2"

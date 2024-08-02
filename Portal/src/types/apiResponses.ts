@@ -12,7 +12,9 @@ export interface BannerImageResponse {
     filename: string
     isBannerImage: boolean
     isActive: boolean
-    bannerDescription: string
+    bannerDescription_en: string
+    bannerDescription_fr: string
+    bannerDescription_rw: string
     created_at: string
 }
 export interface LanguageResponse {

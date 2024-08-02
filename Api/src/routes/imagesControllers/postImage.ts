@@ -11,7 +11,9 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   const uploadedFile: Express.Multer.File | undefined = req.file;
   const portalUser = req.user;
   const isBannerImage = req.body.isBannerImage
-  const bannerDescription_en = req.body.bannerDescription
+  const bannerDescription_en = req.body.bannerDescription_en
+  const bannerDescription_fr = req.body.bannerDescription_fr
+  const bannerDescription_rw = req.body.bannerDescription_rw
 
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
@@ -25,13 +27,14 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   try {
     const newImage = new ImageEntity();
     newImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
+    newImage.imagePath = uploadedFile.path
     if (isBannerImage) {
       newImage.isBannerImage = isBannerImage === 'true' ? true : false
     }
     if (bannerDescription_en) {
       newImage.bannerDescription_en = bannerDescription_en
-      // newImage.bannerDescription_fr = bannerDescription_fr
-      // newImage.bannerDescription_rw = bannerDescription_rw
+      newImage.bannerDescription_fr = bannerDescription_fr
+      newImage.bannerDescription_rw = bannerDescription_rw
     }
     newImage.filename = uploadedFile.filename
     newImage.isActive = true
