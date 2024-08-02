@@ -36,8 +36,12 @@ export interface TopNewsAndNoticesResponse {
 
 export interface RecentEventResponse {
     id: number
-    title: string
-    description: string
+    title_en: string
+    title_fr: string
+    title_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
     event_date: string
     isActive: boolean
     created_at: string

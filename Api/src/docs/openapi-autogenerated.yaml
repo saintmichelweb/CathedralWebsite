@@ -874,6 +874,114 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
+  /recent-events/{id}:
+    delete:
+      tags:
+        - Recent Events
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Recent Event ID
+      summary: delete a Recent Event
+      responses:
+        '200':
+          description: Recent Event deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Recent Event deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Recent Events
+      security:
+        - Authorization: []
+      summary: Update a recent event
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Recent Event ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Recent event
+                  description: Recent event title
+                description:
+                  type: string
+                  example: description
+                  description: Recent event description
+                isActive:
+                  type: boolean
+                  example: 'false'
+                  description: Activation state of the recent event
+      responses:
+        '200':
+          description: Recent Event saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Recent Event updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Recent Event not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
   /recent-events/all:
     get:
       tags:
@@ -960,72 +1068,6 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
-  /recent-events/{id}:
-    put:
-      tags:
-        - Recent Events
-      security:
-        - Authorization: []
-      summary: Update a recent event
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: Recent Event ID
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: Recent event
-                  description: Recent event title
-                description:
-                  type: string
-                  example: description
-                  description: Recent event description
-                isActive:
-                  type: boolean
-                  example: 'false'
-                  description: Activation state of the recent event
-      responses:
-        '200':
-          description: Recent Event saved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: Recent Event updated successfully.
-        '401':
-          description: Invalid credentials!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Invalid credentials!
-        '404':
-          description: Recent Event not found!
-        '422':
-          description: Validation error!
-        '500':
-          description: Internal Server error!
   /roles/delete/{id}:
     get:
       tags:

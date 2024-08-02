@@ -5,14 +5,19 @@ import {
 } from "@tanstack/react-table";
 import {
   Box,
+  Divider,
   Flex,
   Heading,
   Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Stack,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdMoreVert } from "react-icons/md";
 import {
   AlertDialog,
   CommonIcons,
@@ -27,9 +32,10 @@ import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
-import { getAllRecentEvents, updateRecentEvent } from "../../api/recentEvents";
+import { deleteRecentEvent, getAllRecentEvents, updateRecentEvent } from "../../api/recentEvents";
 import { UpdateRecentEventsForm } from "../../lib/validations/recentEvents";
 import AddRecentEventsCard from "./Components/RecentEventsCard";
+import { formatTheDate } from "../../utils";
 
 const BannerImagesManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -46,7 +52,7 @@ const BannerImagesManagement = () => {
   const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedRecentEvent, setSelectedRecentEvent] =
     useState<RecentEventResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
@@ -77,8 +83,12 @@ const BannerImagesManagement = () => {
 
   const handleEventStatus = async (recentEvent: RecentEventResponse) => {
     const editPayload: UpdateRecentEventsForm = {
-      title: recentEvent.title,
-      description: recentEvent.description,
+      title_en: recentEvent.title_en,
+      title_fr: recentEvent.title_fr,
+      title_rw: recentEvent.title_rw,
+      description_en: recentEvent.description_en,
+      description_fr: recentEvent.description_fr,
+      description_rw: recentEvent.description_rw,
       isActive: !recentEvent.isActive,
       recentEventId: recentEvent.id,
       event_date: recentEvent.event_date,
@@ -107,27 +117,27 @@ const BannerImagesManagement = () => {
       });
   };
 
-  // const handleLocationDelete = async (locationId: number) => {
-  //   await deletLocation(locationId)
-  //     .then((res: MessageResponse) => {
-  //       toast({
-  //         title: "Delete Location Message",
-  //         description: res?.message || "Location deleted successfully",
-  //         status: "success",
-  //       });
-  //       setIsOpenDeleteModal(false);
-  //       fetchRecentEvents();
-  //       setSelectedRecentEvent(null);
-  //     })
-  //     .catch((error) => {
-  //       toast({
-  //         title: "Delete Location Message",
-  //         description:
-  //           error.response.data?.message || "Error deleting location!",
-  //         status: "error",
-  //       });
-  //     });
-  // };
+  const handleLocationDelete = async (recentEventId: number) => {
+    await deleteRecentEvent(recentEventId)
+      .then((res: MessageResponse) => {
+        toast({
+          title: "Delete Recent Event Message",
+          description: res?.message || "Recent Event deleted successfully",
+          status: "success",
+        });
+        setIsOpenDeleteModal(false);
+        fetchRecentEvents();
+        setSelectedRecentEvent(null);
+      })
+      .catch((error) => {
+        toast({
+          title: "Delete Recent Event Message",
+          description:
+            error.response.data?.message || "Error deleting recent event!",
+          status: "error",
+        });
+      });
+  };
 
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<RecentEventResponse>();
@@ -137,16 +147,32 @@ const BannerImagesManagement = () => {
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("title", {
+      columnHelper.accessor("title_en", {
         cell: (info) => info.getValue(),
-        header: "Title",
+        header: "Title(EN)",
       }),
-      columnHelper.accessor("description", {
+      columnHelper.accessor("title_fr", {
         cell: (info) => info.getValue(),
-        header: "Description",
+        header: "Title(FR)",
+      }),
+      columnHelper.accessor("title_rw", {
+        cell: (info) => info.getValue(),
+        header: "Title(RW)",
+      }),
+      columnHelper.accessor("description_en", {
+        cell: (info) => info.getValue(),
+        header: "Description(EN)",
+      }),
+      columnHelper.accessor("description_fr", {
+        cell: (info) => info.getValue(),
+        header: "Description(FR)",
+      }),
+      columnHelper.accessor("description_rw", {
+        cell: (info) => info.getValue(),
+        header: "Description(RW)",
       }),
       columnHelper.accessor("event_date", {
-        cell: (info) => info.getValue(),
+        cell: (info) => formatTheDate( info.getValue(), "DD/MM/YYYY"),
         header: "Date",
       }),
       columnHelper.accessor("backgroundImage", {
@@ -217,48 +243,48 @@ const BannerImagesManagement = () => {
             setOpenNewRecentEventModel(true);
           };
 
-          // const handledelete = () => {
-          //   setSelectedRecentEvent(info.row.original);
-          //   setIsOpenDeleteModal(true);
-          // };
+          const handledelete = () => {
+            setSelectedRecentEvent(info.row.original);
+            setIsOpenDeleteModal(true);
+          };
           return (
-            <Box>
-              {ActionButton("edit", handleEdit)}
-              {ActionButton(
-                status ? "deactivate" : "activate",
-                handleActivateOrDeactivate
-              )}
-            </Box>
-            // <Menu autoSelect={false}>
-            //   <MenuButton>
-            //     <Icon as={MdMoreVert} color={"black"} boxSize={7} />
-            //   </MenuButton>
-            //   <MenuList minW="0" w={"8.5rem"}>
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handleActivateOrDeactivate}
-            //     >
-            //       {ActionButton(status ? "deactivate" : "activate")}
-            //     </MenuItem>
-            //     {/* <Divider />
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handledelete}
-            //     >
-            //       {ActionButton("delete")}
-            //     </MenuItem> */}
-            //     <Divider />
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handleEdit}
-            //     >
-            //       {ActionButton("edit")}
-            //     </MenuItem>
-            //   </MenuList>
-            // </Menu>
+            // <Box>
+            //   {ActionButton("edit", handleEdit)}
+            //   {ActionButton(
+            //     status ? "deactivate" : "activate",
+            //     handleActivateOrDeactivate
+            //   )}
+            // </Box>
+            <Menu autoSelect={false}>
+              <MenuButton>
+                <Icon as={MdMoreVert} color={"black"} boxSize={7} />
+              </MenuButton>
+              <MenuList minW="0" w={"8.5rem"}>
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleActivateOrDeactivate}
+                >
+                  {ActionButton(status ? "deactivate" : "activate", handleActivateOrDeactivate)}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handledelete}
+                >
+                  {ActionButton("delete", handledelete)}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleEdit}
+                >
+                  {ActionButton("edit", handleEdit)}
+                </MenuItem>
+              </MenuList>
+            </Menu>
           );
         },
         header: "Action",
@@ -344,7 +370,7 @@ const BannerImagesManagement = () => {
         isCentered={true}
         widthSize="25vw"
       />
-      {/* <AlertDialog
+      <AlertDialog
         alertText={`Are you sure you want to delete this location?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
@@ -356,7 +382,7 @@ const BannerImagesManagement = () => {
             handleLocationDelete(selectedRecentEvent?.id);
           }
         }}
-      /> */}
+      />
       <AlertDialog
         alertText={`Are you sure you want to ${
           selectedRecentEvent?.isActive ? "deactivate" : "activate"
