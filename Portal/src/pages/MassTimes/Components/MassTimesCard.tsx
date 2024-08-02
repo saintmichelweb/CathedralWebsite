@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  Card,
+  // Card,
   // Checkbox,
   Divider,
-  Heading,
+  // Heading,
   HStack,
   Stack,
   useToast,
@@ -24,7 +24,7 @@ import { getLocations } from "../../../api/location";
 import { getLanguages } from "../../../api/language";
 import { addNewMassTime, updateMassTime } from "../../../api/massTimes";
 import { MassTimesResponse, MessageResponse } from "../../../types/apiResponses";
-import { MassDaysEnum } from "../../../../../shared-lib/src";
+import { MassDaysEnum_FR, MassDaysEnum_EN, MassDaysEnum_RW } from "../../../../../shared-lib/src";
 
 interface AddMassTimesProps {
   onClose: () => void;
@@ -48,18 +48,30 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
   const languageSelectOptions: SelectOption[] = [];
   const [massLocation, setMassLocation] = useState<SelectOption | null>(null);
   const [massLanguage, setMassLanguage] = useState<SelectOption | null>(null);
-  const [massDay, setMassDay] = useState<SelectOption | null>(null);
+  const [massDay_en, setMassDay_en] = useState<SelectOption | null>(null);
+  const [massDay_fr, setMassDay_fr] = useState<SelectOption | null>(null);
+  const [massDay_rw, setMassDay_rw] = useState<SelectOption | null>(null);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newUserPayload, setNewUserPayload] = useState<MassTimesForm>();
 
-  const massDaysOptions = Object.values(MassDaysEnum).map(value => ({
+  const massDaysOptions_en = Object.values(MassDaysEnum_EN).map(value => ({
+    value,
+    label: value,
+  }))
+  const massDaysOptions_fr = Object.values(MassDaysEnum_FR).map(value => ({
+    value,
+    label: value,
+  }))
+  const massDaysOptions_rw = Object.values(MassDaysEnum_RW).map(value => ({
     value,
     label: value,
   }))
 
   useEffect(() => {
     if (massTimeToEdit) {
-      setValue("day", massTimeToEdit.day);
+      setValue("day_en", massTimeToEdit.day_en);
+      setValue("day_fr", massTimeToEdit.day_fr);
+      setValue("day_rw", massTimeToEdit.day_rw);
       setValue("time", massTimeToEdit.time);
       setValue("language", massTimeToEdit.language.id);
       setValue("location", massTimeToEdit.location.id);
@@ -71,9 +83,17 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
         value: massTimeToEdit.language.id,
         label: massTimeToEdit.language.language,
       });
-      setMassDay({
-        value: massTimeToEdit.day,
-        label: massTimeToEdit.day,
+      setMassDay_en({
+        value: massTimeToEdit.day_en,
+        label: massTimeToEdit.day_en,
+      });
+      setMassDay_fr({
+        value: massTimeToEdit.day_fr,
+        label: massTimeToEdit.day_fr,
+      });
+      setMassDay_rw({
+        value: massTimeToEdit.day_rw,
+        label: massTimeToEdit.day_rw,
       });
     }
   }, [massTimeToEdit]);
@@ -125,6 +145,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
               description: res?.message || "Mass Time saved successfully",
               status: "success",
             });
+            props.fetchMassTimes()
+            props.onClose()
           })
           .catch((error) => {
             toast({
@@ -141,7 +163,9 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           location: payload.location,
           language: payload.language,
           isActive: massTimeToEdit.isActive,
-          day: payload.day,
+          day_rw: payload.day_rw,
+          day_en: payload.day_en,
+          day_fr: payload.day_fr,
           time: payload.time
         };
         await updateMassTime(editPayload)
@@ -200,16 +224,46 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           maxWVal={{ lg: "full", sm: "90vw" }}
         />
         <CustomFormSelect
-          selectValue={massDay}
-          isError={errors.day ? true : false}
-          errorMsg={errors.day ? errors.day.message : undefined}
+          selectValue={massDay_en}
+          isError={errors.day_en ? true : false}
+          errorMsg={errors.day_en ? errors.day_en.message : undefined}
           label="Day"
-          placeholder="Choose the day of the Mass"
-          options={massDaysOptions}
+          placeholder="Choose the day of the Mass (English)"
+          options={massDaysOptions_en}
           onChangeFn={(selectedVal) => {
-            setMassDay(selectedVal);
+            setMassDay_en(selectedVal);
             if (selectedVal) {
-              setValue("day", selectedVal.value.toString());
+              setValue("day_en", selectedVal.value.toString());
+            }
+          }}
+          maxWVal={{ lg: "full", sm: "90vw" }}
+        />
+        <CustomFormSelect
+          selectValue={massDay_fr}
+          isError={errors.day_fr ? true : false}
+          errorMsg={errors.day_fr ? errors.day_fr.message : undefined}
+          label="Jour"
+          placeholder="Choisissez le jour de la messe"
+          options={massDaysOptions_fr}
+          onChangeFn={(selectedVal) => {
+            setMassDay_fr(selectedVal);
+            if (selectedVal) {
+              setValue("day_fr", selectedVal.value.toString());
+            }
+          }}
+          maxWVal={{ lg: "full", sm: "90vw" }}
+        />
+        <CustomFormSelect
+          selectValue={massDay_rw}
+          isError={errors.day_rw ? true : false}
+          errorMsg={errors.day_rw ? errors.day_rw.message : undefined}
+          label="Umunsi"
+          placeholder="Hitamo umunsi wa Misa"
+          options={massDaysOptions_rw}
+          onChangeFn={(selectedVal) => {
+            setMassDay_rw(selectedVal);
+            if (selectedVal) {
+              setValue("day_rw", selectedVal.value.toString());
             }
           }}
           maxWVal={{ lg: "full", sm: "90vw" }}

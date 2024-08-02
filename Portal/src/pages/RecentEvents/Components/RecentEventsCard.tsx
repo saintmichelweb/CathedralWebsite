@@ -20,6 +20,7 @@ import {
 } from "../../../types/apiResponses";
 import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
 import { addNewImage } from "../../../api/images";
+import { formatTheDate } from "../../../utils";
 
 interface AddRecentEventProps {
   onClose: () => void;
@@ -52,8 +53,17 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
 
   useEffect(() => {
     if (recentEventToEdit) {
-      setValue("title", recentEventToEdit.title);
-      setValue("description", recentEventToEdit.description);
+      console.log(recentEventToEdit);
+      setValue("title_en", recentEventToEdit.title_en);
+      setValue("title_fr", recentEventToEdit.title_fr);
+      setValue("title_rw", recentEventToEdit.title_rw);
+      setValue("description_en", recentEventToEdit.description_en);
+      setValue("description_fr", recentEventToEdit.description_fr);
+      setValue("description_rw", recentEventToEdit.description_rw);
+      setValue(
+        "event_date",
+        formatTheDate(recentEventToEdit.event_date, "DD/MM/YYYY" )
+      );
     }
     setValue(
       "backgroungImageId",
@@ -63,7 +73,6 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
 
   const onConfirm = async (payload: AddRecentEventsForm | undefined) => {
     setIsOpenModal(false);
-    console.log("pay");
     if (payload) {
       if (selectedImage) {
         console.log("adding new image");
@@ -108,8 +117,12 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
         reset();
       } else if (recentEventToEdit) {
         const editPayload: UpdateRecentEventsForm = {
-          title: payload.title,
-          description: payload.description,
+          title_en: payload.title_en,
+          title_fr: payload.title_fr,
+          title_rw: payload.title_rw,
+          description_en: payload.description_en,
+          description_fr: payload.description_fr,
+          description_rw: payload.description_rw,
           isActive: recentEventToEdit.isActive,
           recentEventId: recentEventToEdit.id,
           event_date: payload.event_date,
@@ -142,11 +155,54 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
     <Box py={"2rem"}>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
-          name="title"
+          name="title_en"
           register={register}
           errors={errors}
-          label="Event title"
+          label="Event title (EN)"
           inputProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormInput
+          name="title_fr"
+          register={register}
+          errors={errors}
+          label="Event title (FR)"
+          inputProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormInput
+          name="title_rw"
+          register={register}
+          errors={errors}
+          label="Event title (RW)"
+          inputProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
+          name="description_en"
+          register={register}
+          errors={errors}
+          label="Event description (EN)"
+          placeholder="enter event description"
+          textareaProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
+          name="description_fr"
+          register={register}
+          errors={errors}
+          label="Event description (FR)"
+          placeholder="enter event description"
+          textareaProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
+          name="description_rw"
+          register={register}
+          errors={errors}
+          label="Event description (RW)"
+          placeholder="enter event description"
+          textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         <FormInput
@@ -155,15 +211,6 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           errors={errors}
           label="Event Date"
           inputProps={{ bg: "white", type: "date" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description"
-          register={register}
-          errors={errors}
-          label="Event description"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         {!recentEventToEdit && (

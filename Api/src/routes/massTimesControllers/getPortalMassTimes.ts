@@ -3,7 +3,7 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { MassTimesEntity } from "../../entity/MasstimesEntity";
-import { MassDaysEnum } from "../../../../shared-lib/src";
+// import { MassDaysEnum } from "../../../../shared-lib/src";
 
 /**
  * @openapi
@@ -65,37 +65,37 @@ export async function getPortalMassTimes(req: Request, res: Response) {
 
   try {
     const totalMassTimes = await queryBuilder.getMany()
-    if (!isPortalRequest && massLocation) {
-      let responseMassTimes: UsersAppMassTimeResponse 
-      const locationMassTimes = totalMassTimes.filter(massTime => massTime.location.location === massLocation)
+    // if (!isPortalRequest && massLocation) {
+    //   let responseMassTimes: UsersAppMassTimeResponse 
+    //   const locationMassTimes = totalMassTimes.filter(massTime => massTime.location.location === massLocation)
 
-      responseMassTimes = {
-        location: massLocation.toString(),
-        saturday: [],
-        mondayToFriday: [],
-        sunday: [],
-      }
+    //   responseMassTimes = {
+    //     location: massLocation.toString(),
+    //     saturday: [],
+    //     mondayToFriday: [],
+    //     sunday: [],
+    //   }
 
-      locationMassTimes.map(massTime => {
-        if (massTime.day === MassDaysEnum.WEEKDAYS) {
-          responseMassTimes.mondayToFriday.push({
-            language: massTime.language.language,
-            time: massTime.time,
-          })
-        } else if (massTime.day === MassDaysEnum.SATURDAY) {
-          responseMassTimes.saturday.push({
-            language: massTime.language.language,
-            time: massTime.time,
-          })
-        } else if (massTime.day === MassDaysEnum.SUNDAY) {
-          responseMassTimes.sunday.push({
-            language: massTime.language.language,
-            time: massTime.time,
-          })
-        }
-      })
-      return res.status(200).send({ message: "Mass Times retrieved successfully!", data: responseMassTimes });
-    }
+    //   locationMassTimes.map(massTime => {
+    //     if (massTime.day === MassDaysEnum.WEEKDAYS) {
+    //       responseMassTimes.mondayToFriday.push({
+    //         language: massTime.language.language,
+    //         time: massTime.time,
+    //       })
+    //     } else if (massTime.day === MassDaysEnum.SATURDAY) {
+    //       responseMassTimes.saturday.push({
+    //         language: massTime.language.language,
+    //         time: massTime.time,
+    //       })
+    //     } else if (massTime.day === MassDaysEnum.SUNDAY) {
+    //       responseMassTimes.sunday.push({
+    //         language: massTime.language.language,
+    //         time: massTime.time,
+    //       })
+    //     }
+    //   })
+    //   return res.status(200).send({ message: "Mass Times retrieved successfully!", data: responseMassTimes });
+    // }
     return res.status(200).send({ message: "Mass Times retrieved successfully!", massTimes: totalMassTimes, numberOfPages: 2 });
   } catch (error: any) {
     logger.error("Get mass times failed: %s", error);

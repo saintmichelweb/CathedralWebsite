@@ -16,7 +16,19 @@ export class MassTimesEntity {
     nullable: true,
     length: 255,
   })
-  day!: string
+  day_en!: string
+
+  @Column({
+    nullable: true,
+    length: 255,
+  })
+  day_fr!: string
+
+  @Column({
+    nullable: true,
+    length: 255,
+  })
+  day_rw!: string
 
   @Column({
     nullable: false,

@@ -1,15 +1,16 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
-import { LanguageEntity } from "../../entity/languageEntity";
+import { AuthRequest } from "../../types/express";
+import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
 
 /**
  * @openapi
- * /language/{id}:
+ * /top-news-and-notices/{id}:
  *   delete:
  *     tags:
- *       - Language
+ *       - Top News And Notices
  *     security:
  *       - Authorization: []
  *     parameters:
@@ -18,11 +19,11 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *         required: true
  *         schema:
  *            type: integer
- *         description: Language ID
- *     summary: delete a Mass language
+ *         description: Top News And Notices ID
+ *     summary: delete a Mass location
  *     responses:
  *       200:
- *         description: Language deleted successfully
+ *         description: Top News And Notices deleted successfully
  *         content:
  *           application/json:
  *             schema:
@@ -33,7 +34,7 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Language deleted successfully"
+ *                   example: "Top News And Notices deleted successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -53,23 +54,23 @@ import { LanguageEntity } from "../../entity/languageEntity";
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function deleteLanguage(req: Request, res: Response) {
+export async function deleteTopNewsAndNoticesEntity(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const languageRepository = AppDataSource.getRepository(LanguageEntity);
+  const topNewsAndNoticesRepository = AppDataSource.getRepository(TopNewsAndNoticesEntity);
   try {
     const id = Number(req.params.id);
-    const oldLanguage = await languageRepository.findOne({ where: { id } });
-    if (oldLanguage === null) {
-      return res.status(404).send({ message: "Language does not exist!" });
+    const oldTopNewsAndNotice = await topNewsAndNoticesRepository.findOne({ where: { id } });
+    if (oldTopNewsAndNotice === null) {
+      return res.status(404).send({ message: "Top News And Notices does not exist!" });
     }
-    await languageRepository.delete(oldLanguage.id);
-    return res.status(201).send({ message: "Language deleted successfully!" });
+    await topNewsAndNoticesRepository.delete(oldTopNewsAndNotice.id);
+    return res.status(201).send({ message: "Top News And Notices deleted successfully!" });
   } catch (error: any) {
-    logger.error("Deleting language failed: %s", error);
+    logger.error("Deleting Top News And Notices failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

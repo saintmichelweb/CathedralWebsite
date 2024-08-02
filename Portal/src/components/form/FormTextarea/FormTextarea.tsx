@@ -29,7 +29,7 @@ const FormTextarea = <T extends FieldValues>({
   ...props
 }: FormTextareaProps<T>) => {
   return (
-    <FormControl isInvalid={!!errors[name]} maxW={{ md: '20rem' }} {...props}>
+    <FormControl isInvalid={!!errors[name]} {...props}>
       {label && (<FormLabel fontSize='sm'>{label}</FormLabel>)}
       <Textarea {...register(name)} placeholder={placeholder} {...textareaProps} />
       <FormErrorMessage>

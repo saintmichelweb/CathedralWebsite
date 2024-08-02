@@ -12,7 +12,15 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Name is required" }),
-  description: z
+  description_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_rw: z
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
@@ -118,8 +126,14 @@ export async function putPriests(req: AuthRequest, res: Response) {
       savedPriest.name = parsedBody.data.name;
     }
 
-    if (parsedBody.data.description) {
-      savedPriest.description = parsedBody.data.description;
+    if (parsedBody.data.description_en) {
+      savedPriest.description_en = parsedBody.data.description_en;
+    }
+    if (parsedBody.data.description_fr) {
+      savedPriest.description_fr = parsedBody.data.description_fr;
+    }
+    if (parsedBody.data.description_rw) {
+      savedPriest.description_rw = parsedBody.data.description_rw;
     }
 
     if (parsedBody.data.backgroungImageId) {

@@ -12,7 +12,9 @@ export interface BannerImageResponse {
     filename: string
     isBannerImage: boolean
     isActive: boolean
-    bannerDescription: string
+    bannerDescription_en: string
+    bannerDescription_fr: string
+    bannerDescription_rw: string
     created_at: string
 }
 export interface LanguageResponse {
@@ -25,8 +27,12 @@ export interface LanguageResponse {
 
 export interface TopNewsAndNoticesResponse {
     id: number
-    title: string
-    description: string
+    title_en: string
+    title_fr: string
+    title_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
     isActive: boolean
     created_at: string
     updated_at: string
@@ -34,8 +40,12 @@ export interface TopNewsAndNoticesResponse {
 
 export interface RecentEventResponse {
     id: number
-    title: string
-    description: string
+    title_en: string
+    title_fr: string
+    title_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
     event_date: string
     isActive: boolean
     created_at: string
@@ -45,7 +55,9 @@ export interface RecentEventResponse {
 
 export interface MassTimesResponse {
     id: number
-    day: string
+    day_en: string
+    day_fr: string
+    day_rw: string
     time: string
     isActive: boolean
     created_at: string
@@ -70,7 +82,9 @@ export interface imageResponse {
 
 export interface ParishHistoryResponse {
     id: number;
-    history: string;
+    history_en: string;
+    history_rw: string;
+    history_fr: string;
     created_at: Date;
     updated_at: Date;
 }

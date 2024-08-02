@@ -5,6 +5,7 @@ import { authenticateJWT } from '../middleware/authenticate';
 import { ImageUpload } from './imagesControllers/postImage';
 import { getBannerImages } from './imagesControllers/getBannerImages';
 import { ImageUpdate } from './imagesControllers/putImage';
+import { deleteImages } from './imagesControllers/deleteImage';
 
 const router = express.Router()
 
@@ -32,5 +33,8 @@ router.get('/images/all',
 router.put('/image/:id',
     authenticateJWT,
     ImageUpdate);
+router.delete('/image/:id',
+    authenticateJWT,
+    deleteImages);
 
 export default router;

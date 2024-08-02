@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import {
-  Box,
-  Divider,
-  HStack,
-  Stack,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AlertDialog, CustomButton } from "../../../components/ui";
-import { FormInput } from "../../../components/form";
+import { FormInput, FormTextarea } from "../../../components/form";
 import {
   MessageResponse,
   TopNewsAndNoticesResponse,
 } from "../../../types/apiResponses";
-import { TopNewsAndNoticesForm, topParishNewsAndNoticesSchema, UpdateTopNewsAndNoticesForm } from "../../../lib/validations/topParishNewsAndNotices";
-import { addNewTopNewsAndNotices, updateTopNewsAndNotices } from "../../../api/topNewsAndNotices";
+import {
+  TopNewsAndNoticesForm,
+  topParishNewsAndNoticesSchema,
+  UpdateTopNewsAndNoticesForm,
+} from "../../../lib/validations/topParishNewsAndNotices";
+import {
+  addNewTopNewsAndNotices,
+  updateTopNewsAndNotices,
+} from "../../../api/topNewsAndNotices";
 
 interface AddTopNewsOrNoticeProps {
   onClose: () => void;
@@ -47,8 +48,12 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
 
   useEffect(() => {
     if (topParishNewsOrNOticeToEdit) {
-      setValue("title", topParishNewsOrNOticeToEdit.title);
-      setValue("description", topParishNewsOrNOticeToEdit.description);
+      setValue("title_en", topParishNewsOrNOticeToEdit.title_en);
+      setValue("title_fr", topParishNewsOrNOticeToEdit.title_fr);
+      setValue("title_rw", topParishNewsOrNOticeToEdit.title_rw);
+      setValue("description_en", topParishNewsOrNOticeToEdit.description_en);
+      setValue("description_fr", topParishNewsOrNOticeToEdit.description_fr);
+      setValue("description_rw", topParishNewsOrNOticeToEdit.description_rw);
     }
   }, [topParishNewsOrNOticeToEdit]);
 
@@ -60,11 +65,12 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
           .then((res: MessageResponse) => {
             toast({
               title: "Add Top News / Notice message!",
-              description: res?.message || "Top News / Notice saved successfully",
+              description:
+                res?.message || "Top News / Notice saved successfully",
               status: "success",
             });
             props.fetchTopNewsAndNotices();
-            props.onClose()
+            props.onClose();
           })
           .catch((error) => {
             toast({
@@ -77,8 +83,12 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
         reset();
       } else if (topParishNewsOrNOticeToEdit) {
         const editPayload: UpdateTopNewsAndNoticesForm = {
-          title: payload.title,
-          description: payload.description,
+          title_en: payload.title_en,
+          title_fr: payload.title_fr,
+          title_rw: payload.title_rw,
+          description_en: payload.description_en,
+          description_fr: payload.description_fr,
+          description_rw: payload.description_rw,
           isActive: topParishNewsOrNOticeToEdit.isActive,
           topNewsOrNoticeId: topParishNewsOrNOticeToEdit.id,
         };
@@ -86,7 +96,8 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
           .then((res: MessageResponse) => {
             toast({
               title: "Edit Top News / Notice message!",
-              description: res?.message || "Top News / Notice edited successfully",
+              description:
+                res?.message || "Top News / Notice edited successfully",
               status: "success",
             });
             props.fetchTopNewsAndNotices();
@@ -96,7 +107,8 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
             toast({
               title: "Edit Top News / Notice message",
               description:
-                error.response?.data?.message || "Error editing Top News / Notice!",
+                error.response?.data?.message ||
+                "Error editing Top News / Notice!",
               status: "error",
             });
           });
@@ -109,19 +121,54 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
     <Box py={"2rem"}>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
-          name="title"
+          name="title_en"
           register={register}
           errors={errors}
-          label="Top News / Notice title"
+          label="Event title (EN)"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         <FormInput
-          name="description"
+          name="title_fr"
           register={register}
           errors={errors}
-          label="Top News / Notice description"
+          label="Event title (FR)"
           inputProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormInput
+          name="title_rw"
+          register={register}
+          errors={errors}
+          label="Event title (RW)"
+          inputProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
+          name="description_en"
+          register={register}
+          errors={errors}
+          label="Event description (EN)"
+          placeholder="enter event description"
+          textareaProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
+          name="description_fr"
+          register={register}
+          errors={errors}
+          label="Event description (FR)"
+          placeholder="enter event description"
+          textareaProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
+          name="description_rw"
+          register={register}
+          errors={errors}
+          label="Event description (RW)"
+          placeholder="enter event description"
+          textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         <Divider mt={2} color={"gray.400"} />
@@ -135,7 +182,7 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
             minW={"8rem"}
             onClick={() => {
               reset();
-              props.onClose()
+              props.onClose();
             }}
           >
             Cancel

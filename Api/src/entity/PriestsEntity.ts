@@ -1,7 +1,8 @@
 import {
     Entity, Column, PrimaryGeneratedColumn,
     CreateDateColumn,
-    ManyToOne
+    ManyToOne,
+    UpdateDateColumn
   } from 'typeorm'
   import { ImageEntity } from './ImagesEntity'
   
@@ -20,19 +21,25 @@ import {
       nullable: true,
       length: 255,
     })
-    description!: string
+    description_en!: string
   
-    // @Column({ nullable: true })
-    // event_date!: Date;
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    description_fr!: string
   
-    // @Column({
-    //   nullable: false,
-    //   default: false,
-    // })
-    // isActive!: boolean;
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    description_rw!: string
   
     @CreateDateColumn()
     created_at!: Date
+
+    @UpdateDateColumn()
+    updated_at!: Date
   
     @ManyToOne(() => ImageEntity, image => image.connectedEvents)
     backgroundImage!: ImageEntity

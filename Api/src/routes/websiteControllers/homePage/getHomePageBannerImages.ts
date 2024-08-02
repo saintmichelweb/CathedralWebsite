@@ -11,7 +11,9 @@ export async function getHomePageBannerImages(req: Request, res: Response) {
                 })
 
         const homePageBannerImages = Object.values(allImages).map(BannerImage => ({
-            description: BannerImage.bannerDescription,
+            description_en: BannerImage.bannerDescription_en,
+            description_fr: BannerImage.bannerDescription_fr,
+            description_rw: BannerImage.bannerDescription_rw,
             image: BannerImage.imageUrl,
           }))
         res.status(200).send(homePageBannerImages)

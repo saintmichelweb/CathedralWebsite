@@ -15,7 +15,15 @@ const massTimesSchema = z.object({
   location: z
     .number()
     .min(1, { message: "Location is required" }),
-  day: z
+  day_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  day_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  day_rw: z
     .string()
     .trim()
     .min(1, { message: "Time is required" }),
@@ -122,7 +130,9 @@ export async function postMassTime(req: AuthRequest, res: Response) {
       return res.status(404).send({ message: "Location or Language does not exist!" });
     }
 
-    newMassTime.day = parsedBody.data.day
+    newMassTime.day_en = parsedBody.data.day_en
+    newMassTime.day_fr = parsedBody.data.day_fr
+    newMassTime.day_rw = parsedBody.data.day_rw
     newMassTime.time = parsedBody.data.time
     newMassTime.isActive = true
     console.log('newMassTime', newMassTime)

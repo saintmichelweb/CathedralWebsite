@@ -8,15 +8,31 @@ import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
 import { ImageEntity } from "../../entity/ImagesEntity";
 
 const recentEventSchema = z.object({
-  title: z
+  title_en: z
     .string()
     .trim()
     .min(1, { message: "Title is required" }),
-  event_date: z.string().trim().min(1, { message: "Event date title is required" }),
-  description: z
+  title_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
+  title_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
+  description_en: z
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
+  description_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  event_date: z.string().trim().min(1, { message: "Event date title is required" }),
   backgroungImageId: z
     .number()
     .nullable()
@@ -103,10 +119,14 @@ export async function postRecentEvent(req: AuthRequest, res: Response) {
 
   try {
     const newRecentEvent = new RecentEventsEntity();
-    newRecentEvent.title = parsedBody.data.title
-    newRecentEvent.description = parsedBody.data.description
+    newRecentEvent.title_en = parsedBody.data.title_en
+    newRecentEvent.title_fr = parsedBody.data.title_fr
+    newRecentEvent.title_rw = parsedBody.data.title_rw
+    newRecentEvent.description_en = parsedBody.data.description_en
+    newRecentEvent.description_fr = parsedBody.data.description_fr
+    newRecentEvent.description_rw = parsedBody.data.description_rw
     if (parsedBody.data.event_date) {
-      newRecentEvent.event_date =new Date(parsedBody.data.event_date)
+      newRecentEvent.event_date = new Date(parsedBody.data.event_date)
     }
     newRecentEvent.isActive = true
     if (parsedBody.data.backgroungImageId) {

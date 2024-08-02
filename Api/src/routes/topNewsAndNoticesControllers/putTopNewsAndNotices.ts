@@ -7,11 +7,27 @@ import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
 import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
 
 const updateTopNewsAndNoticesSchema = z.object({
-  title: z
+  title_en: z
     .string()
     .trim()
     .min(1, { message: "Title is required" }),
-  description: z
+  title_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
+  title_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
+  description_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_rw: z
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
@@ -111,12 +127,28 @@ export async function putTopParishNewsAndNotices(req: Request, res: Response) {
       return res.status(404).send({ message: "Top News And Notices does not exist!" });
     }
 
-    if (parsedBody.data.title) {
-      oldtopParishNewsAndNotices.title = parsedBody.data.title;
+    if (parsedBody.data.title_en) {
+      oldtopParishNewsAndNotices.title_en = parsedBody.data.title_en;
     }
 
-    if (parsedBody.data.description) {
-      oldtopParishNewsAndNotices.description = parsedBody.data.description;
+    if (parsedBody.data.title_fr) {
+      oldtopParishNewsAndNotices.title_fr = parsedBody.data.title_fr;
+    }
+
+    if (parsedBody.data.title_rw) {
+      oldtopParishNewsAndNotices.title_rw = parsedBody.data.title_rw;
+    }
+
+    if (parsedBody.data.description_en) {
+      oldtopParishNewsAndNotices.description_en = parsedBody.data.description_en;
+    }
+
+    if (parsedBody.data.description_fr) {
+      oldtopParishNewsAndNotices.description_fr = parsedBody.data.description_fr;
+    }
+
+    if (parsedBody.data.description_rw) {
+      oldtopParishNewsAndNotices.description_rw = parsedBody.data.description_rw;
     }
 
     if (parsedBody.data.isActive !== null && parsedBody.data.isActive !== undefined) {

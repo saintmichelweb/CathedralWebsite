@@ -14,7 +14,13 @@ export class HomePageWelcomeMessageEntity {
   id!: number;
 
   @Column({ nullable: false, length: 255 })
-  welcomeMessage!: string;
+  welcomeMessage_en!: string;
+
+  @Column({ nullable: false, length: 255 })
+  welcomeMessage_fr!: string;
+
+  @Column({ nullable: false, length: 255 })
+  welcomeMessage_rw!: string;
 
   @Column({
     nullable: false,

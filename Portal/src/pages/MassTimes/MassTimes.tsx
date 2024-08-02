@@ -84,7 +84,9 @@ const MassTimesManagement = () => {
       location: massTime.location.id,
       language: massTime.language.id,
       isActive: !massTime.isActive,
-      day: massTime.day,
+      day_en: massTime.day_en,
+      day_fr: massTime.day_fr,
+      day_rw: massTime.day_rw,
       time: massTime.time,
     };
     await updateMassTime(editPayload)
@@ -138,9 +140,17 @@ const MassTimesManagement = () => {
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("day", {
+      columnHelper.accessor("day_en", {
         cell: (info) => info.getValue(),
         header: "Day",
+      }),
+      columnHelper.accessor("day_fr", {
+        cell: (info) => info.getValue(),
+        header: "Jour",
+      }),
+      columnHelper.accessor("day_rw", {
+        cell: (info) => info.getValue(),
+        header: "Umunsi",
       }),
       columnHelper.accessor("time", {
         cell: (info) => info.getValue(),

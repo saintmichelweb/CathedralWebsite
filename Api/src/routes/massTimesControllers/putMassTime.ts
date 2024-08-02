@@ -14,7 +14,15 @@ const updateMassTimesSchema = z.object({
   location: z
     .number()
     .min(1, { message: "Location is required" }),
-  day: z
+  day_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  day_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  day_rw: z
     .string()
     .trim()
     .min(1, { message: "Time is required" }),
@@ -143,8 +151,16 @@ export async function putMassTimes(req: Request, res: Response) {
       oldMassTime.isActive = parsedBody.data.isActive
     }
 
-    if (parsedBody.data.day !== null && parsedBody.data.day !== undefined) {
-      oldMassTime.day = parsedBody.data.day
+    if (parsedBody.data.day_en !== null && parsedBody.data.day_en !== undefined) {
+      oldMassTime.day_en = parsedBody.data.day_en
+    }
+
+    if (parsedBody.data.day_fr !== null && parsedBody.data.day_fr !== undefined) {
+      oldMassTime.day_fr = parsedBody.data.day_fr
+    }
+
+    if (parsedBody.data.day_rw !== null && parsedBody.data.day_rw !== undefined) {
+      oldMassTime.day_rw = parsedBody.data.day_rw
     }
 
     if (parsedBody.data.time !== null && parsedBody.data.time !== undefined) {

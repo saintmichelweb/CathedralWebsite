@@ -12,7 +12,15 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Name is required" }),
-  description: z
+  description_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_rw: z
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
@@ -103,8 +111,9 @@ export async function postPriests(req: AuthRequest, res: Response) {
   try {
     const newPriest = new PriestsEntity();
     newPriest.name = parsedBody.data.name
-    newPriest.description = parsedBody.data.description
-
+    newPriest.description_en = parsedBody.data.description_en
+    newPriest.description_fr = parsedBody.data.description_fr
+    newPriest.description_rw = parsedBody.data.description_rw
     if (parsedBody.data.backgroungImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });

@@ -2,14 +2,15 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
-import { LanguageEntity } from "../../entity/languageEntity";
+import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
+import * as fs from 'fs'
 
 /**
  * @openapi
- * /language/{id}:
+ * /recent-events/{id}:
  *   delete:
  *     tags:
- *       - Language
+ *       - Recent Events
  *     security:
  *       - Authorization: []
  *     parameters:
@@ -18,11 +19,11 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *         required: true
  *         schema:
  *            type: integer
- *         description: Language ID
- *     summary: delete a Mass language
+ *         description: Recent Event ID
+ *     summary: delete a Recent Event
  *     responses:
  *       200:
- *         description: Language deleted successfully
+ *         description: Recent Event deleted successfully
  *         content:
  *           application/json:
  *             schema:
@@ -33,7 +34,7 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Language deleted successfully"
+ *                   example: "Recent Event deleted successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -53,23 +54,29 @@ import { LanguageEntity } from "../../entity/languageEntity";
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function deleteLanguage(req: Request, res: Response) {
+export async function deleteRecentEvent(req: Request, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const languageRepository = AppDataSource.getRepository(LanguageEntity);
+  const RecentEventRepository = AppDataSource.getRepository(RecentEventsEntity);
   try {
     const id = Number(req.params.id);
-    const oldLanguage = await languageRepository.findOne({ where: { id } });
-    if (oldLanguage === null) {
-      return res.status(404).send({ message: "Language does not exist!" });
+    const oldRecentEvent = await RecentEventRepository.findOne({ where: { id }, relations: ['backgroundImage'], });
+
+    if (oldRecentEvent === null) {
+      return res.status(404).send({ message: "Recent Event does not exist!" });
     }
-    await languageRepository.delete(oldLanguage.id);
-    return res.status(201).send({ message: "Language deleted successfully!" });
+
+    if (oldRecentEvent.backgroundImage) {  
+        fs.unlinkSync(oldRecentEvent.backgroundImage.imagePath);
+    }
+
+    await RecentEventRepository.delete(oldRecentEvent.id);
+    return res.status(201).send({ message: "Recent Event deleted successfully!" });
   } catch (error: any) {
-    logger.error("Deleting language failed: %s", error);
+    logger.error("Deleting Recent Event failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

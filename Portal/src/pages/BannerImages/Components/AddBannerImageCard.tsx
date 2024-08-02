@@ -50,7 +50,9 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
 
   useEffect(() => {
     if (bannerImageToEdit) {
-      setValue("bannerDescription", bannerImageToEdit.bannerDescription);
+      setValue("bannerDescription_en", bannerImageToEdit.bannerDescription_en);
+      setValue("bannerDescription_fr", bannerImageToEdit.bannerDescription_fr);
+      setValue("bannerDescription_rw", bannerImageToEdit.bannerDescription_rw);
     }
   }, [bannerImageToEdit]);
 
@@ -62,7 +64,9 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
           await addNewImage({
             image: selectedBannerImage,
             isBannerImage: true,
-            bannerDescription: payload.bannerDescription,
+            bannerDescription_en: payload.bannerDescription_en,
+            bannerDescription_fr: payload.bannerDescription_fr,
+            bannerDescription_rw: payload.bannerDescription_rw,
           })
             .then((res: MessageResponse) => {
               toast({
@@ -87,10 +91,15 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
       } else if (bannerImageToEdit) {
         const editPayload: UpdateBannerImageForm = {
           imageId: bannerImageToEdit.id,
-          bannerDescription: payload.bannerDescription,
+          bannerDescription_en: payload.bannerDescription_en,
+          bannerDescription_fr: payload.bannerDescription_fr,
+          bannerDescription_rw: payload.bannerDescription_rw,
           isActive: bannerImageToEdit.isActive,
         };
-        await updateImage({...editPayload, isBannerImage: bannerImageToEdit.isBannerImage})
+        await updateImage({
+          ...editPayload,
+          isBannerImage: bannerImageToEdit.isBannerImage,
+        })
           .then((res: MessageResponse) => {
             toast({
               title: "Update Banner Image Message",
@@ -116,25 +125,43 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
   return (
     <Box py={"2rem"}>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormTextarea
-          name="bannerDescription"
-          register={register}
-          errors={errors}
-          label="Banner description"
-          placeholder="Enter banner description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        {!bannerImageToEdit?  (
+        {!bannerImageToEdit ? (
           <ImageUploader
             parentSetSelectedImage={(file: File) =>
               setSelectedBannerImage(file)
             }
           />
-        ): 
+        ) : (
           // <img src={bannerImageToEdit.imageUrl} alt="Selected Image" />
           <></>
-        }
+        )}
+        <FormTextarea
+          name="bannerDescription_en"
+          register={register}
+          errors={errors}
+          label="Banner description (EN)"
+          placeholder="Enter banner description"
+          textareaProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
+          name="bannerDescription_fr"
+          register={register}
+          errors={errors}
+          label="Description de la bannière"
+          placeholder="Entrez la description de la bannière"
+          textareaProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormTextarea
+          name="bannerDescription_rw"
+          register={register}
+          errors={errors}
+          label="Igisobanuro cy'ifoto"
+          placeholder="Andika igishobanuro cy'ifoto"
+          textareaProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>

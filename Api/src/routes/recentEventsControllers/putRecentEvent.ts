@@ -7,11 +7,27 @@ import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
 import { ImageEntity } from "../../entity/ImagesEntity";
 
 const recentEventSchema = z.object({
-  title: z
+  title_en: z
     .string()
     .trim()
     .min(1, { message: "Title is required" }),
-  description: z
+  title_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
+  title_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
+  description_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_rw: z
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
@@ -115,12 +131,28 @@ export async function putRecentEvent(req: Request, res: Response) {
       return res.status(404).send({ message: "Recent Event does not exist!" });
     }
 
-    if (parsedBody.data.title) {
-      oldRecentEvent.title = parsedBody.data.title;
+    if (parsedBody.data.title_en) {
+      oldRecentEvent.title_en = parsedBody.data.title_en;
     }
 
-    if (parsedBody.data.description) {
-      oldRecentEvent.description = parsedBody.data.description;
+    if (parsedBody.data.title_fr) {
+      oldRecentEvent.title_fr = parsedBody.data.title_fr;
+    }
+
+    if (parsedBody.data.title_rw) {
+      oldRecentEvent.title_rw = parsedBody.data.title_rw;
+    }
+
+    if (parsedBody.data.description_en) {
+      oldRecentEvent.description_en = parsedBody.data.description_en;
+    }
+
+    if (parsedBody.data.description_fr) {
+      oldRecentEvent.description_fr = parsedBody.data.description_fr;
+    }
+
+    if (parsedBody.data.description_rw) {
+      oldRecentEvent.description_rw = parsedBody.data.description_rw;
     }
     
     if (parsedBody.data.event_date) {

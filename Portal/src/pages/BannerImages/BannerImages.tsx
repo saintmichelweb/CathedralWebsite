@@ -31,11 +31,9 @@ import { BannerImageResponse, MessageResponse } from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
-import { getLanguages, updateLanguage } from "../../api/language";
 import AddBannerImageCard from "./Components/AddBannerImageCard";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
-import { getBannerImages, updateImage } from "../../api/images";
-import { UpdateLanguageForm } from '../../lib/validations/language';
+import { deleteImage, getBannerImages, updateImage } from "../../api/images";
 import { UpdateBannerImageForm } from "../../lib/validations/image";
 
 const BannerImagesManagement = () => {
@@ -45,13 +43,15 @@ const BannerImagesManagement = () => {
   });
 
   const toast = useToast();
-  const [bannerImagesData, setBannerImagesData] = useState<BannerImageResponse[]>([]);
+  const [bannerImagesData, setBannerImagesData] = useState<
+    BannerImageResponse[]
+  >([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
   const [openNewBannerImageModel, setOpenNewBannerImageModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedBannerImage, setSelectedBannerImage] =
     useState<BannerImageResponse | null>(null);
   // const toast = useToast();
@@ -84,14 +84,20 @@ const BannerImagesManagement = () => {
   const handleBannerImageStatus = async (bannerImage: BannerImageResponse) => {
     const editPayload: UpdateBannerImageForm = {
       imageId: bannerImage.id,
-      bannerDescription: bannerImage.bannerDescription,
+      bannerDescription_en: bannerImage.bannerDescription_en,
+      bannerDescription_fr: bannerImage.bannerDescription_fr,
+      bannerDescription_rw: bannerImage.bannerDescription_rw,
       isActive: bannerImage.isActive,
     };
-    await updateImage({...editPayload, isBannerImage: !bannerImage.isBannerImage})
+    await updateImage({
+      ...editPayload,
+      isBannerImage: !bannerImage.isBannerImage,
+    })
       .then((res: MessageResponse) => {
         toast({
           title: "Change Banner Image Status Message",
-          description: res?.message || "Banner Image  status changed successfully",
+          description:
+            res?.message || "Banner Image  status changed successfully",
           status: "success",
         });
         setIsOpenActivateOrDeactivateModal(false);
@@ -102,33 +108,34 @@ const BannerImagesManagement = () => {
         toast({
           title: "Change Banner Image  Status Message",
           description:
-            error.response.data?.message || "Error editing banner Image status!",
+            error.response.data?.message ||
+            "Error editing banner Image status!",
           status: "error",
         });
       });
   };
 
-  // const handleLanguageDelete = async (bannerImageId: number) => {
-  //   await deletLanguage(bannerImageId)
-  //     .then((res: MessageResponse) => {
-  //       toast({
-  //         title: "Delete Language Message",
-  //         description: res?.message || "Language deleted successfully",
-  //         status: "success",
-  //       });
-  //       setIsOpenDeleteModal(false);
-  //       fetchBannerImages();
-  //       setSelectedBannerImage(null);
-  //     })
-  //     .catch((error) => {
-  //       toast({
-  //         title: "Delete Language Message",
-  //         description:
-  //           error.response.data?.message || "Error deleting bannerImage!",
-  //         status: "error",
-  //       });
-  //     });
-  // };
+  const handleImageDelete = async (bannerImageId: number) => {
+    await deleteImage(bannerImageId)
+      .then((res: MessageResponse) => {
+        toast({
+          title: "Delete Image Message",
+          description: res?.message || "Image deleted successfully",
+          status: "success",
+        });
+        setIsOpenDeleteModal(false);
+        fetchBannerImages();
+        setSelectedBannerImage(null);
+      })
+      .catch((error) => {
+        toast({
+          title: "Delete Image Message",
+          description:
+            error.response.data?.message || "Error deleting banner image!",
+          status: "error",
+        });
+      });
+  };
 
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<BannerImageResponse>();
@@ -163,9 +170,17 @@ const BannerImagesManagement = () => {
         },
         header: "Image ",
       }),
-      columnHelper.accessor("bannerDescription", {
+      columnHelper.accessor("bannerDescription_en", {
         cell: (info) => info.getValue(),
-        header: "Description",
+        header: "Description (EN)",
+      }),
+      columnHelper.accessor("bannerDescription_fr", {
+        cell: (info) => info.getValue(),
+        header: "Description (FR)",
+      }),
+      columnHelper.accessor("bannerDescription_rw", {
+        cell: (info) => info.getValue(),
+        header: "Description (EN)",
       }),
       columnHelper.accessor("isBannerImage", {
         cell: (info) => {
@@ -210,48 +225,51 @@ const BannerImagesManagement = () => {
             setOpenNewBannerImageModel(true);
           };
 
-          // const handledelete = () => {
-          //   setSelectedBannerImage(info.row.original);
-          //   setIsOpenDeleteModal(true);
-          // };
+          const handledelete = () => {
+            setSelectedBannerImage(info.row.original);
+            setIsOpenDeleteModal(true);
+          };
           return (
-            <Box>
-              {ActionButton("edit", handleEdit)}
-              {ActionButton(
-                status ? "deactivate" : "activate",
-                handleActivateOrDeactivate
-              )}
-            </Box>
-            // <Menu autoSelect={false}>
-            //   <MenuButton>
-            //     <Icon as={MdMoreVert} color={"black"} boxSize={7} />
-            //   </MenuButton>
-            //   <MenuList minW="0" w={"8.5rem"}>
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handleActivateOrDeactivate}
-            //     >
-            //       {ActionButton(status ? "deactivate" : "activate")}
-            //     // </MenuItem>
-            //     <Divider />
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handledelete}
-            //     >
-            //       {/* {ActionButton("delete")} */}
-            //     </MenuItem>
-            //     {/* // <Divider />
-            //     // <MenuItem
-            //     //   px={0}
-            //     //   _focus={{ bg: "transparent" }}
-            //     //   onClick={handleEdit}
-            //     // > */}
-            //       {ActionButton("edit")}
-            // //     </MenuItem>
-            // //   </MenuList>
-            // // </Menu>
+            // <Box>
+            //   {ActionButton("edit", handleEdit)}
+            //   {ActionButton(
+            //     status ? "deactivate" : "activate",
+            //     handleActivateOrDeactivate
+            //   )}
+            // </Box>
+            <Menu autoSelect={false}>
+              <MenuButton>
+                <Icon as={MdMoreVert} color={"black"} boxSize={7} />
+              </MenuButton>
+              <MenuList minW="0" w={"8.5rem"}>
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleEdit}
+                >
+                  {ActionButton("edit", handleEdit)}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleActivateOrDeactivate}
+                >
+                  {ActionButton(
+                    status ? "deactivate" : "activate",
+                    handleActivateOrDeactivate
+                  )}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handledelete}
+                >
+                  {ActionButton("delete", handledelete)}
+                </MenuItem>
+              </MenuList>
+            </Menu>
           );
         },
         header: "Action",
@@ -272,12 +290,6 @@ const BannerImagesManagement = () => {
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Banner Images Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
@@ -315,7 +327,10 @@ const BannerImagesManagement = () => {
           )}
         </>
         {!loading && bannerImagesData.length === 0 && (
-          <EmptyState text="There are no bannerImages to present yet." mt="10" />
+          <EmptyState
+            text="There are no bannerImages to present yet."
+            mt="10"
+          />
         )}
       </Box>
       <CustomModal
@@ -336,8 +351,8 @@ const BannerImagesManagement = () => {
         isCentered={true}
         widthSize="25vw"
       />
-      {/* <AlertDialog
-        alertText={`Are you sure you want to delete this bannerImage?`}
+      <AlertDialog
+        alertText={`Are you sure you want to delete this Image?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
           setSelectedBannerImage(null);
@@ -345,10 +360,10 @@ const BannerImagesManagement = () => {
         }}
         onConfirm={() => {
           if (selectedBannerImage) {
-            handleLanguageDelete(selectedBannerImage?.id);
+            handleImageDelete(selectedBannerImage?.id);
           }
         }}
-      /> */}
+      />
       <AlertDialog
         alertText={`Are you sure you want to ${
           selectedBannerImage?.isActive ? "deactivate" : "activate"

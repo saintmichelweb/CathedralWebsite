@@ -9,10 +9,18 @@ export const MassTimesSchema = z.object({
   location: z
     .number()
     .min(1, { message: "Location is required" }),
-  day: z
+    day_en: z
     .string()
     .trim()
-    .min(1, { message: "Day is required" }),
+    .min(1, { message: "Time is required" }),
+  day_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  day_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
   time: z
     .string()
     .trim()
@@ -29,7 +37,15 @@ export const UpdateMassTimesSchema = z.object({
   location: z
     .number()
     .min(1, { message: "Location is required" }),
-  day: z
+    day_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  day_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Time is required" }),
+  day_rw: z
     .string()
     .trim()
     .min(1, { message: "Time is required" }),
