@@ -1,6 +1,6 @@
 import instance from '../lib/axiosInstance'
 import { ParishHistoryForm } from '../lib/validations/parishHistory';
-import { imageResponse, MessageResponse, ParishHistoryResponse } from '../types/apiResponses';
+import { MessageResponse, ParishHistoryResponse } from '../types/apiResponses';
 
 export async function addOrUpdateParishHistory(parishHitoryObj: ParishHistoryForm) {
     const response = await instance.post<MessageResponse>('parish-history', parishHitoryObj)

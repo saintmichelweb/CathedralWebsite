@@ -5,7 +5,7 @@ import {
   Card,
   useToast,
   Text,
-  Box,
+  // Box,
 } from "@chakra-ui/react";
 import { FormTextarea } from "../../components/form";
 import {
@@ -64,7 +64,9 @@ const ParishHistoryManagement = () => {
 
   useEffect(() => {
     if (parishHistory) {
-        setValue("parishHistory", parishHistory.history);
+      setValue("parishHistory_en", parishHistory.history_en);
+      setValue("parishHistory_fr", parishHistory.history_fr);
+      setValue("parishHistory_rw", parishHistory.history_rw);
     }
   }, [parishHistory]);
 
@@ -111,7 +113,12 @@ const ParishHistoryManagement = () => {
         ) : (
           <Stack flexDirection={"row"}>
             <Card width={"50%"} h={"30rem"} mr={"1"} p={"2"}>
-              <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)} width={'100%'} >
+              <Stack
+                as="form"
+                spacing="4"
+                onSubmit={handleSubmit(onSubmit)}
+                width={"100%"}
+              >
                 <Stack direction={{ base: "column", lg: "row" }}>
                   <Heading size="sm">
                     {" "}
@@ -119,23 +126,65 @@ const ParishHistoryManagement = () => {
                   </Heading>
                 </Stack>
                 <FormTextarea
-                  name="parishHistory"
-                  label="History input"
+                  name="parishHistory_en"
+                  label="Cathedral History In Short"
                   register={register}
                   errors={errors}
                   placeholder="Enter parish history"
                 />
-                <CustomButton type="submit" isLoading={false} minW={"8rem"}>
+                <FormTextarea
+                  name="parishHistory_fr"
+                  label="Histoire de la Cathedrale"
+                  register={register}
+                  errors={errors}
+                  placeholder="Entrez l' histoire de la Cathedrale"
+                />
+                <FormTextarea
+                  name="parishHistory_rw"
+                  label="Amateka ya Cathedral"
+                  register={register}
+                  errors={errors}
+                  placeholder="Andika amateka ya cathedrale"
+                />
+                <CustomButton
+                  type="submit"
+                  isLoading={false}
+                  minW={"20rem"}
+                  maxW={"20rem"}
+                  alignSelf={"center"}
+                >
                   Submit
                 </CustomButton>
               </Stack>
             </Card>
-            <Card width={"50%"} h={"30rem"} ml={"1"} p={"2"}>
-              <Stack direction={"column"}>
-                <Heading size="sm">Currently Saved History</Heading>
-                <Text>{parishHistory?.history || ''}</Text>
+            {parishHistory && (
+              <Stack flexDirection={"column"} w={"50%"}>
+                {parishHistory?.history_en && (
+                  <Card ml={"1"} p={"2"}>
+                    <Stack direction={"column"} mb={"4"}>
+                      <Heading size="sm">Currently Saved History</Heading>
+                      <Text>{parishHistory?.history_en || ""}</Text>
+                    </Stack>
+                  </Card>
+                )}
+                {parishHistory?.history_fr && (
+                  <Card ml={"1"} p={"2"}>
+                    <Stack direction={"column"} mb={"4"}>
+                      <Heading size="sm">Histoire de la Cathedrale</Heading>
+                      <Text>{parishHistory?.history_fr || ""}</Text>
+                    </Stack>
+                  </Card>
+                )}
+                {parishHistory?.history_rw && (
+                  <Card ml={"1"} p={"2"}>
+                    <Stack direction={"column"}>
+                      <Heading size="sm">Amateka ya Cathedral</Heading>
+                      <Text>{parishHistory?.history_rw || ""}</Text>
+                    </Stack>
+                  </Card>
+                )}
               </Stack>
-            </Card>
+            )}
           </Stack>
         )}
       </Stack>

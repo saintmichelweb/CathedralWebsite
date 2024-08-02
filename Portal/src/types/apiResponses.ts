@@ -74,7 +74,9 @@ export interface imageResponse {
 
 export interface ParishHistoryResponse {
     id: number;
-    history: string;
+    history_en: string;
+    history_rw: string;
+    history_fr: string;
     created_at: Date;
     updated_at: Date;
 }
