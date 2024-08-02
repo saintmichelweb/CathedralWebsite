@@ -27,8 +27,12 @@ export interface LanguageResponse {
 
 export interface TopNewsAndNoticesResponse {
     id: number
-    title: string
-    description: string
+    title_en: string
+    title_fr: string
+    title_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
     isActive: boolean
     created_at: string
     updated_at: string

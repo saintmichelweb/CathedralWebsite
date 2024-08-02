@@ -5,14 +5,19 @@ import {
 } from "@tanstack/react-table";
 import {
   Box,
+  Divider,
   Flex,
   Heading,
   Icon,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Stack,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdMoreVert } from "react-icons/md";
 import {
   AlertDialog,
   CommonIcons,
@@ -27,7 +32,7 @@ import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
 import AddTopParishNewsOrNoticeCard from "./Components/TopNewsAndNoticesCard";
-import { getAllTopNewsAndNotices, updateTopNewsAndNotices } from "../../api/topNewsAndNotices";
+import { deleteTopNewsAndNotices, getAllTopNewsAndNotices, updateTopNewsAndNotices } from "../../api/topNewsAndNotices";
 import { UpdateTopNewsAndNoticesForm } from "../../lib/validations/topParishNewsAndNotices";
 
 const TopNewsAndNoticesManagement = () => {
@@ -43,7 +48,7 @@ const TopNewsAndNoticesManagement = () => {
   const [openNewTopNewsAndNoticeModel, setOpenNewTopNewsAndNoticeModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedTopNewsAndNotice, setSelectedTopNewsAndNotice] =
     useState<TopNewsAndNoticesResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
@@ -74,8 +79,12 @@ const TopNewsAndNoticesManagement = () => {
 
   const handleTopParishNewsAndNoticesStatus = async (topParishNewsAndEvent: TopNewsAndNoticesResponse) => {
     const editPayload: UpdateTopNewsAndNoticesForm = {
-      title: topParishNewsAndEvent.title,
-      description: topParishNewsAndEvent.description,
+      title_en: topParishNewsAndEvent.title_en,
+      title_fr: topParishNewsAndEvent.title_fr,
+      title_rw: topParishNewsAndEvent.title_rw,
+      description_en: topParishNewsAndEvent.description_en,
+      description_rw: topParishNewsAndEvent.description_rw,
+      description_fr: topParishNewsAndEvent.description_fr,
       isActive: !topParishNewsAndEvent.isActive,
       topNewsOrNoticeId: topParishNewsAndEvent.id
     };
@@ -100,27 +109,27 @@ const TopNewsAndNoticesManagement = () => {
       });
   };
 
-  // const handleLocationDelete = async (locationId: number) => {
-  //   await deletLocation(locationId)
-  //     .then((res: MessageResponse) => {
-  //       toast({
-  //         title: "Delete Location Message",
-  //         description: res?.message || "Location deleted successfully",
-  //         status: "success",
-  //       });
-  //       setIsOpenDeleteModal(false);
-  //       fetchTopNewsAndNotices();
-  //       setSelectedTopNewsAndNotice(null);
-  //     })
-  //     .catch((error) => {
-  //       toast({
-  //         title: "Delete Location Message",
-  //         description:
-  //           error.response.data?.message || "Error deleting location!",
-  //         status: "error",
-  //       });
-  //     });
-  // };
+  const handleTopNewsAndNoticeDelete = async (locationId: number) => {
+    await deleteTopNewsAndNotices(locationId)
+      .then((res: MessageResponse) => {
+        toast({
+          title: "Delete Top Parish News / Notices Message",
+          description: res?.message || "Top Parish News / Notices deleted successfully",
+          status: "success",
+        });
+        setIsOpenDeleteModal(false);
+        fetchTopNewsAndNotices();
+        setSelectedTopNewsAndNotice(null);
+      })
+      .catch((error) => {
+        toast({
+          title: "Delete Top Parish News / Notices Message",
+          description:
+            error.response.data?.message || "Error deleting Top Parish News / Notices!",
+          status: "error",
+        });
+      });
+  };
 
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<TopNewsAndNoticesResponse>();
@@ -130,13 +139,29 @@ const TopNewsAndNoticesManagement = () => {
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("title", {
+      columnHelper.accessor("title_en", {
         cell: (info) => info.getValue(),
-        header: "Title",
+        header: "Title(EN)",
       }),
-      columnHelper.accessor("description", {
+      columnHelper.accessor("title_fr", {
         cell: (info) => info.getValue(),
-        header: "Description",
+        header: "Title(FR)",
+      }),
+      columnHelper.accessor("title_rw", {
+        cell: (info) => info.getValue(),
+        header: "Title(RW)",
+      }),
+      columnHelper.accessor("description_en", {
+        cell: (info) => info.getValue(),
+        header: "Description(EN)",
+      }),
+      columnHelper.accessor("description_fr", {
+        cell: (info) => info.getValue(),
+        header: "Description(FR)",
+      }),
+      columnHelper.accessor("description_rw", {
+        cell: (info) => info.getValue(),
+        header: "Description(RW)",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
@@ -181,48 +206,48 @@ const TopNewsAndNoticesManagement = () => {
             setOpenNewTopNewsAndNoticeModel(true);
           };
 
-          // const handledelete = () => {
-          //   setSelectedTopNewsAndNotice(info.row.original);
-          //   setIsOpenDeleteModal(true);
-          // };
+          const handledelete = () => {
+            setSelectedTopNewsAndNotice(info.row.original);
+            setIsOpenDeleteModal(true);
+          };
           return (
-            <Box>
-              {ActionButton("edit", handleEdit)}
-              {ActionButton(
-                status ? "deactivate" : "activate",
-                handleActivateOrDeactivate
-              )}
-            </Box>
-            // <Menu autoSelect={false}>
-            //   <MenuButton>
-            //     <Icon as={MdMoreVert} color={"black"} boxSize={7} />
-            //   </MenuButton>
-            //   <MenuList minW="0" w={"8.5rem"}>
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handleActivateOrDeactivate}
-            //     >
-            //       {ActionButton(status ? "deactivate" : "activate")}
-            //     </MenuItem>
-            //     {/* <Divider />
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handledelete}
-            //     >
-            //       {ActionButton("delete")}
-            //     </MenuItem> */}
-            //     <Divider />
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handleEdit}
-            //     >
-            //       {ActionButton("edit")}
-            //     </MenuItem>
-            //   </MenuList>
-            // </Menu>
+            // <Box>
+            //   {ActionButton("edit", handleEdit)}
+            //   {ActionButton(
+            //     status ? "deactivate" : "activate",
+            //     handleActivateOrDeactivate
+            //   )}
+            // </Box>
+            <Menu autoSelect={false}>
+              <MenuButton>
+                <Icon as={MdMoreVert} color={"black"} boxSize={7} />
+              </MenuButton>
+              <MenuList minW="0" w={"8.5rem"}>
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleActivateOrDeactivate}
+                >
+                  {ActionButton(status ? "deactivate" : "activate", handleActivateOrDeactivate)}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handledelete}
+                >
+                  {ActionButton("delete", handledelete)}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleEdit}
+                >
+                  {ActionButton("edit", handleEdit)}
+                </MenuItem>
+              </MenuList>
+            </Menu>
           );
         },
         header: "Action",
@@ -307,8 +332,8 @@ const TopNewsAndNoticesManagement = () => {
         isCentered={true}
         widthSize="25vw"
       />
-      {/* <AlertDialog
-        alertText={`Are you sure you want to delete this location?`}
+      <AlertDialog
+        alertText={`Are you sure you want to delete this Top Parish News / Notices?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
           setSelectedTopNewsAndNotice(null);
@@ -316,10 +341,10 @@ const TopNewsAndNoticesManagement = () => {
         }}
         onConfirm={() => {
           if (selectedTopNewsAndNotice) {
-            handleLocationDelete(selectedTopNewsAndNotice?.id);
+            handleTopNewsAndNoticeDelete(selectedTopNewsAndNotice?.id);
           }
         }}
-      /> */}
+      />
       <AlertDialog
         alertText={`Are you sure you want to ${
           selectedTopNewsAndNotice?.isActive ? "deactivate" : "activate"
