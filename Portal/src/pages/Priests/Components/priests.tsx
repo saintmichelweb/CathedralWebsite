@@ -38,7 +38,6 @@ const AddPriestCard = (props: AddPriestProps) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const onSubmit = async (values: AddPriestsForm) => {
-    console.log('click')
     setNewPriestPayload(values);
     setIsOpenModal(true);
   };

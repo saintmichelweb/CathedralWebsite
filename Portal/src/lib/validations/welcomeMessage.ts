@@ -17,7 +17,7 @@ export const WelcomeMessageSchema = z.object({
         .string()
         .trim()
         .min(1, { message: "Title (RW) is required" }),
-    backgroundImageId: z.number().nullable(),
+    backgroundImageId: z.number().nullable().default(null),
 });
 
 export type UpdateWelcomeMessageForm = z.infer<typeof updateWelcomeMessageSchema>;
@@ -36,5 +36,5 @@ export const updateWelcomeMessageSchema = z.object({
         .trim()
         .min(1, { message: "Title (RW) is required" }),
     welcomeMessageId: z.number(),
-    backgroundImageId: z.number(),
+    backgroundImageId: z.number().nullable().default(null),
 });

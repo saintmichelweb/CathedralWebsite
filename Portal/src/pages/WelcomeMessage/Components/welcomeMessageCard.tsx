@@ -38,6 +38,7 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const onSubmit = async (values: AddWelcomeMessageForm) => {
+    console.log('click')
     setNewRecentEventPayload(values);
     setIsOpenModal(true);
   };

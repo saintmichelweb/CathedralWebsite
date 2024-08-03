@@ -26,6 +26,7 @@ export const priestsSchema = z.object({
     backgroundImageId: z
         .number()
         .nullable()
+        .default(null)
 });
 
 export type UpdatePriestsForm = z.infer<typeof updatePriestsSchema>;
@@ -53,6 +54,7 @@ export const updatePriestsSchema = z.object({
         .min(1, { message: "Description (RW) is required" }),
     backgroundImageId: z
         .number()
-        .nullable(),
+        .nullable()
+        .default(null),
     priestId: z.number(),
 });
