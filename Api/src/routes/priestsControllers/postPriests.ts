@@ -12,6 +12,10 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Name is required" }),
+  title: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
   description_en: z
     .string()
     .trim()
@@ -24,7 +28,7 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
-  backgroungImageId: z
+  backgroundImageId: z
     .number()
     .nullable()
 });
@@ -53,10 +57,10 @@ const recentEventSchema = z.object({
  *                 type: string
  *                 example: "description"
  *                 description: "Priest description"
- *               backgroungImageId:
+ *               backgroundImageId:
  *                 type: number
  *                 example: "description"
- *                 description: "Priest backgroungImageId"
+ *                 description: "Priest backgroundImageId"
  *     responses:
  *       200:
  *         description: Priest saved successfully
@@ -111,12 +115,13 @@ export async function postPriests(req: AuthRequest, res: Response) {
   try {
     const newPriest = new PriestsEntity();
     newPriest.name = parsedBody.data.name
+    newPriest.title = parsedBody.data.title
     newPriest.description_en = parsedBody.data.description_en
     newPriest.description_fr = parsedBody.data.description_fr
     newPriest.description_rw = parsedBody.data.description_rw
-    if (parsedBody.data.backgroungImageId) {
+    if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
-      const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });
+      const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroundImageId } });
       if (savedImage) {
         newPriest.backgroundImage = savedImage
       }

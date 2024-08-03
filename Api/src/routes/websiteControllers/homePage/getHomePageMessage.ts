@@ -7,7 +7,6 @@ import logger from "../../../services/logger";
 export async function getHomePageMessage(req: Request, res: Response) {
     try {
         const homePageWelcomeMessage = await AppDataSource.manager.find(HomePageWelcomeMessageEntity, {
-            where: { isActive: true },
             relations: ['images']
         })
 

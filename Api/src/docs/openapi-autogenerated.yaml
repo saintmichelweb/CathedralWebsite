@@ -654,9 +654,17 @@ paths:
             schema:
               type: object
               properties:
-                parishHistory:
+                parishHistory_en:
                   type: string
-                  example: history
+                  example: history in English
+                  description: Parish History of the Mass
+                parishHistory_fr:
+                  type: string
+                  example: history in French
+                  description: Parish History of the Mass
+                parishHistory_rw:
+                  type: string
+                  example: history in Kinyarwanda
                   description: Parish History of the Mass
       responses:
         '200':
@@ -760,7 +768,7 @@ paths:
                   type: string
                   example: description
                   description: Priest description
-                backgroungImageId:
+                backgroundImageId:
                   type: number
                   example: 1
                   description: Id of the saved image entity
@@ -839,10 +847,10 @@ paths:
                   type: string
                   example: description
                   description: Priest description
-                backgroungImageId:
+                backgroundImageId:
                   type: number
                   example: description
-                  description: Priest backgroungImageId
+                  description: Priest backgroundImageId
       responses:
         '200':
           description: Priest saved successfully
@@ -1033,10 +1041,10 @@ paths:
                   type: string
                   example: description
                   description: Recent event description
-                backgroungImageId:
+                backgroundImageId:
                   type: number
                   example: description
-                  description: Recent event backgroungImageId
+                  description: Recent event backgroundImageId
       responses:
         '200':
           description: Recent Event saved successfully
@@ -1649,5 +1657,27 @@ paths:
                     example: Invalid credentials
         '422':
           description: Validation error
+  /welcomeMessage:
+    get:
+      tags:
+        - Welcome Message
+      security:
+        - Authorization: []
+      summary: get welcome Message
+      responses:
+        '200':
+          description: Get welcome Message
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
 tags:
   - name: Roles

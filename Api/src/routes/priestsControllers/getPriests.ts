@@ -47,7 +47,7 @@ export async function getAllPriests(req: Request, res: Response) {
 
   try {
     const totalPriests = await queryBuilder.getMany()
-    return res.status(200).send({ message: "Priests retrieved successfully!", Priests: totalPriests });
+    return res.status(200).send({ message: "Priests retrieved successfully!", priests: totalPriests });
   } catch (error: any) {
     logger.error("Getting priests failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

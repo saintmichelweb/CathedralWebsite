@@ -27,7 +27,7 @@ export const recentEventsSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Description (RW) is required" }),
-  backgroungImageId: z.number().nullable(),
+  backgroundImageId: z.number().nullable(),
   event_date: z.string().trim().min(1, { message: "Event date title is required" }),
 });
 
@@ -59,7 +59,7 @@ export const updateRecentEventsSchema = z.object({
     .trim()
     .min(1, { message: "Description (RW) is required" }),
   recentEventId: z.number(),
-  backgroungImageId: z.number().nullable(),
+  backgroundImageId: z.number().nullable(),
   event_date: z.string().trim().min(1, { message: "Event date title is required" }),
   isActive: z.boolean()
 });

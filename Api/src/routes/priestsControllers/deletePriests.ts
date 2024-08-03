@@ -4,6 +4,7 @@ import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { AuthRequest } from "../../types/express";
 import { PriestsEntity } from "../../entity/PriestsEntity";
+import * as fs from 'fs'
 
 /**
  * @openapi
@@ -67,6 +68,10 @@ export async function deletePriest(req: AuthRequest, res: Response) {
 
     if (oldPriests === null) {
       return res.status(404).send({ message: "Priest does not exist!" });
+    }
+
+    if (oldPriests.backgroundImage) {
+      fs.unlinkSync(oldPriests.backgroundImage.imagePath);
     }
 
     await priestRepository.delete(oldPriests.id);

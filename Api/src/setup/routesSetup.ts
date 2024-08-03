@@ -9,6 +9,7 @@ import mass_times_routes from '../routes/massTimesRoutes'
 import image_routes from '../routes/imageRoutes'
 import parish_history_routes from '../routes/parishHistoryRoutes'
 import priests from '../routes/priestsRoutes'
+import welcomeMessage from '../routes/welcomeMessage'
 
 
 export default function setupRoutes (app: Application): void {
@@ -23,6 +24,7 @@ export default function setupRoutes (app: Application): void {
   app.use('/api', image_routes)
   app.use('/api', parish_history_routes)
   app.use('/api', priests)
+  app.use('/api', welcomeMessage)
 
   // Catch-all route to handle 404s
   app.use('*', (req, res) => {

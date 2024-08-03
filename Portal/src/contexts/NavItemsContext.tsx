@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { FaHouse } from 'react-icons/fa6'
-import { TbUserSearch } from 'react-icons/tb'
+// import { TbUserSearch } from 'react-icons/tb'
+import { MdOutlineMessage } from "react-icons/md";
 import { FaRegNewspaper } from "react-icons/fa";
+import { GiSunPriest } from "react-icons/gi";
 import { IoImages, IoLocationOutline } from "react-icons/io5";
 import { MdEventNote } from "react-icons/md";
 import { FaLanguage } from "react-icons/fa";
@@ -69,6 +71,20 @@ export const NAV_ITEMS = [
     to: '/parish-history',
     label: 'Go to cathedral history',
     icon: FaHistory,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'Priests',
+    to: '/priests',
+    label: 'Go to Priests',
+    icon: GiSunPriest,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'Welcome Message',
+    to: '/welcomeMessage',
+    label: 'Go to welcome message',
+    icon: MdOutlineMessage,
     // permissions: ['View Transactions'],
   },
   // {

@@ -49,7 +49,8 @@ const tagOrder = [
   "Top News And Notices",
   "Users",
   "Parish History",
-  "Priests"
+  "Priests",
+  "Welcome Message"
 ];
 
 openAPISpecification.tags.sort((a: any, b: any) => {

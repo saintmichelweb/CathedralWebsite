@@ -11,6 +11,6 @@ const router = express.Router();
 router.post("/priests", authenticateJWT, postPriests )
 router.get("/priests/all", authenticateJWT, getAllPriests )
 router.put("/priests/:id", authenticateJWT, putPriests);
-router.delete("/priests", authenticateJWT, deletePriest);
+router.delete("/priests/:id", authenticateJWT, deletePriest);
 
 export default router;
