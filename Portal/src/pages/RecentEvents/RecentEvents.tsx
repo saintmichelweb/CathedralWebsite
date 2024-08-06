@@ -37,7 +37,7 @@ import { UpdateRecentEventsForm } from "../../lib/validations/recentEvents";
 import AddRecentEventsCard from "./Components/RecentEventsCard";
 import { formatTheDate } from "../../utils";
 
-const BannerImagesManagement = () => {
+const RecentEventsManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
@@ -92,7 +92,7 @@ const BannerImagesManagement = () => {
       isActive: !recentEvent.isActive,
       recentEventId: recentEvent.id,
       event_date: recentEvent.event_date,
-      backgroungImageId: recentEvent.backgroundImage?.id || null
+      backgroundImageId: recentEvent.backgroundImage?.id || null
     };
     await updateRecentEvent(editPayload)
       .then((res: MessageResponse) => {
@@ -402,4 +402,4 @@ const BannerImagesManagement = () => {
   );
 };
 
-export default BannerImagesManagement;
+export default RecentEventsManagement;

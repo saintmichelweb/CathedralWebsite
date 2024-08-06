@@ -11,8 +11,10 @@ import {
   Login,
   MassTimesManagement,
   ParishHistoryManagement,
+  PriestsManagement,
   RecentEventsManagement,
   TopNewsAndNoticesManagement,
+  WelcomeMessageManagement,
   // SetPassword,
 } from '../pages'
 import AddNewUser from '../pages/AddNewUser/AddNewUser'
@@ -70,6 +72,16 @@ const Routes = () => {
           path: 'parish-history',
           index: true,
           element: <ParishHistoryManagement />,
+        },
+        {
+          path: 'priests',
+          index: true,
+          element: <PriestsManagement />,
+        },
+        {
+          path: 'welcomeMessage',
+          index: true,
+          element: <WelcomeMessageManagement />,
         },
       ]
     },

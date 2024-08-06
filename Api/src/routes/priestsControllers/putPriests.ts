@@ -12,6 +12,10 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Name is required" }),
+  title: z
+    .string()
+    .trim()
+    .min(1, { message: "Title is required" }),
   description_en: z
     .string()
     .trim()
@@ -24,7 +28,7 @@ const recentEventSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Description is required" }),
-  backgroungImageId: z
+  backgroundImageId: z
     .number()
     .nullable()
 });
@@ -60,7 +64,7 @@ const recentEventSchema = z.object({
  *                 type: string
  *                 example: "description"
  *                 description: "Priest description"
- *               backgroungImageId:
+ *               backgroundImageId:
  *                 type: number
  *                 example: 1
  *                 description: "Id of the saved image entity"
@@ -126,6 +130,9 @@ export async function putPriests(req: AuthRequest, res: Response) {
       savedPriest.name = parsedBody.data.name;
     }
 
+    if (parsedBody.data.title) {
+      savedPriest.title = parsedBody.data.title;
+    }
     if (parsedBody.data.description_en) {
       savedPriest.description_en = parsedBody.data.description_en;
     }
@@ -136,12 +143,12 @@ export async function putPriests(req: AuthRequest, res: Response) {
       savedPriest.description_rw = parsedBody.data.description_rw;
     }
 
-    if (parsedBody.data.backgroungImageId) {
+    if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
-      const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });
-      if (savedImage){
+      const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroundImageId } });
+      if (savedImage) {
         savedPriest.backgroundImage = savedImage
-      } 
+      }
     }
 
     await priestsRepository.save(savedPriest);

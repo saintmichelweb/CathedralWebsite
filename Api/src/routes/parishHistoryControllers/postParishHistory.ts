@@ -37,9 +37,17 @@ const massParishHistorySchema = z.object({
  *           schema:
  *             type: object
  *             properties:
- *               parishHistory:
+ *               parishHistory_en:
  *                 type: string
- *                 example: "history"
+ *                 example: "history in English"
+ *                 description: "Parish History of the Mass"
+ *               parishHistory_fr:
+ *                 type: string
+ *                 example: "history in French"
+ *                 description: "Parish History of the Mass"
+ *               parishHistory_rw:
+ *                 type: string
+ *                 example: "history in Kinyarwanda"
  *                 description: "Parish History of the Mass"
  *     responses:
  *       200:

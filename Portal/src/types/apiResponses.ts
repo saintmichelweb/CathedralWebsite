@@ -66,7 +66,6 @@ export interface MassTimesResponse {
     language: LanguageResponse
 }
 
-
 export interface MessageResponse {
     message: string
 }
@@ -79,7 +78,6 @@ export interface imageResponse {
     created_at: Date
 }
 
-
 export interface ParishHistoryResponse {
     id: number;
     history_en: string;
@@ -87,4 +85,26 @@ export interface ParishHistoryResponse {
     history_fr: string;
     created_at: Date;
     updated_at: Date;
+}
+
+export interface WelcomeMessageResponse {
+    id: number;
+    welcomeMessage_en: string;
+    welcomeMessage_fr: string;
+    welcomeMessage_rw: string;
+    backgroundImage: imageResponse ,
+    created_at: Date;
+    updated_at: Date;
+}
+
+export interface PriestsResponse {
+    id: number
+    name: string
+    title: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    created_at: string
+    updated_at: string
+    backgroundImage: imageResponse | null
 }

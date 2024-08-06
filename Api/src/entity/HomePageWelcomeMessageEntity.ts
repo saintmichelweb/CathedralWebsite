@@ -22,12 +22,12 @@ export class HomePageWelcomeMessageEntity {
   @Column({ nullable: false, length: 255 })
   welcomeMessage_rw!: string;
 
-  @Column({
-    nullable: false,
-    // length: 255
-    default: false,
-  })
-  isActive!: boolean;
+  // @Column({
+  //   nullable: false,
+  //   // length: 255
+  //   default: false,
+  // })
+  // isActive!: boolean;
 
   @CreateDateColumn()
   created_at!: Date;

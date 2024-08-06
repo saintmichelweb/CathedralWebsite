@@ -31,7 +31,7 @@ import { PriestsEntity } from "../../entity/PriestsEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getAllPriests(req: Request, res: Response) {
-  const portalUser = req.user;
+  // const portalUser = req.user;
   // const isActive = req.query.isActive
   // if (isUndefinedOrNull(portalUser)) {
   //   return res.status(401).send({ message: "Unauthorized!" });
@@ -47,7 +47,7 @@ export async function getAllPriests(req: Request, res: Response) {
 
   try {
     const totalPriests = await queryBuilder.getMany()
-    return res.status(200).send({ message: "Priests retrieved successfully!", Priests: totalPriests });
+    return res.status(200).send({ message: "Priests retrieved successfully!", priests: totalPriests });
   } catch (error: any) {
     logger.error("Getting priests failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

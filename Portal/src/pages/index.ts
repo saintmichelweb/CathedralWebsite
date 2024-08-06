@@ -9,6 +9,8 @@ import RecentEventsManagement from './RecentEvents/RecentEvents';
 import TopNewsAndNoticesManagement from './TopNewsAndNotices/TopNewsAndNotices';
 import BannerImagesManagement from './BannerImages/BannerImages';
 import ParishHistoryManagement from './ParishHistoryPage/ParishHistoryPage';
+import PriestsManagement from './Priests/priests';
+import WelcomeMessageManagement from './WelcomeMessage/welcomeMessage';
 
 export {
   // AddNewUser,
@@ -21,5 +23,7 @@ export {
   RecentEventsManagement,
   TopNewsAndNoticesManagement,
   BannerImagesManagement,
-  ParishHistoryManagement
+  ParishHistoryManagement,
+  PriestsManagement,
+  WelcomeMessageManagement
 }

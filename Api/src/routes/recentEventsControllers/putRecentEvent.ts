@@ -33,7 +33,7 @@ const recentEventSchema = z.object({
     .min(1, { message: "Description is required" }),
   isActive: z.boolean(),
   event_date: z.string().trim().min(1, { message: "Event date title is required" }),
-  backgroungImageId: z
+  backgroundImageId: z
   .number()
   .nullable()
 });
@@ -163,9 +163,9 @@ export async function putRecentEvent(req: Request, res: Response) {
       oldRecentEvent.isActive = parsedBody.data.isActive;
     }
 
-    if (parsedBody.data.backgroungImageId) {
+    if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
-      const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroungImageId } });
+      const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroundImageId } });
       if (savedImage){
         oldRecentEvent.backgroundImage = savedImage
       } 

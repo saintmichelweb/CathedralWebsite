@@ -16,6 +16,12 @@ import {
       length: 255
     })
     name!: string
+
+    @Column({
+      nullable: false,
+      length: 255
+    })
+    title!: string
   
     @Column({
       nullable: true,
