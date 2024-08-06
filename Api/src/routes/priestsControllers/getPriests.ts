@@ -31,7 +31,7 @@ import { PriestsEntity } from "../../entity/PriestsEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getAllPriests(req: Request, res: Response) {
-  const portalUser = req.user;
+  // const portalUser = req.user;
   // const isActive = req.query.isActive
   // if (isUndefinedOrNull(portalUser)) {
   //   return res.status(401).send({ message: "Unauthorized!" });
