@@ -20,8 +20,8 @@ Get : Commission of lay leaders (image and a short description)
 Get : Top stories All( title, short description, date)
 
 Our Leader:
- 
-Get : priests all (Image, name short description )
+ S
+## Get : priests all (Image, name short description )
 <!-- Get : priest by id ( all info ) -->
 Get : (*)
 Get : Parish committee council ( description of duties and responsibilities, Image of each leader, names phone, email and responsibility) 
