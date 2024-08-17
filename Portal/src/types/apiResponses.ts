@@ -83,6 +83,12 @@ export interface ParishHistoryResponse {
     history_en: string;
     history_rw: string;
     history_fr: string;
+    mission_en: string;
+    mission_fr: string;
+    mission_rw: string;
+    vision_en: string;
+    vision_fr: string;
+    vision_rw: string;
     created_at: Date;
     updated_at: Date;
 }
@@ -92,7 +98,7 @@ export interface WelcomeMessageResponse {
     welcomeMessage_en: string;
     welcomeMessage_fr: string;
     welcomeMessage_rw: string;
-    backgroundImage: imageResponse ,
+    backgroundImage: imageResponse,
     created_at: Date;
     updated_at: Date;
 }

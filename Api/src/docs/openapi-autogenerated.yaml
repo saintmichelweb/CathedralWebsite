@@ -666,6 +666,30 @@ paths:
                   type: string
                   example: history in Kinyarwanda
                   description: Parish History of the Mass
+                mission_en:
+                  type: string
+                  example: history in English
+                  description: Parish History of the Mass
+                mission_fr:
+                  type: string
+                  example: history in French
+                  description: Parish History of the Mass
+                mission_rw:
+                  type: string
+                  example: history in Kinyarwanda
+                  description: Parish History of the Mass
+                vision_en:
+                  type: string
+                  example: history in English
+                  description: Parish History of the Mass
+                vision_fr:
+                  type: string
+                  example: history in French
+                  description: Parish History of the Mass
+                vision_rw:
+                  type: string
+                  example: history in Kinyarwanda
+                  description: Parish History of the Mass
       responses:
         '200':
           description: Location saved successfully

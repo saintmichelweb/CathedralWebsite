@@ -67,9 +67,9 @@ export const NAV_ITEMS = [
     // permissions: ['View Transactions'],
   },
   {
-    name: 'Cathedral History',
+    name: 'Cathedral History, Mission and Vision',
     to: '/parish-history',
-    label: 'Go to cathedral history',
+    label: 'Go to History, Mission and Vision',
     icon: FaHistory,
     // permissions: ['View Transactions'],
   },

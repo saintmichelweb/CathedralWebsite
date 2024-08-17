@@ -10,15 +10,39 @@ const massParishHistorySchema = z.object({
     parishHistory_en: z
         .string()
         .trim()
-        .min(1, { message: "Parish History Name is required" }),
+        .min(1, { message: "Parish History is required" }),
     parishHistory_fr: z
         .string()
         .trim()
-        .min(1, { message: "Parish History Name is required" }),
+        .min(1, { message: "Parish History is required" }),
     parishHistory_rw: z
         .string()
         .trim()
-        .min(1, { message: "Parish History Name is required" }),
+        .min(1, { message: "Parish History is required" }),
+    mission_en: z
+        .string()
+        .trim()
+        .min(1, { message: "Parish mission is required" }),
+    mission_fr: z
+        .string()
+        .trim()
+        .min(1, { message: "Parish mission is required" }),
+    mission_rw: z
+        .string()
+        .trim()
+        .min(1, { message: "Parish mission is required" }),
+    vision_en: z
+        .string()
+        .trim()
+        .min(1, { message: "Parish vision is required" }),
+    vision_fr: z
+        .string()
+        .trim()
+        .min(1, { message: "Parish vision is required" }),
+    vision_rw: z
+        .string()
+        .trim()
+        .min(1, { message: "Parish vision is required" }),
 });
 
 /**
@@ -46,6 +70,30 @@ const massParishHistorySchema = z.object({
  *                 example: "history in French"
  *                 description: "Parish History of the Mass"
  *               parishHistory_rw:
+ *                 type: string
+ *                 example: "history in Kinyarwanda"
+ *                 description: "Parish History of the Mass"
+ *               mission_en:
+ *                 type: string
+ *                 example: "history in English"
+ *                 description: "Parish History of the Mass"
+ *               mission_fr:
+ *                 type: string
+ *                 example: "history in French"
+ *                 description: "Parish History of the Mass"
+ *               mission_rw:
+ *                 type: string
+ *                 example: "history in Kinyarwanda"
+ *                 description: "Parish History of the Mass"
+ *               vision_en:
+ *                 type: string
+ *                 example: "history in English"
+ *                 description: "Parish History of the Mass"
+ *               vision_fr:
+ *                 type: string
+ *                 example: "history in French"
+ *                 description: "Parish History of the Mass"
+ *               vision_rw:
  *                 type: string
  *                 example: "history in Kinyarwanda"
  *                 description: "Parish History of the Mass"
@@ -110,17 +158,29 @@ export async function postParishHistory(req: AuthRequest, res: Response) {
             oldparishHistory.history_en = parsedBody.data.parishHistory_en
             oldparishHistory.history_fr = parsedBody.data.parishHistory_fr
             oldparishHistory.history_rw = parsedBody.data.parishHistory_rw
+            oldparishHistory.mission_en = parsedBody.data.mission_en
+            oldparishHistory.mission_fr = parsedBody.data.mission_fr
+            oldparishHistory.mission_rw = parsedBody.data.mission_rw
+            oldparishHistory.vision_en = parsedBody.data.vision_en
+            oldparishHistory.vision_fr = parsedBody.data.vision_fr
+            oldparishHistory.vision_rw = parsedBody.data.vision_rw
             await parishHistoryRepository.save(oldparishHistory)
         } else {
             newParishHistory.history_en = parsedBody.data.parishHistory_en
             newParishHistory.history_fr = parsedBody.data.parishHistory_fr
             newParishHistory.history_rw = parsedBody.data.parishHistory_rw
+            newParishHistory.vision_en = parsedBody.data.vision_en
+            newParishHistory.vision_fr = parsedBody.data.vision_fr
+            newParishHistory.vision_rw = parsedBody.data.vision_rw
+            newParishHistory.mission_en = parsedBody.data.mission_en
+            newParishHistory.mission_fr = parsedBody.data.mission_fr
+            newParishHistory.mission_rw = parsedBody.data.mission_rw
             await parishHistoryRepository.save(newParishHistory)
         }
 
-        return res.status(201).send({ message: "Parish History saved successfully" });
+        return res.status(201).send({ message: "Parish History, mission and vision saved successfully" });
     } catch (error: any) {
-        logger.error("Creating Parish History failed: %s", error);
+        logger.error("Saving Parish History, mission and vision failed: %s", error);
         res.status(500).send({ success: false, });
     }
 }
