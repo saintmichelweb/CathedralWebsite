@@ -1,0 +1,55 @@
+import {
+    Entity, Column, PrimaryGeneratedColumn,
+    CreateDateColumn,
+    UpdateDateColumn
+  } from 'typeorm'
+  
+  @Entity('parish_committe_council')
+  export class ParishComitteCouncilEntity {
+    @PrimaryGeneratedColumn()
+    id!: number
+  
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    names!: string
+  
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    position_en!: string
+  
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    position_fr!: string
+  
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    position_rw!: string
+  
+    @Column({
+      nullable: false,
+      length: 255
+    })
+    telephone!: string
+  
+    @Column({
+      nullable: false,
+      length: 255
+    })
+    email!: string
+  
+    @CreateDateColumn()
+    created_at!: Date
+
+    @UpdateDateColumn()
+    updated_at!: Date
+  
+  }
+  
