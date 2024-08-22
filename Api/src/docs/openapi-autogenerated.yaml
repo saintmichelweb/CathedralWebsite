@@ -619,6 +619,231 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
+  /officeHours/{id}:
+    delete:
+      tags:
+        - OfficeHour
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: OfficeHour ID
+      summary: delete a Mass officeHours
+      responses:
+        '200':
+          description: OfficeHour deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: OfficeHour deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /officeHour/all:
+    get:
+      tags:
+        - Service
+      security:
+        - Authorization: []
+      parameters:
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          required: false
+          description: Activity status of officeHour
+      summary: get all Mass officeHours
+      responses:
+        '200':
+          description: Get OfficeHours
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /officeHours:
+    post:
+      tags:
+        - OfficeHour
+      security:
+        - Authorization: []
+      summary: Add a new Mass officeHours
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                officeHours:
+                  type: string
+                  example: St Michael Parish
+                  description: officeHours of the Mass
+      responses:
+        '200':
+          description: OfficeHour saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: OfficeHour saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+  /service/{id}:
+    put:
+      tags:
+        - Service
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Service ID
+      summary: Update a Mass service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service:
+                  type: string
+                  example: St Michael Parish
+                  description: service of the Mass
+                isActive:
+                  type: boolean
+                  example: 'false'
+                  description: Activation state of the service
+      responses:
+        '200':
+          description: Service saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Service updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Service not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+    delete:
+      tags:
+        - Service
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Service ID
+      summary: delete a Mass service
+      responses:
+        '200':
+          description: Service deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Service deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
   /parish-history:
     get:
       tags:
@@ -1394,6 +1619,84 @@ paths:
                     type: string
                     description: The response message
                     example: OK
+  /service/all:
+    get:
+      tags:
+        - Service
+      security:
+        - Authorization: []
+      parameters:
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          required: false
+          description: Activity status of service
+      summary: get all Mass services
+      responses:
+        '200':
+          description: Get Services
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /service:
+    post:
+      tags:
+        - Service
+      security:
+        - Authorization: []
+      summary: Add a new Mass service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service:
+                  type: string
+                  example: St Michael Parish
+                  description: service of the Mass
+      responses:
+        '200':
+          description: Service saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Service saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /top-news-and-notices/{id}:
     delete:
       tags:

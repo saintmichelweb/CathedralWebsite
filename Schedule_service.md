@@ -50,7 +50,7 @@ Schedule service
         }
       ]
     },
-    "massTimes": {
+    <!-- "massTimes": {
       "weekly": {
         "sunday": [
           {
@@ -75,7 +75,7 @@ Schedule service
           }
         ]
       }
-    },
+    }, -->
     "specialMasses": {
       "masses": [
         {

@@ -8,14 +8,16 @@ export async function getHomePageBannerImages(req: Request, res: Response) {
     try {
         const allImages = await AppDataSource.manager.find(ImageEntity, {
             where: { isBannerImage: true }
-                })
+        })
 
         const homePageBannerImages = Object.values(allImages).map(BannerImage => ({
-            description_en: BannerImage.bannerDescription_en,
-            description_fr: BannerImage.bannerDescription_fr,
-            description_rw: BannerImage.bannerDescription_rw,
+            banner_Image_Description: {
+                description_en: BannerImage.bannerDescription_en,
+                description_fr: BannerImage.bannerDescription_fr,
+                description_rw: BannerImage.bannerDescription_rw
+            },
             image: BannerImage.imageUrl,
-          }))
+        }))
         res.status(200).send(homePageBannerImages)
     } catch (error: any) {
         logger.error('Getting home page banner images failed with error: %s', error)

@@ -15,7 +15,7 @@ About:
 
 ## Get : Banner image (text) for all remaining pages except the home page(*)
 ## Get : history of the cathedral (Text)
-Get : Mission and vision ( title and related text)
+## Get : Mission and vision ( title and related text)
 Get : Commission of lay leaders (image and a short description) 
 Get : Top stories All( title, short description, date)
 
@@ -60,3 +60,6 @@ Not decided Yet
 <!-- reworks needed after functionality -->
 
 _ labeling and naming of things
+
+
+
