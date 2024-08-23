@@ -34,6 +34,24 @@ import { ImageEntity } from './ImagesEntity'
       length: 255,
     })
     position_rw!: string
+
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    description_en!: string
+  
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    description_fr!: string
+  
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    description_rw!: string
   
     @Column({
       nullable: false,

@@ -31,6 +31,18 @@ const ParishCommitteCouncilSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "ParishCommitteCouncil time is required" }),
+    description_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
 });
 
 /**
@@ -109,6 +121,9 @@ export async function postParishCommitteCouncil(req: AuthRequest, res: Response)
     newParishCommitteCouncil.position_rw = parsedBody.data.position_rw
     newParishCommitteCouncil.telephone = parsedBody.data.telephone
     newParishCommitteCouncil.email = parsedBody.data.email
+    newParishCommitteCouncil.description_en = parsedBody.data.description_en
+    newParishCommitteCouncil.description_fr = parsedBody.data.description_fr
+    newParishCommitteCouncil.description_rw = parsedBody.data.description_rw
 
     await parishCommitteCouncilRepository.save(newParishCommitteCouncil)
     return res.status(201).send({ message: "ParishCommitteCouncil created successfully" });

@@ -24,11 +24,11 @@ Our Leader:
 ## Get : priests all (Image, name short description )
 <!-- Get : priest by id ( all info ) -->
 Get : (*)
-Get : Parish committee council ( description of duties and responsibilities, Image of each leader, names phone, email and responsibility) 
+## Get : Parish committee council ( description of duties and responsibilities, Image of each leader, names phone, email and responsibility) 
 <!-- Get : Parish committee council member by id (all description) -->
 
 ## Needs more clarifications <!-- Commission leaders : -->  
-Get : each commission information (image, description, title)
+## Get : each commission information (image, description, title)
 
 Service:
 
