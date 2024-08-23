@@ -5,17 +5,17 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { AuthRequest } from "../../types/express";
 import { ImageEntity } from "../../entity/ImagesEntity";
-import { PriestsEntity } from "../../entity/PriestsEntity";
+import { CommissionEntity } from "../../entity/CommissionEntity";
 
-const priestSchema = z.object({
+const commissionSchema = z.object({
   name: z
     .string()
     .trim()
     .min(1, { message: "Name is required" }),
-  title: z
-    .string()
-    .trim()
-    .min(1, { message: "Title is required" }),
+  // title: z
+  //   .string()
+  //   .trim()
+  //   .min(1, { message: "Title is required" }),
   description_en: z
     .string()
     .trim()
@@ -35,13 +35,13 @@ const priestSchema = z.object({
 
 /**
  * @openapi
- * /priests:
+ * /Commissions:
  *   post:
  *     tags:
- *       - Priests
+ *       - Commissions
  *     security:
  *       - Authorization: []
- *     summary: Add a priest
+ *     summary: Add a Commission
  *     requestBody:
  *       required: true
  *       content:
@@ -51,19 +51,19 @@ const priestSchema = z.object({
  *             properties:
  *               title:
  *                 type: string
- *                 example: "Priest"
- *                 description: "Priest title"
+ *                 example: "Commission"
+ *                 description: "Commission title"
  *               description:
  *                 type: string
  *                 example: "description"
- *                 description: "Priest description"
+ *                 description: "Commission description"
  *               backgroundImageId:
  *                 type: number
  *                 example: "description"
- *                 description: "Priest backgroundImageId"
+ *                 description: "Commission backgroundImageId"
  *     responses:
  *       200:
- *         description: Priest saved successfully
+ *         description: Commission saved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -74,7 +74,7 @@ const priestSchema = z.object({
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Recent Event  saved successfully"
+ *                   example: "Commission  saved successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -96,13 +96,13 @@ const priestSchema = z.object({
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postPriests(req: AuthRequest, res: Response) {
+export async function postCommissions(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = priestSchema.safeParse(req.body)
+  const parsedBody = commissionSchema.safeParse(req.body)
   if (!parsedBody.success) {
     logger.error("Validation error: %o", parsedBody.error.issues);
     logger.error("Validation error: %o", req.body);
@@ -110,26 +110,26 @@ export async function postPriests(req: AuthRequest, res: Response) {
   }
 
 
-  const newPriestRepository = AppDataSource.getRepository(PriestsEntity)
+  const newCommissionRepository = AppDataSource.getRepository(CommissionEntity)
 
   try {
-    const newPriest = new PriestsEntity();
-    newPriest.name = parsedBody.data.name
-    newPriest.title = parsedBody.data.title
-    newPriest.description_en = parsedBody.data.description_en
-    newPriest.description_fr = parsedBody.data.description_fr
-    newPriest.description_rw = parsedBody.data.description_rw
+    const newCommission = new CommissionEntity();
+    newCommission.name = parsedBody.data.name
+    // newCommission.title = parsedBody.data.title
+    newCommission.description_en = parsedBody.data.description_en
+    newCommission.description_fr = parsedBody.data.description_fr
+    newCommission.description_rw = parsedBody.data.description_rw
     if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroundImageId } });
       if (savedImage) {
-        newPriest.backgroundImage = savedImage
+        newCommission.backgroundImage = savedImage
       }
     }
-    await newPriestRepository.save(newPriest)
-    return res.status(201).send({ message: "Priest details added successfully" });
+    await newCommissionRepository.save(newCommission)
+    return res.status(201).send({ message: "Commission details added successfully" });
   } catch (error: any) {
-    logger.error("Creating Priest failed: %s", error);
+    logger.error("Creating Commission failed: %s", error);
     res.status(500).send({ message: "Internal server error" });
   }
 }

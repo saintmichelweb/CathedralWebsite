@@ -1,8 +1,10 @@
 import {
     Entity, Column, PrimaryGeneratedColumn,
     CreateDateColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
+    ManyToOne
   } from 'typeorm'
+import { ImageEntity } from './ImagesEntity'
   
   @Entity('parish_committe_council')
   export class ParishComitteCouncilEntity {
@@ -50,6 +52,9 @@ import {
 
     @UpdateDateColumn()
     updated_at!: Date
+
+    @ManyToOne(() => ImageEntity, image => image.connectedCommitteeMembers)
+    backgroundImage!: ImageEntity
   
   }
   

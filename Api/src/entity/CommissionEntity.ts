@@ -6,8 +6,8 @@ import {
   } from 'typeorm'
   import { ImageEntity } from './ImagesEntity'
   
-  @Entity('priests')
-  export class PriestsEntity {
+  @Entity('commission')
+  export class CommissionEntity {
     @PrimaryGeneratedColumn()
     id!: number
   
@@ -17,11 +17,11 @@ import {
     })
     name!: string
 
-    @Column({
-      nullable: false,
-      length: 255
-    })
-    title!: string
+    // @Column({
+    //   nullable: false,
+    //   length: 255
+    // })
+    // title!: string
   
     @Column({
       nullable: true,
@@ -47,7 +47,7 @@ import {
     @UpdateDateColumn()
     updated_at!: Date
   
-    @ManyToOne(() => ImageEntity, image => image.connectedPriests)
+    @ManyToOne(() => ImageEntity, image => image.connectedCommissions)
     backgroundImage!: ImageEntity
   
   }
