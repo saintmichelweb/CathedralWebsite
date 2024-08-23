@@ -10,6 +10,7 @@ import { CommissionEntity } from './CommissionEntity'
 import { PriestsEntity } from './PriestsEntity'
 import { ServiceEntity } from './ServiceEntity'
 import { ParishComitteCouncilEntity } from './ParishComitteCouncilEntity'
+import { ChoirEntity } from './ChoirEntity'
 
 @Entity('images')
 export class ImageEntity {
@@ -87,5 +88,8 @@ export class ImageEntity {
 
   @OneToMany(() => HomePageWelcomeMessageEntity, welcomeMessage => welcomeMessage.backgroundImage)
   connectedWelcomeMessage!: HomePageWelcomeMessageEntity[]
+
+  @OneToMany(() => ChoirEntity, choir => choir.backgroundImage)
+  connectedChoir!: ChoirEntity[]
 
 }
