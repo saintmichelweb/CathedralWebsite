@@ -58,12 +58,18 @@ import {
       length: 255,
     })
     contact_person_phone_number!: string
-  
-    @Column({ nullable: true })
-    start_date!: Date;
 
-    @Column({ nullable: true })
-    end_date!: Date;
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    work_hours!: string
+
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    work_days!: string
   
     @CreateDateColumn()
     created_at!: Date

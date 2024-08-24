@@ -39,11 +39,11 @@ contact_person_phone_number: z
   .string()
   .trim()
   .min(1, { message: "Service contact_person_phone_number is required" }),
-start_date: z
+work_hours: z
   .string()
   .trim()
   .min(1, { message: "Service start_date is required" }),
-end_date: z
+work_days: z
   .string()
   .trim()
   .min(1, { message: "Service end_date is required" }),
@@ -54,7 +54,7 @@ backgroundImageId: z
 
 /**
  * @openapi
- * /service/{id}:
+ * /services/{id}:
  *   put:
  *     tags:
  *       - Service
@@ -149,8 +149,8 @@ export async function putService(req: Request, res: Response) {
     oldService.description_rw = parsedBody.data.description_rw
     oldService.contact_person_name = parsedBody.data.contact_person_name
     oldService.contact_person_phone_number = parsedBody.data.contact_person_phone_number
-    oldService.end_date = new Date(parsedBody.data.end_date)
-    oldService.start_date = new Date(parsedBody.data.start_date)
+    oldService.work_days = parsedBody.data.work_days
+    oldService.work_hours = parsedBody.data.work_hours
 
     if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);

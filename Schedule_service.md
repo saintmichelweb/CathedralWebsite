@@ -575,3 +575,51 @@ Sacramental Preparation
     }
   }
 }
+
+
+
+
+
+
+
+
+
+1. Secrétariat
+* iminsi y'akazi: mardi-Vendredi
+ 8h00-17h00  samedi 8h00-12h00. Pause 12h00-13h00
+Tel. 0788521097
+Louise
+
+2. Comptabilité 
+ lundi-vendredi
+* Amasaha: 8h00-17h00
+*Yvonne NIYIBIGENA
+Tel 0788745140
+
+3. Caritas
+ lundi- vendredi, de 8h00-17h00.
+*Akurikirana kandi akakira abafute ibibazo bikeneye ubufasha mu buryo butandukanye(abatishoboye muri rusange) kubatega amatwi kumenya neza icyo Paroisse yabagasha.
+Tel. 0788751048
+Umuhoza Marie Claire
+
+4. Sacristie
+* service irebana na misa n'izindi gahunda zose zirebana na Kiliziya(gutegura misa, ect....)
+Lundi-Dimanche 6h-16h
+Sr Mediatrice/
+Tel 0787273862
+
+5. Catechese
+ Mercredi-dimanche
+ 8h00-17h00
+* We akurikira gahunda zose z'amasakramentu. Harimo gutegurwa kw'abitegura kuyahabwa.
+Sr Christine
+Tel. 0780339646
+
+ Benoite 
+Tel 0788683295
+
+Office ya Padiri Mukuru
+Jeudi
+9h-17h
+Tel:0788300646
+Abbé  Innocent Consolateur

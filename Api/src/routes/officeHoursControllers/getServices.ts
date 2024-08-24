@@ -10,7 +10,7 @@ import { ServiceEntity } from "../../entity/ServiceEntity";
  * /officeHour/all:
  *   get:
  *     tags:
- *       - Service
+ *       - OfficeHour
  *     security:
  *       - Authorization: []
  *     parameters:

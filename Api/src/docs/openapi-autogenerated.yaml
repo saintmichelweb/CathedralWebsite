@@ -13,6 +13,377 @@ components:
       bearerFormat: JWT
       value: Bearer <JWT token here>
 paths:
+  /Choir/{id}:
+    delete:
+      tags:
+        - Choir
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Choir ID
+      summary: delete a Mass Choir
+      responses:
+        '200':
+          description: Choir deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Choir deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Choir
+      security:
+        - Authorization: []
+      summary: Update a Choir
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Choir ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Choir
+                  description: Choir title
+                description:
+                  type: string
+                  example: description
+                  description: Choir description
+                backgroundImageId:
+                  type: number
+                  example: 1
+                  description: Id of the saved image entity
+      responses:
+        '200':
+          description: Choir saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Choir updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Choir not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+  /Choir/all:
+    get:
+      tags:
+        - Choir
+      summary: get all Choir
+      responses:
+        '200':
+          description: Get Choir
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /Choir:
+    post:
+      tags:
+        - Choir
+      security:
+        - Authorization: []
+      summary: Add a Choir
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Choir
+                  description: Choir title
+                description:
+                  type: string
+                  example: description
+                  description: Choir description
+                backgroundImageId:
+                  type: number
+                  example: description
+                  description: Choir backgroundImageId
+      responses:
+        '200':
+          description: Choir saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Choir  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+  /commission/{id}:
+    delete:
+      tags:
+        - Commission
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Commission ID
+      summary: delete a Mass commission
+      responses:
+        '200':
+          description: Commission deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Commission deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /Commission/all:
+    get:
+      tags:
+        - Commission
+      summary: get all Commission
+      responses:
+        '200':
+          description: Get Commission
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /Commissions:
+    post:
+      tags:
+        - Commissions
+      security:
+        - Authorization: []
+      summary: Add a Commission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Commission
+                  description: Commission title
+                description:
+                  type: string
+                  example: description
+                  description: Commission description
+                backgroundImageId:
+                  type: number
+                  example: description
+                  description: Commission backgroundImageId
+      responses:
+        '200':
+          description: Commission saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Commission  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+  /Commission/{id}:
+    put:
+      tags:
+        - Commission
+      security:
+        - Authorization: []
+      summary: Update a commission
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: commission ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: commission
+                  description: commission title
+                description:
+                  type: string
+                  example: description
+                  description: commission description
+                backgroundImageId:
+                  type: number
+                  example: 1
+                  description: Id of the saved image entity
+      responses:
+        '200':
+          description: commission saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: commission updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Commission not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
   /image/{id}:
     delete:
       tags:
@@ -665,7 +1036,7 @@ paths:
   /officeHour/all:
     get:
       tags:
-        - Service
+        - OfficeHour
       security:
         - Authorization: []
       parameters:
@@ -743,7 +1114,7 @@ paths:
   /service/{id}:
     put:
       tags:
-        - Service
+        - OfficeHour
       security:
         - Authorization: []
       parameters:
@@ -752,7 +1123,7 @@ paths:
           required: true
           schema:
             type: integer
-          description: Service ID
+          description: OfficeHour ID
       summary: Update a Mass service
       requestBody:
         required: true
@@ -771,7 +1142,7 @@ paths:
                   description: Activation state of the service
       responses:
         '200':
-          description: Service saved successfully
+          description: OfficeHour saved successfully
           content:
             application/json:
               schema:
@@ -782,7 +1153,7 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: Service updated successfully.
+                    example: OfficeHour updated successfully.
         '401':
           description: Invalid credentials!
           content:
@@ -797,57 +1168,15 @@ paths:
                     type: string
                     example: Invalid credentials!
         '404':
-          description: Service not found!
+          description: OfficeHour not found!
         '422':
           description: Validation error!
         '500':
           description: Internal Server error!
-    delete:
-      tags:
-        - Service
-      security:
-        - Authorization: []
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: Service ID
-      summary: delete a Mass service
-      responses:
-        '200':
-          description: Service deleted successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: Service deleted successfully
-        '401':
-          description: Invalid credentials
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Invalid credentials
-        '500':
-          description: Internal Server error
   /parishCommitteCouncil/{id}:
     delete:
       tags:
-        - parishCommitteCouncil
+        - ParishCommitteCouncil
       security:
         - Authorization: []
       parameters:
@@ -1801,7 +2130,111 @@ paths:
                     type: string
                     description: The response message
                     example: OK
-  /service/all:
+  /services/{id}:
+    delete:
+      tags:
+        - Service
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Service ID
+      summary: delete a Mass service
+      responses:
+        '200':
+          description: Service deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Service deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Service
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Service ID
+      summary: Update a Mass service
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service:
+                  type: string
+                  example: St Michael Parish
+                  description: service of the Mass
+                isActive:
+                  type: boolean
+                  example: 'false'
+                  description: Activation state of the service
+      responses:
+        '200':
+          description: Service saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Service updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Service not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+  /services/all:
     get:
       tags:
         - Service
@@ -1830,7 +2263,7 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /service:
+  /services:
     post:
       tags:
         - Service

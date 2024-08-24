@@ -10,7 +10,7 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  * /parishCommitteCouncil/{id}:
  *   delete:
  *     tags:
- *       - parishCommitteCouncil
+ *       - ParishCommitteCouncil
  *     security:
  *       - Authorization: []
  *     parameters:

@@ -7,7 +7,7 @@ import { ServiceEntity } from "../../entity/ServiceEntity";
 
 /**
  * @openapi
- * /service/{id}:
+ * /services/{id}:
  *   delete:
  *     tags:
  *       - Service

@@ -40,11 +40,11 @@ const ServiceSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Service contact_person_phone_number is required" }),
-  start_date: z
+  work_days: z
     .string()
     .trim()
     .min(1, { message: "Service start_date is required" }),
-  end_date: z
+  work_hours: z
     .string()
     .trim()
     .min(1, { message: "Service end_date is required" }),
@@ -55,7 +55,7 @@ const ServiceSchema = z.object({
 
 /**
  * @openapi
- * /service:
+ * /services:
  *   post:
  *     tags:
  *       - Service
@@ -132,8 +132,8 @@ export async function postService(req: AuthRequest, res: Response) {
     newService.description_rw = parsedBody.data.description_rw
     newService.contact_person_name = parsedBody.data.contact_person_name
     newService.contact_person_phone_number = parsedBody.data.contact_person_phone_number
-    newService.end_date = new Date(parsedBody.data.end_date)
-    newService.start_date = new Date(parsedBody.data.start_date)
+    newService.work_days = parsedBody.data.work_days
+    newService.work_hours = parsedBody.data.work_hours
 
     if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
