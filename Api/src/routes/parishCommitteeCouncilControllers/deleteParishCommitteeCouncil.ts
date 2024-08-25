@@ -7,10 +7,10 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
 
 /**
  * @openapi
- * /parishCommitteCouncil/{id}:
+ * /parishCommitteeCouncil/{id}:
  *   delete:
  *     tags:
- *       - ParishCommitteCouncil
+ *       - parishCommitteeCouncil
  *     security:
  *       - Authorization: []
  *     parameters:
@@ -19,11 +19,11 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  *         required: true
  *         schema:
  *            type: integer
- *         description: parishCommitteCouncil ID
- *     summary: delete a Mass parishCommitteCouncil
+ *         description: parishCommitteeCouncil ID
+ *     summary: delete a Mass parishCommitteeCouncil
  *     responses:
  *       200:
- *         description: parishCommitteCouncil deleted successfully
+ *         description: parishCommitteeCouncil deleted successfully
  *         content:
  *           application/json:
  *             schema:
@@ -34,7 +34,7 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "parishCommitteCouncil deleted successfully"
+ *                   example: "parishCommitteeCouncil deleted successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -54,23 +54,23 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function deleteParishCommitteCouncil(req: AuthRequest, res: Response) {
+export async function deleteparishCommitteeCouncil(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parishCommitteCouncilRepository = AppDataSource.getRepository(ParishComitteCouncilEntity);
+  const parishCommitteeCouncilRepository = AppDataSource.getRepository(ParishComitteCouncilEntity);
   try {
     const id = Number(req.params.id);
-    const oldParishComitteCouncil = await parishCommitteCouncilRepository.findOne({ where: { id } });
+    const oldParishComitteCouncil = await parishCommitteeCouncilRepository.findOne({ where: { id } });
     if (oldParishComitteCouncil === null) {
-      return res.status(404).send({ message: "parishCommitteCouncil does not exist!" });
+      return res.status(404).send({ message: "parishCommitteeCouncil does not exist!" });
     }
-    await parishCommitteCouncilRepository.delete(oldParishComitteCouncil.id);
-    return res.status(201).send({ message: "parishCommitteCouncil deleted successfully!" });
+    await parishCommitteeCouncilRepository.delete(oldParishComitteCouncil.id);
+    return res.status(201).send({ message: "parishCommitteeCouncil deleted successfully!" });
   } catch (error: any) {
-    logger.error("Deleting parishCommitteCouncil failed: %s", error);
+    logger.error("Deleting parishCommitteeCouncil failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

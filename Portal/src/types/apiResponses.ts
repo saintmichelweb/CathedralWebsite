@@ -131,3 +131,19 @@ export interface ServicesResponse {
     updated_at: string
     backgroundImage: imageResponse | null
 }
+
+export interface parishCommitteeCouncilResponse {
+    id: number
+    names: string
+    position_en: string
+    position_fr: string
+    position_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    telephone: string
+    email: string
+    created_at: string
+    updated_at: string
+    backgroundImage: imageResponse | null
+}

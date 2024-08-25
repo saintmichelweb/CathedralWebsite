@@ -10,6 +10,7 @@ import {
   LocationsManagement,
   Login,
   MassTimesManagement,
+  ParishCommitteeCouncilManagement,
   ParishHistoryManagement,
   PriestsManagement,
   RecentEventsManagement,
@@ -88,6 +89,11 @@ const Routes = () => {
           path: 'Services',
           index: true,
           element: <ServicesManagement />,
+        },
+        {
+          path: 'parishCommitteeCouncil',
+          index: true,
+          element: <ParishCommitteeCouncilManagement />,
         },
       ]
     },

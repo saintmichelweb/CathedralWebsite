@@ -1173,10 +1173,10 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /parishCommitteCouncil/{id}:
+  /parishCommitteeCouncil/{id}:
     delete:
       tags:
-        - ParishCommitteCouncil
+        - parishCommitteeCouncil
       security:
         - Authorization: []
       parameters:
@@ -1185,11 +1185,11 @@ paths:
           required: true
           schema:
             type: integer
-          description: parishCommitteCouncil ID
-      summary: delete a Mass parishCommitteCouncil
+          description: parishCommitteeCouncil ID
+      summary: delete a Mass parishCommitteeCouncil
       responses:
         '200':
-          description: parishCommitteCouncil deleted successfully
+          description: parishCommitteeCouncil deleted successfully
           content:
             application/json:
               schema:
@@ -1200,7 +1200,7 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: parishCommitteCouncil deleted successfully
+                    example: parishCommitteeCouncil deleted successfully
         '401':
           description: Invalid credentials
           content:
@@ -1218,7 +1218,7 @@ paths:
           description: Internal Server error
     put:
       tags:
-        - ParishCommitteCouncil
+        - parishCommitteeCouncil
       security:
         - Authorization: []
       parameters:
@@ -1227,8 +1227,8 @@ paths:
           required: true
           schema:
             type: integer
-          description: ParishCommitteCouncil ID
-      summary: Update a Mass parishCommitteCouncil
+          description: parishCommitteeCouncil ID
+      summary: Update a Mass parishCommitteeCouncil
       requestBody:
         required: true
         content:
@@ -1236,17 +1236,17 @@ paths:
             schema:
               type: object
               properties:
-                parishCommitteCouncil:
+                parishCommitteeCouncil:
                   type: string
                   example: St Michael Parish
-                  description: parishCommitteCouncil of the Mass
+                  description: parishCommitteeCouncil of the Mass
                 isActive:
                   type: boolean
                   example: 'false'
-                  description: Activation state of the parishCommitteCouncil
+                  description: Activation state of the parishCommitteeCouncil
       responses:
         '200':
-          description: ParishCommitteCouncil saved successfully
+          description: parishCommitteeCouncil saved successfully
           content:
             application/json:
               schema:
@@ -1257,7 +1257,7 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: ParishCommitteCouncil updated successfully.
+                    example: parishCommitteeCouncil updated successfully.
         '401':
           description: Invalid credentials!
           content:
@@ -1272,15 +1272,15 @@ paths:
                     type: string
                     example: Invalid credentials!
         '404':
-          description: ParishCommitteCouncil not found!
+          description: parishCommitteeCouncil not found!
         '422':
           description: Validation error!
         '500':
           description: Internal Server error!
-  /parishCommitteCouncil/all:
+  /parishCommitteeCouncil/all:
     get:
       tags:
-        - ParishCommitteCouncil
+        - parishCommitteeCouncil
       security:
         - Authorization: []
       parameters:
@@ -1289,11 +1289,11 @@ paths:
           schema:
             type: boolean
           required: false
-          description: Activity status of parishCommitteCouncil
-      summary: get all Mass parishCommitteCouncils
+          description: Activity status of parishCommitteeCouncil
+      summary: get all Mass parishCommitteeCouncils
       responses:
         '200':
-          description: Get ParishCommitteCouncil
+          description: Get parishCommitteeCouncil
         '401':
           description: Invalid credentials
           content:
@@ -1306,13 +1306,13 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /parishCommitteCouncil:
+  /parishCommitteeCouncil:
     post:
       tags:
-        - ParishCommitteCouncil
+        - parishCommitteeCouncil
       security:
         - Authorization: []
-      summary: Add a new Mass parishCommitteCouncil
+      summary: Add a new Mass parishCommitteeCouncil
       requestBody:
         required: true
         content:
@@ -1320,13 +1320,13 @@ paths:
             schema:
               type: object
               properties:
-                parishCommitteCouncil:
+                parishCommitteeCouncil:
                   type: string
                   example: St Michael Parish
-                  description: parishCommitteCouncil of the Mass
+                  description: parishCommitteeCouncil of the Mass
       responses:
         '200':
-          description: ParishCommitteCouncil saved successfully
+          description: parishCommitteeCouncil saved successfully
           content:
             application/json:
               schema:
@@ -1337,7 +1337,7 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: ParishCommitteCouncil saved successfully
+                    example: parishCommitteeCouncil saved successfully
         '401':
           description: Invalid credentials
           content:

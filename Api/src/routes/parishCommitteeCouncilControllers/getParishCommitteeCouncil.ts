@@ -7,10 +7,10 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
 
 /**
  * @openapi
- * /parishCommitteCouncil/all:
+ * /parishCommitteeCouncil/all:
  *   get:
  *     tags:
- *       - ParishCommitteCouncil
+ *       - parishCommitteeCouncil
  *     security:
  *       - Authorization: []
  *     parameters:
@@ -19,11 +19,11 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  *        schema:
  *          type: boolean
  *        required: false
- *        description: Activity status of parishCommitteCouncil
- *     summary: get all Mass parishCommitteCouncils
+ *        description: Activity status of parishCommitteeCouncil
+ *     summary: get all Mass parishCommitteeCouncils
  *     responses:
  *       200:
- *         description: Get ParishCommitteCouncil
+ *         description: Get parishCommitteeCouncil
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -40,21 +40,22 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function getParishCommitteCouncil(req: AuthRequest, res: Response) {
+export async function getparishCommitteeCouncil(req: AuthRequest, res: Response) {
   const portalUser = req.user;
-  const isActive = req.query.isActive
-  if (isUndefinedOrNull(portalUser)) {
-    return res.status(401).send({ message: "Unauthorized!" });
-  }
+  // const isActive = req.query.isActive
+  // if (isUndefinedOrNull(portalUser)) {
+  //   return res.status(401).send({ message: "Unauthorized!" });
+  // }
 
-  const parishCommitteCouncilRepository = AppDataSource.getRepository(ParishComitteCouncilEntity);
-  const queryBuilder = parishCommitteCouncilRepository.createQueryBuilder('parishCommitteCouncils')
+  const parishCommitteeCouncilRepository = AppDataSource.getRepository(ParishComitteCouncilEntity);
+  const queryBuilder = parishCommitteeCouncilRepository.createQueryBuilder('parishCommitteeCouncils')
+    .leftJoinAndSelect('parishCommitteeCouncils.backgroundImage', 'backgoundImage')
 
   try {
-    const [totalParishCommitteCouncil, numberOfAllParishCommitteCouncil] = await queryBuilder.getManyAndCount()
-    return res.status(200).send({ message: "ParishCommitteCouncil retrieved successfully!", parishCommitteCouncilsCount: numberOfAllParishCommitteCouncil, parishCommitteCouncils: totalParishCommitteCouncil, numberOfPages: 2 });
+    const [totalparishCommitteeCouncil, numberOfAllparishCommitteeCouncil] = await queryBuilder.getManyAndCount()
+    return res.status(200).send({ message: "parishCommitteeCouncil retrieved successfully!", parishCommitteeCouncilsCount: numberOfAllparishCommitteeCouncil, parishCommitteeCouncils: totalparishCommitteeCouncil, numberOfPages: 2 });
   } catch (error: any) {
-    logger.error("Getting parishCommitteCouncil failed: %s", error);
+    logger.error("Getting parishCommitteeCouncil failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }
