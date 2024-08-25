@@ -9,6 +9,7 @@ import { IoImages, IoLocationOutline } from "react-icons/io5";
 import { MdEventNote } from "react-icons/md";
 import { FaLanguage } from "react-icons/fa";
 import { FaHistory } from "react-icons/fa";
+import { FaServicestack } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import Cookies from 'universal-cookie'
 
@@ -85,6 +86,13 @@ export const NAV_ITEMS = [
     to: '/welcomeMessage',
     label: 'Go to welcome message',
     icon: MdOutlineMessage,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'Services',
+    to: '/services',
+    label: 'Go to services',
+    icon: FaServicestack,
     // permissions: ['View Transactions'],
   },
   // {

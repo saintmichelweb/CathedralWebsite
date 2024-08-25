@@ -11,6 +11,7 @@ import BannerImagesManagement from './BannerImages/BannerImages';
 import ParishHistoryManagement from './ParishHistoryPage/ParishHistoryPage';
 import PriestsManagement from './Priests/priests';
 import WelcomeMessageManagement from './WelcomeMessage/welcomeMessage';
+import ServicesManagement from './Services/Services';
 
 export {
   // AddNewUser,
@@ -25,5 +26,6 @@ export {
   BannerImagesManagement,
   ParishHistoryManagement,
   PriestsManagement,
-  WelcomeMessageManagement
+  WelcomeMessageManagement,
+  ServicesManagement
 }

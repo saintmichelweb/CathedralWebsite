@@ -13,6 +13,7 @@ import {
   ParishHistoryManagement,
   PriestsManagement,
   RecentEventsManagement,
+  ServicesManagement,
   TopNewsAndNoticesManagement,
   WelcomeMessageManagement,
   // SetPassword,
@@ -82,6 +83,11 @@ const Routes = () => {
           path: 'welcomeMessage',
           index: true,
           element: <WelcomeMessageManagement />,
+        },
+        {
+          path: 'Services',
+          index: true,
+          element: <ServicesManagement />,
         },
       ]
     },

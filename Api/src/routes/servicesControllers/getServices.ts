@@ -42,13 +42,14 @@ import { ServiceEntity } from "../../entity/ServiceEntity";
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getServices(req: AuthRequest, res: Response) {
   const portalUser = req.user;
-  const isActive = req.query.isActive
-  if (isUndefinedOrNull(portalUser)) {
-    return res.status(401).send({ message: "Unauthorized!" });
-  }
+  // const isActive = req.query.isActive
+  // if (isUndefinedOrNull(portalUser)) {
+  //   return res.status(401).send({ message: "Unauthorized!" });
+  // }
 
   const serviceRepository = AppDataSource.getRepository(ServiceEntity);
   const queryBuilder = serviceRepository.createQueryBuilder('services')
+    .leftJoinAndSelect('services.backgroundImage', 'backgoundImage')
 
   try {
     const [totalServices, numberOfAllServices] = await queryBuilder.getManyAndCount()

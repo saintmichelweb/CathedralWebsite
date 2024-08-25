@@ -19,7 +19,7 @@ export async function getHomePageMessage(req: Request, res: Response) {
                 welcomeMessage_fr: homePageWelcomeMessage[0].welcomeMessage_fr,
                 welcomeMessage_rw: homePageWelcomeMessage[0].welcomeMessage_rw
             },
-            backgroungImag: homePageWelcomeMessage[0].backgroundImage.imageUrl
+            backgroundImag: homePageWelcomeMessage[0].backgroundImage.imageUrl
          } })
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)

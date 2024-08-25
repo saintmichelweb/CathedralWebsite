@@ -4,74 +4,67 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import {
-  recentEventsSchema,
-  UpdateRecentEventsForm,
-  type AddRecentEventsForm,
-} from "../../../lib/validations/recentEvents";
+  serviceSchema,
+  UpdateServiceForm,
+  type AddServiceForm,
+} from "../../../lib/validations/services";
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
-import {
-  addNewRecentEvent,
-  updateRecentEvent,
-} from "../../../api/recentEvents";
-import {
-  MessageResponse,
-  RecentEventResponse,
-} from "../../../types/apiResponses";
+import { MessageResponse, ServicesResponse } from "../../../types/apiResponses";
 import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
 import { addNewImage } from "../../../api/images";
-import { formatTheDate } from "../../../utils";
+import { addNewService, updateService } from "../../../api/services";
 
-interface AddRecentEventProps {
+interface AddServiceProps {
   onClose: () => void;
-  fetchRecentEvents: () => void;
-  recentEvent: RecentEventResponse | null;
+  fetchServices: () => void;
+  service: ServicesResponse | null;
 }
 
-const AddRecentEventsCard = (props: AddRecentEventProps) => {
+const AddServicesCard = (props: AddServiceProps) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
     setValue,
-  } = useForm<AddRecentEventsForm>({
-    resolver: zodResolver(recentEventsSchema),
+  } = useForm<AddServiceForm>({
+    resolver: zodResolver(serviceSchema),
   });
 
   const toast = useToast();
-  const recentEventToEdit = props.recentEvent;
+  const serviceToEdit = props.service;
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newRecentEventPayload, setNewRecentEventPayload] =
-    useState<AddRecentEventsForm>();
+    useState<AddServiceForm>();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
-  const onSubmit = async (values: AddRecentEventsForm) => {
+  const onSubmit = async (values: AddServiceForm) => {
     setNewRecentEventPayload(values);
     setIsOpenModal(true);
   };
 
   useEffect(() => {
-    if (recentEventToEdit) {
-      console.log(recentEventToEdit);
-      setValue("title_en", recentEventToEdit.title_en);
-      setValue("title_fr", recentEventToEdit.title_fr);
-      setValue("title_rw", recentEventToEdit.title_rw);
-      setValue("description_en", recentEventToEdit.description_en);
-      setValue("description_fr", recentEventToEdit.description_fr);
-      setValue("description_rw", recentEventToEdit.description_rw);
+    if (serviceToEdit) {
+      console.log(serviceToEdit);
+      setValue("name_en", serviceToEdit.name_en);
+      setValue("name_fr", serviceToEdit.name_fr);
+      setValue("name_rw", serviceToEdit.name_rw);
+      setValue("description_en", serviceToEdit.description_en);
+      setValue("description_fr", serviceToEdit.description_fr);
+      setValue("description_rw", serviceToEdit.description_rw);
+      setValue("work_days", serviceToEdit.work_days);
+      setValue("work_hours", serviceToEdit.work_hours);
+      setValue("contact_person_name", serviceToEdit.contact_person_name);
       setValue(
-        "event_date",
-        formatTheDate(recentEventToEdit.event_date, "DD/MM/YYYY" )
+        "contact_person_phone_number",
+        serviceToEdit.contact_person_phone_number
       );
     }
-    setValue(
-      "backgroundImageId",
-      recentEventToEdit?.backgroundImage?.id || null
-    );
-  }, [recentEventToEdit]);
+    setValue("backgroundImageId", serviceToEdit?.backgroundImage?.id || null);
+  }, [serviceToEdit]);
 
-  const onConfirm = async (payload: AddRecentEventsForm | undefined) => {
+  const onConfirm = async (payload: AddServiceForm | undefined) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
@@ -80,7 +73,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           .then((res) => {
             toast({
               title: "Add Image message!",
-              description: res?.message || "Recent Event saved successfully",
+              description: res?.message || "Service saved successfully",
               status: "success",
             });
             payload.backgroundImageId = res.image.id;
@@ -95,54 +88,57 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           });
       }
 
-      if (!recentEventToEdit) {
-        await addNewRecentEvent(payload)
+      if (!serviceToEdit) {
+        await addNewService(payload)
           .then((res: MessageResponse) => {
             toast({
-              title: "Add Recent Event message!",
-              description: res?.message || "Recent Event saved successfully",
+              title: "Add Service message!",
+              description: res?.message || "Service saved successfully",
               status: "success",
             });
-            props.fetchRecentEvents();
+            props.fetchServices();
             props.onClose();
           })
           .catch((error) => {
             toast({
-              title: "Add Recent Event message",
+              title: "Add Service message",
               description:
                 error.response.data?.message || "Error saving recent Event!",
               status: "error",
             });
           });
         reset();
-      } else if (recentEventToEdit) {
-        const editPayload: UpdateRecentEventsForm = {
-          title_en: payload.title_en,
-          title_fr: payload.title_fr,
-          title_rw: payload.title_rw,
+      } else if (serviceToEdit) {
+        const editPayload: UpdateServiceForm = {
+          name_en: payload.name_en,
+          name_fr: payload.name_fr,
+          name_rw: payload.name_rw,
           description_en: payload.description_en,
           description_fr: payload.description_fr,
           description_rw: payload.description_rw,
-          isActive: recentEventToEdit.isActive,
-          recentEventId: recentEventToEdit.id,
-          event_date: payload.event_date,
-          backgroundImageId: recentEventToEdit.backgroundImage?.id || null,
+          work_hours: payload.work_hours,
+          work_days: payload.work_days,
+          contact_person_name: payload.contact_person_name,
+          contact_person_phone_number:
+            payload.contact_person_phone_number,
+          backgroundImageId: serviceToEdit.backgroundImage?.id || null,
+          servicesId: serviceToEdit?.id || null,
         };
-        await updateRecentEvent(editPayload)
+        await updateService(editPayload)
           .then((res: MessageResponse) => {
             toast({
-              title: "Edit Recent Event message!",
-              description: res?.message || "Recent Event edited successfully",
+              title: "Edit Service message!",
+              description: res?.message || "Service edited successfully",
               status: "success",
             });
-            props.fetchRecentEvents();
+            props.fetchServices();
             props.onClose();
           })
           .catch((error) => {
             toast({
-              title: "Edit Recent Event message",
+              title: "Edit Service message",
               description:
-                error.response?.data?.message || "Error editing recent event!",
+                error.response?.data?.message || "Error editing service!",
               status: "error",
             });
           });
@@ -155,26 +151,26 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
     <Box py={"2rem"}>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
-          name="title_en"
+          name="name_en"
           register={register}
           errors={errors}
-          label="Event title (EN)"
+          label="Event name (EN)"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         <FormInput
-          name="title_fr"
+          name="name_fr"
           register={register}
           errors={errors}
-          label="Event title (FR)"
+          label="Event name (FR)"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         <FormInput
-          name="title_rw"
+          name="name_rw"
           register={register}
           errors={errors}
-          label="Event title (RW)"
+          label="Event name (RW)"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -206,14 +202,38 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           maxW={{ base: "25rem", sm: "90vw" }}
         />
         <FormInput
-          name="event_date"
+          name="work_days"
           register={register}
           errors={errors}
-          label="Event Date"
-          inputProps={{ bg: "white", type: "date" }}
+          label="Work Days"
+          inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
-        {!recentEventToEdit && (
+        <FormInput
+          name="work_hours"
+          register={register}
+          errors={errors}
+          label="Work Hours"
+          inputProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormInput
+          name="contact_person_name"
+          register={register}
+          errors={errors}
+          label="Contact Person's Name"
+          inputProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <FormInput
+          name="contact_person_phone_number"
+          register={register}
+          errors={errors}
+          label="Contact Person's Phone Number"
+          inputProps={{ bg: "white" }}
+          maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        {!serviceToEdit && (
           <ImageUploader
             parentSetSelectedImage={(file: File) => setSelectedImage(file)}
           />
@@ -238,8 +258,8 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
       </Stack>
       <AlertDialog
         alertText={`Are you sure you want to ${
-          recentEventToEdit ? "edit" : "add"
-        } this recent event?`}
+          serviceToEdit ? "edit" : "add"
+        } this service?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newRecentEventPayload)}
@@ -248,4 +268,4 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
   );
 };
 
-export default AddRecentEventsCard;
+export default AddServicesCard;

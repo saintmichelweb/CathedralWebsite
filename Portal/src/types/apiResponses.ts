@@ -114,3 +114,20 @@ export interface PriestsResponse {
     updated_at: string
     backgroundImage: imageResponse | null
 }
+
+export interface ServicesResponse {
+    id: number
+    name_en: string
+    name_fr: string
+    name_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    contact_person_name: string
+    contact_person_phone_number: string
+    work_days: string
+    work_hours: string
+    created_at: string
+    updated_at: string
+    backgroundImage: imageResponse | null
+}
