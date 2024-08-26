@@ -8,7 +8,7 @@ import * as fs from 'fs'
 
 /**
  * @openapi
- * /commission/{id}:
+ * /commissions/{id}:
  *   delete:
  *     tags:
  *       - Commission

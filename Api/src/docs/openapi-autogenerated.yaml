@@ -198,7 +198,7 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
-  /commission/{id}:
+  /commissions/{id}:
     delete:
       tags:
         - Commission
@@ -241,84 +241,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /Commission/all:
-    get:
-      tags:
-        - Commission
-      summary: get all Commission
-      responses:
-        '200':
-          description: Get Commission
-        '401':
-          description: Invalid credentials
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Invalid credentials
-        '500':
-          description: Internal Server error
-  /Commissions:
-    post:
-      tags:
-        - Commissions
-      security:
-        - Authorization: []
-      summary: Add a Commission
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: Commission
-                  description: Commission title
-                description:
-                  type: string
-                  example: description
-                  description: Commission description
-                backgroundImageId:
-                  type: number
-                  example: description
-                  description: Commission backgroundImageId
-      responses:
-        '200':
-          description: Commission saved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: Commission  saved successfully
-        '401':
-          description: Invalid credentials
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Invalid credentials
-        '422':
-          description: Validation error
-        '500':
-          description: Internal Server error
-  /Commission/{id}:
     put:
       tags:
         - Commission
@@ -384,6 +306,83 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
+  /commissions/all:
+    get:
+      tags:
+        - Commission
+      summary: get all Commission
+      responses:
+        '200':
+          description: Get Commission
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /commissions:
+    post:
+      tags:
+        - Commission
+      security:
+        - Authorization: []
+      summary: Add a Commission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Commission
+                  description: Commission title
+                description:
+                  type: string
+                  example: description
+                  description: Commission description
+                backgroundImageId:
+                  type: number
+                  example: description
+                  description: Commission backgroundImageId
+      responses:
+        '200':
+          description: Commission saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Commission  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /image/{id}:
     delete:
       tags:

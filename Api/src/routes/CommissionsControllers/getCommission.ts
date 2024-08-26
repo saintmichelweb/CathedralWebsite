@@ -5,7 +5,7 @@ import { CommissionEntity } from "../../entity/CommissionEntity";
 
 /**
  * @openapi
- * /Commission/all:
+ * /commissions/all:
  *   get:
  *     tags:
  *       - Commission
@@ -29,7 +29,7 @@ import { CommissionEntity } from "../../entity/CommissionEntity";
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function getAllCommission(req: Request, res: Response) {
+export async function getAllCommissions(req: Request, res: Response) {
   // const portalUser = req.user;
   // const isActive = req.query.isActive
   // if (isUndefinedOrNull(portalUser)) {
@@ -38,7 +38,7 @@ export async function getAllCommission(req: Request, res: Response) {
 
   const CommissionRepository = AppDataSource.getRepository(CommissionEntity);
   const queryBuilder = CommissionRepository.createQueryBuilder('Commission')
-    .leftJoinAndSelect('Commission.backgroundImage', 'backgoundImage')
+    .leftJoinAndSelect('Commission.backgroundImage', 'backgroundImage')
 
   // if (isActive !==null && isActive !== undefined) {
   //   queryBuilder.where('recent_events.isActive = :isActive', {isActive: isActive? 1: 0})

@@ -8,10 +8,34 @@ import { ImageEntity } from "../../entity/ImagesEntity";
 import { CommissionEntity } from "../../entity/CommissionEntity";
 
 const commissionSchema = z.object({
-  name: z
+  name_en: z
     .string()
     .trim()
-    .min(1, { message: "Name is required" }),
+    .min(1, { message: "name_en is required" }),
+  name_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "name_fr is required" }),
+  name_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "name_rw is required" }),
+  contact_person_name: z
+    .string()
+    .trim()
+    .min(1, { message: "contact_person_name is required" }),
+  contact_person_role: z
+    .string()
+    .trim()
+    .min(1, { message: "contact_person_role is required" }),
+  contact_person_phone_number: z
+    .string()
+    .trim()
+    .min(1, { message: "contact_person_phone_number is required" }),
+  contact_person_email: z
+    .string()
+    .trim()
+    .min(1, { message: "contact_person_email is required" }),
   // title: z
   //   .string()
   //   .trim()
@@ -35,10 +59,10 @@ const commissionSchema = z.object({
 
 /**
  * @openapi
- * /Commissions:
+ * /commissions:
  *   post:
  *     tags:
- *       - Commissions
+ *       - Commission
  *     security:
  *       - Authorization: []
  *     summary: Add a Commission
@@ -96,7 +120,7 @@ const commissionSchema = z.object({
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function postCommissions(req: AuthRequest, res: Response) {
+export async function postCommission(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
@@ -114,11 +138,17 @@ export async function postCommissions(req: AuthRequest, res: Response) {
 
   try {
     const newCommission = new CommissionEntity();
-    newCommission.name = parsedBody.data.name
+    newCommission.name_en = parsedBody.data.name_en
+    newCommission.name_fr = parsedBody.data.name_fr
+    newCommission.name_rw = parsedBody.data.name_rw
     // newCommission.title = parsedBody.data.title
     newCommission.description_en = parsedBody.data.description_en
     newCommission.description_fr = parsedBody.data.description_fr
     newCommission.description_rw = parsedBody.data.description_rw
+    newCommission.contact_person_name = parsedBody.data.contact_person_name
+    newCommission.contact_person_role = parsedBody.data.contact_person_role
+    newCommission.contact_person_phone_number = parsedBody.data.contact_person_phone_number
+    newCommission.contact_person_email = parsedBody.data.contact_person_email
     if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroundImageId } });

@@ -15,7 +15,19 @@ import {
       nullable: false,
       length: 255
     })
-    name!: string
+    name_en!: string
+  
+    @Column({
+      nullable: false,
+      length: 255
+    })
+    name_fr!: string
+  
+    @Column({
+      nullable: false,
+      length: 255
+    })
+    name_rw!: string
 
     // @Column({
     //   nullable: false,
@@ -40,6 +52,30 @@ import {
       length: 255,
     })
     description_rw!: string
+
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    contact_person_name!: string
+
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    contact_person_role!: string
+
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    contact_person_email!: string
+
+    @Column({
+      nullable: true,
+      length: 255,
+    })
+    contact_person_phone_number!: string
   
     @CreateDateColumn()
     created_at!: Date

@@ -8,34 +8,58 @@ import { ImageEntity } from "../../entity/ImagesEntity";
 import { CommissionEntity } from "../../entity/CommissionEntity";
 
 const commissionSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, { message: "Name is required" }),
-  // title: z
-  //   .string()
-  //   .trim()
-  //   .min(1, { message: "Title is required" }),
-  description_en: z
-    .string()
-    .trim()
-    .min(1, { message: "Description is required" }),
-  description_fr: z
-    .string()
-    .trim()
-    .min(1, { message: "Description is required" }),
-  description_rw: z
-    .string()
-    .trim()
-    .min(1, { message: "Description is required" }),
-  backgroundImageId: z
-    .number()
-    .nullable()
+  name_en: z
+  .string()
+  .trim()
+  .min(1, { message: "name_en is required" }),
+name_fr: z
+  .string()
+  .trim()
+  .min(1, { message: "name_fr is required" }),
+name_rw: z
+  .string()
+  .trim()
+  .min(1, { message: "name_rw is required" }),
+contact_person_name: z
+  .string()
+  .trim()
+  .min(1, { message: "contact_person_name is required" }),
+contact_person_role: z
+  .string()
+  .trim()
+  .min(1, { message: "contact_person_role is required" }),
+contact_person_phone_number: z
+  .string()
+  .trim()
+  .min(1, { message: "contact_person_phone_number is required" }),
+contact_person_email: z
+  .string()
+  .trim()
+  .min(1, { message: "contact_person_email is required" }),
+// title: z
+//   .string()
+//   .trim()
+//   .min(1, { message: "Title is required" }),
+description_en: z
+  .string()
+  .trim()
+  .min(1, { message: "Description is required" }),
+description_fr: z
+  .string()
+  .trim()
+  .min(1, { message: "Description is required" }),
+description_rw: z
+  .string()
+  .trim()
+  .min(1, { message: "Description is required" }),
+backgroundImageId: z
+  .number()
+  .nullable()
 });
 
 /**
  * @openapi
- * /Commission/{id}:
+ * /commissions/{id}:
  *   put:
  *     tags:
  *       - Commission
@@ -126,8 +150,32 @@ export async function putCommission(req: AuthRequest, res: Response) {
       return res.status(404).send({ message: "Commission does not exist!" });
     }
 
-    if (parsedBody.data.name) {
-      savedCommission.name = parsedBody.data.name;
+    if (parsedBody.data.name_en) {
+      savedCommission.name_en = parsedBody.data.name_en;
+    }
+
+    if (parsedBody.data.name_fr) {
+      savedCommission.name_fr = parsedBody.data.name_fr;
+    }
+
+    if (parsedBody.data.name_rw) {
+      savedCommission.name_rw = parsedBody.data.name_rw;
+    }
+
+    if (parsedBody.data.contact_person_name) {
+      savedCommission.contact_person_name = parsedBody.data.contact_person_name;
+    }
+
+    if (parsedBody.data.contact_person_role) {
+      savedCommission.contact_person_role = parsedBody.data.contact_person_role;
+    }
+
+    if (parsedBody.data.contact_person_email) {
+      savedCommission.contact_person_email = parsedBody.data.contact_person_email;
+    }
+
+    if (parsedBody.data.contact_person_phone_number) {
+      savedCommission.contact_person_phone_number = parsedBody.data.contact_person_phone_number;
     }
 
     // if (parsedBody.data.title) {
