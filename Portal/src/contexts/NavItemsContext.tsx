@@ -10,6 +10,7 @@ import { MdEventNote } from "react-icons/md";
 import { FaLanguage } from "react-icons/fa";
 import { FaHistory } from "react-icons/fa";
 import { FaServicestack } from "react-icons/fa";
+import { TiGroupOutline } from "react-icons/ti";
 import { MdGroups2 } from "react-icons/md";
 import { IoTimeOutline } from "react-icons/io5";
 import Cookies from 'universal-cookie'
@@ -101,6 +102,13 @@ export const NAV_ITEMS = [
     to: '/parishCommitteeCouncil',
     label: 'Go to Parish Committee Council',
     icon: MdGroups2,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'commissions',
+    to: '/commissions',
+    label: 'Go to commissions',
+    icon: TiGroupOutline,
     // permissions: ['View Transactions'],
   },
   // {

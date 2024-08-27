@@ -13,6 +13,7 @@ import PriestsManagement from './Priests/priests';
 import WelcomeMessageManagement from './WelcomeMessage/welcomeMessage';
 import ServicesManagement from './Services/Services';
 import ParishCommitteeCouncilManagement from './ParishCommitteeCouncil/ParishCommitteeCouncil';
+import CommissionManagement from './Commission/Commission';
 
 export {
   // AddNewUser,
@@ -29,5 +30,6 @@ export {
   PriestsManagement,
   WelcomeMessageManagement,
   ServicesManagement,
-  ParishCommitteeCouncilManagement
+  ParishCommitteeCouncilManagement,
+  CommissionManagement
 }

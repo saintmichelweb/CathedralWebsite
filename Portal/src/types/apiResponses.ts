@@ -147,3 +147,20 @@ export interface parishCommitteeCouncilResponse {
     updated_at: string
     backgroundImage: imageResponse | null
 }
+
+export interface commissionResponse {
+    id: number
+    name_en: string
+    name_fr: string
+    name_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    contact_person_name: string
+    contact_person_role: string
+    contact_person_phone_number: string
+    contact_person_email: string
+    backgroundImage: imageResponse | null
+    created_at: string
+    updated_at: string
+}

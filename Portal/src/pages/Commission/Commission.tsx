@@ -27,85 +27,85 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { parishCommitteeCouncilResponse, MessageResponse } from "../../types/apiResponses";
+import { commissionResponse, MessageResponse } from "../../types/apiResponses";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
-import AddparishCommitteeCouncilCard from "./Components/ParishCommitteeCouncilCard";
-import { deleteparishCommitteeCouncil, getAllparishCommitteeCouncils } from "../../api/parishCommitteeCouncil";
+import AddCommissionCard from "./Components/CommissionCard";
+import { deleteCommission, getAllCommissions } from "../../api/commission";
 
-const ParishCommitteeCouncilManagement = () => {
+const CommissionManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
   });
 
   const toast = useToast();
-  const [parishCommitteeCouncilsData, setparishCommitteeCouncilData] = useState<parishCommitteeCouncilResponse[]>([]);
+  const [CommissionsData, setCommissionData] = useState<commissionResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
   const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
   // const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
   //   useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [selectedparishCommitteeCouncil, setSelectedRecentEvent] =
-    useState<parishCommitteeCouncilResponse | null>(null);
+  const [selectedCommission, setSelectedRecentEvent] =
+    useState<commissionResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberPages, setNumberPages] = useState<number>(1);
 
-  const fetchparishCommitteeCouncil = async () => {
+  const fetchCommission = async () => {
     setLoading(true);
-    await getAllparishCommitteeCouncils()
+    await getAllCommissions()
       .then((data) => {
-        setparishCommitteeCouncilData(data.parishCommitteeCouncils);
+        setCommissionData(data.commissions);
         setNumberPages(1);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         toast({
-          title: "Get parishCommitteeCouncil Message",
+          title: "Get Commission Message",
           description:
-            error.response.data?.message || "Error geting parishCommitteeCouncils time!",
+            error.response.data?.message || "Error geting Commissions time!",
           status: "error",
         });
       });
   };
 
   useEffect(() => {
-    fetchparishCommitteeCouncil();
+    fetchCommission();
   }, []);
 
-  // const handleEventStatus = async (parishCommitteeCouncil: parishCommitteeCouncilResponse) => {
-  //   const editPayload: UpdateparishCommitteeCouncilForm = {
-  //     name_en: parishCommitteeCouncil.name_en,
-  //     name_fr: parishCommitteeCouncil.name_fr,
-  //     name_rw: parishCommitteeCouncil.name_rw,
-  //     description_en: parishCommitteeCouncil.description_en,
-  //     description_fr: parishCommitteeCouncil.description_fr,
-  //     description_rw: parishCommitteeCouncil.description_rw,
-  //     work_hours: parishCommitteeCouncil.work_hours,
-  //     work_days: parishCommitteeCouncil.work_days,
-  //     contact_person_name: parishCommitteeCouncil.contact_person_name,
-  //     contact_person_phone_number: parishCommitteeCouncil.contact_person_phone_number,
-  //     backgroundImageId: parishCommitteeCouncil.backgroundImage?.id || null,
-  //     parishCommitteeCouncilsId: selectedparishCommitteeCouncil?.id || null
+  // const handleEventStatus = async (Commission: commissionResponse) => {
+  //   const editPayload: UpdateCommissionForm = {
+  //     name_en: Commission.name_en,
+  //     name_fr: Commission.name_fr,
+  //     name_rw: Commission.name_rw,
+  //     description_en: Commission.description_en,
+  //     description_fr: Commission.description_fr,
+  //     description_rw: Commission.description_rw,
+  //     work_hours: Commission.work_hours,
+  //     work_days: Commission.work_days,
+  //     contact_person_name: Commission.contact_person_name,
+  //     contact_person_phone_number: Commission.contact_person_phone_number,
+  //     backgroundImageId: Commission.backgroundImage?.id || null,
+  //     CommissionsId: selectedCommission?.id || null
   //   };
-  //   await updateparishCommitteeCouncil(editPayload)
+  //   await updateCommission(editPayload)
   //     .then((res: MessageResponse) => {
   //       toast({
-  //         title: "Change Servise Status Message",
+  //         title: "Change Commission Status Message",
   //         description:
-  //           res?.message || "parishCommitteeCouncil status changed successfully",
+  //           res?.message || "Commission status changed successfully",
   //         status: "success",
   //       });
   //       setIsOpenActivateOrDeactivateModal(false);
-  //       fetchparishCommitteeCouncil();
+  //       fetchCommission();
   //       setSelectedRecentEvent(null);
   //     })
   //     .catch((error) => {
   //       toast({
-  //         title: "Change Servise Status Message",
+  //         title: "Change Commission Status Message",
   //         description:
   //           error.response.data?.message ||
   //           "Error editing recent event status!",
@@ -114,21 +114,21 @@ const ParishCommitteeCouncilManagement = () => {
   //     });
   // };
 
-  const handleLocationDelete = async (parishCommitteeCouncilId: number) => {
-    await deleteparishCommitteeCouncil(parishCommitteeCouncilId)
+  const handleLocationDelete = async (CommissionId: number) => {
+    await deleteCommission(CommissionId)
       .then((res: MessageResponse) => {
         toast({
-          title: "Delete Servise Message",
-          description: res?.message || "Servise deleted successfully",
+          title: "Delete Commission Message",
+          description: res?.message || "Commission deleted successfully",
           status: "success",
         });
         setIsOpenDeleteModal(false);
-        fetchparishCommitteeCouncil();
+        fetchCommission();
         setSelectedRecentEvent(null);
       })
       .catch((error) => {
         toast({
-          title: "Delete Servise Message",
+          title: "Delete Commission Message",
           description:
             error.response.data?.message || "Error deleting recent event!",
           status: "error",
@@ -137,48 +137,52 @@ const ParishCommitteeCouncilManagement = () => {
   };
 
   const columns = useMemo(() => {
-    const columnHelper = createColumnHelper<parishCommitteeCouncilResponse>();
+    const columnHelper = createColumnHelper<commissionResponse>();
     return [
       columnHelper.display({
         id: "identifier",
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("names", {
+      columnHelper.accessor("name_en", {
         cell: (info) => info.getValue(),
-        header: "Names",
+        header: "Name(EN)",
       }),
-      columnHelper.accessor("position_en", {
+      columnHelper.accessor("name_fr", {
         cell: (info) => info.getValue(),
-        header: "position(EN)",
+        header: "Name(FR))",
       }),
-      columnHelper.accessor("position_fr", {
+      columnHelper.accessor("name_rw", {
         cell: (info) => info.getValue(),
-        header: "position(FR)",
+        header: "Name(RW)",
       }),
-      columnHelper.accessor("position_rw", {
+      columnHelper.accessor("contact_person_name", {
         cell: (info) => info.getValue(),
-        header: "position(RW)",
+        header: "Contact Person Name",
+      }),
+      columnHelper.accessor("contact_person_role", {
+        cell: (info) => info.getValue(),
+        header: "Contact Person Role",
+      }),
+      columnHelper.accessor("contact_person_phone_number", {
+        cell: (info) => info.getValue(),
+        header: "Contact Person Phone",
+      }),
+      columnHelper.accessor("contact_person_email", {
+        cell: (info) => info.getValue(),
+        header: "Contact Person Email",
       }),
       columnHelper.accessor("description_en", {
         cell: (info) => info.getValue(),
-        header: "Description(EN)",
+        header: "Description (EN)",
       }),
       columnHelper.accessor("description_fr", {
         cell: (info) => info.getValue(),
-        header: "Description(FR)",
+        header: "Description (FR)",
       }),
       columnHelper.accessor("description_rw", {
         cell: (info) => info.getValue(),
-        header: "Description(RW)",
-      }),
-      columnHelper.accessor("telephone", {
-        cell: (info) => info.getValue(),
-        header: "Telephone",
-      }),
-      columnHelper.accessor("email", {
-        cell: (info) => info.getValue(),
-        header: "Email",
+        header: "Description (RW)",
       }),
       // columnHelper.accessor("work_days", {
       //   cell: (info) => info.getValue(),
@@ -313,7 +317,7 @@ const ParishCommitteeCouncilManagement = () => {
   }, []);
 
   const table = useTable({
-    data: parishCommitteeCouncilsData || [],
+    data: CommissionsData || [],
     columns,
     pagination,
     setPagination,
@@ -323,7 +327,7 @@ const ParishCommitteeCouncilManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={4} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Parish Committee Council Management</Heading>
+          <Heading size="md">Commission Management</Heading>
         </Stack>
         {/* <CustomLink
           to="/portal-user-management/role-management/create-role"
@@ -337,8 +341,7 @@ const ParishCommitteeCouncilManagement = () => {
           minW={"8rem"}
           onClick={() => setOpenNewRecentEventModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Parish Committee Council
-          Event
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Commission
         </CustomButton>
       </Flex>
       <Box
@@ -368,22 +371,22 @@ const ParishCommitteeCouncilManagement = () => {
             />
           )}
         </>
-        {!loading && parishCommitteeCouncilsData.length === 0 && (
+        {!loading && CommissionsData.length === 0 && (
           <EmptyState text="There are no events to present yet." mt="10" />
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedparishCommitteeCouncil ? "Update" : "Add"} recent event`}
+        headerTitle={`${selectedCommission ? "Update" : "Add"} recent event`}
         isOpen={openNewRecentEventModel}
         onClose={() => setOpenNewRecentEventModel(false)}
         child={
-          <AddparishCommitteeCouncilCard
+          <AddCommissionCard
             onClose={() => {
               setSelectedRecentEvent(null);
               setOpenNewRecentEventModel(false);
             }}
-            fetchparishCommitteeCouncil={fetchparishCommitteeCouncil}
-            parishCommitteeCouncil={selectedparishCommitteeCouncil}
+            fetchCommission={fetchCommission}
+            Commission={selectedCommission}
           />
         }
         showFooter={false}
@@ -398,14 +401,14 @@ const ParishCommitteeCouncilManagement = () => {
           setIsOpenDeleteModal(false);
         }}
         onConfirm={() => {
-          if (selectedparishCommitteeCouncil) {
-            handleLocationDelete(selectedparishCommitteeCouncil?.id);
+          if (selectedCommission) {
+            handleLocationDelete(selectedCommission?.id);
           }
         }}
       />
       {/* <AlertDialog
         alertText={`Are you sure you want to ${
-          selectedparishCommitteeCouncil?.isActive ? "deactivate" : "activate"
+          selectedCommission?.isActive ? "deactivate" : "activate"
         } this recent event?`}
         isOpen={isOpenActivateOrDeactivateModal}
         onClose={() => {
@@ -413,8 +416,8 @@ const ParishCommitteeCouncilManagement = () => {
           setIsOpenActivateOrDeactivateModal(false);
         }}
         onConfirm={() => {
-          if (selectedparishCommitteeCouncil) {
-            handleEventStatus(selectedparishCommitteeCouncil);
+          if (selectedCommission) {
+            handleEventStatus(selectedCommission);
           }
         }}
       /> */}
@@ -422,4 +425,4 @@ const ParishCommitteeCouncilManagement = () => {
   );
 };
 
-export default ParishCommitteeCouncilManagement;
+export default CommissionManagement;
