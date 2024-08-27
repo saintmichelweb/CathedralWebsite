@@ -7,7 +7,7 @@ import { AuthRequest } from "../../types/express";
 import { ImageEntity } from "../../entity/ImagesEntity";
 import { PriestsEntity } from "../../entity/PriestsEntity";
 
-const recentEventSchema = z.object({
+const priestSchema = z.object({
   name: z
     .string()
     .trim()
@@ -102,7 +102,7 @@ export async function postPriests(req: AuthRequest, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = recentEventSchema.safeParse(req.body)
+  const parsedBody = priestSchema.safeParse(req.body)
   if (!parsedBody.success) {
     logger.error("Validation error: %o", parsedBody.error.issues);
     logger.error("Validation error: %o", req.body);

@@ -67,6 +67,12 @@ const ParishHistoryManagement = () => {
       setValue("parishHistory_en", parishHistory.history_en);
       setValue("parishHistory_fr", parishHistory.history_fr);
       setValue("parishHistory_rw", parishHistory.history_rw);
+      setValue("mission_en", parishHistory.mission_en);
+      setValue("mission_fr", parishHistory.mission_fr);
+      setValue("mission_rw", parishHistory.mission_rw);
+      setValue("vision_en", parishHistory.vision_en);
+      setValue("vision_fr", parishHistory.vision_fr);
+      setValue("vision_rw", parishHistory.vision_rw);
     }
   }, [parishHistory]);
 
@@ -95,7 +101,7 @@ const ParishHistoryManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={4} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Recent Events Management</Heading>
+          <Heading size="md">History, Mission and Vision Management</Heading>
         </Stack>
       </Flex>
       <Stack
@@ -112,7 +118,7 @@ const ParishHistoryManagement = () => {
           <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
         ) : (
           <Stack flexDirection={"row"}>
-            <Card width={"50%"} h={"30rem"} mr={"1"} p={"2"}>
+            <Card width={"100%"} h={"100%"} mr={"1"} p={"2"}>
               <Stack
                 as="form"
                 spacing="4"
@@ -125,27 +131,87 @@ const ParishHistoryManagement = () => {
                     {!parishHistory ? "Create" : "Update"} History
                   </Heading>
                 </Stack>
-                <FormTextarea
-                  name="parishHistory_en"
-                  label="Cathedral History In Short"
-                  register={register}
-                  errors={errors}
-                  placeholder="Enter parish history"
-                />
-                <FormTextarea
-                  name="parishHistory_fr"
-                  label="Histoire de la Cathedrale"
-                  register={register}
-                  errors={errors}
-                  placeholder="Entrez l' histoire de la Cathedrale"
-                />
-                <FormTextarea
-                  name="parishHistory_rw"
-                  label="Amateka ya Cathedral"
-                  register={register}
-                  errors={errors}
-                  placeholder="Andika amateka ya cathedrale"
-                />
+                <Stack direction={"row"} justifyContent={"space-around"}>
+                  <FormTextarea
+                    name="parishHistory_en"
+                    label="History (EN)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish history (EN)"
+                  />
+                  <FormTextarea
+                    name="parishHistory_fr"
+                    label="History (FR)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish history (FR)"
+                  />
+                  <FormTextarea
+                    name="parishHistory_rw"
+                    label="History (RW)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish history (RW)"
+                  />
+                </Stack>
+                <Stack direction={{ base: "column", lg: "row" }}>
+                  <Heading size="sm">
+                    {" "}
+                    {!parishHistory ? "Create" : "Update"} Mission
+                  </Heading>
+                </Stack>
+                <Stack direction={"row"} justifyContent={"space-around"}>
+                  <FormTextarea
+                    name="mission_en"
+                    label="Mission (EN)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish mission (EN)"
+                  />
+                  <FormTextarea
+                    name="mission_fr"
+                    label="Mission (FR)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish mission (FR)"
+                  />
+                  <FormTextarea
+                    name="mission_rw"
+                    label="Mission (RW)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish mission (RW)"
+                  />
+                </Stack>
+                <Stack direction={{ base: "column", lg: "row" }}>
+                  <Heading size="sm">
+                    {" "}
+                    {!parishHistory ? "Create" : "Update"} Vision
+                  </Heading>
+                </Stack>
+                <Stack direction={"row"} justifyContent={"space-around"}>
+                  <FormTextarea
+                    name="vision_en"
+                    label="Vision (EN)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish vision (EN)"
+                  />
+                  <FormTextarea
+                    name="vision_fr"
+                    label="Vision (FR)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish vision (FR)"
+                  />
+                  <FormTextarea
+                    name="vision_rw"
+                    label="Vision (RW)"
+                    register={register}
+                    errors={errors}
+                    placeholder="Enter parish vision (RW)"
+                  />
+                </Stack>
                 <CustomButton
                   type="submit"
                   isLoading={false}
@@ -157,7 +223,7 @@ const ParishHistoryManagement = () => {
                 </CustomButton>
               </Stack>
             </Card>
-            {parishHistory && (
+            {/* {parishHistory && (
               <Stack flexDirection={"column"} w={"50%"}>
                 {parishHistory?.history_en && (
                   <Card ml={"1"} p={"2"}>
@@ -170,7 +236,7 @@ const ParishHistoryManagement = () => {
                 {parishHistory?.history_fr && (
                   <Card ml={"1"} p={"2"}>
                     <Stack direction={"column"} mb={"4"}>
-                      <Heading size="sm">Histoire de la Cathedrale</Heading>
+                      <Heading size="sm">Histoire de la </Heading>
                       <Text>{parishHistory?.history_fr || ""}</Text>
                     </Stack>
                   </Card>
@@ -184,7 +250,7 @@ const ParishHistoryManagement = () => {
                   </Card>
                 )}
               </Stack>
-            )}
+            )} */}
           </Stack>
         )}
       </Stack>

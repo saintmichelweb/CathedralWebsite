@@ -59,6 +59,7 @@ const MassTimesManagement = () => {
     setLoading(true);
     await getAllMassTimes()
       .then((data) => {
+        console.log(data)
         setMassTimesData(data.massTimes);
         setNumberPages(data.numberOfPages || 1);
         setLoading(false);

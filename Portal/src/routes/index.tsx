@@ -4,15 +4,18 @@ import { useRoutes } from 'react-router-dom'
 import { Layout } from '../components/layout'
 import {
   BannerImagesManagement,
+  CommissionManagement,
   // Dashboard,
   ForgotPassword,
   LanguagesManagement,
   LocationsManagement,
   Login,
   MassTimesManagement,
+  ParishCommitteeCouncilManagement,
   ParishHistoryManagement,
   PriestsManagement,
   RecentEventsManagement,
+  ServicesManagement,
   TopNewsAndNoticesManagement,
   WelcomeMessageManagement,
   // SetPassword,
@@ -82,6 +85,21 @@ const Routes = () => {
           path: 'welcomeMessage',
           index: true,
           element: <WelcomeMessageManagement />,
+        },
+        {
+          path: 'Services',
+          index: true,
+          element: <ServicesManagement />,
+        },
+        {
+          path: 'parishCommitteeCouncil',
+          index: true,
+          element: <ParishCommitteeCouncilManagement />,
+        },
+        {
+          path: 'commissions',
+          index: true,
+          element: <CommissionManagement />,
         },
       ]
     },

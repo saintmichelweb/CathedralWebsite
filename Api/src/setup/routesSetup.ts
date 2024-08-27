@@ -10,6 +10,10 @@ import image_routes from '../routes/imageRoutes'
 import parish_history_routes from '../routes/parishHistoryRoutes'
 import priests from '../routes/priestsRoutes'
 import welcomeMessage from '../routes/welcomeMessage'
+import services from '../routes/servicesRoutes'
+import parishCommitteeCouncil from '../routes/parishCommitteeCouncilRoutes'
+import commissions from '../routes/commissionsRoutes'
+
 
 
 export default function setupRoutes (app: Application): void {
@@ -25,6 +29,9 @@ export default function setupRoutes (app: Application): void {
   app.use('/api', parish_history_routes)
   app.use('/api', priests)
   app.use('/api', welcomeMessage)
+  app.use('/api', services)
+  app.use('/api', parishCommitteeCouncil)
+  app.use('/api', commissions)
 
   // Catch-all route to handle 404s
   app.use('*', (req, res) => {

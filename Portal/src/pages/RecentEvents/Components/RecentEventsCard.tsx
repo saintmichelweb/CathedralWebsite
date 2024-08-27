@@ -66,7 +66,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
       );
     }
     setValue(
-      "backgroungImageId",
+      "backgroundImageId",
       recentEventToEdit?.backgroundImage?.id || null
     );
   }, [recentEventToEdit]);
@@ -83,7 +83,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               description: res?.message || "Recent Event saved successfully",
               status: "success",
             });
-            payload.backgroungImageId = res.image.id;
+            payload.backgroundImageId = res.image.id;
           })
           .catch((error) => {
             toast({
@@ -126,7 +126,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
           isActive: recentEventToEdit.isActive,
           recentEventId: recentEventToEdit.id,
           event_date: payload.event_date,
-          backgroungImageId: recentEventToEdit.backgroundImage?.id || null,
+          backgroundImageId: recentEventToEdit.backgroundImage?.id || null,
         };
         await updateRecentEvent(editPayload)
           .then((res: MessageResponse) => {

@@ -83,6 +83,12 @@ export interface ParishHistoryResponse {
     history_en: string;
     history_rw: string;
     history_fr: string;
+    mission_en: string;
+    mission_fr: string;
+    mission_rw: string;
+    vision_en: string;
+    vision_fr: string;
+    vision_rw: string;
     created_at: Date;
     updated_at: Date;
 }
@@ -92,7 +98,7 @@ export interface WelcomeMessageResponse {
     welcomeMessage_en: string;
     welcomeMessage_fr: string;
     welcomeMessage_rw: string;
-    backgroundImage: imageResponse ,
+    backgroundImage: imageResponse,
     created_at: Date;
     updated_at: Date;
 }
@@ -107,4 +113,54 @@ export interface PriestsResponse {
     created_at: string
     updated_at: string
     backgroundImage: imageResponse | null
+}
+
+export interface ServicesResponse {
+    id: number
+    name_en: string
+    name_fr: string
+    name_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    contact_person_name: string
+    contact_person_phone_number: string
+    work_days: string
+    work_hours: string
+    created_at: string
+    updated_at: string
+    backgroundImage: imageResponse | null
+}
+
+export interface parishCommitteeCouncilResponse {
+    id: number
+    names: string
+    position_en: string
+    position_fr: string
+    position_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    telephone: string
+    email: string
+    created_at: string
+    updated_at: string
+    backgroundImage: imageResponse | null
+}
+
+export interface commissionResponse {
+    id: number
+    name_en: string
+    name_fr: string
+    name_rw: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    contact_person_name: string
+    contact_person_role: string
+    contact_person_phone_number: string
+    contact_person_email: string
+    backgroundImage: imageResponse | null
+    created_at: string
+    updated_at: string
 }

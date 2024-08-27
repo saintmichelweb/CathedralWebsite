@@ -6,6 +6,11 @@ import {
 } from 'typeorm'
 import { RecentEventsEntity } from './RecentEventsEntity'
 import { HomePageWelcomeMessageEntity } from './HomePageWelcomeMessageEntity'
+import { CommissionEntity } from './CommissionEntity'
+import { PriestsEntity } from './PriestsEntity'
+import { ServiceEntity } from './ServiceEntity'
+import { ParishComitteCouncilEntity } from './ParishComitteCouncilEntity'
+import { ChoirEntity } from './ChoirEntity'
 
 @Entity('images')
 export class ImageEntity {
@@ -66,7 +71,25 @@ export class ImageEntity {
   @CreateDateColumn()
   created_at!: Date
 
-  @OneToMany(() => RecentEventsEntity || HomePageWelcomeMessageEntity, recentEvent => recentEvent.backgroundImage)
+  @OneToMany(() => RecentEventsEntity, recentEvent => recentEvent.backgroundImage)
   connectedEvents!: RecentEventsEntity[]
+
+  @OneToMany(() => CommissionEntity, commission => commission.backgroundImage)
+  connectedCommissions!: CommissionEntity[]
+
+  @OneToMany(() => PriestsEntity, priest => priest.backgroundImage)
+  connectedPriests!: PriestsEntity[]
+
+  @OneToMany(() => ServiceEntity, service => service.backgroundImage)
+  connectedServices!: ServiceEntity[]
+
+  @OneToMany(() => ParishComitteCouncilEntity, parishCommitteeMember => parishCommitteeMember.backgroundImage)
+  connectedCommitteeMembers!: ParishComitteCouncilEntity[]
+
+  @OneToMany(() => HomePageWelcomeMessageEntity, welcomeMessage => welcomeMessage.backgroundImage)
+  connectedWelcomeMessage!: HomePageWelcomeMessageEntity[]
+
+  @OneToMany(() => ChoirEntity, choir => choir.backgroundImage)
+  connectedChoir!: ChoirEntity[]
 
 }
