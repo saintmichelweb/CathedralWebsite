@@ -9,52 +9,48 @@ import { CommissionEntity } from "../../entity/CommissionEntity";
 
 const commissionSchema = z.object({
   name_en: z
-  .string()
-  .trim()
-  .min(1, { message: "name_en is required" }),
-name_fr: z
-  .string()
-  .trim()
-  .min(1, { message: "name_fr is required" }),
-name_rw: z
-  .string()
-  .trim()
-  .min(1, { message: "name_rw is required" }),
-contact_person_name: z
-  .string()
-  .trim()
-  .min(1, { message: "contact_person_name is required" }),
-contact_person_role: z
-  .string()
-  .trim()
-  .min(1, { message: "contact_person_role is required" }),
-contact_person_phone_number: z
-  .string()
-  .trim()
-  .min(1, { message: "contact_person_phone_number is required" }),
-contact_person_email: z
-  .string()
-  .trim()
-  .min(1, { message: "contact_person_email is required" }),
-// title: z
-//   .string()
-//   .trim()
-//   .min(1, { message: "Title is required" }),
-description_en: z
-  .string()
-  .trim()
-  .min(1, { message: "Description is required" }),
-description_fr: z
-  .string()
-  .trim()
-  .min(1, { message: "Description is required" }),
-description_rw: z
-  .string()
-  .trim()
-  .min(1, { message: "Description is required" }),
-backgroundImageId: z
-  .number()
-  .nullable()
+    .string()
+    .trim()
+    .min(1, { message: "name_en is required" }),
+  name_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "name_fr is required" }),
+  name_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "name_rw is required" }),
+  contact_person_name: z
+    .string()
+    .trim()
+    .min(1, { message: "contact_person_name is required" }),
+  contact_person_role: z
+    .string()
+    .trim()
+    .min(1, { message: "contact_person_role is required" }),
+  contact_person_phone_number: z
+    .string()
+    .trim()
+    .min(1, { message: "contact_person_phone_number is required" }),
+  contact_person_email: z
+    .string()
+    .trim()
+    .min(1, { message: "contact_person_email is required" }),
+  description_en: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_fr: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  description_rw: z
+    .string()
+    .trim()
+    .min(1, { message: "Description is required" }),
+  backgroundImageId: z
+    .number()
+    .nullable()
 });
 
 /**

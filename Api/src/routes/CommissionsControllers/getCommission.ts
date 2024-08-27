@@ -46,7 +46,7 @@ export async function getAllCommissions(req: Request, res: Response) {
 
   try {
     const totalCommission = await queryBuilder.getMany()
-    return res.status(200).send({ message: "Commission retrieved successfully!", Commission: totalCommission });
+    return res.status(200).send({ message: "Commission retrieved successfully!", commissions: totalCommission });
   } catch (error: any) {
     logger.error("Getting Commission failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
