@@ -23,6 +23,12 @@ import { MassTimesEntity } from './MasstimesEntity'
       default: false
     })
     isActive!: boolean
+
+    @Column({
+      nullable: false,
+      default: false
+    })
+    isMassLocation!: boolean
     
     @CreateDateColumn()
     created_at!: Date

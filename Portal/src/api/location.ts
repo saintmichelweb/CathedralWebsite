@@ -15,7 +15,9 @@ export async function getLocations(isActive?: boolean) {
 export async function updateLocation(updateLocationObj: UpdateLocationForm) {
   const response = await instance.put<{ message: string }>(`/location/${updateLocationObj.locationId}`, {
     location: updateLocationObj.location,
-    isActive: updateLocationObj.isActive
+    isActive: updateLocationObj.isActive,
+    isMassLocation: updateLocationObj.isMassLocation,
+
   })
   return response.data
 }

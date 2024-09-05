@@ -7,6 +7,7 @@ export const LocationSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Location Name is required" }),
+    isMassLocation: z.boolean(),
 });
 
 export type UpdateLocationForm = z.infer<typeof updateMassLocationSchema>;
@@ -17,5 +18,6 @@ export const updateMassLocationSchema = z.object({
     .trim()
     .min(1, { message: "Location Name is required" }),
   locationId: z.number(),
-  isActive: z.boolean()
+  isActive: z.boolean(),
+  isMassLocation: z.boolean(),
 });
