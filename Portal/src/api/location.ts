@@ -7,8 +7,8 @@ export async function addNewLocation(locationObj: LocationForm) {
   return response.data
 }
 
-export async function getLocations(isActive?: boolean) {
-  const response = await instance.get<{ locations: LocationResponse [], message: string, numberOfPages: number }>(`/location/all${isActive ? `?isActive=${isActive}` : ''}`)
+export async function getLocations(isMassLocation?: boolean, isActive?: boolean) {
+  const response = await instance.get<{ locations: LocationResponse [], message: string, numberOfPages: number }>(`/location/all?isActive=${isActive}&isMassLocation=${isMassLocation}`)
   return response.data
 }
 
