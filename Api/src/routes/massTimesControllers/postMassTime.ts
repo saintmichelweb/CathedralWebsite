@@ -114,13 +114,13 @@ export async function postMassTime(req: AuthRequest, res: Response) {
     }
 
   const newMassTimeRepository = AppDataSource.getRepository(MassTimesEntity)
-  const massLocationRepository =  AppDataSource.getRepository(LocationEntity)
+  const locationRepository =  AppDataSource.getRepository(LocationEntity)
   const massLanguageRepository =  AppDataSource.getRepository(LanguageEntity)
 
   
   try {
     const newMassTime = new MassTimesEntity();
-    const massLocation =  await massLocationRepository.findOne({where: {id: parsedBody.data.location}})
+    const massLocation =  await locationRepository.findOne({where: {id: parsedBody.data.location}})
     const massLanguage =  await massLanguageRepository.findOne({where: {id: parsedBody.data.language}})
 
     if ( massLanguage !== null && massLocation !== null) {

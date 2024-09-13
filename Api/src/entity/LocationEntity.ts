@@ -5,6 +5,7 @@ import {
     OneToMany
   } from 'typeorm'
 import { MassTimesEntity } from './MasstimesEntity'
+import { OfficeHoursEntity } from './OfficeHoursEntity'
   
   @Entity('locations')
   export class LocationEntity {
@@ -38,6 +39,9 @@ import { MassTimesEntity } from './MasstimesEntity'
 
     @OneToMany(() => MassTimesEntity, massTime => massTime.location)
     locationMassTimes!: MassTimesEntity[]
+
+    @OneToMany(() => OfficeHoursEntity, officeTime => officeTime.office_place)
+    officeTimes!: OfficeHoursEntity[]
   
   }
   

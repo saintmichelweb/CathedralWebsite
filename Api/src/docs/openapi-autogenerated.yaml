@@ -708,6 +708,10 @@ paths:
                   type: boolean
                   example: 'false'
                   description: Activation state of the location
+                isMassLocation:
+                  type: boolean
+                  example: true
+                  description: if location can host Masses
       responses:
         '200':
           description: Location saved successfully
@@ -754,6 +758,12 @@ paths:
             type: boolean
           required: false
           description: Activity status of location
+        - in: query
+          name: isMassLocation
+          schema:
+            type: boolean
+          required: false
+          description: Location is for Masses
       summary: get all Mass locations
       responses:
         '200':
@@ -788,6 +798,10 @@ paths:
                   type: string
                   example: St Michael Parish
                   description: location of the Mass
+                isMassLocation:
+                  type: boolean
+                  example: true
+                  description: if location can host Masses
       responses:
         '200':
           description: Location saved successfully
