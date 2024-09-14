@@ -7,10 +7,10 @@ import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
 
 /**
  * @openapi
- * /officeHours/{id}:
+ * /office-hours/{id}:
  *   delete:
  *     tags:
- *       - OfficeHour
+ *       - Office Hours
  *     security:
  *       - Authorization: []
  *     parameters:

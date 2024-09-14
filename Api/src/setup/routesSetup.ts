@@ -13,6 +13,7 @@ import welcomeMessage from '../routes/welcomeMessage'
 import services from '../routes/servicesRoutes'
 import parishCommitteeCouncil from '../routes/parishCommitteeCouncilRoutes'
 import commissions from '../routes/commissionsRoutes'
+import officeHours from '../routes/officeHours'
 
 
 
@@ -32,6 +33,7 @@ export default function setupRoutes (app: Application): void {
   app.use('/api', services)
   app.use('/api', parishCommitteeCouncil)
   app.use('/api', commissions)
+  app.use('/api', officeHours)
 
   // Catch-all route to handle 404s
   app.use('*', (req, res) => {

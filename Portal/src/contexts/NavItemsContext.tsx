@@ -11,6 +11,7 @@ import { FaLanguage } from "react-icons/fa";
 import { FaHistory } from "react-icons/fa";
 import { FaServicestack } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
+import { TbClockHour10 } from "react-icons/tb";
 import { MdGroups2 } from "react-icons/md";
 import { IoTimeOutline } from "react-icons/io5";
 import Cookies from 'universal-cookie'
@@ -109,6 +110,13 @@ export const NAV_ITEMS = [
     to: '/commissions',
     label: 'Go to commissions',
     icon: TiGroupOutline,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'OfficeHours',
+    to: '/OfficeHours',
+    label: 'Go to OfficeHours',
+    icon: TbClockHour10,
     // permissions: ['View Transactions'],
   },
   // {
