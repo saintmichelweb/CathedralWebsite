@@ -5,6 +5,7 @@ import {
     OneToMany
   } from 'typeorm'
 import { MassTimesEntity } from './MasstimesEntity'
+import { OfficeHoursEntity } from './OfficeHoursEntity'
   
   @Entity('locations')
   export class LocationEntity {
@@ -23,6 +24,12 @@ import { MassTimesEntity } from './MasstimesEntity'
       default: false
     })
     isActive!: boolean
+
+    @Column({
+      nullable: false,
+      default: false
+    })
+    isMassLocation!: boolean
     
     @CreateDateColumn()
     created_at!: Date
@@ -32,6 +39,9 @@ import { MassTimesEntity } from './MasstimesEntity'
 
     @OneToMany(() => MassTimesEntity, massTime => massTime.location)
     locationMassTimes!: MassTimesEntity[]
+
+    @OneToMany(() => OfficeHoursEntity, officeTime => officeTime.office_place)
+    officeTimes!: OfficeHoursEntity[]
   
   }
   

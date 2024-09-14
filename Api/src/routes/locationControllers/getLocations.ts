@@ -20,6 +20,12 @@ import { AuthRequest } from "../../types/express";
  *          type: boolean
  *        required: false
  *        description: Activity status of location
+ *      - in: query
+ *        name: isMassLocation
+ *        schema:
+ *          type: boolean
+ *        required: false
+ *        description: Location is for Masses
  *     summary: get all Mass locations
  *     responses:
  *       200:
@@ -43,12 +49,15 @@ import { AuthRequest } from "../../types/express";
 export async function getLocations(req: AuthRequest, res: Response) {
   const portalUser = req.user;
   const isActive = req.query.isActive
+  const isMassLocation = req.query.isMassLocation
+  
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
   const locationRepository = AppDataSource.getRepository(LocationEntity);
   const queryBuilder = locationRepository.createQueryBuilder('locations')
+  queryBuilder.where('locations.isMassLocation = :isMassLocation', {isMassLocation: isMassLocation? 1: 0})
 
   if (isActive !==null && isActive !== undefined) {
     queryBuilder.where('locations.isActive = :isActive', {isActive: isActive? 1: 0})

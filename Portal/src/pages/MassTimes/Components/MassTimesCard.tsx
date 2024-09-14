@@ -23,7 +23,7 @@ import { CustomFormSelect, FormInput } from "../../../components/form";
 import { getLocations } from "../../../api/location";
 import { getLanguages } from "../../../api/language";
 import { addNewMassTime, updateMassTime } from "../../../api/massTimes";
-import { MassTimesResponse, MessageResponse } from "../../../types/apiResponses";
+import { LanguageResponse, LocationResponse, MassTimesResponse, MessageResponse } from "../../../types/apiResponses";
 import { MassDaysEnum_FR, MassDaysEnum_EN, MassDaysEnum_RW } from "../../../../../shared-lib/src";
 
 interface AddMassTimesProps {
@@ -100,8 +100,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
 
   // useEffect(() => {
   const getAllLocations = async () => {
-    await getLocations(true).then((data) => {
-      data.locations.map((dataLocation) => {
+    await getLocations(true, true).then((data) => {
+      data.locations.map((dataLocation: LocationResponse) => {
         locationSelectOptions.push({
           value: dataLocation.id,
           label: dataLocation.location,
@@ -115,7 +115,7 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
 
   const getAllLanguages = async () => {
     await getLanguages(true).then((data) => {
-      data.languages.map((dataLanguage) => {
+      data.languages.map((dataLanguage: LanguageResponse) => {
         languageSelectOptions.push({
           value: dataLanguage.id,
           label: dataLanguage.language,

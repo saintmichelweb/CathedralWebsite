@@ -127,7 +127,7 @@ export async function putMassTimes(req: Request, res: Response) {
   }
 
   const massTimeRepository = AppDataSource.getRepository(MassTimesEntity)
-  const massLocationRepository = AppDataSource.getRepository(LocationEntity)
+  const locationRepository = AppDataSource.getRepository(LocationEntity)
   const massLanguageRepository = AppDataSource.getRepository(LanguageEntity)
 
   try {
@@ -137,7 +137,7 @@ export async function putMassTimes(req: Request, res: Response) {
     if (oldMassTime === null) {
       return res.status(404).send({ message: "Mass time does not exist!" });
     }
-    const massLocation = await massLocationRepository.findOne({ where: { id: parsedBody.data.location } })
+    const massLocation = await locationRepository.findOne({ where: { id: parsedBody.data.location } })
     const massLanguage = await massLanguageRepository.findOne({ where: { id: parsedBody.data.language } })
 
     if (massLanguage !== null && massLocation !== null) {

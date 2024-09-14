@@ -111,17 +111,24 @@ export async function putOfficeHour(req: Request, res: Response) {
   }
 
   const serviceRepository = AppDataSource.getRepository(OfficeHoursEntity);
+  const locationRepository =  AppDataSource.getRepository(LocationEntity)
   try {
     const id = Number(req.params.id);
     const oldOfficeHour = await serviceRepository.findOne({ where: { id } });
     if (oldOfficeHour === null) {
       return res.status(404).send({ message: "OfficeHour does not exist!" });
     }
-    
+
+    const officeLocation =  await locationRepository.findOne({where: {id: parsedBody.data.office_place}})
+     if ( officeLocation !== null ) {
+      oldOfficeHour.office_place = officeLocation
+    } else {
+      return res.status(404).send({ message: "Office location does not exist!" });
+    }
     oldOfficeHour.day_en = parsedBody.data.day_en
     oldOfficeHour.day_fr = parsedBody.data.day_fr
     oldOfficeHour.day_rw = parsedBody.data.day_rw
-    oldOfficeHour.office_place = parsedBody.data.office_place
+    // oldOfficeHour.office_place = parsedBody.data.office_place
     oldOfficeHour.time = parsedBody.data.time
     oldOfficeHour.isActive = parsedBody.data.isActive
 

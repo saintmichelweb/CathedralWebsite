@@ -5,6 +5,7 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { AuthRequest } from "../../types/express";
 import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
+import { LocationEntity } from "../../entity/LocationEntity";
 
 const OfficeHourSchema = z.object({
   day_en: z
@@ -99,12 +100,18 @@ export async function postOfficeHour(req: AuthRequest, res: Response) {
   }
 
   const officeHoursRepository = AppDataSource.getRepository(OfficeHoursEntity)
+  const locationRepository =  AppDataSource.getRepository(LocationEntity)
   try {
+    const officeLocation =  await locationRepository.findOne({where: {id: parsedBody.data.office_place}})
     const newOfficeHour = new OfficeHoursEntity();
     newOfficeHour.day_en = parsedBody.data.day_en
     newOfficeHour.day_fr = parsedBody.data.day_fr
     newOfficeHour.day_rw = parsedBody.data.day_rw
-    newOfficeHour.office_place = parsedBody.data.office_place
+    if ( officeLocation !== null ) {
+      newOfficeHour.office_place = officeLocation
+    } else {
+      return res.status(404).send({ message: "Office location does not exist!" });
+    }
     newOfficeHour.time = parsedBody.data.time
     newOfficeHour.isActive = parsedBody.data.isActive
 
