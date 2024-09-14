@@ -19,8 +19,7 @@ const OfficeHourSchema = z.object({
     .trim()
     .min(1, { message: "OfficeHour day_rw is required" }),
   office_place: z
-    .string()
-    .trim()
+    .number()
     .min(1, { message: "OfficeHour office_place is required" }),
   time: z
     .string()
