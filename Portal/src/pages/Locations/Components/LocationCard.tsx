@@ -5,6 +5,7 @@ import {
   HStack,
   Stack,
   useToast,
+  Checkbox,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -37,6 +38,7 @@ const AddLocationCard = (props: AddLocationProps) => {
   const toast = useToast();
   const locationToEdit = props.location
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isMassLocation, setIsMassLocation] = useState<boolean>(false);
   const [newUserPayload, setNewUserPayload] = useState<LocationForm>();
 
   const onSubmit = async (values: LocationForm) => {
@@ -47,6 +49,7 @@ const AddLocationCard = (props: AddLocationProps) => {
   useEffect(() => {
     if (locationToEdit) {
       setValue('location', locationToEdit.location)
+      setValue('isMassLocation', locationToEdit.isMassLocation)
     }
   },[locationToEdit])
 
@@ -77,7 +80,8 @@ const AddLocationCard = (props: AddLocationProps) => {
         const editPayload: UpdateLocationForm = {
           location: payload.location,
           locationId: locationToEdit.id,
-          isActive: locationToEdit.isActive
+          isActive: locationToEdit.isActive,
+          isMassLocation: locationToEdit.isActive,
         }
         await updateLocation(editPayload).then((res: MessageResponse) => {
           toast({
@@ -111,6 +115,16 @@ const AddLocationCard = (props: AddLocationProps) => {
           label="location"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
+        />
+        <Checkbox
+          name="Does location host Masses"
+          isChecked={isMassLocation}
+          onChange={() => {
+            setIsMassLocation(!isMassLocation)
+            setValue('isMassLocation', !isMassLocation)
+          }}
+          aria-label='Select row'
+          borderColor='blackAlpha.400'
         />
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">

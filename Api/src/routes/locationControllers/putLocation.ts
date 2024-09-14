@@ -8,6 +8,7 @@ import { LocationEntity } from "../../entity/LocationEntity";
 const LocationSchema = z.object({
   location: z.string().trim().min(1, { message: 'Location is required!' }),
   isActive: z.boolean(),
+  isMassLocation: z.boolean()
 });
 
 /**
@@ -41,6 +42,10 @@ const LocationSchema = z.object({
  *                 type: boolean
  *                 example: "false"
  *                 description: "Activation state of the location"
+ *               isMassLocation:
+ *                 type: boolean
+ *                 example: true
+ *                 description: "if location can host Masses"
  *     responses:
  *       200:
  *         description: Location saved successfully
@@ -104,6 +109,10 @@ export async function putLocation(req: Request, res: Response) {
 
     if (parsedBody.data.isActive !== null && parsedBody.data.isActive !== undefined) {
       oldLocation.isActive = parsedBody.data.isActive;
+    }
+    
+    if (parsedBody.data.isMassLocation !== null && parsedBody.data.isMassLocation !== undefined) {
+      oldLocation.isMassLocation = parsedBody.data.isMassLocation;
     }
 
     await locationRepository.save(oldLocation);

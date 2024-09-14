@@ -1,7 +1,6 @@
 import {
   Entity, Column, PrimaryGeneratedColumn,
   CreateDateColumn,
-  OneToMany,
   ManyToOne
 } from 'typeorm'
 import { LocationEntity } from './LocationEntity'

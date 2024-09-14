@@ -8,13 +8,7 @@ import { LocationEntity } from "../../../entity/LocationEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getMassTimes(req: Request, res: Response) {
-    // let portalUser = req.user
-    // if (isUndefinedOrNull(portalUser)) {
-    //     return res.status(401).send({ message: 'Unauthorized!' })
-    // }
-
-    const massTimeLocation = req.query.location
-
+    // const massTimeLocation = req.query.location
     try {
         const locationRepository = AppDataSource.getRepository(LocationEntity);
         const locationqueryBuilder = locationRepository.createQueryBuilder('locations')

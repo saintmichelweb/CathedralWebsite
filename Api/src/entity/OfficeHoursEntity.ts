@@ -5,17 +5,18 @@ import {
     ManyToOne,
     UpdateDateColumn
   } from 'typeorm'
+import { LocationEntity } from './LocationEntity'
   
   @Entity('office_hours')
   export class OfficeHoursEntity {
     @PrimaryGeneratedColumn()
     id!: number
   
-    @Column({
-      nullable: true,
-      length: 255,
-    })
-    office_place!: string
+    // @Column({
+    //   nullable: true,
+    //   length: 255,
+    // })
+    // office_place!: string
   
     @Column({
       nullable: true,
@@ -54,8 +55,8 @@ import {
     @UpdateDateColumn()
     updated_at!: Date
   
-    // @ManyToOne(() => LocationEntity, location => location.locationMassTimes)
-    // location!: LocationEntity
+    @ManyToOne(() => LocationEntity, location => location.officeTimes)
+    office_place!: LocationEntity
   
     // @ManyToOne(() => LanguageEntity, language => language.languageMassTimes)
     // language!: LanguageEntity

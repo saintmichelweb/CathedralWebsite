@@ -77,6 +77,7 @@ const LocationsManagement = () => {
       location: location.location,
       locationId: location.id,
       isActive: !location.isActive,
+      isMassLocation: !location.isMassLocation,
     };
     await updateLocation(editPayload)
       .then((res: MessageResponse) => {
@@ -132,6 +133,10 @@ const LocationsManagement = () => {
       columnHelper.accessor("location", {
         cell: (info) => info.getValue(),
         header: "location",
+      }),
+      columnHelper.accessor("isMassLocation", {
+        cell: (info) => info.getValue(),
+        header: "Mass Location",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {

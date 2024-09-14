@@ -11,6 +11,8 @@ const LocationSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Location Name is required" }),
+  isMassLocation: z
+  .boolean()
 });
 
 /**
@@ -33,6 +35,10 @@ const LocationSchema = z.object({
  *                 type: string
  *                 example: "St Michael Parish"
  *                 description: "location of the Mass"
+ *               isMassLocation:
+ *                 type: boolean
+ *                 example: true
+ *                 description: "if location can host Masses"
  *     responses:
  *       200:
  *         description: Location saved successfully
@@ -85,6 +91,7 @@ export async function postLocation(req: AuthRequest, res: Response) {
   try {
     const newLocation = new LocationEntity();
     newLocation.location = parsedBody.data.location
+    newLocation.isMassLocation = parsedBody.data.isMassLocation
     newLocation.isActive = true
     await locationRepository.save(newLocation)
     return res.status(201).send({ message: "Location created successfully" });

@@ -2,6 +2,7 @@ export interface LocationResponse {
     id: number
     location: string
     isActive: boolean
+    isMassLocation: boolean
     created_at: string
     updated_at: string
 }

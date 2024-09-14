@@ -12,14 +12,13 @@ export async function getHomePageMessage(req: Request, res: Response) {
 
         const homePageWelcomeMessage = await queryBuilder.getMany()
         
-
         res.status(200).send({ welcome_message: {
             welcome_message: {
                 welcomeMessage_en: homePageWelcomeMessage[0].welcomeMessage_en,
                 welcomeMessage_fr: homePageWelcomeMessage[0].welcomeMessage_fr,
                 welcomeMessage_rw: homePageWelcomeMessage[0].welcomeMessage_rw
             },
-            backgroundImag: homePageWelcomeMessage[0].backgroundImage.imageUrl
+            backgroundImage: homePageWelcomeMessage[0].backgroundImage.imageUrl
          } })
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)
