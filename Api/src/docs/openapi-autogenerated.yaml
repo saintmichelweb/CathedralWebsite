@@ -2611,6 +2611,16 @@ paths:
                     example: Invalid credentials
         '422':
           description: Validation error
+  /users/logout:
+    post:
+      tags:
+        - Users
+      security:
+        - Authorization: []
+      summary: Logout
+      responses:
+        '200':
+          description: Logout Successful
   /welcomeMessage:
     get:
       tags:
@@ -2634,4 +2644,5 @@ paths:
         '500':
           description: Internal Server error
 tags:
+  - name: Users
   - name: Roles
