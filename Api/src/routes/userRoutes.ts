@@ -3,7 +3,7 @@ import express from 'express'
 import { postUserLogin } from './userControllers/postUserLogin'
 import { GetUserProfile } from './userControllers/getUserProfile'
 import { authenticateJWT } from '../middleware/authenticate'
-import { postUserLogout } from './userControllers/putUserLogout'
+import { postUserLogout } from './userControllers/postUserLogout'
 
 // /**
 //  * @openapi
