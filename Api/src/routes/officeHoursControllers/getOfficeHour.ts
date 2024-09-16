@@ -3,7 +3,6 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { AuthRequest } from "../../types/express";
-import { ServiceEntity } from "../../entity/ServiceEntity";
 import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
 
 /**

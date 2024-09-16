@@ -12,20 +12,20 @@ export async function getRecentEvents(req: Request, res: Response) {
         })
 
         const responseRecentEvents = Object.values(recentEvents).map(recentEvent => ({
-            recent_event_title: {
+            title: {
                 title_en: recentEvent.title_en,
                 title_fr: recentEvent.title_fr,
                 title_rw: recentEvent.title_rw
             },
-            recent_event_Description: {
+            description: {
                 description_en: recentEvent.description_en,
                 description_fr: recentEvent.description_fr,
                 description_rw: recentEvent.description_rw
             },
-            backgroundImage: recentEvent.backgroundImage,
+            backgroundImage: recentEvent.backgroundImage.imageUrl,
             event_date: recentEvent.event_date
         }))
-        
+
         res.status(200).send({ data: responseRecentEvents })
     } catch (error: any) {
         logger.error('Getting recent events failed with error: %s', error)
@@ -36,9 +36,8 @@ export async function getRecentEvents(req: Request, res: Response) {
 
 export async function getRecentEventById(req: Request, res: Response) {
     const recentEventId = Number(req.params.id)
-    console.log(req.params.id)
     if (isUndefinedOrNull(recentEventId)) {
-        return res.status(400).send({message: 'recent event id not provided'})
+        return res.status(400).send({ message: 'recent event id not provided' })
     }
 
     try {
@@ -47,7 +46,7 @@ export async function getRecentEventById(req: Request, res: Response) {
         })
 
         if (isUndefinedOrNull(recentEvent)) {
-            return res.status(404).send({message: 'recent event not found'})
+            return res.status(404).send({ message: 'recent event not found' })
         }
 
         const responseRecentEvent = {

@@ -43,9 +43,9 @@ import { ServiceEntity } from "../../entity/ServiceEntity";
 export async function getServices(req: AuthRequest, res: Response) {
   const portalUser = req.user;
   // const isActive = req.query.isActive
-  // if (isUndefinedOrNull(portalUser)) {
-  //   return res.status(401).send({ message: "Unauthorized!" });
-  // }
+  if (isUndefinedOrNull(portalUser)) {
+    return res.status(401).send({ message: "Unauthorized!" });
+  }
 
   const serviceRepository = AppDataSource.getRepository(ServiceEntity);
   const queryBuilder = serviceRepository.createQueryBuilder('services')

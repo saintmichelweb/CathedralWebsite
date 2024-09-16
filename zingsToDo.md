@@ -58,3 +58,5 @@ Not decided Yet
 <!-- reworks needed after functionality -->
 
 _ labeling and naming of things
+_ time selects with two selects for start day and end day
+_ time selects with two selects for start time and end time
