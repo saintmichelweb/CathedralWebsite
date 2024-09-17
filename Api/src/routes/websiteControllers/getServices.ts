@@ -7,7 +7,7 @@ import { ServiceEntity } from "../../entity/ServiceEntity";
 
 // /**
 //  * @openapi
-//  * /services/all:
+//  * /services:
 //  *   get:
 //  *     tags:
 //  *       - Service
@@ -58,7 +58,7 @@ export async function getWebsiteServices(req: AuthRequest, res: Response) {
           name_fr: service.name_fr,
           name_rw: service.name_rw
         },
-        backgroundImage: service.backgroundImage.imageUrl,
+        backgroundImage: service.backgroundImage?.imageUrl || null,
         contact_person_name: service.contact_person_name,
         contact_person_phone_number: service.contact_person_phone_number,
         work_days: service.work_days,

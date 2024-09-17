@@ -39,9 +39,9 @@ export async function getWelcomeMessage(req: Request, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-const welcomeMessageRepository = AppDataSource.getRepository(HomePageWelcomeMessageEntity)
-const welcomMessageQueueryBuilder = welcomeMessageRepository.createQueryBuilder('welcome_message')
-.leftJoinAndSelect('welcome_message.backgroundImage', 'backgoundImage')
+  const welcomeMessageRepository = AppDataSource.getRepository(HomePageWelcomeMessageEntity)
+  const welcomMessageQueueryBuilder = welcomeMessageRepository.createQueryBuilder('welcome_message')
+    .leftJoinAndSelect('welcome_message.backgroundImage', 'backgoundImage')
 
   try {
     const welcomeMessages = await welcomMessageQueueryBuilder.getMany()

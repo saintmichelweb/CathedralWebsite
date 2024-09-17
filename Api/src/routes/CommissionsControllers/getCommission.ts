@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { CommissionEntity } from "../../entity/CommissionEntity";
+import { isUndefinedOrNull } from "../../utils/utils";
 
 /**
  * @openapi
@@ -30,11 +31,11 @@ import { CommissionEntity } from "../../entity/CommissionEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getAllCommissions(req: Request, res: Response) {
-  // const portalUser = req.user;
-  // const isActive = req.query.isActive
-  // if (isUndefinedOrNull(portalUser)) {
-  //   return res.status(401).send({ message: "Unauthorized!" });
-  // }
+  const portalUser = req.user;
+  const isActive = req.query.isActive
+  if (isUndefinedOrNull(portalUser)) {
+    return res.status(401).send({ message: "Unauthorized!" });
+  }
 
   const CommissionRepository = AppDataSource.getRepository(CommissionEntity);
   const queryBuilder = CommissionRepository.createQueryBuilder('Commission')

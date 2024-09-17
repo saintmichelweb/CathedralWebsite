@@ -8,7 +8,7 @@ import { LocationEntity } from "../../entity/LocationEntity";
 
 // /**
 //  * @openapi
-//  * /office-hours/all:
+//  * /office-hours:
 //  *   get:
 //  *     tags:
 //  *       - Office Hours

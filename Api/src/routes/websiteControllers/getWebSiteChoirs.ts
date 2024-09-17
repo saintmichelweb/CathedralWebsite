@@ -5,7 +5,7 @@ import { ChoirEntity } from "../../entity/ChoirEntity";
 
 // /**
 //  * @openapi
-//  * /Choir/all:
+//  * /Choir:
 //  *   get:
 //  *     tags:
 //  *       - Choir
@@ -42,7 +42,7 @@ export async function getWebsiteChoir(req: Request, res: Response) {
         description_fr: choir.description_fr,
         description_rw: choir.description_rw
       },
-      backgroundImage: choir.backgroundImage.imageUrl,
+      backgroundImage: choir.backgroundImage?.imageUrl || null,
       name: choir.name,
       leader: choir.leader,
       telephone: choir.telephone

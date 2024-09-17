@@ -334,8 +334,7 @@ const ServicesManagement = () => {
           minW={"8rem"}
           onClick={() => setOpenNewRecentEventModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Recent
-          Event
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Service
         </CustomButton>
       </Flex>
       <Box
@@ -370,7 +369,7 @@ const ServicesManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedRecentEvent ? "Update" : "Add"} recent event`}
+        headerTitle={`${selectedRecentEvent ? "Update" : "Add"} Service`}
         isOpen={openNewRecentEventModel}
         onClose={() => setOpenNewRecentEventModel(false)}
         child={

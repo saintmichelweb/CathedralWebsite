@@ -42,7 +42,7 @@ const priestsRepository = AppDataSource.getRepository(PriestsEntity);
           description_fr: priest.description_fr,
           description_rw: priest.description_rw
         },
-        backgroundImage: priest.backgroundImage.imageUrl,
+        backgroundImage: priest.backgroundImage?.imageUrl || null,
         name: priest.name,
         title: priest.title,
         // telephone: priest.telephone

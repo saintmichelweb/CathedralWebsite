@@ -2514,6 +2514,140 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
+  /users/add:
+    post:
+      tags:
+        - Portal Users
+      summary: Add a user by Admin
+      security:
+        - Authorization: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Test User
+                  description: The name of the user
+                email:
+                  type: string
+                  example: test1@email.com
+                  description: The email for login
+                phone:
+                  type: string
+                  example: '0780000000'
+                  description: the users phone number
+                role:
+                  type: number
+                  example: 1
+                  description: The role of the user
+                dfsp_id:
+                  type: number
+                  example: 5
+                  description: The dfsp database id
+                  required: false
+                  nullable: true
+      responses:
+        '200':
+          description: User created. And Verification Email Sent
+        '400':
+          description: Invalid credentials
+        '422':
+          description: Validation error
+  /users/{userId}/edit:
+    patch:
+      tags:
+        - Portal Users
+      summary: Edit a user by Admin
+      security:
+        - Authorization: []
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: The ID of the user to edit
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Updated User
+                  description: The updated name of the user
+                email:
+                  type: string
+                  example: updated1@email.com
+                  description: The updated email for login
+                phone:
+                  type: string
+                  example: '0780000001'
+                  description: The updated user's phone number
+                role:
+                  type: number
+                  example: 1
+                  description: The updated role of the user
+                dfsp_id:
+                  type: number
+                  example: 5
+                  description: The updated dfsp database id
+                  required: false
+                  nullable: true
+      responses:
+        '200':
+          description: User updated
+        '400':
+          description: Invalid credentials
+        '404':
+          description: User not found
+        '422':
+          description: Validation error
+  /users/forgot-password:
+    post:
+      tags:
+        - Portal Users
+      summary: Reset Forgot Password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: email
+                  example: user@email.com
+      responses:
+        '200':
+          description: Reset Password Link Sent Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Reset Password Link Sent Successful
+        '400':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
   /user/profile:
     get:
       tags:
@@ -2562,6 +2696,16 @@ paths:
                     example: Unauthorized
         '500':
           description: Internal Server error
+  /users:
+    get:
+      tags:
+        - Portal Users
+      security:
+        - Authorization: []
+      summary: GET Portal Users List
+      responses:
+        '200':
+          description: GET Portal Users List
   /users/login:
     post:
       tags:
@@ -2621,6 +2765,62 @@ paths:
       responses:
         '200':
           description: Logout Successful
+  /users/reset-password:
+    put:
+      tags:
+        - Portal Users
+      summary: Reset Password
+      security:
+        - Authorization: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                oldPassword:
+                  type: string
+                  example: password
+                  required: false
+                  nullable: true
+                newPassword:
+                  type: string
+                  example: password
+      responses:
+        '200':
+          description: Reset Password Successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Reset Password Successful
+        '400':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+  /users/refresh:
+    post:
+      tags:
+        - Portal Users
+      security:
+        - Authorization: []
+      summary: Refresh User Token
+      responses:
+        '200':
+          description: Refresh Token
   /welcomeMessage:
     get:
       tags:
@@ -2646,3 +2846,4 @@ paths:
 tags:
   - name: Users
   - name: Roles
+  - name: Portal Users

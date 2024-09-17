@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/parishCommitteeCouncil", authenticateJWT, postparishCommitteeCouncil )
 router.get("/parishCommitteeCouncil/all",
-    // authenticateJWT, 
+    authenticateJWT, 
     getparishCommitteeCouncil )
 router.put("/parishCommitteeCouncil/:id", authenticateJWT, putparishCommitteeCouncil);
 router.delete("/parishCommitteeCouncil/:id", authenticateJWT, deleteparishCommitteeCouncil);

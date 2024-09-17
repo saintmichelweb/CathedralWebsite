@@ -20,7 +20,7 @@ export async function getHomePageMessage(req: Request, res: Response) {
                     welcomeMessage_fr: homePageWelcomeMessage[0].welcomeMessage_fr,
                     welcomeMessage_rw: homePageWelcomeMessage[0].welcomeMessage_rw
                 },
-                backgroundImage: homePageWelcomeMessage[0].backgroundImage.imageUrl
+                backgroundImage: homePageWelcomeMessage[0].backgroundImage || null
             }
         })
     } catch (error: any) {

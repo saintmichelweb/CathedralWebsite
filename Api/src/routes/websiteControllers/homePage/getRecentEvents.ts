@@ -22,7 +22,7 @@ export async function getRecentEvents(req: Request, res: Response) {
                 description_fr: recentEvent.description_fr,
                 description_rw: recentEvent.description_rw
             },
-            backgroundImage: recentEvent.backgroundImage.imageUrl,
+            backgroundImage: recentEvent.backgroundImage?.imageUrl || null,
             event_date: recentEvent.event_date
         }))
 
@@ -45,7 +45,7 @@ export async function getRecentEventById(req: Request, res: Response) {
             where: { id: recentEventId }
         })
 
-        if (isUndefinedOrNull(recentEvent)) {
+        if (!recentEvent.length) {
             return res.status(404).send({ message: 'recent event not found' })
         }
 

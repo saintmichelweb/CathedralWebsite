@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { ChoirEntity } from "../../entity/ChoirEntity";
+import { isUndefinedOrNull } from "../../utils/utils";
 
 /**
  * @openapi
@@ -30,11 +31,11 @@ import { ChoirEntity } from "../../entity/ChoirEntity";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getAllChoir(req: Request, res: Response) {
-  // const portalUser = req.user;
-  // const isActive = req.query.isActive
-  // if (isUndefinedOrNull(portalUser)) {
-  //   return res.status(401).send({ message: "Unauthorized!" });
-  // }
+  const portalUser = req.user;
+  const isActive = req.query.isActive
+  if (isUndefinedOrNull(portalUser)) {
+    return res.status(401).send({ message: "Unauthorized!" });
+  }
 
   const ChoirRepository = AppDataSource.getRepository(ChoirEntity);
   const queryBuilder = ChoirRepository.createQueryBuilder('Choir')

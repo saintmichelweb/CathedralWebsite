@@ -47,7 +47,7 @@ export async function getWebsiteCommissions(req: Request, res: Response) {
         description_fr: commission.description_fr,
         description_rw: commission.description_rw
       },
-      backgroundImage: commission.backgroundImage.imageUrl,
+      backgroundImage: commission.backgroundImage?.imageUrl || null,
       contact_person_name: commission.contact_person_name,
       contact_person_role: commission.contact_person_role,
       contact_person_email: commission.contact_person_email,
