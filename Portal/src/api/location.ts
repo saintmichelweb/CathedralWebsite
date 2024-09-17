@@ -8,7 +8,12 @@ export async function addNewLocation(locationObj: LocationForm) {
 }
 
 export async function getLocations(isMassLocation?: boolean, isActive?: boolean) {
-  const response = await instance.get<{ locations: LocationResponse [], message: string, numberOfPages: number }>(`/location/all?isActive=${isActive}&isMassLocation=${isMassLocation}`)
+  let apiPath = `/location/all?`
+  if (isActive) apiPath += `isActive=${isActive}`
+  if (isActive && isMassLocation) apiPath += `&isMassLocation=${isMassLocation}`
+  if (!isActive && isMassLocation) apiPath += `isMassLocation=${isMassLocation}`
+  console.log(apiPath)
+  const response = await instance.get<{ locations: LocationResponse[], message: string, numberOfPages: number }>(apiPath)
   return response.data
 }
 
