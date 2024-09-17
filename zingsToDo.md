@@ -48,7 +48,7 @@ later: not for next monday
 
 Major features
 
-- Priests informations
+- ## Priests informations
 - Images saving and displaying (remains updating images)
 
 Not decided Yet
