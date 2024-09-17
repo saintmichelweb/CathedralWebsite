@@ -1,17 +1,16 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../../../database/dataSource";
 import logger from "../../../services/logger";
-import { isUndefinedOrNull } from "../../../utils/utils";
 import { MassTimesEntity } from "../../../entity/MasstimesEntity";
-import { MassDaysEnum_EN } from "../../../../../shared-lib/src";
 import { LocationEntity } from "../../../entity/LocationEntity";
+import { MassDaysEnum_EN } from "../../../../../shared-lib/src";
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getMassTimes(req: Request, res: Response) {
-    // const massTimeLocation = req.query.location
     try {
         const locationRepository = AppDataSource.getRepository(LocationEntity);
         const locationqueryBuilder = locationRepository.createQueryBuilder('locations')
+            .where('locations.isMassLocation = :isMassLocation', { isMassLocation: 1 })
 
         const totalLocations = await locationqueryBuilder.getMany()
 
@@ -20,16 +19,11 @@ export async function getMassTimes(req: Request, res: Response) {
             .leftJoinAndSelect('mass_time.location', 'location')
             .leftJoinAndSelect('mass_time.language', 'language')
             .where('mass_time.isActive = :isActive', { isActive: true })
-            // .where('mass_times.location.location = :location', { location: massTimeLocation })
         const masstimes = await queryBuilder.getMany()
 
-        const responseObjt: any[] = []
+        const responseMassTimes: any[] = []
         for (const location of totalLocations) {
-            // const locationObj = {
-            //     tabTitle: location.location,
-            //     content: []
-            // }
-            const locationMassTimes: any [] = []
+            const locationMassTimes: any[] = []
             Object.values(MassDaysEnum_EN).map(value => {
                 const dayMasstimes = masstimes.filter((masstime) => masstime.day_en === value && masstime.location.location === location.location)
                 const massTimesOfTheDay = []
@@ -48,13 +42,13 @@ export async function getMassTimes(req: Request, res: Response) {
             })
 
             if (locationMassTimes.length) {
-                responseObjt.push({
+                responseMassTimes.push({
                     tabTitle: location.location,
                     content: locationMassTimes
                 })
             }
         }
-            res.status(200).send({ data: responseObjt })
+        res.status(200).send({ data: responseMassTimes })
     } catch (error: any) {
         logger.error('Getting home page mass times failed with error: %s', error)
         res.status(400).send({ success: false, message: error.message })

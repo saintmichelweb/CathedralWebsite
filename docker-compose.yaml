@@ -14,20 +14,20 @@ services:
   #   networks:
   #     - stmp-net
 
-  api:
-    build:
-      context: .
-      dockerfile: ./DockerFile-Api
-    restart: unless-stopped
-    # command: ["npm", "run", "start"]
-    ports:
-      - "3551:3551"
-    networks:
-      - stmp-net
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: ./DockerFile-Api
+  #   restart: unless-stopped
+  #   # command: ["npm", "run", "start"]
+  #   ports:
+  #     - "3551:3551"
+  #   networks:
+  #     - stmp-net
 
-    depends_on:
-      - stmp-db
-      # - minio
+  #   depends_on:
+  #     - stmp-db
+  #     # - minio
 
   stmp-db:
     container_name: stmp-db

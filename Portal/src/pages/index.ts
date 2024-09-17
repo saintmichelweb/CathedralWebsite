@@ -14,6 +14,7 @@ import WelcomeMessageManagement from './WelcomeMessage/welcomeMessage';
 import ServicesManagement from './Services/Services';
 import ParishCommitteeCouncilManagement from './ParishCommitteeCouncil/ParishCommitteeCouncil';
 import CommissionManagement from './Commission/Commission';
+import OfficeTimesManagement from './OfficeTimes/OfficeHours';
 
 export {
   // AddNewUser,
@@ -31,5 +32,6 @@ export {
   WelcomeMessageManagement,
   ServicesManagement,
   ParishCommitteeCouncilManagement,
-  CommissionManagement
+  CommissionManagement,
+  OfficeTimesManagement
 }

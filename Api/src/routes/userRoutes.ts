@@ -3,6 +3,7 @@ import express from 'express'
 import { postUserLogin } from './userControllers/postUserLogin'
 import { GetUserProfile } from './userControllers/getUserProfile'
 import { authenticateJWT } from '../middleware/authenticate'
+import { postUserLogout } from './userControllers/postUserLogout'
 
 // /**
 //  * @openapi
@@ -22,5 +23,6 @@ const router = express.Router()
 
 router.get('/users/profile', authenticateJWT ,GetUserProfile)
 router.post('/users/login', postUserLogin)
+router.post('/users/logout', authenticateJWT, postUserLogout)
 
 export default router

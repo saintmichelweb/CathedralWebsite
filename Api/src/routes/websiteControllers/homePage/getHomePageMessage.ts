@@ -11,15 +11,18 @@ export async function getHomePageMessage(req: Request, res: Response) {
             .leftJoinAndSelect('welcome_message.backgroundImage', 'backgroundImage')
 
         const homePageWelcomeMessage = await queryBuilder.getMany()
-        
-        res.status(200).send({ welcome_message: {
+
+        res.status(200).send({
+            message: "Parish welcome message retrieved successfully",
             welcome_message: {
-                welcomeMessage_en: homePageWelcomeMessage[0].welcomeMessage_en,
-                welcomeMessage_fr: homePageWelcomeMessage[0].welcomeMessage_fr,
-                welcomeMessage_rw: homePageWelcomeMessage[0].welcomeMessage_rw
-            },
-            backgroundImage: homePageWelcomeMessage[0].backgroundImage.imageUrl
-         } })
+                welcomeMessage: {
+                    welcomeMessage_en: homePageWelcomeMessage[0].welcomeMessage_en,
+                    welcomeMessage_fr: homePageWelcomeMessage[0].welcomeMessage_fr,
+                    welcomeMessage_rw: homePageWelcomeMessage[0].welcomeMessage_rw
+                },
+                backgroundImage: homePageWelcomeMessage[0].backgroundImage.imageUrl
+            }
+        })
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)
         res.status(400).send({ success: false, message: error.message })

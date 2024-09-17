@@ -11,6 +11,7 @@ import {
   LocationsManagement,
   Login,
   MassTimesManagement,
+  OfficeTimesManagement,
   ParishCommitteeCouncilManagement,
   ParishHistoryManagement,
   PriestsManagement,
@@ -100,6 +101,11 @@ const Routes = () => {
           path: 'commissions',
           index: true,
           element: <CommissionManagement />,
+        },
+        {
+          path: 'OfficeHours',
+          index: true,
+          element: <OfficeTimesManagement />,
         },
       ]
     },

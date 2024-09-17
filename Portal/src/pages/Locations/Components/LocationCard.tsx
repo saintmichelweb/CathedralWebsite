@@ -116,9 +116,11 @@ const AddLocationCard = (props: AddLocationProps) => {
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
+        <label>Is Mass location</label>
         <Checkbox
           name="Does location host Masses"
           isChecked={isMassLocation}
+          // label="Is Mass location?"
           onChange={() => {
             setIsMassLocation(!isMassLocation)
             setValue('isMassLocation', !isMassLocation)

@@ -67,6 +67,18 @@ export interface MassTimesResponse {
     language: LanguageResponse
 }
 
+export interface OfficeHoursResponse {
+    id: number
+    day_en: string
+    day_fr: string
+    day_rw: string
+    time: string
+    isActive: boolean
+    created_at: string
+    updated_at: string
+    office_place: LocationResponse
+}
+
 export interface MessageResponse {
     message: string
 }

@@ -1003,10 +1003,10 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /officeHours/{id}:
+  /office-hours/{id}:
     delete:
       tags:
-        - OfficeHour
+        - Office Hours
       security:
         - Authorization: []
       parameters:
@@ -1046,88 +1046,9 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /officeHour/all:
-    get:
-      tags:
-        - OfficeHour
-      security:
-        - Authorization: []
-      parameters:
-        - in: query
-          name: isActive
-          schema:
-            type: boolean
-          required: false
-          description: Activity status of officeHour
-      summary: get all Mass officeHours
-      responses:
-        '200':
-          description: Get OfficeHours
-        '401':
-          description: Invalid credentials
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Invalid credentials
-        '500':
-          description: Internal Server error
-  /officeHours:
-    post:
-      tags:
-        - OfficeHour
-      security:
-        - Authorization: []
-      summary: Add a new Mass officeHours
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                officeHours:
-                  type: string
-                  example: St Michael Parish
-                  description: officeHours of the Mass
-      responses:
-        '200':
-          description: OfficeHour saved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: OfficeHour saved successfully
-        '401':
-          description: Invalid credentials
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Invalid credentials
-        '422':
-          description: Validation error
-        '500':
-          description: Internal Server error
-  /service/{id}:
     put:
       tags:
-        - OfficeHour
+        - Office Hours
       security:
         - Authorization: []
       parameters:
@@ -1186,6 +1107,84 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
+  /office-hours/all:
+    get:
+      tags:
+        - Office Hours
+      security:
+        - Authorization: []
+      parameters:
+        - in: query
+          name: isActive
+          schema:
+            type: boolean
+          required: false
+          description: Activity status of officeHour
+      summary: get all Mass officeHours
+      responses:
+        '200':
+          description: Get OfficeHours
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /office-hours:
+    post:
+      tags:
+        - Office Hours
+      security:
+        - Authorization: []
+      summary: Add a new Mass officeHours
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                officeHours:
+                  type: string
+                  example: St Michael Parish
+                  description: officeHours of the Mass
+      responses:
+        '200':
+          description: OfficeHour saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: OfficeHour saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /parishCommitteeCouncil/{id}:
     delete:
       tags:
@@ -2612,6 +2611,16 @@ paths:
                     example: Invalid credentials
         '422':
           description: Validation error
+  /users/logout:
+    post:
+      tags:
+        - Users
+      security:
+        - Authorization: []
+      summary: Logout
+      responses:
+        '200':
+          description: Logout Successful
   /welcomeMessage:
     get:
       tags:
@@ -2635,4 +2644,5 @@ paths:
         '500':
           description: Internal Server error
 tags:
+  - name: Users
   - name: Roles

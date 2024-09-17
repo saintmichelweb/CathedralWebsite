@@ -3,14 +3,14 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { AuthRequest } from "../../types/express";
-import { ServiceEntity } from "../../entity/ServiceEntity";
+import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
 
 /**
  * @openapi
- * /officeHour/all:
+ * /office-hours/all:
  *   get:
  *     tags:
- *       - OfficeHour
+ *       - Office Hours
  *     security:
  *       - Authorization: []
  *     parameters:
@@ -47,8 +47,9 @@ export async function getOfficeHours(req: AuthRequest, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const officeHourRepository = AppDataSource.getRepository(ServiceEntity);
-  const queryBuilder = officeHourRepository.createQueryBuilder('officeHours')
+  const officeHourRepository = AppDataSource.getRepository(OfficeHoursEntity);
+  const queryBuilder = officeHourRepository.createQueryBuilder('office_hours')
+    .leftJoinAndSelect('office_hours.office_place', 'office_place')
 
   try {
     const [totalOfficeHours, numberOfAllOfficeHours] = await queryBuilder.getManyAndCount()
