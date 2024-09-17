@@ -373,7 +373,7 @@ const ParishCommitteeCouncilManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedparishCommitteeCouncil ? "Update" : "Add"} recent event`}
+        headerTitle={`${selectedparishCommitteeCouncil ? "Update" : "Add"} Parish Committee Council`}
         isOpen={openNewRecentEventModel}
         onClose={() => setOpenNewRecentEventModel(false)}
         child={

@@ -1,29 +1,31 @@
 import instance from '../lib/axiosInstance'
 import { imageResponse, BannerImageResponse } from '../types/apiResponses';
 const formData = new FormData();
-interface ImageObj { 
-    image: File, 
-    isBannerImage: boolean, 
-    bannerDescription_en?: string, 
-    bannerDescription_fr?: string, 
-    bannerDescription_rw?: string, 
-    isActive?: boolean 
+interface ImageObj {
+    image: File,
+    isBannerImage: boolean,
+    bannerDescription_en?: string,
+    bannerDescription_fr?: string,
+    bannerDescription_rw?: string,
+    isActive?: boolean
 }
-interface updateImageObj { 
-    imageId: number, 
-    isBannerImage: boolean, 
-    bannerDescription_en?: string, 
-    bannerDescription_fr?: string, 
-    bannerDescription_rw?: string, 
-    isActive?: boolean 
+interface updateImageObj {
+    imageId: number,
+    isBannerImage: boolean,
+    bannerDescription_en?: string,
+    bannerDescription_fr?: string,
+    bannerDescription_rw?: string,
+    isActive?: boolean
 }
 
 export async function addNewImage(imageObj: ImageObj) {
     formData.append('image', imageObj.image);
-    formData.append('isBannerImage', `${imageObj.isBannerImage}`);
-    formData.append('bannerDescription_en', `${imageObj.bannerDescription_en}`);
-    formData.append('bannerDescription_fr', `${imageObj.bannerDescription_fr}`);
-    formData.append('bannerDescription_rw', `${imageObj.bannerDescription_rw}`);
+    if (imageObj.isBannerImage) {
+        formData.append('isBannerImage', `${imageObj.isBannerImage}`);
+        formData.append('bannerDescription_en', `${imageObj.bannerDescription_en}`);
+        formData.append('bannerDescription_fr', `${imageObj.bannerDescription_fr}`);
+        formData.append('bannerDescription_rw', `${imageObj.bannerDescription_rw}`);
+    }
     const response = await instance.post<{ message: string, image: imageResponse }>(`/image/upload`, formData)
     return response.data
 }

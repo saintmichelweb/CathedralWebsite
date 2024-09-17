@@ -3,6 +3,7 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { AuthRequest } from "../../types/express";
 import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEntity";
+import { isUndefinedOrNull } from "../../utils/utils";
 
 /**
  * @openapi
@@ -41,10 +42,10 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getparishCommitteeCouncil(req: AuthRequest, res: Response) {
   const portalUser = req.user;
-  // const isActive = req.query.isActive
-  // if (isUndefinedOrNull(portalUser)) {
-  //   return res.status(401).send({ message: "Unauthorized!" });
-  // }
+  const isActive = req.query.isActive
+  if (isUndefinedOrNull(portalUser)) {
+    return res.status(401).send({ message: "Unauthorized!" });
+  }
 
   const parishCommitteeCouncilRepository = AppDataSource.getRepository(ParishComitteCouncilEntity);
   const queryBuilder = parishCommitteeCouncilRepository.createQueryBuilder('parishCommitteeCouncils')

@@ -6,7 +6,7 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
 
 // /**
 //  * @openapi
-//  * /parishCommitteeCouncil/all:
+//  * /parishCommitteeCouncil:
 //  *   get:
 //  *     tags:
 //  *       - parishCommitteeCouncil
@@ -58,7 +58,7 @@ export async function getWebsiteParishCommitteeCouncil(req: AuthRequest, res: Re
         description_fr: CommitteeCouncil.description_fr,
         description_rw: CommitteeCouncil.description_rw
       },
-      backgroundImage: CommitteeCouncil.backgroundImage.imageUrl,
+      backgroundImage: CommitteeCouncil.backgroundImage?.imageUrl || null,
       names: CommitteeCouncil.names,
       email: CommitteeCouncil.email,
       telephone: CommitteeCouncil.telephone,

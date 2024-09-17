@@ -185,7 +185,7 @@ const WelcomeMessageManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedWelcomeMessage ? "Update" : "Add"} priest`}
+        headerTitle={`${selectedWelcomeMessage ? "Update" : "Add"} Welcome Message`}
         isOpen={openNewWelcomeMessageModel}
         onClose={() => setWelcomeMessageModel(false)}
         child={

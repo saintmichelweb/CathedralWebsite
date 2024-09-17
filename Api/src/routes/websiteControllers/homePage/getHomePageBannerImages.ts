@@ -16,7 +16,7 @@ export async function getHomePageBannerImages(req: Request, res: Response) {
                 description_fr: BannerImage.bannerDescription_fr,
                 description_rw: BannerImage.bannerDescription_rw
             },
-            image: BannerImage.imageUrl,
+            image: BannerImage.imageUrl || null,
         }))
         res.status(200).send(homePageBannerImages)
     } catch (error: any) {

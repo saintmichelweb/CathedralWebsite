@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/commissions", authenticateJWT, postCommission )
 router.get("/commissions/all",
-    // authenticateJWT, 
+    authenticateJWT, 
     getAllCommissions )
 router.put("/commissions/:id", authenticateJWT, putCommission);
 router.delete("/commissions/:id", authenticateJWT, deleteCommission);

@@ -49,7 +49,7 @@ const ServiceSchema = z.object({
     .min(1, { message: "Service end_date is required" }),
   backgroundImageId: z
     .number()
-    .nullable()
+    .optional()
 });
 
 /**

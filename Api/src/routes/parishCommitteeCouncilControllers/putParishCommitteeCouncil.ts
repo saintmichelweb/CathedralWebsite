@@ -45,7 +45,7 @@ const parishCommitteeCouncilSchema = z.object({
     .min(1, { message: "Description is required" }),
   backgroundImageId: z
     .number()
-    .min(1, { message: "Service backgroundImage is required" }),
+    .nullable()
 });
 
 /**

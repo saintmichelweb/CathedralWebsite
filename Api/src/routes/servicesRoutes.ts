@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post("/services", authenticateJWT, postService )
 router.get("/services/all",
-    // authenticateJWT, 
+    authenticateJWT, 
     getServices )
 router.put("/services/:id", authenticateJWT, putService);
 router.delete("/services/:id", authenticateJWT, deleteService);
