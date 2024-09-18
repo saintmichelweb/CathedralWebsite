@@ -36,6 +36,7 @@ const ChoirSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Telephone is required" }),
+  isActive: z.boolean(),
   backgroundImageId: z
     .number()
     .nullable()
@@ -156,6 +157,8 @@ export async function putChoir(req: AuthRequest, res: Response) {
     if (parsedBody.data.telephone) {
       savedChoir.telephone = parsedBody.data.telephone;
     }
+    
+    savedChoir.isActive = parsedBody.data.isActive;
 
     if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
