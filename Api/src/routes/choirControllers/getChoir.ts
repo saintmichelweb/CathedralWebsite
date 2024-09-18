@@ -47,7 +47,7 @@ export async function getAllChoir(req: Request, res: Response) {
 
   try {
     const totalChoir = await queryBuilder.getMany()
-    return res.status(200).send({ message: "Choir retrieved successfully!", Choir: totalChoir });
+    return res.status(200).send({ message: "Choir retrieved successfully!", choirs: totalChoir });
   } catch (error: any) {
     logger.error("Getting Choir failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

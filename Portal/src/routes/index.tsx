@@ -4,6 +4,7 @@ import { useRoutes } from 'react-router-dom'
 import { Layout } from '../components/layout'
 import {
   BannerImagesManagement,
+  ChoirsManagement,
   CommissionManagement,
   // Dashboard,
   ForgotPassword,
@@ -106,6 +107,11 @@ const Routes = () => {
           path: 'OfficeHours',
           index: true,
           element: <OfficeTimesManagement />,
+        },
+        {
+          path: 'choirs',
+          index: true,
+          element: <ChoirsManagement />,
         },
       ]
     },
