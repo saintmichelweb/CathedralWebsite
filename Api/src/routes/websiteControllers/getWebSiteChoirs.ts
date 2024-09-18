@@ -33,6 +33,7 @@ export async function getWebsiteChoir(req: Request, res: Response) {
   const ChoirRepository = AppDataSource.getRepository(ChoirEntity);
   const queryBuilder = ChoirRepository.createQueryBuilder('Choir')
     .leftJoinAndSelect('Choir.backgroundImage', 'backgoundImage')
+    .where('Choir.isActive = :isActive', { isActive: true })
 
   try {
     const totalChoir = await queryBuilder.getMany()

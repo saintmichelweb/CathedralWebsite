@@ -46,6 +46,12 @@ import {
       length: 255
     })
     telephone!: string
+    
+    @Column({
+      nullable: false,
+      default: false
+    })
+    isActive!: boolean
   
     @CreateDateColumn()
     created_at!: Date

@@ -129,6 +129,7 @@ export async function postChoir(req: AuthRequest, res: Response) {
     newChoir.description_rw = parsedBody.data.description_rw
     newChoir.leader = parsedBody.data.leader
     newChoir.telephone = parsedBody.data.telephone
+    newChoir.isActive = true
     if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroundImageId } });
