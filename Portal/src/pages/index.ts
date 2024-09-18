@@ -15,6 +15,8 @@ import ServicesManagement from './Services/Services';
 import ParishCommitteeCouncilManagement from './ParishCommitteeCouncil/ParishCommitteeCouncil';
 import CommissionManagement from './Commission/Commission';
 import OfficeTimesManagement from './OfficeTimes/OfficeHours';
+import ChoirsManagement from './Choirs/Choirs';
+
 
 export {
   // AddNewUser,
@@ -33,5 +35,6 @@ export {
   ServicesManagement,
   ParishCommitteeCouncilManagement,
   CommissionManagement,
-  OfficeTimesManagement
+  OfficeTimesManagement,
+  ChoirsManagement
 }

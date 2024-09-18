@@ -177,3 +177,18 @@ export interface commissionResponse {
     created_at: string
     updated_at: string
 }
+
+
+export interface ChoirsResponse {
+    id: number
+    name: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    leader: string
+    telephone: string
+    isActive: boolean
+    created_at: string
+    updated_at: string
+    backgroundImage: imageResponse | null
+}

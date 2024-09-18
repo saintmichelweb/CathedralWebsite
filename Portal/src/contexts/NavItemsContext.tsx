@@ -13,6 +13,7 @@ import { FaServicestack } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
 import { TbClockHour10 } from "react-icons/tb";
 import { MdGroups2 } from "react-icons/md";
+import { GiSing } from "react-icons/gi";
 import { IoTimeOutline } from "react-icons/io5";
 import Cookies from 'universal-cookie'
 
@@ -117,6 +118,13 @@ export const NAV_ITEMS = [
     to: '/OfficeHours',
     label: 'Go to OfficeHours',
     icon: TbClockHour10,
+    // permissions: ['View Transactions'],
+  },
+  {
+    name: 'choirs',
+    to: '/choirs',
+    label: 'Go to choirs',
+    icon: GiSing,
     // permissions: ['View Transactions'],
   },
   // {
