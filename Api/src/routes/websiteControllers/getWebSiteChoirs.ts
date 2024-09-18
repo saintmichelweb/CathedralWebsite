@@ -5,7 +5,7 @@ import { ChoirEntity } from "../../entity/ChoirEntity";
 
 // /**
 //  * @openapi
-//  * /Choir:
+//  * /Choirs:
 //  *   get:
 //  *     tags:
 //  *       - Choir

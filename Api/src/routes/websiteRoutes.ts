@@ -33,7 +33,7 @@ router.get('/aboutPage/parish-history', getWebsiteParishHistory)
 //Service page routes 
 router.get('/services/office-hours', getWebsiteOfficeHours)
 router.get('/services/services', getWebsiteServices)
-// router.get('/services/Choir', getWebsiteChoir)
+router.get('/services/Choirs', getWebsiteChoir)
 router.get('/services/commissions', getWebsiteCommissions)
 
 
