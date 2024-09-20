@@ -1,2 +1,0 @@
-- events as I updated the way to select the day
-- 
