@@ -1,0 +1,81 @@
+version: '3.8'
+networks:
+  stmp-net:
+    name: stmp-net
+
+services:
+  portal:
+    build: 
+      context: .
+      # dockerfile: ./Portal/DockerFile
+      dockerfile: ./DockerFile-Portal
+    restart: unless-stopped
+    ports:
+      - "3550:3550"
+
+  api:
+    build:
+      context: .
+      dockerfile: ./DockerFile-Api
+    restart: unless-stopped
+    # command: ["npm", "run", "start"]
+    ports:
+      - "3551:3551"
+    networks:
+      - stmp-net
+
+    depends_on:
+      - stmp-db
+      # - minio
+    environment:
+      - NODE_ENV=development
+      - APP_URL=http://localhost:3551 # for email verification
+      - HOST=0.0.0.0
+      - PORT=3551
+      - JWT_SECRET=api-stmp-jwt_secret # TODO: change this in production
+      - JWT_EXPIRES_IN=1d
+      - INACTIVITY_LIMIT=15m
+      - DB_HOST=stmp-db
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+      - DB_DATABASE=stmp_db
+      - S3_ENDPOINT=localhost
+      - S3_PORT=9000 # 443 for https AWS S3
+      - S3_ACCESS_KEY=minioadmin
+      - S3_SECRET_KEY=minioadmin
+      - S3_REGION=us-east-1 # Not required for Minio.. Minio will ignore it.
+      - S3_USE_SSL=false # set to true if using https AWS S3
+      - S3_DFSP_LOGO_BUCKET_NAME=dfsp-logos
+      - MAIL_HOST=St Michel Portal
+      - MAIL_PORT=465
+      - MAIL_USERNAME=ugashudav@gmail.com
+      - MAIL_PASSWORD=yvlc kcyw vcov pfjv
+      - LOG_PATH=./logs
+      - LOG_LEVEL=debug
+      - LOG_DISABLED=false
+      - KEY=e41c966f21f9e1577802463f8924e6a3fe3e9751f201304213b2f845d8841d61
+      - ALGORITHM=aes-256-cbc
+      - IVLENGTH=16
+      - IV=ff5ac19190424b1d88f9419ef949ae56
+      - Portal_SUPERADMIN_EMAIL=ugashudav+stmpsuperadmin@gmail.com
+      - Portal_SUPERADMIN_NAME=Portal Super Admin
+      - Portal_SUPERADMIN_PASSWORD=password
+      - Portal_SUPERADMIN_PHONE_NUMBER=0780000000
+
+  stmp-db:
+    container_name: stmp-db
+    image: mysql:8.0.33
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - 3552:3306
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./mysql-init-scripts:/docker-entrypoint-initdb.d
+      # - data:/data/db
+    networks:
+      - stmp-net
