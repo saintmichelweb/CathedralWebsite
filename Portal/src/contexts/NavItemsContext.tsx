@@ -1,19 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaHouse } from "react-icons/fa6";
-// import { TbUserSearch } from 'react-icons/tb'
-import { MdOutlineMessage } from "react-icons/md";
-import { FaRegNewspaper } from "react-icons/fa";
+import {
+  FaBusinessTime,
+  FaChurch,
+  FaHouse,
+  FaLocationDot,
+} from "react-icons/fa6";
 import { GiSunPriest } from "react-icons/gi";
 import { IoImages, IoLocationOutline, IoTextSharp } from "react-icons/io5";
-import { MdEventNote } from "react-icons/md";
-import { FaLanguage } from "react-icons/fa";
-import { FaHistory } from "react-icons/fa";
-import { FaServicestack } from "react-icons/fa";
+import { FaHandsHelping, FaServicestack } from "react-icons/fa";
 import { TiGroupOutline, TiNews } from "react-icons/ti";
-import { TbClockHour10, TbUserSearch } from "react-icons/tb";
 import { MdGroups2 } from "react-icons/md";
-import { GiSing } from "react-icons/gi";
+import { BsMusicNoteList } from "react-icons/bs";
 import { IoTimeOutline } from "react-icons/io5";
 import Cookies from "universal-cookie";
 
@@ -33,13 +31,13 @@ export const NAV_ITEMS = [
     name: "Locations",
     to: "/locations",
     label: "Go to locations",
-    icon: IoLocationOutline,
+    icon: FaLocationDot,
     // permissions: ['View Transactions'],
   },
   {
     name: "Mass Times",
     label: "Open portal Mass times management nav menu",
-    icon: IoTimeOutline,
+    icon: FaChurch,
     // permissions: ['View Portal Users'],
     subNavItems: [
       {
@@ -62,13 +60,13 @@ export const NAV_ITEMS = [
     name: "OfficeHours",
     to: "/OfficeHours",
     label: "Go to OfficeHours",
-    icon: TbClockHour10,
+    icon: FaBusinessTime,
     // permissions: ['View Transactions'],
   },
   {
     name: "News",
     label: "Open portal News nav menu",
-    icon: TiNews ,
+    icon: TiNews,
     // permissions: ['View Portal Users'],
     subNavItems: [
       {
@@ -95,9 +93,9 @@ export const NAV_ITEMS = [
     // permissions: ['View Transactions'],
   },
   {
-    name: "Texts",
+    name: "Text Portions",
     label: "Open portal Texts nav menu",
-    icon: IoTextSharp ,
+    icon: IoTextSharp,
     // permissions: ['View Portal Users'],
     subNavItems: [
       {
@@ -127,7 +125,7 @@ export const NAV_ITEMS = [
     name: "Services",
     to: "/services",
     label: "Go to services",
-    icon: FaServicestack,
+    icon: FaHandsHelping ,
     // permissions: ['View Transactions'],
   },
   {
@@ -148,7 +146,7 @@ export const NAV_ITEMS = [
     name: "choirs",
     to: "/choirs",
     label: "Go to choirs",
-    icon: GiSing,
+    icon: BsMusicNoteList,
     // permissions: ['View Transactions'],
   },
   // {
