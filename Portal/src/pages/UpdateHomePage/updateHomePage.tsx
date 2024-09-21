@@ -1,4 +1,4 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, Stack } from "@chakra-ui/react";
 // import RecentEventsCard from "../RecentEvents/Components/recentEventsCard";
 // import TopParishNewsAndNoticesCard from "../TopNewsAndNotices/Components/topNewsAndNoticesCard";
 
@@ -18,37 +18,22 @@ const UpdateHomePage = () => {
       alignSelf={"center"}
       alignItems={"center"}
     >
-      <Box
+      <Stack
         minH="full"
         w={'full'}
-        // bg="accent"
-        // pt={"6"}
-        // px={{ base: "4", sm: "6", md: "12", xl: "20" }}
-        // pb={"14"}
-        // flexGrow="1"
-        // alignSelf={"center"}
-        // justifySelf={'center'}
-        alignContent={"center"}
-        // justifyItems={"center"}
+        alignItems={"center"}
         justifyContent={"center"}
       >
-        {/* <MasstimesCard /> */}
-        {/* <MassLocationCard/> */}
-        {/* <MassLanguageCard/> */}
-        {/* <RecentEventsCard/> */}
-        {/* <TopParishNewsAndNoticesCard/> */}
-        <Box>
+        <Box width={'fit-content'}>
           <Heading
             size={"4xl"}
-            alignSelf={"center"}
-            justifySelf={"center"}
-            width={"fit-content"}
             color={"primary"}
+            width={'fit-content'}
           >
-            Welcome To Saint Michael Website Portal
+            Welcome To Saint Michael Portal
           </Heading>
         </Box>
-      </Box>
+      </Stack>
     </Box>
   );
 };

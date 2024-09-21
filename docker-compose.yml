@@ -12,7 +12,10 @@ services:
     restart: unless-stopped
     ports:
       - "3550:3550"
-
+    environment:
+      - VITE_API_URL=http://localhost:3551/api
+      - VITE_LIMIT_PER_PAGE=10
+      
   api:
     build:
       context: .

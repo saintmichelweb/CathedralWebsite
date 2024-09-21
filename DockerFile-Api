@@ -7,8 +7,8 @@ COPY ./Api /app/Api
 WORKDIR /app/Api
 RUN npm i --save
 # RUN npm i ts-node --save-dev
-RUN npm i @types/bcrypt --save-dev
-RUN npm i --save bcrypt 
+# RUN npm i @types/bcrypt --save-dev
+# RUN npm i --save bcrypt 
 
 EXPOSE 3551
 CMD [ "npm", "run", "start" ]

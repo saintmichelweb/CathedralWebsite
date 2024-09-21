@@ -5,7 +5,7 @@ COPY ./Portal /app/Portal
 
 WORKDIR /app/Portal
 RUN npm i 
-RUN npm install vite --save-dev
+# RUN npm install vite --save-dev
 EXPOSE 3550
 
 CMD [ "npm", "run", "dev", "--", "--host"]

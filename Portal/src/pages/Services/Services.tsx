@@ -318,7 +318,7 @@ const ServicesManagement = () => {
 
   return (
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
-      <Flex justify="space-between" mb={4} mt={7}>
+      <Flex justify="space-between" mb={0} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Services Management</Heading>
         </Stack>
