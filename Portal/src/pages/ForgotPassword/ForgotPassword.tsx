@@ -11,7 +11,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import LogoDiosceseKigali from "../../assets/LogoDiosceseKigali.png";
+import stMichelLogo from "../../assets/Logo.png";
 import {
   ForgotPasswordForm,
   forgotPasswordSchema,
@@ -51,17 +51,17 @@ const ForgotPassword = () => {
             px="10"
             display={{ base: "none", md: "flex" }}
             justify="space-between"
-            bg="#F0F9FF"
+            bg="primary"
           >
-            <Image src={LogoDiosceseKigali} w="60" />
+            <Image src={stMichelLogo} w="60" />
 
-            <Heading as="h1" color="black" textAlign="center">
+            <Heading as="h1" color="white" textAlign="center">
               Portal
             </Heading>
 
             <Box
               alignSelf="center"
-              color="black"
+              color="warning"
               fontSize="sm"
               fontWeight="medium"
             >
@@ -74,6 +74,7 @@ const ForgotPassword = () => {
             w={{ base: "100%", md: "50%" }}
             py={{ base: "8", sm: "12" }}
             px={{ base: "6", sm: "10" }}
+            bg={'primaryBackground'}
           >
             <Heading fontSize="2xl" mb="6">
               Enter your email address to reset your password

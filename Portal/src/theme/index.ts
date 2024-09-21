@@ -26,8 +26,8 @@ const theme = extendTheme({
     danger: '#CE4911',
     success: '#30D6A7',
     warning: '#F9C937',
-    primaryBackground: '#C7E8F2',
-    // primaryBackground: '#F5F5F5',
+    // primaryBackground: '#C7E8F2',
+    primaryBackground: '#F5F5F5',
 
     // primary: '#005585',
     // secondary: '#CCEDFF',

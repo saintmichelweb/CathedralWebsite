@@ -57,8 +57,11 @@ export async function getLocations(req: AuthRequest, res: Response) {
 
   const locationRepository = AppDataSource.getRepository(LocationEntity);
   const queryBuilder = locationRepository.createQueryBuilder('locations')
-    .where('locations.isMassLocation = :isMassLocation', { isMassLocation: isMassLocation === 'true' ? 1 : 0 })
-    .andWhere('locations.isActive = :isActive', { isActive: isActive === 'true' ? 1 : 0 })
+  if (!isUndefinedOrNull(isActive) || !isUndefinedOrNull(isMassLocation)) {
+    queryBuilder
+      .where('locations.isMassLocation = :isMassLocation', { isMassLocation: isMassLocation === 'true' ? 1 : 0 })
+      .andWhere('locations.isActive = :isActive', { isActive: isActive === 'true' ? 1 : 0 })
+  }
 
 
   try {

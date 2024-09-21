@@ -18,7 +18,7 @@ import {
 import { AiOutlineMail, AiOutlineUser } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import { TbLogout, TbPasswordUser } from "react-icons/tb";
-import diosceseKigaliLogo from "../../../assets/LogoDiosceseKigali.png";
+import stMichelLogo from "../../../assets/Logo.png";
 
 import { useDrawerDisclosure } from "../../../contexts/DrawerDisclosureContext";
 import { useUserContext } from "../../../contexts/UserContext";
@@ -62,7 +62,7 @@ const Header = () => {
       px={{ base: "2", sm: "4", md: "6", lg: "8" }}
       shadow="sm"
       position="fixed"
-      bg="white"
+      bg="primary"
       zIndex="sticky"
     >
       <IconButton
@@ -76,7 +76,7 @@ const Header = () => {
         onClick={onOpen}
       />
 
-      <Image h="9" alt="Logo" src={diosceseKigaliLogo} />
+      <Image h="9" alt="Logo" src={stMichelLogo} />
       <Drawer />
       <HStack spacing="4">
         <Popover offset={[-125, 0]}>
