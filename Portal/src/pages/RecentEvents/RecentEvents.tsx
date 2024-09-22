@@ -260,13 +260,21 @@ const RecentEventsManagement = () => {
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
               </MenuButton>
               <MenuList minW="0" w={"8.5rem"}>
+              <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleEdit}
+                >
+                  {ActionButton("edit", handleEdit)}
+                </MenuItem>
+                <Divider />
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
                   // onClick={handleActivateOrDeactivate}
                 >
                   {ActionButton(status ? "deactivate" : "activate", handleActivateOrDeactivate)}
-                </MenuItem>
+                </MenuItem>              
                 <Divider />
                 <MenuItem
                   px={0}
@@ -274,14 +282,6 @@ const RecentEventsManagement = () => {
                   // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
-                </MenuItem>
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
-                >
-                  {ActionButton("edit", handleEdit)}
                 </MenuItem>
               </MenuList>
             </Menu>

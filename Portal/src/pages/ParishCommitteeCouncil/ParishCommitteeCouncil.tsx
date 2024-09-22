@@ -27,12 +27,18 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { parishCommitteeCouncilResponse, MessageResponse } from "../../types/apiResponses";
+import {
+  parishCommitteeCouncilResponse,
+  MessageResponse,
+} from "../../types/apiResponses";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
 import AddparishCommitteeCouncilCard from "./Components/ParishCommitteeCouncilCard";
-import { deleteparishCommitteeCouncil, getAllparishCommitteeCouncils } from "../../api/parishCommitteeCouncil";
+import {
+  deleteparishCommitteeCouncil,
+  getAllparishCommitteeCouncils,
+} from "../../api/parishCommitteeCouncil";
 
 const ParishCommitteeCouncilManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -41,7 +47,9 @@ const ParishCommitteeCouncilManagement = () => {
   });
 
   const toast = useToast();
-  const [parishCommitteeCouncilsData, setparishCommitteeCouncilData] = useState<parishCommitteeCouncilResponse[]>([]);
+  const [parishCommitteeCouncilsData, setparishCommitteeCouncilData] = useState<
+    parishCommitteeCouncilResponse[]
+  >([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
   const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
@@ -66,7 +74,8 @@ const ParishCommitteeCouncilManagement = () => {
         toast({
           title: "Get parishCommitteeCouncil Message",
           description:
-            error.response.data?.message || "Error geting parishCommitteeCouncils time!",
+            error.response.data?.message ||
+            "Error geting parishCommitteeCouncils time!",
           status: "error",
         });
       });
@@ -287,6 +296,13 @@ const ParishCommitteeCouncilManagement = () => {
                     handleActivateOrDeactivate
                   )}
                 </MenuItem> */}
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleEdit}
+                >
+                  {ActionButton("edit", handleEdit)}
+                </MenuItem>
                 <Divider />
                 <MenuItem
                   px={0}
@@ -295,14 +311,7 @@ const ParishCommitteeCouncilManagement = () => {
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
-                >
-                  {ActionButton("edit", handleEdit)}
-                </MenuItem>
+                {/* <Divider /> */}
               </MenuList>
             </Menu>
           );
@@ -337,8 +346,8 @@ const ParishCommitteeCouncilManagement = () => {
           minW={"8rem"}
           onClick={() => setOpenNewRecentEventModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Parish Committee Council
-          Event
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Parish
+          Committee Council Event
         </CustomButton>
       </Flex>
       <Box
@@ -373,7 +382,9 @@ const ParishCommitteeCouncilManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedparishCommitteeCouncil ? "Update" : "Add"} Parish Committee Council`}
+        headerTitle={`${
+          selectedparishCommitteeCouncil ? "Update" : "Add"
+        } Parish Committee Council`}
         isOpen={openNewRecentEventModel}
         onClose={() => setOpenNewRecentEventModel(false)}
         child={

@@ -13,10 +13,10 @@ const ActionButton = (action: string, onClick: () => void) => {
           action === "edit"
             ? "info"
             : action === "delete"
-            ? "danger"
+            ? "grayed"
             : action == "activate"
             ? "success"
-            : "grayed"
+            : "danger"
         }
         w={"8rem"}
         mx="2"

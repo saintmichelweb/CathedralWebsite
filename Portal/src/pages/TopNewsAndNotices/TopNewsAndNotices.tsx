@@ -26,13 +26,20 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { TopNewsAndNoticesResponse, MessageResponse } from "../../types/apiResponses";
+import {
+  TopNewsAndNoticesResponse,
+  MessageResponse,
+} from "../../types/apiResponses";
 import { StatusType } from "../../../../shared-lib/src";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
 import AddTopParishNewsOrNoticeCard from "./Components/TopNewsAndNoticesCard";
-import { deleteTopNewsAndNotices, getAllTopNewsAndNotices, updateTopNewsAndNotices } from "../../api/topNewsAndNotices";
+import {
+  deleteTopNewsAndNotices,
+  getAllTopNewsAndNotices,
+  updateTopNewsAndNotices,
+} from "../../api/topNewsAndNotices";
 import { UpdateTopNewsAndNoticesForm } from "../../lib/validations/topParishNewsAndNotices";
 
 const TopNewsAndNoticesManagement = () => {
@@ -42,10 +49,13 @@ const TopNewsAndNoticesManagement = () => {
   });
 
   const toast = useToast();
-  const [topNewsAndNoticesData, setTopNewsAndNoticesData] = useState<TopNewsAndNoticesResponse[]>([]);
+  const [topNewsAndNoticesData, setTopNewsAndNoticesData] = useState<
+    TopNewsAndNoticesResponse[]
+  >([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
-  const [openNewTopNewsAndNoticeModel, setOpenNewTopNewsAndNoticeModel] = useState(false);
+  const [openNewTopNewsAndNoticeModel, setOpenNewTopNewsAndNoticeModel] =
+    useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
@@ -67,7 +77,8 @@ const TopNewsAndNoticesManagement = () => {
         toast({
           title: "Get Top Parish News And Notices Message",
           description:
-            error.response.data?.message || "Error geting top parish news and notices!",
+            error.response.data?.message ||
+            "Error geting top parish news and notices!",
           status: "error",
         });
       });
@@ -77,7 +88,9 @@ const TopNewsAndNoticesManagement = () => {
     fetchTopNewsAndNotices();
   }, []);
 
-  const handleTopParishNewsAndNoticesStatus = async (topParishNewsAndEvent: TopNewsAndNoticesResponse) => {
+  const handleTopParishNewsAndNoticesStatus = async (
+    topParishNewsAndEvent: TopNewsAndNoticesResponse
+  ) => {
     const editPayload: UpdateTopNewsAndNoticesForm = {
       title_en: topParishNewsAndEvent.title_en,
       title_fr: topParishNewsAndEvent.title_fr,
@@ -86,13 +99,15 @@ const TopNewsAndNoticesManagement = () => {
       description_rw: topParishNewsAndEvent.description_rw,
       description_fr: topParishNewsAndEvent.description_fr,
       isActive: !topParishNewsAndEvent.isActive,
-      topNewsOrNoticeId: topParishNewsAndEvent.id
+      topNewsOrNoticeId: topParishNewsAndEvent.id,
     };
     await updateTopNewsAndNotices(editPayload)
       .then((res: MessageResponse) => {
         toast({
           title: "Change Top Parish News / Notices Status Message",
-          description: res?.message || "Top parish news / notice status changed successfully",
+          description:
+            res?.message ||
+            "Top parish news / notice status changed successfully",
           status: "success",
         });
         setIsOpenActivateOrDeactivateModal(false);
@@ -103,7 +118,8 @@ const TopNewsAndNoticesManagement = () => {
         toast({
           title: "Change Top Parish News / Notices Status Message",
           description:
-            error.response.data?.message || "Error editing top parish news / notice status!",
+            error.response.data?.message ||
+            "Error editing top parish news / notice status!",
           status: "error",
         });
       });
@@ -114,7 +130,8 @@ const TopNewsAndNoticesManagement = () => {
       .then((res: MessageResponse) => {
         toast({
           title: "Delete Top Parish News / Notices Message",
-          description: res?.message || "Top Parish News / Notices deleted successfully",
+          description:
+            res?.message || "Top Parish News / Notices deleted successfully",
           status: "success",
         });
         setIsOpenDeleteModal(false);
@@ -125,7 +142,8 @@ const TopNewsAndNoticesManagement = () => {
         toast({
           title: "Delete Top Parish News / Notices Message",
           description:
-            error.response.data?.message || "Error deleting Top Parish News / Notices!",
+            error.response.data?.message ||
+            "Error deleting Top Parish News / Notices!",
           status: "error",
         });
       });
@@ -226,9 +244,20 @@ const TopNewsAndNoticesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
+                  // onClick={handleEdit}
+                >
+                  {ActionButton("edit", handleEdit)}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
                   // onClick={handleActivateOrDeactivate}
                 >
-                  {ActionButton(status ? "deactivate" : "activate", handleActivateOrDeactivate)}
+                  {ActionButton(
+                    status ? "deactivate" : "activate",
+                    handleActivateOrDeactivate
+                  )}
                 </MenuItem>
                 <Divider />
                 <MenuItem
@@ -237,14 +266,6 @@ const TopNewsAndNoticesManagement = () => {
                   // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
-                </MenuItem>
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
-                >
-                  {ActionButton("edit", handleEdit)}
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -315,7 +336,9 @@ const TopNewsAndNoticesManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedTopNewsAndNotice ? "Update" : "Add"} news/notice`}
+        headerTitle={`${
+          selectedTopNewsAndNotice ? "Update" : "Add"
+        } news/notice`}
         isOpen={openNewTopNewsAndNoticeModel}
         onClose={() => setOpenNewTopNewsAndNoticeModel(false)}
         child={
