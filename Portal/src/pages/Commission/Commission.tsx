@@ -41,7 +41,9 @@ const CommissionManagement = () => {
   });
 
   const toast = useToast();
-  const [CommissionsData, setCommissionData] = useState<commissionResponse[]>([]);
+  const [CommissionsData, setCommissionData] = useState<commissionResponse[]>(
+    []
+  );
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
   const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
@@ -291,6 +293,13 @@ const CommissionManagement = () => {
                     handleActivateOrDeactivate
                   )}
                 </MenuItem> */}
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                  // onClick={handleEdit}
+                >
+                  {ActionButton("edit", handleEdit)}
+                </MenuItem>
                 <Divider />
                 <MenuItem
                   px={0}
@@ -299,14 +308,7 @@ const CommissionManagement = () => {
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
-                >
-                  {ActionButton("edit", handleEdit)}
-                </MenuItem>
+                {/* <Divider /> */}
               </MenuList>
             </Menu>
           );

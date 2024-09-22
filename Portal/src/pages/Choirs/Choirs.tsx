@@ -49,9 +49,10 @@ const ChoirsManagement = () => {
   const [openNewChoirModel, setOpenNewChoirModel] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
-  useState(false);
-  const [selectedChoir, setSelectedChoir] =
-    useState<ChoirsResponse | null>(null);
+    useState(false);
+  const [selectedChoir, setSelectedChoir] = useState<ChoirsResponse | null>(
+    null
+  );
   // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberPages, setNumberPages] = useState<number>(1);
 
@@ -94,13 +95,12 @@ const ChoirsManagement = () => {
           status: "success",
         });
         fetchChoirs();
-        setIsOpenActivateOrDeactivateModal(false)
+        setIsOpenActivateOrDeactivateModal(false);
       })
       .catch((error) => {
         toast({
           title: "Edit Choir message",
-          description:
-            error.response?.data?.message || "Error editing choir!",
+          description: error.response?.data?.message || "Error editing choir!",
           status: "error",
         });
       });
@@ -125,8 +125,7 @@ const ChoirsManagement = () => {
       .catch((error) => {
         toast({
           title: "Delete Choir Message",
-          description:
-            error.response.data?.message || "Error deleting choir!",
+          description: error.response.data?.message || "Error deleting choir!",
           status: "error",
         });
       });
@@ -272,9 +271,20 @@ const ChoirsManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
+                  // onClick={handleEdit}
+                >
+                  {ActionButton("edit", handleEdit)}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
                   // onClick={handleActivateOrDeactivate}
                 >
-                  {ActionButton(status ? "deactivate" : "activate", handleActivateOrDeactivate)}
+                  {ActionButton(
+                    status ? "deactivate" : "activate",
+                    handleActivateOrDeactivate
+                  )}
                 </MenuItem>
                 <Divider />
                 <MenuItem
@@ -283,14 +293,6 @@ const ChoirsManagement = () => {
                   // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
-                </MenuItem>
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
-                >
-                  {ActionButton("edit", handleEdit)}
                 </MenuItem>
               </MenuList>
             </Menu>
