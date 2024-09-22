@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import {
+  Button,
   Divider,
   Heading,
   Modal,
@@ -59,12 +60,12 @@ const CustomModal = ({
         mt='14'
         mb={{ base: '14', lg: '0' }}
       >
-        <ModalHeader py='5' borderBottom='1px' borderColor='gray.100'>
-          <Heading as='h3' size='md'>
+        <ModalHeader py='5' borderBottom='1px' borderColor='gray.100' bg={'primary'} >
+          <Heading as='h3' size='md' color={'white'}>
             {headerTitle}
           </Heading>
         </ModalHeader>
-        <ModalCloseButton top='2.5' right='4' />
+        <ModalCloseButton top='2.5' right='4' bgColor='white' mt={'1.5'}/>
 
         <ModalBody py='5' px={{ base: '4', md: '6' }} bg={'primaryBackground'}>
           {isLoading && <SectionLoader />}

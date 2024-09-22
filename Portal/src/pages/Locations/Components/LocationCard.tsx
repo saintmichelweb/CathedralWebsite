@@ -116,7 +116,7 @@ const AddLocationCard = (props: AddLocationProps) => {
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
-        <label>Is Mass location</label>
+        {/* <label>Is Mass location</label> */}
         <Checkbox
           name="Does location host Masses"
           isChecked={isMassLocation}
@@ -127,7 +127,9 @@ const AddLocationCard = (props: AddLocationProps) => {
           }}
           aria-label='Select row'
           borderColor='blackAlpha.400'
-        />
+          bgColor={'white'}
+          p={2}
+        >Is Mass location</Checkbox>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>

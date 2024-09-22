@@ -243,7 +243,7 @@ const LanguagesManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={0} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Languages Management</Heading>
+          <Heading size="md">Mass Languages Management</Heading>
         </Stack>
         {/* <CustomLink
           to="/portal-user-management/role-management/create-role"

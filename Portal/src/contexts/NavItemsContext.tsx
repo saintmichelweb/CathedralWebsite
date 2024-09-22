@@ -1,23 +1,22 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  FaBusinessTime,
-  FaChurch,
   FaHouse,
-  FaLocationDot,
 } from "react-icons/fa6";
 import { GiSunPriest } from "react-icons/gi";
-import { IoImages, IoLocationOutline, IoTextSharp } from "react-icons/io5";
-import { FaHandsHelping, FaServicestack } from "react-icons/fa";
-import { TiGroupOutline, TiNews } from "react-icons/ti";
+import { IoImages, IoTextSharp } from "react-icons/io5";
+import { FaHandsHelping } from "react-icons/fa";
+import { TiGroupOutline } from "react-icons/ti";
 import { MdGroups2 } from "react-icons/md";
 import { BsMusicNoteList } from "react-icons/bs";
-import { IoTimeOutline } from "react-icons/io5";
 import Cookies from "universal-cookie";
+import { CgMoreO } from "react-icons/cg";
+import { BiSolidNews } from "react-icons/bi";
 
 import { getUserProfile } from "../api/users";
 import { useUserContext } from "./UserContext";
 import { PortalUserStatus } from "../../../shared-lib/src";
+import { AiFillSchedule } from "react-icons/ai";
 
 export const NAV_ITEMS = [
   {
@@ -27,74 +26,96 @@ export const NAV_ITEMS = [
     icon: FaHouse,
     // permissions: ['View Transactions'],
   },
+  // {
+  //   name: "Locations",
+  //   to: "/locations",
+  //   label: "Go to locations",
+  //   icon: CgMoreO ,
+  //   // permissions: ['View Transactions'],
+  // },
   {
-    name: "Locations",
-    to: "/locations",
-    label: "Go to locations",
-    icon: FaLocationDot,
-    // permissions: ['View Transactions'],
-  },
-  {
-    name: "Mass Times",
-    label: "Open portal Mass times management nav menu",
-    icon: FaChurch,
+    name: "Locations & languages",
+    label: "Open portal location & languages management nav menu",
+    icon: CgMoreO,
     // permissions: ['View Portal Users'],
     subNavItems: [
       {
-        name: "Mass Times",
-        to: "/mass-times",
-        shortName: "Mass times",
+        name: "Locations",
+        to: "/locations",
+        shortName: "Locations",
         // icon: IoTimeOutline,
         // permissions: ['View Transactions'],
       },
       {
-        name: "Languages",
+        name: "Mass languages",
         to: "/languages",
-        shortName: "Languages",
+        shortName: "Mass languages",
         // icon: FaLanguage,
         // permissions: ['View Transactions'],
       },
     ],
   },
   {
-    name: "OfficeHours",
-    to: "/OfficeHours",
-    label: "Go to OfficeHours",
-    icon: FaBusinessTime,
-    // permissions: ['View Transactions'],
-  },
-  {
-    name: "News",
-    label: "Open portal News nav menu",
-    icon: TiNews,
+    name: "Schedules",
+    label: "Open portal schedules nav menu",
+    icon: AiFillSchedule,
     // permissions: ['View Portal Users'],
     subNavItems: [
       {
-        name: "Recent Events",
-        to: "/recent-events",
-        shortName: "Recent Events",
+        name: "Mass schedule",
+        to: "/mass-schedule",
+        shortName: "Mass schedule",
         // icon: IoTimeOutline,
         // permissions: ['View Transactions'],
       },
       {
-        name: "Top News And Notices",
+        name: "Office hours",
+        to: "/OfficeHours",
+        shortName: "Offices hours",
+        // icon: FaLanguage,
+        // permissions: ['View Transactions'],
+      },
+    ],
+  },
+  // {
+  //   name: "OfficeHours",
+  //   to: "/OfficeHours",
+  //   label: "Go to OfficeHours",
+  //   icon: FaBusinessTime,
+  //   // permissions: ['View Transactions'],
+  // },
+  {
+    name: "News and events",
+    label: "Open portal news and events nav menu",
+    icon: BiSolidNews,
+    // permissions: ['View Portal Users'],
+    subNavItems: [
+      {
+        name: "Recent events",
+        to: "/recent-events",
+        shortName: "Recent events",
+        // icon: IoTimeOutline,
+        // permissions: ['View Transactions'],
+      },
+      {
+        name: "Top news and notices",
         to: "/top-news-and-notices",
-        shortName: "Top News And Notices",
+        shortName: "Top news and notices",
         // icon: FaLanguage,
         // permissions: ['View Transactions'],
       },
     ],
   },
   {
-    name: "Banner Images",
+    name: "Banner images",
     to: "/banner-images",
     label: "Go to banner images",
     icon: IoImages,
     // permissions: ['View Transactions'],
   },
   {
-    name: "Text Portions",
-    label: "Open portal Texts nav menu",
+    name: "History & welcome message",
+    label: "Open portal history & welcome message nav menu",
     icon: IoTextSharp,
     // permissions: ['View Portal Users'],
     subNavItems: [
@@ -106,18 +127,18 @@ export const NAV_ITEMS = [
         // permissions: ['View Transactions'],
       },
       {
-        name: "Welcome Message",
+        name: "Welcome message",
         to: "/welcomeMessage",
-        shortName: "Welcome Message",
+        shortName: "Welcome message",
         // icon: FaLanguage,
         // permissions: ['View Transactions'],
       },
     ],
   },
   {
-    name: "Priests",
+    name: "Priests information",
     to: "/priests",
-    label: "Go to Priests",
+    label: "Go to Priests information",
     icon: GiSunPriest,
     // permissions: ['View Transactions'],
   },
@@ -125,25 +146,25 @@ export const NAV_ITEMS = [
     name: "Services",
     to: "/services",
     label: "Go to services",
-    icon: FaHandsHelping ,
+    icon: FaHandsHelping,
     // permissions: ['View Transactions'],
   },
   {
-    name: "parish Committee Council",
+    name: "parish committee council",
     to: "/parishCommitteeCouncil",
-    label: "Go to Parish Committee Council",
+    label: "Go to parish committee council",
     icon: MdGroups2,
     // permissions: ['View Transactions'],
   },
   {
-    name: "commissions",
+    name: "Commissions",
     to: "/commissions",
     label: "Go to commissions",
     icon: TiGroupOutline,
     // permissions: ['View Transactions'],
   },
   {
-    name: "choirs",
+    name: "Choirs",
     to: "/choirs",
     label: "Go to choirs",
     icon: BsMusicNoteList,

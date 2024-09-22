@@ -54,7 +54,7 @@ const Routes = () => {
           element: <LanguagesManagement />,
         },
         {
-          path: 'mass-times',
+          path: 'mass-schedule',
           index: true,
           element: <MassTimesManagement />,
         },
