@@ -64,8 +64,7 @@ export async function sendVerificationEmail (email: string, token: string, role:
     notificationMessage: `
         Dear Mr/Mrs,<br/>
         <br/>
-        Your email address has been registered and assigned as <strong>${role}</strong>
-        in RSwitch Portal.<br/>
+        Your email address has been registered in St Michel Parish's Portal.<br/>
         Please verify your email address below and set your password:<br/>
         <br/>
         <a 

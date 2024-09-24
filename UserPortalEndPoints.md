@@ -1,4 +1,4 @@
-//homePage page routes 
+**homePage page routes** 
 -/homePage/welcomeMessage
 -/homePage/massTimes
 -/homePage/recentEvents
@@ -6,13 +6,13 @@
 -/homePage/topParishNewsAndNotices
 -/homePage/bannerImages
 
-//About page routes 
+**About page routes** 
 -/aboutPage/priests
 -/aboutPage/parishCommitteeCouncil
 -/aboutPage/parish-history
 
 
-//Service page routes 
+**Service page routes** 
 -/services/office-hours
 -/services/services
 -/services/Choirs

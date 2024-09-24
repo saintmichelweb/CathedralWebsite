@@ -1,14 +1,13 @@
 import { type Response } from 'express'
-import { type AuthRequest } from 'src/types/express'
 import { AppDataSource } from '../../database/dataSource'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
-import { AuditActionType, AuditTrasactionStatus, PortalUserStatus } from 'shared-lib'
-import { audit } from '../../utils/audit'
+import { PortalUserStatus } from 'shared-lib'
 import { readEnv } from '../../setup/readEnv'
-import logger from '../../utils/logger'
 import { Brackets } from 'typeorm'
 import { encryptData } from 'typeorm-encrypted'
-import { EncryptionTransformerObject } from '../../setup/readEnv'
+import { EncryptionTransformerObject } from '../../types/encryptionObject'
+import { AuthRequest } from '../../types/express'
+import logger from '../../services/logger'
 
 /**
  * @openapi
@@ -53,9 +52,7 @@ export async function getUsers(req: AuthRequest, res: Response) {
 
     if (typeof status === 'string' && status.length > 0) {
       queryBuilder.andWhere('user.status = :status', { status })
-    } else {
-      queryBuilder.andWhere('user.status != :status', { status: PortalUserStatus.BLOCKED })
-    }
+    } 
 
     if (!isNaN(Number(role)) && Number(role) > 0) {
       queryBuilder.andWhere('role.id = :role', { role: Number(role) })
@@ -89,42 +86,32 @@ export async function getUsers(req: AuthRequest, res: Response) {
     
     let users = await queryBuilder.getMany()
 
-    const flattenedUsers = users
-      .map((user: PortalUserEntity) => ({
-        ...user,
-        role: {
-          ...user.role,
-          created_at: undefined,
-          updated_at: undefined,
-          permissions: user.role.permissions.map((permission) => permission.name)
-        },
-        password: undefined
-      }))
+    // const flattenedUsers = users
+    //   .map((user: PortalUserEntity) => ({
+    //     ...user,
+    //     role: {
+    //       ...user.role,
+    //       created_at: undefined,
+    //       updated_at: undefined,
+    //       permissions: user.role.permissions.map((permission) => permission.name)
+    //     },
+    //     password: undefined
+    //   }))
 
-    audit(
-      AuditActionType.ACCESS,
-      AuditTrasactionStatus.SUCCESS,
-      'getUsers',
-      'Get a list of users',
-      'PortalUserEntity',
-      {},
-      {},
-      portalUser
-    )
+    // audit(
+    //   AuditActionType.ACCESS,
+    //   AuditTrasactionStatus.SUCCESS,
+    //   'getUsers',
+    //   'Get a list of users',
+    //   'PortalUserEntity',
+    //   {},
+    //   {},
+    //   portalUser
+    // )
   
-    res.send({ message: 'List of users', data: flattenedUsers, totalPages })
-  } catch (e) {
-    logger.push({ error: e }).error('Error in getUsers')
-    audit(
-      AuditActionType.ACCESS,
-      AuditTrasactionStatus.FAILURE,
-      'getUsers',
-      'Get a list of users',
-      'PortalUserEntity',
-      {},
-      {},
-      portalUser
-    )
+    res.send({ message: 'List of users', data: users, totalPages })
+  } catch (error) {
+    logger.error("Error, on Forgot password: %o", error);
     res.status(500).send({ message: 'Internal Server Error' })
   }
 }
