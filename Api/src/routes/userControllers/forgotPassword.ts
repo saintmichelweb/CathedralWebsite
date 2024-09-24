@@ -1,16 +1,13 @@
 import { type Response } from 'express'
 import jwt from 'jsonwebtoken'
 import ms from 'ms'
-import logger from '../../utils/logger'
-import { audit } from '../../utils/audit'
 import { AppDataSource } from '../../database/dataSource'
-import { AuditActionType, AuditTrasactionStatus } from 'shared-lib'
 import { type AuthRequest } from '../../types/express'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
 import { readEnv } from '../../setup/readEnv'
 import { sendForgotPasswordEmail } from '../../utils/sendEmail'
 import { JwtTokenEntity } from '../../entity/JwtTokenEntity'
-import { EmailVerificationTokenEntity } from '../../entity/EmailVerificationToken'
+import logger from '../../services/logger'
 
 const JWT_SECRET = readEnv('JWT_SECRET', 'secret') as string
 
@@ -83,41 +80,14 @@ export async function postUserForgotPassword (req: AuthRequest, res: Response) {
       })
 
       await transactionalEntityManager.save(jwtTokenObj)
-      await transactionalEntityManager.save(EmailVerificationTokenEntity, {
-        user: forgottenPwdUser,
-        token,
-        email: forgottenPwdUser.email
-      })
 
       // Send Email with token
       sendForgotPasswordEmail(forgottenPwdUser.email, token)
     })
 
-    audit(
-      AuditActionType.ADD,
-      AuditTrasactionStatus.SUCCESS,
-      'postUserForgotPassword',
-      'Forgot Password Successful',
-      'PortalUserEntity',
-      {},
-      { email },
-      null
-    )
-
     return res.status(201).send({ message: 'Reset Password Link Sent Successful' })
   } catch (error: any) /* istanbul ignore next */ {
-    audit(
-      AuditActionType.ACCESS,
-      AuditTrasactionStatus.FAILURE,
-      'postUserForgotPassword',
-      'Forgot Password Failed',
-      'PortalUserEntity',
-      {},
-      { email },
-      null
-    )
-
-    logger.push({ error }).error('Error in postUserForgotPassword')
+    logger.error("Error, on Forgot password: %o", error);
     return res.status(500).send({ message: error.message })
   }
 }

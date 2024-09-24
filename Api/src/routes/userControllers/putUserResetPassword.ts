@@ -1,16 +1,13 @@
 import { type Response } from 'express'
-import logger from '../../utils/logger'
-import { audit } from '../../utils/audit'
 import { AppDataSource } from '../../database/dataSource'
 import {
-  AuditActionType,
-  AuditTrasactionStatus,
   PortalUserStatus
 } from 'shared-lib'
 import { comparePassword, hashPassword } from '../../utils/utils'
 import { type AuthRequest } from '../../types/express'
 import * as z from 'zod'
 import { JwtTokenEntity } from '../../entity/JwtTokenEntity'
+import logger from '../../services/logger'
 
 const PutUserResetPasswordSchema = z.object({
   oldPassword: z.string().min(8, 'Password must contain at least 8 characters').nullable(),
@@ -92,16 +89,7 @@ export async function putUserResetPassword(req: AuthRequest, res: Response) {
 
   const result = PutUserResetPasswordSchema.safeParse(req.body)
   if (!result.success) {
-    audit(
-      AuditActionType.ADD,
-      AuditTrasactionStatus.FAILURE,
-      'addUserPassword',
-      'User Password set failed',
-      'PortalUserEntity',
-      {},
-      { error: result.error.flatten() },
-      null
-    )
+    logger.error("Error, Validation error: %o", result)
     return res.status(422).send({ message: 'Validation error', errors: result.error.flatten() })
   }
 
@@ -129,27 +117,9 @@ export async function putUserResetPassword(req: AuthRequest, res: Response) {
     const token = req.token
     await AppDataSource.manager.delete(JwtTokenEntity, { token })
 
-    audit(
-      AuditActionType.ADD,
-      AuditTrasactionStatus.SUCCESS,
-      'putUserResetPassword',
-      'Reset User Password Successful',
-      'PortalUserEntity',
-      { password: oldPasswordHash }, { password: portalUser.password }, null
-    )
-
     return res.status(201).send({ message: 'Reset Password Successful' })
   } catch (error) /* istanbul ignore next */ {
-    audit(
-      AuditActionType.ACCESS,
-      AuditTrasactionStatus.FAILURE,
-      'putUserResetPassword',
-      'Reset User Password Failed',
-      'PortalUserEntity',
-      {}, {}, null
-    )
-
-    logger.push({ error }).error('Error in putUserResetPassword')
+    logger.error("Error in putUserResetPassword: %o", result)
     return res
       .status(500)
       .send({ message: error })

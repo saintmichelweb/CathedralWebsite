@@ -1,16 +1,13 @@
 import { OPTEntity } from '../../entity/OTPEntity'
-
 import { AuthRequest } from '../../types/express'
 import { Response } from 'express'
-import logger from '../../utils/logger'
 import { AppDataSource } from '../../database/dataSource'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
 import jwt from 'jsonwebtoken'
 import { readEnv } from '../../setup/readEnv'
 import ms from 'ms'
-import { AuditActionType, AuditTrasactionStatus } from 'shared-lib'
-import { audit } from '../../utils/audit'
 import { JwtTokenEntity } from '../../entity/JwtTokenEntity'
+import logger from '../../services/logger'
 
 const JWT_SECRET = readEnv('JWT_SECRET', 'secret') as string
 const JWT_EXPIRES_IN = readEnv('JWT_EXPIRES_IN', '1d') as string
@@ -33,11 +30,11 @@ export async function verifyOTP(req: AuthRequest, res: Response) {
     }
 
     if (otp != otpEntity.otp) {
-      logger.push({ email: userEmail, otp: otp }).info('OTP does not match')
+      logger.error("Error, OTP does not matchr : %o", { email: userEmail, otp: otp })
       return res.status(404).send({ message: 'OTP does not match' })
     }
     if (Date.now() > otpEntity.expires_at.getTime()) {
-      logger.push({ email: otpEntity.email }).info('OTP has expired')
+      logger.info("Error, OTP has expired : %o", { email: userEmail, otp: otp })
       return res.status(404).send({ message: 'OTP has expired' })
     }
     // generate token and respond the same response as login
@@ -56,34 +53,12 @@ export async function verifyOTP(req: AuthRequest, res: Response) {
     })
 
     await AppDataSource.manager.save(jwtTokenObj)
-
-    logger.push({ email: req.body.email }).info('User login successful.')
-    audit(
-      AuditActionType.ACCESS,
-      AuditTrasactionStatus.SUCCESS,
-      'postUserLogin',
-      'User login successful',
-      'PortalUserEntity',
-      {},
-      {},
-      user
-    )
+    logger.info("Info, OTP Verification successful: %o", { email: req.body.email })
     // delete the otp
     await OTPEntityRepository.delete({ email: userEmail })
-    res.json({ success: true, message: 'Login successful', token: token})
+    res.json({ success: true, message: 'OTP Verification successful', token: token})
   } catch (error: any) {
-    audit(
-      AuditActionType.ACCESS,
-      AuditTrasactionStatus.FAILURE,
-      'postUserLogin',
-      'User login failed',
-      'PortalUserEntity',
-      {},
-      { error: error.message },
-      null
-    )
-
-    logger.push({ error, email:req.body.email }).error('user login failed, error in verifyOTP')
+    logger.error("Error, user OTP Verification failed, error in verifyOTP : %o", { error, email:req.body.email })
     res.status(400).send({ success: false, message: error.message })
   }
 }
