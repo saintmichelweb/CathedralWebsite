@@ -85,14 +85,14 @@ export async function addUser(req: AuthRequest, res: Response) {
   let responseStatus: number
   let responseMessage: string
   let responseData: any
-  const portalUser = req.user
+  // const portalUser = req.user
 
-  if (portalUser == null) {
-    return res.status(401).send({ message: 'Unauthorized' })
-  }
+  // if (portalUser == null) {
+  //   return res.status(401).send({ message: 'Unauthorized' })
+  // }
 
     const userAccountCreator = await AppDataSource.manager.find(PortalUserEntity, {
-      where: { created_by: { id: portalUser.id } }
+      where: { created_by: { id: 1 } }
     })
 
   const result = AddUserSchema.safeParse(req.body)
@@ -127,9 +127,10 @@ export async function addUser(req: AuthRequest, res: Response) {
     newUser.name = name
     newUser.email = email
     newUser.phone_number = phone
+    newUser.position = position
     newUser.status = PortalUserStatus.UNVERIFIED
     // newUser.role = roleObj
-    newUser.created_by = portalUser
+    // newUser.created_by = portalUser
 
     // Start Transaction
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
@@ -146,7 +147,7 @@ export async function addUser(req: AuthRequest, res: Response) {
 
       await transactionalEntityManager.save(jwtTokenObj)
       try {
-        sendVerificationEmail(newUser.email, token, '')
+        sendVerificationEmail(newUser.email, token)
         await transactionalEntityManager.save(newUser)
       } catch (error: any) {
         logger.error("Error, Sending verification email : %o", error)

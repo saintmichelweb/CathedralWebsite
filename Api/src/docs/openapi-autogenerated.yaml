@@ -2540,16 +2540,10 @@ paths:
                   type: string
                   example: '0780000000'
                   description: the users phone number
-                role:
-                  type: number
-                  example: 1
-                  description: The role of the user
-                dfsp_id:
-                  type: number
-                  example: 5
-                  description: The dfsp database id
-                  required: false
-                  nullable: true
+                position:
+                  type: string
+                  example: reception
+                  description: the users position
       responses:
         '200':
           description: User created. And Verification Email Sent
@@ -2590,25 +2584,21 @@ paths:
                   type: string
                   example: '0780000001'
                   description: The updated user's phone number
-                role:
-                  type: number
-                  example: 1
-                  description: The updated role of the user
-                dfsp_id:
-                  type: number
-                  example: 5
-                  description: The updated dfsp database id
-                  required: false
-                  nullable: true
+                position:
+                  type: string
+                  example: Reception
+                  description: The updated position of the user
       responses:
         '200':
           description: User updated
-        '400':
+        '401':
           description: Invalid credentials
         '404':
           description: User not found
         '422':
           description: Validation error
+        '500':
+          description: Internal server error
   /users/forgot-password:
     post:
       tags:
@@ -2811,16 +2801,52 @@ paths:
                   message:
                     type: string
                     example: Invalid credentials
-  /users/refresh:
+  /users/sendVerificationEmail:
     post:
       tags:
         - Portal Users
       security:
         - Authorization: []
-      summary: Refresh User Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: d1superadmin1@email.com
+                  description: The email for login
       responses:
         '200':
-          description: Refresh Token
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Login successful
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
   /welcomeMessage:
     get:
       tags:

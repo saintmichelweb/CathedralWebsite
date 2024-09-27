@@ -122,6 +122,6 @@ export async function postUserLogin(req: Request, res: Response) {
     res.status(200).send({ message: 'Login successful', token: token })
   } catch (error: any) {
     logger.error('User %s login failed: %s', req.body.email, error.message)
-    res.status(400).send({ success: false, message: error.message })
+    res.status(400).send({ success: false, message: "Internal server error!" })
   }
 }

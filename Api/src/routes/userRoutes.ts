@@ -4,6 +4,9 @@ import { postUserLogin } from './userControllers/postUserLogin'
 import { GetUserProfile } from './userControllers/getUserProfile'
 import { authenticateJWT } from '../middleware/authenticate'
 import { postUserLogout } from './userControllers/postUserLogout'
+import { addUser } from './userControllers/addUserByAdmin'
+import { putUserResetPassword } from './userControllers/putUserResetPassword'
+import { editUser } from './userControllers/editUSer'
 
 // /**
 //  * @openapi
@@ -24,5 +27,8 @@ const router = express.Router()
 router.get('/users/profile', authenticateJWT ,GetUserProfile)
 router.post('/users/login', postUserLogin)
 router.post('/users/logout', authenticateJWT, postUserLogout)
+router.post('/users/add', authenticateJWT, addUser)
+router.post('/users/reset-password', authenticateJWT, putUserResetPassword)
+router.put('/users/:userId/edit', editUser)
 
 export default router

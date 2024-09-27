@@ -122,6 +122,6 @@ export async function putUserResetPassword(req: AuthRequest, res: Response) {
     logger.error("Error in putUserResetPassword: %o", result)
     return res
       .status(500)
-      .send({ message: error })
+      .send({ message: "Internal server error!" })
   }
 }

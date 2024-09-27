@@ -11,7 +11,10 @@ export function generateEmailTemplate({
 }: EmailTemplateParams): string {
     const currentYear = new Date().getFullYear();
     const supportContact = "info@rswitch.co.rw";
-    const logoUrl = "https://rswitch.co.rw/wp-content/uploads/2023/06/logo-dark-1.png";
+    // const logoUrl = "https://rswitch.co.rw/wp-content/uploads/2023/06/logo-dark-1.png";
+    // <div class="header">
+    // <img src="${logoUrl}" alt="Rswitch Logo" />
+// </div>
 
     return `
         <!DOCTYPE html>
@@ -81,9 +84,6 @@ export function generateEmailTemplate({
         <body>
             <div class="email-container">
                 <!-- Header Section -->
-                <div class="header">
-                    <img src="${logoUrl}" alt="Rswitch Logo" />
-                </div>
 
                 <!-- Content Section -->
                 <div class="content">
