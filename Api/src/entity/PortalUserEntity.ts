@@ -20,6 +20,7 @@ export class PortalUserEntity {
 
   @Column({
     nullable: true,
+    unique: true,
     length: 255,
     transformer: new EncryptionTransformer(EncryptionTransformerObject),
   })
@@ -27,10 +28,18 @@ export class PortalUserEntity {
 
   @Column({
     nullable: true,
+    unique: true,
     length: 255,
     transformer: new EncryptionTransformer(EncryptionTransformerObject),
   })
   phone_number!: string
+
+  @Column({
+    nullable: true,
+    length: 255,
+    transformer: new EncryptionTransformer(EncryptionTransformerObject),
+  })
+  position!: string
   
   @Column({ nullable: true, length: 2048 })
   password!: string

@@ -10,7 +10,7 @@ const password = readEnv('MAIL_PASSWORD', '') as string
 const host = readEnv('MAIL_HOST', '') as string
 const port = readEnv('MAIL_PORT','',true) as number
 
-const backendAppUrl = readEnv('APP_URL', 'http://localhost:3000') as string
+// const backendAppUrl = readEnv('APP_URL', 'http://localhost:3000') as string
 const FRONTEND_SET_PASSWORD_URL = readEnv('FRONTEND_SET_PASSWORD_URL', '') as string
 
 const mailTransporter = nodemailer.createTransport({
@@ -59,7 +59,7 @@ export async function sendOTPEmail (email: string, otp: string): Promise<void> {
   )
 }
 
-export async function sendVerificationEmail (email: string, token: string, role: string): Promise<void> {
+export async function sendVerificationEmail (email: string, token: string): Promise<void> {
   const emailVerificationBody = generateEmailTemplate({
     notificationMessage: `
         Dear Mr/Mrs,<br/>
@@ -74,7 +74,7 @@ export async function sendVerificationEmail (email: string, token: string, role:
             padding: 14px 20px; margin: 8px 0; border: none; 
             cursor: pointer; width: 100%; text-align: center;
             text-decoration: none;"
-            href="${backendAppUrl}/api/v1/users/verify?token=${token}" class="verify-button">Verify email</a><br/>
+            href="href="${FRONTEND_SET_PASSWORD_URL}?token=${token}" class="verify-button">Verify email</a><br/>
         <br/>
         Best regards,<br/>
         The RSwitch Team
@@ -94,7 +94,7 @@ export async function sendForgotPasswordEmail (email: string, token: string): Pr
     Please ignore this email if you did not request to reset your password. <br />
     Your reset Password Link for RSwitch Portal: <br />
     <a href="${FRONTEND_SET_PASSWORD_URL}?token=${token}"> 
-    ${FRONTEND_SET_PASSWORD_URL}?token=${token}
+    ${FRONTEND_SET_PASSWORD_URL}
     </a> 
     <br/>
     <br/>

@@ -38,7 +38,7 @@ export async function postUserLogout(req: AuthRequest, res: Response) {
         res.send({ message: 'Logout Successful' })
     } catch (error: any) {
         logger.error('User %s Logout failed: %s', req.body.email, error.message)
-        res.status(500).send({ success: false, message: error.message })
+        res.status(500).send({ success: false, message: "Internal server error!" })
     }
 
 }

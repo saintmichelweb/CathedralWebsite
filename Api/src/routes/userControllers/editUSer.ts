@@ -1,25 +1,23 @@
 import { type Response } from 'express'
-import logger from '../../utils/logger'
-import { audit } from '../../utils/audit'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
 import { AppDataSource } from '../../database/dataSource'
-import { PortalRoleEntity } from '../../entity/PortalRoleEntity'
 import * as z from 'zod'
-import { AuditActionType, AuditTrasactionStatus, PortalRolesLevels, PortalUserStatus, PortalUserType } from 'shared-lib'
+import { PortalUserStatus } from 'shared-lib'
 import { type AuthRequest } from '../../types/express'
 import { readEnv } from '../../setup/readEnv'
 import { sendVerificationEmail } from '../../utils/sendEmail'
-import { EmailVerificationTokenEntity } from '../../entity/EmailVerificationToken'
 import { JwtTokenEntity } from '../../entity/JwtTokenEntity'
 import jwt from 'jsonwebtoken'
 import ms from 'ms'
+import logger from '../../services/logger'
 
 const EditUserSchema = z.object({
-  name: z.string().min(1, { message: 'Name cannot be empty' }).optional(),
-  email: z.string().email({ message: 'Invalid email address' }).min(1, { message: 'Email cannot be empty' }).optional(),
+  name: z.string(),
+  email: z.string().email(),
+  position: z.string().trim().min(1, { message: "User position is required" }),
   phone: z
     .string()
-    .length(10, { message: 'Phone number must have a length of 10 digits ' })
+    .length(10, { message: 'Phone number must have a length of 10 digits' })
     .refine((val) => val.startsWith('07'), {
       message: 'Phone number must start with 07'
     })
@@ -28,10 +26,8 @@ const EditUserSchema = z.object({
     })
     .refine((val) => parseInt(val) > 699999999, {
       message: 'Phone number must not contain a "."'
-    })
-    .optional(),
-  role: z.number().refine((val) => !isNaN(Number(val)), { message: 'Role cannot be empty' }),
-  dfsp_id: z.number().or(z.string()).optional()
+    }),
+  // role: z.number().optional(),
 })
 
 /**
@@ -69,25 +65,21 @@ const EditUserSchema = z.object({
  *                 type: string
  *                 example: "0780000001"
  *                 description: "The updated user's phone number"
- *               role:
- *                 type: number
- *                 example: 1
- *                 description: "The updated role of the user"
- *               dfsp_id:
- *                 type: number
- *                 example: 5
- *                 description: "The updated dfsp database id"
- *                 required: false
- *                 nullable: true
+ *               position:
+ *                 type: string
+ *                 example: "Reception"
+ *                 description: "The updated position of the user"
  *     responses:
  *       200:
  *         description: User updated
  *       422:
  *         description: Validation error
- *       400:
+ *       401:
  *         description: Invalid credentials
  *       404:
  *         description: User not found
+ *       500:
+ *         description: Internal server error
  */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
@@ -96,33 +88,25 @@ export async function editUser(req: AuthRequest, res: Response) {
   const { userId } = req.params
   const portalUser = req.user
 
-  /* istanbul ignore if */
-  if (portalUser == null) {
-    return res.status(401).send({ message: 'Unauthorized' })
-  }
+  // if (portalUser == null) {
+  //   return res.status(401).send({ message: 'Unauthorized' })
+  // }
+
   const result = EditUserSchema.safeParse(req.body)
   if (!result.success) {
-    audit(
-      AuditActionType.EDIT,
-      AuditTrasactionStatus.FAILURE,
-      'editUser',
-      'User update failed',
-      'PortalUserEntity',
-      {},
-      { error: result.error.flatten() },
-      null
-    )
+    logger.error("Validation error: %o", result.error.issues);
+    logger.error("Validation error: %o", req.body);
     return res.status(422).send({ message: 'Validation error', errors: result.error.flatten() })
   }
 
   try {
-    const { name, email, phone, role } = result.data
+    const { name, email, phone, position } = result.data
     const userRepository = AppDataSource.getRepository(PortalUserEntity)
-    const roleRepository = AppDataSource.getRepository(PortalRoleEntity)
+    // const roleRepository = AppDataSource.getRepository(PortalRoleEntity)
 
     const user = await userRepository.findOne({
-      where: { id: parseInt(userId) },
-      relations: ['role']
+      where: { id: parseInt(userId) }
+      // relations: ['role']
     })
 
     if (!user) {
@@ -132,7 +116,8 @@ export async function editUser(req: AuthRequest, res: Response) {
     let newEmail = ''
     let newName = ''
     let newPhoneNumber = ''
-    let roleId: number | undefined | null
+    let newPosition = ''
+    // let roleId: number | undefined | null
 
     if (name && name.trim() !== '' && name !== user.name) {
       newName = name
@@ -143,11 +128,11 @@ export async function editUser(req: AuthRequest, res: Response) {
     if (phone && phone.trim() !== '' && phone !== user.phone_number) {
       newPhoneNumber = phone
     } 
-    if (role && role !== user.role.id) {
-      roleId = role
+    if (position && position.trim() !== '') {
+      newPosition = position
     } 
 
-    if(newEmail === "" && newPhoneNumber === "" && newName === "" && !roleId ) {
+    if(newEmail === "" && newPhoneNumber === "" && newName === "" && newPosition === "" ) {
       return res.status(400).json({ message: 'You have made no changes' })
     }
 
@@ -155,61 +140,52 @@ export async function editUser(req: AuthRequest, res: Response) {
 
     let roleObj
 
-    if (roleId) {
-      roleObj = await roleRepository.findOne({ where: { id: roleId } })
-      if (roleObj == null || roleObj.level === PortalRolesLevels.HUB_SUPER_ADMIN ) {
-        audit(
-          AuditActionType.EDIT,
-          AuditTrasactionStatus.FAILURE,
-          'editUser',
-          'User update failed',
-          'PortalUserEntity',
-          {},
-          {},
-          null
-        )
-        return res.status(400).send({ message: 'Invalid role' })
-      }
+    // if (roleId) {
+    //   roleObj = await roleRepository.findOne({ where: { id: roleId } })
+    //   if (roleObj == null || roleObj.level === PortalRolesLevels.HUB_SUPER_ADMIN ) {
+    //     audit(
+    //       AuditActionType.EDIT,
+    //       AuditTrasactionStatus.FAILURE,
+    //       'editUser',
+    //       'User update failed',
+    //       'PortalUserEntity',
+    //       {},
+    //       {},
+    //       null
+    //     )
+    //     return res.status(400).send({ message: 'Invalid role' })
+    //   }
 
-      if (roleObj.level === PortalRolesLevels.HUB_ADMIN && portalUser.role.level !== PortalRolesLevels.HUB_SUPER_ADMIN) {
-        return res.status(400).send({ message: 'Only Hub Super Admin can assign / unassign Hub Admin role' })
-      }
+    //   if (roleObj.level === PortalRolesLevels.HUB_ADMIN && portalUser.role.level !== PortalRolesLevels.HUB_SUPER_ADMIN) {
+    //     return res.status(400).send({ message: 'Only Hub Super Admin can assign / unassign Hub Admin role' })
+    //   }
 
-      if (
-        portalUser.role &&
-        portalUser.role.level === PortalRolesLevels.DFSP_ADMIN &&
-        roleObj.level &&
-        ![PortalRolesLevels.DFSP_USER, PortalRolesLevels.DFSP_ADMIN].includes(roleObj.level)
-      ) {
-        return res.status(400).send({ message: 'You cannot change this role level' })
-      }
+    //   if (
+    //     portalUser.role &&
+    //     portalUser.role.level === PortalRolesLevels.DFSP_ADMIN &&
+    //     roleObj.level &&
+    //     ![PortalRolesLevels.DFSP_USER, PortalRolesLevels.DFSP_ADMIN].includes(roleObj.level)
+    //   ) {
+    //     return res.status(400).send({ message: 'You cannot change this role level' })
+    //   }
 
-      if (user.role && user.role.level === PortalRolesLevels.DFSP_ADMIN) {
-        return res.status(400).send({ message: 'You cannot change role of DFSP Admin' })
-      }
+    //   if (user.role && user.role.level === PortalRolesLevels.DFSP_ADMIN) {
+    //     return res.status(400).send({ message: 'You cannot change role of DFSP Admin' })
+    //   }
 
-      if (portalUser.role && portalUser.role.level === PortalRolesLevels.DFSP_USER) {
-        return res.status(400).send({ message: 'You cannot change this role level' })
-      }
+    //   if (portalUser.role && portalUser.role.level === PortalRolesLevels.DFSP_USER) {
+    //     return res.status(400).send({ message: 'You cannot change this role level' })
+    //   }
 
-      if (portalUser.id === user.id) {
-        return res.status(400).send({ message: 'Not allowed to change your role' })
-      }
-    }
+    //   if (portalUser.id === user.id) {
+    //     return res.status(400).send({ message: 'Not allowed to change your role' })
+    //   }
+    // }
 
     if (newEmail) {
       const existsEmail = await AppDataSource.manager.exists(PortalUserEntity, { where: { email } })
       if (existsEmail && email !== user.email) {
-        audit(
-          AuditActionType.EDIT,
-          AuditTrasactionStatus.FAILURE,
-          'editUser',
-          'User update failed',
-          'PortalUserEntity',
-          {},
-          {},
-          null
-        )
+        logger.error("Email already exists: %o", existsEmail);
         return res.status(400).send({ message: 'Email already exists' })
       }
     }
@@ -218,34 +194,15 @@ export async function editUser(req: AuthRequest, res: Response) {
     if (newName) user.name = newName
     if (newEmail) user.email = newEmail
     if (newPhoneNumber) user.phone_number = newPhoneNumber
-    if (roleObj) user.role = roleObj
+    if (roleObj) user.position = newPosition
 
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
       await transactionalEntityManager.save(user)
-      audit(
-        AuditActionType.EDIT,
-        AuditTrasactionStatus.SUCCESS,
-        'editUser',
-        'User updated',
-        'PortalUserEntity',
-        {},
-        { ...user },
-        null
-      )
+      logger.info("User update successfull: %o", user);
     })
 
     if (newEmail && newEmail !== emailBeforeUpdate && emailBeforeUpdate !== user.email) {
-      // delete token
-      const emailVerificationToken = await AppDataSource.getRepository(EmailVerificationTokenEntity).findOne({
-        where: { email: emailBeforeUpdate }
-      })
-
-      if (!emailVerificationToken) {
-        return res.status(404).json({ message: 'Token not found' })
-      }
-
-      await AppDataSource.getRepository(EmailVerificationTokenEntity).delete({ token: emailVerificationToken.token })
-      await AppDataSource.getRepository(JwtTokenEntity).delete({ token: emailVerificationToken.token })
+      await AppDataSource.getRepository(JwtTokenEntity).delete({ user: user })
       // generate new token
       const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '1h' })
 
@@ -257,32 +214,16 @@ export async function editUser(req: AuthRequest, res: Response) {
         last_used: new Date()
       }
       await AppDataSource.getRepository(JwtTokenEntity).save(jwtTokenObj)
-      const emailVerificationObj = {
-        user,
-        token,
-        email: user.email
-      }
-      await AppDataSource.getRepository(EmailVerificationTokenEntity).save(emailVerificationObj)
+
       user.status = PortalUserStatus.UNVERIFIED
       await AppDataSource.getRepository(PortalUserEntity).save(user)
       // send the verification email
-      await sendVerificationEmail(user.email, token, user.role.name)
+      await sendVerificationEmail(user.email, token)
     }
 
     return res.status(200).json({ message: 'User updated', data: user })
   } catch (error) /* istanbul ignore next */ {
-    audit(
-      AuditActionType.EDIT,
-      AuditTrasactionStatus.FAILURE,
-      'editUser',
-      'User update failed',
-      'PortalUserEntity',
-      {},
-      {},
-      null
-    )
-
-    logger.push(error).error('Error in editUser')
-    res.status(500).send({ message: error })
+    logger.error("Error editting user: %o", error);
+    res.status(500).send({ message: "Internal server error!" })
   }
 }

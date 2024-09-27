@@ -88,6 +88,6 @@ export async function postUserForgotPassword (req: AuthRequest, res: Response) {
     return res.status(201).send({ message: 'Reset Password Link Sent Successful' })
   } catch (error: any) /* istanbul ignore next */ {
     logger.error("Error, on Forgot password: %o", error);
-    return res.status(500).send({ message: error.message })
+    return res.status(500).send({ message: "Internal server error!" })
   }
 }

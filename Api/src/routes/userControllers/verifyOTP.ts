@@ -59,6 +59,6 @@ export async function verifyOTP(req: AuthRequest, res: Response) {
     res.json({ success: true, message: 'OTP Verification successful', token: token})
   } catch (error: any) {
     logger.error("Error, user OTP Verification failed, error in verifyOTP : %o", { error, email:req.body.email })
-    res.status(400).send({ success: false, message: error.message })
+    res.status(500).send({ success: false, message: "Internal server error!" })
   }
 }
