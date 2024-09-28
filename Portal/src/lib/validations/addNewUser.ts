@@ -5,6 +5,7 @@ export type AddNewUserForm = z.infer<typeof addNewUserSchema>
 export const addNewUserSchema = z.object({
   name: z.string().trim().min(1, { message: 'Name is required' }),
   email: z.string().trim().email('Please enter a valid email'),
+  position: z.string().trim().min(1, { message: 'Position is required' }),
   phone: z
     .string()
     .length(10, { message: 'Phone number must have a length of 10 digits ' })
@@ -17,8 +18,7 @@ export const addNewUserSchema = z.object({
     .refine(val => parseInt(val) > 699999999, {
       message: 'Phone number must not contain a "."',
     }),
-  role: z.number().optional(),
-  dfsp_id: z.number().or(z.string()).optional(),
+  // role: z.number().optional(),
 })
 
 export type EditUserForm = z.infer<typeof addUserSchema>
@@ -26,6 +26,7 @@ export type EditUserForm = z.infer<typeof addUserSchema>
 const addUserSchema = z.object({
   name: z.string().trim().min(1, { message: 'Name is required' }),
   email: z.string().trim().email('Please enter a valid email'),
+  position: z.string().trim().min(1, { message: 'Position is required' }),
   phone: z
     .string()
     .length(10, { message: 'Phone number must have a length of 10 digits ' })
@@ -38,7 +39,6 @@ const addUserSchema = z.object({
     .refine(val => parseInt(val) > 699999999, {
       message: 'Phone number must not contain a "."',
     }),
-  role: z.number().optional(),
-  dfsp_id: z.number().or(z.string()).optional(),
+  status: z.string().trim().min(1, { message: 'Status is required' }),
   userId: z.number(),
 })

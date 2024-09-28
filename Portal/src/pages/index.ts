@@ -16,6 +16,7 @@ import ParishCommitteeCouncilManagement from './ParishCommitteeCouncil/ParishCom
 import CommissionManagement from './Commission/Commission';
 import OfficeTimesManagement from './OfficeTimes/OfficeHours';
 import ChoirsManagement from './Choirs/Choirs';
+import UsersManagement from './UsersManagement/UserManagement';
 
 
 export {
@@ -36,5 +37,6 @@ export {
   ParishCommitteeCouncilManagement,
   CommissionManagement,
   OfficeTimesManagement,
-  ChoirsManagement
+  ChoirsManagement,
+  UsersManagement
 }

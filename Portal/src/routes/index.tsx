@@ -21,6 +21,7 @@ import {
   TopNewsAndNoticesManagement,
   WelcomeMessageManagement,
   SetPassword,
+  UsersManagement,
 } from '../pages'
 import UpdateHomePage from '../pages/UpdateHomePage/updateHomePage'
 
@@ -111,6 +112,11 @@ const Routes = () => {
           path: 'choirs',
           index: true,
           element: <ChoirsManagement />,
+        },
+        {
+          path: 'users',
+          index: true,
+          element: <UsersManagement />,
         },
       ]
     },

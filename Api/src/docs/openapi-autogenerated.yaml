@@ -2551,6 +2551,49 @@ paths:
           description: Invalid credentials
         '422':
           description: Validation error
+  /users/{id}:
+    delete:
+      tags:
+        - Users
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Users ID
+      summary: delete a Mass users
+      responses:
+        '200':
+          description: Users deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Users deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
   /users/{userId}/edit:
     patch:
       tags:

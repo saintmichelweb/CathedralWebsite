@@ -15,6 +15,7 @@ const EditUserSchema = z.object({
   name: z.string(),
   email: z.string().email(),
   position: z.string().trim().min(1, { message: "User position is required" }),
+  status: z.string().trim().min(1, { message: "User status is required" }),
   phone: z
     .string()
     .length(10, { message: 'Phone number must have a length of 10 digits' })
@@ -100,7 +101,7 @@ export async function editUser(req: AuthRequest, res: Response) {
   }
 
   try {
-    const { name, email, phone, position } = result.data
+    const { name, email, phone, position, status } = result.data
     const userRepository = AppDataSource.getRepository(PortalUserEntity)
     // const roleRepository = AppDataSource.getRepository(PortalRoleEntity)
 
@@ -117,6 +118,7 @@ export async function editUser(req: AuthRequest, res: Response) {
     let newName = ''
     let newPhoneNumber = ''
     let newPosition = ''
+    let newStatus = ''
     // let roleId: number | undefined | null
 
     if (name && name.trim() !== '' && name !== user.name) {
@@ -130,6 +132,9 @@ export async function editUser(req: AuthRequest, res: Response) {
     } 
     if (position && position.trim() !== '') {
       newPosition = position
+    } 
+    if (status && status.trim() !== '') {
+      newStatus = status
     } 
 
     if(newEmail === "" && newPhoneNumber === "" && newName === "" && newPosition === "" ) {
@@ -194,6 +199,8 @@ export async function editUser(req: AuthRequest, res: Response) {
     if (newName) user.name = newName
     if (newEmail) user.email = newEmail
     if (newPhoneNumber) user.phone_number = newPhoneNumber
+    if (newPosition) user.position = newPosition
+    if (newStatus) user.status = newStatus == PortalUserStatus.ACTIVE ? PortalUserStatus.ACTIVE: PortalUserStatus.DISABLED
     if (roleObj) user.position = newPosition
 
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {

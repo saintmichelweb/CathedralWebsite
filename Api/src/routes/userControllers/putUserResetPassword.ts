@@ -109,7 +109,11 @@ export async function putUserResetPassword(req: AuthRequest, res: Response) {
     const oldPasswordHash = portalUser.password
     portalUser.password = await hashPassword(newPassword)
     portalUser.password_created_at = new Date(Date.now())
+
     if (portalUser.status === PortalUserStatus.RESETPASSWORD) {
+      portalUser.status = PortalUserStatus.ACTIVE
+    }
+    if (portalUser.status === PortalUserStatus.UNVERIFIED) {
       portalUser.status = PortalUserStatus.ACTIVE
     }
     await AppDataSource.manager.save(portalUser)
