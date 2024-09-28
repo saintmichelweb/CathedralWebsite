@@ -2,9 +2,9 @@ import { type Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
 import { AppDataSource } from '../../database/dataSource'
-import { PortalRoleEntity } from '../../entity/PortalRoleEntity'
+// import { PortalRoleEntity } from '../../entity/PortalRoleEntity'
 import * as z from 'zod'
-import { PortalUserStatus } from 'shared-lib'
+import { PortalUserStatus } from '../../../../shared-lib/src/enums'
 import { sendVerificationEmail } from '../../utils/sendEmail'
 import { type AuthRequest } from '../../types/express'
 import { readEnv } from '../../setup/readEnv'
@@ -85,15 +85,11 @@ export async function addUser(req: AuthRequest, res: Response) {
   let responseStatus: number
   let responseMessage: string
   let responseData: any
-  // const portalUser = req.user
+  const portalUser = req.user
 
-  // if (portalUser == null) {
-  //   return res.status(401).send({ message: 'Unauthorized' })
-  // }
-
-    const userAccountCreator = await AppDataSource.manager.find(PortalUserEntity, {
-      where: { created_by: { id: 1 } }
-    })
+  if (portalUser == null) {
+    return res.status(401).send({ message: 'Unauthorized' })
+  }
 
   const result = AddUserSchema.safeParse(req.body)
   if (!result.success) {

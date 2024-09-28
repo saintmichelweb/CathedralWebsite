@@ -8,7 +8,7 @@ import { readEnv } from '../setup/readEnv'
 
 const JWT_SECRET = readEnv('JWT_SECRET', 'secret') as string
 
-export async function regenerateToken(email: string, portalUser: PortalUserEntity): Promise<string> {
+export async function regenerateToken(email: string): Promise<string> {
   
   const portalUserRepository = AppDataSource.getRepository(PortalUserEntity)
   const jwtTokenRepository = AppDataSource.getRepository(JwtTokenEntity)

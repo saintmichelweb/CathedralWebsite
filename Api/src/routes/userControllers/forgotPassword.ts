@@ -61,7 +61,7 @@ export async function postUserForgotPassword (req: AuthRequest, res: Response) {
   try {
     const forgottenPwdUser = await AppDataSource.manager.findOne(PortalUserEntity, {
       where: { email },
-      relations: ['role']
+      // relations: ['role']
     })
     if (forgottenPwdUser == null) {
       return res.status(404).send({ message: 'Email Not Found' })

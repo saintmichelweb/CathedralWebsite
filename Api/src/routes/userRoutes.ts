@@ -7,6 +7,8 @@ import { postUserLogout } from './userControllers/postUserLogout'
 import { addUser } from './userControllers/addUserByAdmin'
 import { putUserResetPassword } from './userControllers/putUserResetPassword'
 import { editUser } from './userControllers/editUSer'
+import { postUserForgotPassword } from './userControllers/forgotPassword'
+import { resendVerificationEmail } from './userControllers/resendVerificationEmail'
 
 // /**
 //  * @openapi
@@ -28,7 +30,9 @@ router.get('/users/profile', authenticateJWT ,GetUserProfile)
 router.post('/users/login', postUserLogin)
 router.post('/users/logout', authenticateJWT, postUserLogout)
 router.post('/users/add', authenticateJWT, addUser)
+router.put('/users/:userId/edit',authenticateJWT, editUser)
 router.post('/users/reset-password', authenticateJWT, putUserResetPassword)
-router.put('/users/:userId/edit', editUser)
+router.post('/users/forgot-password', postUserForgotPassword)
+router.post('/users/sendVerificationEmail', resendVerificationEmail)
 
 export default router

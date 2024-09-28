@@ -1,7 +1,6 @@
 import { type Response } from 'express'
 import { AppDataSource } from '../../database/dataSource'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
-import { PortalUserStatus } from 'shared-lib'
 import { readEnv } from '../../setup/readEnv'
 import { Brackets } from 'typeorm'
 import { encryptData } from 'typeorm-encrypted'
@@ -29,7 +28,6 @@ import logger from '../../services/logger'
 export async function getUsers(req: AuthRequest, res: Response) {
   const portalUser = req.user
 
-  /* istanbul ignore if */
   if (portalUser == null) {
     return res.status(401).send({ message: 'Unauthorized' })
   }
@@ -72,10 +70,6 @@ export async function getUsers(req: AuthRequest, res: Response) {
         })
       )
     }
-    // DFSPs can only see their own users
-    if (portalUser.dfsp) {
-      queryBuilder.andWhere('user.dfsp.id = :dfsp', { dfsp: portalUser.dfsp.id })
-    }
 
     const totalCount = await queryBuilder.getCount()
     const totalPages = Math.ceil(totalCount / limit)
@@ -97,17 +91,6 @@ export async function getUsers(req: AuthRequest, res: Response) {
     //     },
     //     password: undefined
     //   }))
-
-    // audit(
-    //   AuditActionType.ACCESS,
-    //   AuditTrasactionStatus.SUCCESS,
-    //   'getUsers',
-    //   'Get a list of users',
-    //   'PortalUserEntity',
-    //   {},
-    //   {},
-    //   portalUser
-    // )
   
     res.send({ message: 'List of users', data: users, totalPages })
   } catch (error) {

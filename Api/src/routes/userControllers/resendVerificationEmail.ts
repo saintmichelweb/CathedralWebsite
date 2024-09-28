@@ -73,7 +73,7 @@ export async function resendVerificationEmail(req: AuthRequest, res: Response) {
   }
 
   try {
-    const newToken = await regenerateToken(userEmail, portalUser)
+    const newToken = await regenerateToken(userEmail)
     await sendVerificationEmail(userEmail, newToken)
     res.status(201).json({ message: 'Email Sent Successfully' })
   } catch (error) /* istanbul ignore next */ {

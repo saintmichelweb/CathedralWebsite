@@ -30,7 +30,7 @@ const UpdateHomePage = () => {
             color={"primary"}
             width={'fit-content'}
           >
-            Welcome To Saint Michael Portal
+            Welcome To Cathedral Saint Michael Portal
           </Heading>
         </Box>
       </Stack>

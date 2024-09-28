@@ -2,7 +2,7 @@ import { type Response } from 'express'
 import { AppDataSource } from '../../database/dataSource'
 import {
   PortalUserStatus
-} from 'shared-lib'
+} from '../../../../shared-lib'
 import { comparePassword, hashPassword } from '../../utils/utils'
 import { type AuthRequest } from '../../types/express'
 import * as z from 'zod'

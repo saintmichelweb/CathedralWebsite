@@ -26,6 +26,7 @@ import CustomModal from "../../../components/ui/CustomModal/CustomModal";
 import { Drawer } from "../../../components/layout";
 import { SetPasswordBody } from "../../../pages/SetPassword/SetPassword";
 import { logout } from "../../../api/auth";
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const { onOpen } = useDrawerDisclosure();
@@ -33,6 +34,7 @@ const Header = () => {
   const [changePasswordPopup, setChangePasswordPopup] =
     useState<boolean>(false);
   const toast = useToast();
+  const Navigate = useNavigate()
 
   const logingOut = async () => {
     await logout()
@@ -42,6 +44,7 @@ const Header = () => {
           description: "User successfully logged out",
           status: "success",
         });
+        Navigate('/login')
       })
       .catch(() => {
         toast({

@@ -1,8 +1,9 @@
-import type { ServerUser } from '../types/users'
+import type { ChangePassword, ServerUser } from '../types/users'
 import instance from '../lib/axiosInstance'
 import { EditUserForm, type AddNewUserForm } from '../lib/validations/addNewUser'
 import type { AllData, PaginationParams } from '../types/pagination'
 import { searchParams } from '../types/merchants'
+import { ForgotPasswordForm } from '../lib/validations/forgotPassword'
 
 export function transformIntoTableData(serverUser: ServerUser) {
   return {
@@ -63,5 +64,15 @@ export async function updateUserStatus(userId: string | number, newStatus: strin
 
 export async function resendVerficationEmail(userId: string | number, email: string, role: string) {
   const response = await instance.post('/users/resendVerificationEmail', {userId, email, role})
+  return response.data.message
+}
+
+export async function userSetPassword(setPasswordObj: ChangePassword) {
+  const response = await instance.post('/users/reset-password', setPasswordObj)
+  return response.data.message
+}
+
+export async function userForgotPassword(forgotPasswordObj: ForgotPasswordForm) {
+  const response = await instance.post('/users/forgot-password', forgotPasswordObj)
   return response.data.message
 }
