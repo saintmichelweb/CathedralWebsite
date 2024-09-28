@@ -15,8 +15,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible, AiFillWarning } from "react-icons/ai";
-
-import LogoDiosceseKigali from "../../assets/LogoDiosceseKigali.png";
+import stMichelLogo from "../../assets/Logo.png";
 import {
   setPasswordSchema,
   type SetPasswordForm,
@@ -26,10 +25,11 @@ import { CustomButton } from "../../components/ui";
 import { FormInput } from "../../components/form";
 import { ChangePassword } from "../../types/users";
 import Cookies from "universal-cookie";
-import { getUserProfile } from "../../api/users";
+import { getUserProfile, userSetPassword } from "../../api/users";
 import { isAxiosError } from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../../api/auth";
+import { MessageResponse } from "../../types/apiResponses";
 
 interface Props {
   isChangePassword: boolean | null;
@@ -54,7 +54,7 @@ const SetPassword = () => {
             setIsTokenNotExpired(true);
           }
         })
-        .catch((error: any) => {
+        .catch((error) => {
           if (
             token &&
             isAxiosError(error) &&
@@ -70,7 +70,9 @@ const SetPassword = () => {
   const logoutPrevSession = async () => {
     await logout()
       .then(() => {
-        cookies.remove("token");
+        if (token) {
+          cookies.remove("token");
+        }
         setIsTokenNotExpired(false);
       })
       .catch((error) => {
@@ -99,17 +101,18 @@ const SetPassword = () => {
             px="10"
             display={{ base: "none", md: "flex" }}
             justify="space-between"
-            bg="#F0F9FF"
+            bg="primary"
+            // bg="#F0F9FF"
           >
-            <Image src={LogoDiosceseKigali} w="60" />
+            <Image src={stMichelLogo} w="60" />
 
-            <Heading as="h1" color="black" textAlign="center">
+            <Heading as="h1" color="white" textAlign="center">
               Portal
             </Heading>
 
             <Box
               alignSelf="center"
-              color="black"
+              color="warning"
               fontSize="sm"
               fontWeight="medium"
             >
@@ -196,6 +199,7 @@ export const SetPasswordBody = (props: Props) => {
   const [isConfirmPasswordShown, setIsConfirmPasswordShown] = useState(false);
   const token = props.token;
   const toast = useToast();
+  const cookies = new Cookies();
 
   const {
     register,
@@ -213,9 +217,7 @@ export const SetPasswordBody = (props: Props) => {
     });
   };
 
-  // const setPassword = useSetPassword()
-
-  const onSubmit = (values: SetPasswordForm) => {
+  const onSubmit = async (values: SetPasswordForm) => {
     if (token && !isChangePassword) {
       errorToast("Please logout first from your other session.");
     } else if (isChangePassword && !values.oldPassword) {
@@ -225,7 +227,24 @@ export const SetPasswordBody = (props: Props) => {
         oldPassword: values.oldPassword,
         newPassword: values.newPassword,
       };
-      // setPassword.mutate(objectToSend)
+      await userSetPassword(objectToSend)
+        .then((res: MessageResponse) => {
+          toast({
+            title: "Set password Message",
+            description: res?.message || "Your password was set successfully",
+            status: "success",
+          });
+          cookies.remove("token");
+          window.location.replace("/login");
+        })
+        .catch((error) => {
+          toast({
+            title: "Set password Message",
+            description:
+              error.response.data?.message || "Error setting your password!",
+            status: "error",
+          });
+        });
     }
   };
 

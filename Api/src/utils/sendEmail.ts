@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer')
 const email = readEnv('MAIL_USERNAME', '') as string
 const password = readEnv('MAIL_PASSWORD', '') as string
 const host = readEnv('MAIL_HOST', '') as string
-const port = readEnv('MAIL_PORT','',true) as number
+const port = readEnv('MAIL_PORT', '', true) as number
 
 // const backendAppUrl = readEnv('APP_URL', 'http://localhost:3000') as string
 const FRONTEND_SET_PASSWORD_URL = readEnv('FRONTEND_SET_PASSWORD_URL', '') as string
@@ -25,7 +25,7 @@ const mailTransporter = nodemailer.createTransport({
   debug: true
 })
 
-export async function sendEmail (to: string, subject: string, body: any): Promise<void> {
+export async function sendEmail(to: string, subject: string, body: any): Promise<void> {
   const mailOptions = {
     from: email,
     to,
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'test') {
 
 
 
-export async function sendOTPEmail (email: string, otp: string): Promise<void> {
+export async function sendOTPEmail(email: string, otp: string): Promise<void> {
   const body = generateEmailTemplate({
     notificationMessage: `
       Dear Mr/Mrs,<br/>
@@ -59,37 +59,31 @@ export async function sendOTPEmail (email: string, otp: string): Promise<void> {
   )
 }
 
-export async function sendVerificationEmail (email: string, token: string): Promise<void> {
+export async function sendVerificationEmail(email: string, token: string): Promise<void> {
   const emailVerificationBody = generateEmailTemplate({
     notificationMessage: `
         Dear Mr/Mrs,<br/>
         <br/>
         Your email address has been registered in St Michel Parish's Portal.<br/>
-        Please verify your email address below and set your password:<br/>
-        <br/>
-        <a 
-          style="
-            background-color: #4CAF50; 
-            color: white; 
-            padding: 14px 20px; margin: 8px 0; border: none; 
-            cursor: pointer; width: 100%; text-align: center;
-            text-decoration: none;"
-            href="href="${FRONTEND_SET_PASSWORD_URL}?token=${token}" class="verify-button">Verify email</a><br/>
-        <br/>
+        Please set your password using the link below:<br/>
+          <a href="${FRONTEND_SET_PASSWORD_URL}?token=${token}"> 
+            ${FRONTEND_SET_PASSWORD_URL}
+          </a>
+        <br/><br/>
         Best regards,<br/>
         The RSwitch Team
       `
   })
   sendEmail(
     email,
-    'RSwitch Portal User Email Verification',
+    'St Michel Portal Email Notification',
     emailVerificationBody
   )
 }
 
-export async function sendForgotPasswordEmail (email: string, token: string): Promise<void> {
+export async function sendForgotPasswordEmail(email: string, token: string): Promise<void> {
   const body = generateEmailTemplate({
-    notificationMessage:`
+    notificationMessage: `
     Dear Mr/Mrs,<br/>
     Please ignore this email if you did not request to reset your password. <br />
     Your reset Password Link for RSwitch Portal: <br />
@@ -109,56 +103,56 @@ export async function sendForgotPasswordEmail (email: string, token: string): Pr
   )
 }
 
-interface errorObject {
-  status: number
-  message: any
-  merchant_code: string
-  lineNumber: number
-}
+// interface errorObject {
+//   status: number
+//   message: any
+//   merchant_code: string
+//   lineNumber: number
+// }
 
-export async function bulkMerchantRegistrationStatusEmail (
-  email: string,
-  dfspName: string,
-  fileName: string,
-  batchSize: number,
-  succeeded_registrations: number,
-  failed_registrations: number,
-  status: string,
-  errors: Array<errorObject>
-): Promise<void> {
-  let errorList = ''
-  if (errors.length) {
-    errorList += 'Errors and Details:<br/><ul>'
-    for (let i = 0; i < errors.length; i++) {
-      errorList += `
-        <li>
-          Line Number: ${errors[i].lineNumber}<br/>
-          Merchant Code: ${errors[i].merchant_code}<br/>
-        </li>
-      `
-    }
-    errorList += '</ul><br/>'
-  }
-  const body = generateEmailTemplate({
-    notificationMessage: `
-      Dear ${dfspName} team,<br/><br/>
-      This email is to inform you about the recent bulk merchant registration file you uploaded to our system, named <strong>${fileName}</strong>.<br/><br/>
-      Here is a summary of the processing status:<br/>
-      - Batch Size: ${batchSize} records<br/>
-      - Successfully registered: ${succeeded_registrations} merchants<br/>
-      - Failed registrations: ${failed_registrations} merchants<br/>
-      - Overall Status: ${status}<br/>
-      <br/>
-      ${errorList}
-      If you have any questions or need further assistance, please let us know.<br/><br/>
-      Best regards,<br/>
-      The RSwitch team
-    `
-  })
+// export async function bulkMerchantRegistrationStatusEmail(
+//   email: string,
+//   dfspName: string,
+//   fileName: string,
+//   batchSize: number,
+//   succeeded_registrations: number,
+//   failed_registrations: number,
+//   status: string,
+//   errors: Array<errorObject>
+// ): Promise<void> {
+//   let errorList = ''
+//   if (errors.length) {
+//     errorList += 'Errors and Details:<br/><ul>'
+//     for (let i = 0; i < errors.length; i++) {
+//       errorList += `
+//         <li>
+//           Line Number: ${errors[i].lineNumber}<br/>
+//           Merchant Code: ${errors[i].merchant_code}<br/>
+//         </li>
+//       `
+//     }
+//     errorList += '</ul><br/>'
+//   }
+//   const body = generateEmailTemplate({
+//     notificationMessage: `
+//       Dear ${dfspName} team,<br/><br/>
+//       This email is to inform you about the recent bulk merchant registration file you uploaded to our system, named <strong>${fileName}</strong>.<br/><br/>
+//       Here is a summary of the processing status:<br/>
+//       - Batch Size: ${batchSize} records<br/>
+//       - Successfully registered: ${succeeded_registrations} merchants<br/>
+//       - Failed registrations: ${failed_registrations} merchants<br/>
+//       - Overall Status: ${status}<br/>
+//       <br/>
+//       ${errorList}
+//       If you have any questions or need further assistance, please let us know.<br/><br/>
+//       Best regards,<br/>
+//       The RSwitch team
+//     `
+//   })
 
-  sendEmail(
-    email,
-    `RSwitch Bulk Processing Result - ${fileName}`,
-    body
-  )
-}
+//   sendEmail(
+//     email,
+//     `RSwitch Bulk Processing Result - ${fileName}`,
+//     body
+//   )
+// }

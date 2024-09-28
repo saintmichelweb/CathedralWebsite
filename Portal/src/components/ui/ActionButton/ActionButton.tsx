@@ -11,9 +11,11 @@ const ActionButton = (action: string, onClick: () => void) => {
         onClick={onClick}
         colorVariant={
           action === "edit"
-            ? "info"
+            ? "info-outline"
             : action === "delete"
             ? "grayed"
+            : action === "resend"
+            ? "info"
             : action == "activate"
             ? "success"
             : "danger"
@@ -25,6 +27,8 @@ const ActionButton = (action: string, onClick: () => void) => {
           <CommonIcons iconName="edit" />
         ) : action === "delete" ? (
           <CommonIcons iconName="delete" />
+        ) : action === "resend" ? (
+          <CommonIcons iconName="email" />
         ) : action == "activate" ? (
           <CommonIcons iconName="active" />
         ) : (
@@ -35,6 +39,8 @@ const ActionButton = (action: string, onClick: () => void) => {
             ? "Edit"
             : action === "delete"
             ? "Delete"
+            : action == "resend"
+            ? "Resend"
             : action == "activate"
             ? "Activate"
             : "Deactivate"}

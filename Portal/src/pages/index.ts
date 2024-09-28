@@ -1,7 +1,7 @@
 // import AddNewUser from './AddNewUser/AddNewUser'
 import ForgotPassword from './ForgotPassword/ForgotPassword'
 import Login from './Login/Login'
-// import SetPassword from './SetPassword/SetPassword'
+import SetPassword from './SetPassword/SetPassword'
 import LocationsManagement from './Locations/Locations';
 import LanguagesManagement from './Languages/Languages';
 import MassTimesManagement from './MassTimes/MassTimes';
@@ -16,12 +16,13 @@ import ParishCommitteeCouncilManagement from './ParishCommitteeCouncil/ParishCom
 import CommissionManagement from './Commission/Commission';
 import OfficeTimesManagement from './OfficeTimes/OfficeHours';
 import ChoirsManagement from './Choirs/Choirs';
+import UsersManagement from './UsersManagement/UserManagement';
 
 
 export {
   // AddNewUser,
   Login,
-  // SetPassword,
+  SetPassword,
   ForgotPassword,
   LocationsManagement,
   LanguagesManagement,
@@ -36,5 +37,6 @@ export {
   ParishCommitteeCouncilManagement,
   CommissionManagement,
   OfficeTimesManagement,
-  ChoirsManagement
+  ChoirsManagement,
+  UsersManagement
 }

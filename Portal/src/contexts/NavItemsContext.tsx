@@ -1,11 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  FaHouse,
-} from "react-icons/fa6";
+import { FaHouse } from "react-icons/fa6";
 import { GiSunPriest } from "react-icons/gi";
 import { IoImages, IoTextSharp } from "react-icons/io5";
-import { FaHandsHelping } from "react-icons/fa";
+import { FaHandsHelping, FaUserCircle } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
 import { MdGroups2 } from "react-icons/md";
 import { BsMusicNoteList } from "react-icons/bs";
@@ -169,6 +167,12 @@ export const NAV_ITEMS = [
     label: "Go to choirs",
     icon: BsMusicNoteList,
     // permissions: ['View Transactions'],
+  },
+  {
+    name: "User Management",
+    label: "Go to user management",
+    to: "/users",
+    icon: FaUserCircle ,
   },
   // {
   //   name: 'Portal User Management',

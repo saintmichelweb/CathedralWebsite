@@ -2,7 +2,7 @@ import { type Response } from 'express'
 import { AppDataSource } from '../../database/dataSource'
 import {
   PortalUserStatus
-} from 'shared-lib'
+} from '../../../../shared-lib'
 import { comparePassword, hashPassword } from '../../utils/utils'
 import { type AuthRequest } from '../../types/express'
 import * as z from 'zod'
@@ -109,7 +109,11 @@ export async function putUserResetPassword(req: AuthRequest, res: Response) {
     const oldPasswordHash = portalUser.password
     portalUser.password = await hashPassword(newPassword)
     portalUser.password_created_at = new Date(Date.now())
+
     if (portalUser.status === PortalUserStatus.RESETPASSWORD) {
+      portalUser.status = PortalUserStatus.ACTIVE
+    }
+    if (portalUser.status === PortalUserStatus.UNVERIFIED) {
       portalUser.status = PortalUserStatus.ACTIVE
     }
     await AppDataSource.manager.save(portalUser)

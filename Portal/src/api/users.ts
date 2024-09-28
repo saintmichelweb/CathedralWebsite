@@ -1,42 +1,11 @@
-import type { ServerUser } from '../types/users'
+import type { ChangePassword, ServerUser } from '../types/users'
 import instance from '../lib/axiosInstance'
 import { EditUserForm, type AddNewUserForm } from '../lib/validations/addNewUser'
-import type { AllData, PaginationParams } from '../types/pagination'
-import { searchParams } from '../types/merchants'
+import { ForgotPasswordForm } from '../lib/validations/forgotPassword'
+import { UsersResponse } from '../types/apiResponses'
 
-export function transformIntoTableData(serverUser: ServerUser) {
-  return {
-    id: serverUser.id,
-    name: serverUser.name,
-    email: serverUser.email,
-    phone_number: serverUser.phone_number,
-    role: serverUser.role.name,
-    dfsp: serverUser.dfsp?.name || 'N/A',
-    status: serverUser.status,
-    email_verification_status: serverUser.email_verification_status,
-    role_id: serverUser.role.id,
-  }
-}
-
-export async function getUsers(params?: PaginationParams | searchParams | AllData ) {
-  try{
-    const response = await instance.get<{ data: ServerUser[]; totalPages: number }>('/users', {params})
-
-    if (response.status === 200) {
-      const data = response.data.data.map(transformIntoTableData)
-      const totalPages = response.data.totalPages
-      return { data, totalPages }
-    } else {
-      throw new Error(`Failed to fetch data. Status: ${response.status}`)
-    }
-  } catch (error) {
-    console.error('Error fetching data:', error)
-    throw new Error('Failed to fetch data. Please try again.')
-  }
-}
-
-export async function fetchUsers(params?: PaginationParams | searchParams | AllData ) {
-  const response = await instance.get<{ data: ServerUser[]; totalPages: number }>('/users', {params})
+export async function getUsers() {
+  const response = await instance.get<{ users: UsersResponse[], message: string }>('/users')
   return response.data
 }
 
@@ -46,7 +15,7 @@ export async function createUser(user: AddNewUserForm) {
 }
 
 export async function updateUser(user: EditUserForm) {
-  const response = await instance.patch(`/users/${user.userId}/edit`, user)
+  const response = await instance.put(`/users/${user.userId}/edit`, user)
   return response.data
 }
 
@@ -61,7 +30,22 @@ export async function updateUserStatus(userId: string | number, newStatus: strin
 }
 
 
-export async function resendVerficationEmail(userId: string | number, email: string, role: string) {
-  const response = await instance.post('/users/resendVerificationEmail', {userId, email, role})
+export async function resendVerficationEmail(email: string) {
+  const response = await instance.post('/users/sendVerificationEmail', { email })
   return response.data.message
+}
+
+export async function userSetPassword(setPasswordObj: ChangePassword) {
+  const response = await instance.put('/users/reset-password', setPasswordObj)
+  return response.data.message
+}
+
+export async function userForgotPassword(forgotPasswordObj: ForgotPasswordForm) {
+  const response = await instance.post('/users/forgot-password', forgotPasswordObj)
+  return response.data.message
+}
+
+export async function deleteUser(userId: number) {
+  const response = await instance.delete<{ message: string }>(`/users/${userId}`)
+  return response.data
 }

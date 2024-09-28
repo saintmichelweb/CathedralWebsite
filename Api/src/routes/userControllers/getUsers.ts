@@ -1,7 +1,6 @@
 import { type Response } from 'express'
 import { AppDataSource } from '../../database/dataSource'
 import { PortalUserEntity } from '../../entity/PortalUserEntity'
-import { PortalUserStatus } from 'shared-lib'
 import { readEnv } from '../../setup/readEnv'
 import { Brackets } from 'typeorm'
 import { encryptData } from 'typeorm-encrypted'
@@ -29,13 +28,12 @@ import logger from '../../services/logger'
 export async function getUsers(req: AuthRequest, res: Response) {
   const portalUser = req.user
 
-  /* istanbul ignore if */
   if (portalUser == null) {
     return res.status(401).send({ message: 'Unauthorized' })
   }
 
   try {
-    const { status, role, dfsp, all } = req.query
+    const { status, all } = req.query
     const { page = 1, search } = req.query
     const limit = readEnv('PAGINATION_LIMIT', 10, true) as number
 
@@ -44,23 +42,19 @@ export async function getUsers(req: AuthRequest, res: Response) {
     }
 
     const queryBuilder = AppDataSource.getRepository(PortalUserEntity).createQueryBuilder('user')
-      .leftJoinAndSelect('user.role', 'role')
-      .where('role.name != :name', {name: 'Hub Super Admin'})
-      .leftJoinAndSelect('role.permissions', 'permissions')
-      .leftJoinAndSelect('user.dfsp', 'dfsp')
-      .orderBy('user.created_at', 'DESC').addOrderBy('user.updated_at', 'DESC')
+      // .leftJoinAndSelect('user.role', 'role')
+      // .where('role.name != :name', {name: 'Hub Super Admin'})
+      // .leftJoinAndSelect('role.permissions', 'permissions')
+      // .orderBy('user.created_at', 'DESC').addOrderBy('user.updated_at', 'DESC')
 
     if (typeof status === 'string' && status.length > 0) {
       queryBuilder.andWhere('user.status = :status', { status })
-    } 
-
-    if (!isNaN(Number(role)) && Number(role) > 0) {
-      queryBuilder.andWhere('role.id = :role', { role: Number(role) })
     }
 
-    if (!isNaN(Number(dfsp)) && Number(dfsp) > 0) {
-      queryBuilder.andWhere('dfsp.fspid = :dfsp', { dfsp: dfsp })
-    }
+    // if (!isNaN(Number(role)) && Number(role) > 0) {
+    //   queryBuilder.andWhere('role.id = :role', { role: Number(role) })
+    // }
+
 
     if (typeof search === 'string' && search.length > 0) {
       const encryptedSearch = encryptData(Buffer.from(search.trim()), EncryptionTransformerObject).toString('base64')
@@ -72,19 +66,28 @@ export async function getUsers(req: AuthRequest, res: Response) {
         })
       )
     }
-    // DFSPs can only see their own users
-    if (portalUser.dfsp) {
-      queryBuilder.andWhere('user.dfsp.id = :dfsp', { dfsp: portalUser.dfsp.id })
-    }
 
     const totalCount = await queryBuilder.getCount()
     const totalPages = Math.ceil(totalCount / limit)
 
-    if(all !== 'true'){
+    if (all !== 'true') {
       queryBuilder.skip((Number(page) - 1) * limit).take(limit)
     }
-    
-    let users = await queryBuilder.getMany()
+
+
+
+    let users = await queryBuilder
+      .select([
+        'user.id',
+        'user.name',
+        'user.email',
+        'user.phone_number',
+        'user.status',
+        'user.position',
+        'user.created_at',
+        'user.updated_at'
+      ])
+      .getMany()
 
     // const flattenedUsers = users
     //   .map((user: PortalUserEntity) => ({
@@ -98,18 +101,7 @@ export async function getUsers(req: AuthRequest, res: Response) {
     //     password: undefined
     //   }))
 
-    // audit(
-    //   AuditActionType.ACCESS,
-    //   AuditTrasactionStatus.SUCCESS,
-    //   'getUsers',
-    //   'Get a list of users',
-    //   'PortalUserEntity',
-    //   {},
-    //   {},
-    //   portalUser
-    // )
-  
-    res.send({ message: 'List of users', data: users, totalPages })
+    res.send({ message: 'List of users', users, totalPages })
   } catch (error) {
     logger.error("Error, on Forgot password: %o", error);
     res.status(500).send({ message: 'Internal Server Error' })

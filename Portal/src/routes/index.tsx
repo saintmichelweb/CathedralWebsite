@@ -20,9 +20,9 @@ import {
   ServicesManagement,
   TopNewsAndNoticesManagement,
   WelcomeMessageManagement,
-  // SetPassword,
+  SetPassword,
+  UsersManagement,
 } from '../pages'
-import AddNewUser from '../pages/AddNewUser/AddNewUser'
 import UpdateHomePage from '../pages/UpdateHomePage/updateHomePage'
 
 const Routes = () => {
@@ -36,7 +36,7 @@ const Routes = () => {
       children: [
         {
           index: true,
-          element: <AddNewUser />,
+          element: <UpdateHomePage />,
         },
         {
           path: 'home-page',
@@ -113,6 +113,11 @@ const Routes = () => {
           index: true,
           element: <ChoirsManagement />,
         },
+        {
+          path: 'users',
+          index: true,
+          element: <UsersManagement />,
+        },
       ]
     },
     {
@@ -125,11 +130,11 @@ const Routes = () => {
       element: <ForgotPassword />,
       caseSensitive: true,
     },
-    // {
-    //   path: `/set-password`,
-    //   element: <SetPassword />,
-    //   caseSensitive: true,
-    // },
+    {
+      path: `/set-password`,
+      element: <SetPassword />,
+      caseSensitive: true,
+    },
     
   ])
   // if (isLoading) {

@@ -192,3 +192,16 @@ export interface ChoirsResponse {
     updated_at: string
     backgroundImage: imageResponse | null
 }
+
+
+export interface UsersResponse {
+    id: number
+    name: string
+    email: string
+    position: string
+    phone_number: string
+    status: string
+    created_at: string
+    updated_at: string
+    // backgroundImage: imageResponse | null
+}
