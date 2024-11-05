@@ -1,14 +1,15 @@
 import instance from '../lib/axiosInstance'
 import { AddChoirsForm, UpdateChoirsForm } from '../lib/validations/choirs'
 import { ChoirsResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
 export async function addNewChoir(ChoirObj: AddChoirsForm) {
   const response = await instance.post<{ message: string }>('/Choir', ChoirObj)
   return response.data
 }
 
-export async function getAllChoirs() {
-  const response = await instance.get<{ choirs: ChoirsResponse[], message: string }>('/Choir/all')
+export async function getAllChoirs(params?: PaginationParams) {
+  const response = await instance.get<{ choirs: ChoirsResponse[], message: string, totalPages: number }>('/Choir/all', {params})
   return response.data
 }
 
