@@ -3,6 +3,7 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { PriestsEntity } from "../../entity/PriestsEntity";
+import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
@@ -33,8 +34,16 @@ import { PriestsEntity } from "../../entity/PriestsEntity";
 export async function getAllPriests(req: Request, res: Response) {
   const portalUser = req.user;
   // const isActive = req.query.isActive
+
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
+  }
+  const pageSize = Number(readEnv('PAGINATION_LIMIT', 10, true))
+  const { page = 1 } = req.query
+  const skip = (Number(page) - 1) * Number(pageSize)
+
+  if (isNaN(skip) || isNaN(Number(pageSize)) || skip < 0 || Number(pageSize) < 1) {
+    return res.status(400).send({ message: 'Invalid pagination parameters' })
   }
 
   const priestsRepository = AppDataSource.getRepository(PriestsEntity);
@@ -46,8 +55,9 @@ export async function getAllPriests(req: Request, res: Response) {
   // }
 
   try {
-    const totalPriests = await queryBuilder.getMany()
-    return res.status(200).send({ message: "Priests retrieved successfully!", priests: totalPriests });
+    const [totalPriests, numberOfItems] = await queryBuilder.getManyAndCount()
+    const totalPages = Math.ceil(numberOfItems / pageSize)
+    return res.status(200).send({ message: "Priests retrieved successfully!", priests: totalPriests, totalPages });
   } catch (error: any) {
     logger.error("Getting priests failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

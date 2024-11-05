@@ -3,6 +3,7 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
+import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
@@ -42,8 +43,17 @@ import { RecentEventsEntity } from "../../entity/RecentEventsEntity";
 export async function getAllRecentEvents(req: Request, res: Response) {
   const portalUser = req.user;
   // const isActive = req.query.isActive
+
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
+  }
+
+  const pageSize = Number(readEnv('PAGINATION_LIMIT', 10, true))
+  const { page = 1 } = req.query
+  const skip = (Number(page) - 1) * Number(pageSize)
+
+  if (isNaN(skip) || isNaN(Number(pageSize)) || skip < 0 || Number(pageSize) < 1) {
+    return res.status(400).send({ message: 'Invalid pagination parameters' })
   }
 
   const recentEventsRepository = AppDataSource.getRepository(RecentEventsEntity);
@@ -55,8 +65,9 @@ export async function getAllRecentEvents(req: Request, res: Response) {
   // }
 
   try {
-    const [totalRecentEvents, numberOfAllRecentEvents] = await queryBuilder.getManyAndCount()
-    return res.status(200).send({ message: "Recent Events retrieved successfully!", recentEventsCount: numberOfAllRecentEvents, recentEvents: totalRecentEvents, numberOfPages: 2 });
+    const [totalRecentEvents, numberOfItems] = await queryBuilder.getManyAndCount()
+    const totalPages = Math.ceil(numberOfItems / pageSize)
+    return res.status(200).send({ message: "Recent Events retrieved successfully!", totalPages, recentEvents: totalRecentEvents });
   } catch (error: any) {
     logger.error("Getting recent events failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
