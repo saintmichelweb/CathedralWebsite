@@ -53,15 +53,15 @@ const MassTimesManagement = () => {
   const [selectedMassTimes, setSelectedMassTimes] =
     useState<MassTimesResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchMassTimes = async () => {
+  const fetchMassTimes = async (page = 1) => {
     setLoading(true);
-    await getAllMassTimes()
+    await getAllMassTimes({page})
       .then((data) => {
         console.log(data)
         setMassTimesData(data.massTimes);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -306,7 +306,7 @@ const MassTimesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
+              totalPages={numberOfPages}
               // onFetch={onPageChange}
               useCustomPagination
             />

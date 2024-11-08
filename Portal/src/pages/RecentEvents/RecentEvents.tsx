@@ -56,14 +56,14 @@ const RecentEventsManagement = () => {
   const [selectedRecentEvent, setSelectedRecentEvent] =
     useState<RecentEventResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchRecentEvents = async () => {
+  const fetchRecentEvents = async (page = 1) => {
     setLoading(true);
-    await getAllRecentEvents()
+    await getAllRecentEvents({page})
       .then((data) => {
         setRecentEventsData(data.recentEvents);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -342,7 +342,7 @@ const RecentEventsManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
+              totalPages={numberOfPages}
               // onFetch={onPageChange}
               useCustomPagination
             />

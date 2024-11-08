@@ -59,14 +59,14 @@ const ParishCommitteeCouncilManagement = () => {
   const [selectedparishCommitteeCouncil, setSelectedRecentEvent] =
     useState<parishCommitteeCouncilResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchparishCommitteeCouncil = async () => {
+  const fetchparishCommitteeCouncil = async (page = 1) => {
     setLoading(true);
-    await getAllparishCommitteeCouncils()
+    await getAllparishCommitteeCouncils({page})
       .then((data) => {
         setparishCommitteeCouncilData(data.parishCommitteeCouncils);
-        setNumberPages(1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -371,7 +371,7 @@ const ParishCommitteeCouncilManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
+              totalPages={numberOfPages}
               // onFetch={onPageChange}
               useCustomPagination
             />

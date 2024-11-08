@@ -53,15 +53,15 @@ const OfficeTimesManagement = () => {
   const [selectedOfficeHour, setSelectedMassTimes] =
     useState<OfficeHoursResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchOfficeHours = async () => {
+  const fetchOfficeHours = async (page = 1) => {
     setLoading(true);
-    await getAllOfficeHours()
+    await getAllOfficeHours({page})
       .then((data) => {
         console.log(data)
         setMassTimesData(data.officeHours);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -301,7 +301,7 @@ const OfficeTimesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
+              totalPages={numberOfPages}
               // onFetch={onPageChange}
               useCustomPagination
             />
