@@ -5,24 +5,18 @@ import {
 } from "@tanstack/react-table";
 import {
   Box,
-  Divider,
   Flex,
   Heading,
   Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Stack,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { MdAdd, MdMoreVert } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import {
   AlertDialog,
   CommonIcons,
   CustomButton,
-  CustomLink,
   DataTable,
   EmptyState,
   TableSkeleton,
@@ -45,14 +39,11 @@ const OfficeTimesManagement = () => {
   const toast = useToast();
   const [officeHoursData, setMassTimesData] = useState<OfficeHoursResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openMassTimesModel, setOpenMassTimesModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedOfficeHour, setSelectedMassTimes] =
     useState<OfficeHoursResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchOfficeHours = async (page = 1) => {
@@ -302,7 +293,7 @@ const OfficeTimesManagement = () => {
               alwaysVisibleColumns={[0]}
               hidePagination={false}
               totalPages={numberOfPages}
-              // onFetch={onPageChange}
+              onFetch={fetchOfficeHours}
               useCustomPagination
             />
           )}
@@ -327,7 +318,7 @@ const OfficeTimesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="22vw"
+        widthSize="45vw"
       />
       {/* <AlertDialog
         alertText={`Are you sure you want to delete this location?`}

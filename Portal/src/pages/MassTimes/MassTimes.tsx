@@ -5,24 +5,18 @@ import {
 } from "@tanstack/react-table";
 import {
   Box,
-  Divider,
   Flex,
   Heading,
   Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Stack,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { MdAdd, MdMoreVert } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import {
   AlertDialog,
   CommonIcons,
   CustomButton,
-  CustomLink,
   DataTable,
   EmptyState,
   TableSkeleton,
@@ -45,14 +39,11 @@ const MassTimesManagement = () => {
   const toast = useToast();
   const [massTimesData, setMassTimesData] = useState<MassTimesResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openMassTimesModel, setOpenMassTimesModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedMassTimes, setSelectedMassTimes] =
     useState<MassTimesResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchMassTimes = async (page = 1) => {
@@ -270,12 +261,6 @@ const MassTimesManagement = () => {
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Mass schedule Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Mass Time
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
@@ -296,7 +281,6 @@ const MassTimesManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -307,13 +291,13 @@ const MassTimesManagement = () => {
               alwaysVisibleColumns={[0]}
               hidePagination={false}
               totalPages={numberOfPages}
-              // onFetch={onPageChange}
+              onFetch={fetchMassTimes}
               useCustomPagination
             />
           )}
         </>
         {!loading && massTimesData.length === 0 && (
-          <EmptyState text="There are no locations to present yet." mt="10" />
+          <EmptyState text="There are no mass times to present yet." mt="10" />
         )}
       </Box>
       <CustomModal
@@ -332,7 +316,8 @@ const MassTimesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="22vw"
+        scrollInside={false}
+        widthSize="45vw"
       />
       {/* <AlertDialog
         alertText={`Are you sure you want to delete this location?`}

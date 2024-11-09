@@ -1,5 +1,5 @@
 export interface PaginationParams {
-  page: number
+  page: number | undefined
   // limit: number
 }
 

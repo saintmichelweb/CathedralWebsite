@@ -101,7 +101,6 @@ const Login = () => {
             display={{ base: "none", md: "flex" }}
             justify="space-between"
             bg='primary'
-            // bg="#F0F9FF"
           >
             <Image src={stMichelLogo} w="60" />
 

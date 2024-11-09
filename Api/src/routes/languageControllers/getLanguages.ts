@@ -63,11 +63,16 @@ export async function getLanguages(req: Request, res: Response) {
   }
 
   try {
-    const numberOfItems = await queryBuilder.getCount()
-    const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize)
-    const totalLanguages = await queryBuilder.getMany()
-    return res.status(200).send({ message: "Languages retrieved successfully!", totalPages, languages: totalLanguages });
+    if ( req.query.page ) {
+      const totalLanguages = await queryBuilder.getMany()
+      return res.status(200).send({ message: "Languages retrieved successfully!", totalPages: 1, languages: totalLanguages });
+    } else {
+      const numberOfItems = await queryBuilder.getCount()
+      const totalPages = Math.ceil(numberOfItems / pageSize)
+      queryBuilder.skip(skip).take(pageSize)
+      const totalLanguages = await queryBuilder.getMany()
+      return res.status(200).send({ message: "Languages retrieved successfully!", totalPages, languages: totalLanguages });
+    }
   } catch (error: any) {
     logger.error("Get language failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

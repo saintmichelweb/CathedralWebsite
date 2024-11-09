@@ -120,14 +120,12 @@ const AddLocationCard = (props: AddLocationProps) => {
         <Checkbox
           name="Does location host Masses"
           isChecked={isMassLocation}
-          // label="Is Mass location?"
           onChange={() => {
             setIsMassLocation(!isMassLocation)
             setValue('isMassLocation', !isMassLocation)
           }}
           aria-label='Select row'
           borderColor='blackAlpha.400'
-          bgColor={'white'}
           p={2}
         >Is Mass location</Checkbox>
         <Divider mt={2} color={"gray.400"} />

@@ -75,11 +75,16 @@ export async function getLocations(req: AuthRequest, res: Response) {
 
 
   try {
-    const numberOfItems = await queryBuilder.getCount()
-    const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize)
-    const totalLocations = await queryBuilder.getMany()  
-    return res.status(200).send({ message: "Locations retrieved successfully!", totalPages, locations: totalLocations });
+    if ( req.query.page ) {
+      const totalLocations = await queryBuilder.getMany()
+      return res.status(200).send({ message: "Locations retrieved successfully!", totalPages: 1, languages: totalLocations });
+    } else {
+      const numberOfItems = await queryBuilder.getCount()
+      const totalPages = Math.ceil(numberOfItems / pageSize)
+      queryBuilder.skip(skip).take(pageSize)
+      const totalLocations = await queryBuilder.getMany()  
+      return res.status(200).send({ message: "Locations retrieved successfully!", totalPages, locations: totalLocations });
+    }
   } catch (error: any) {
     logger.error("Getting location failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
