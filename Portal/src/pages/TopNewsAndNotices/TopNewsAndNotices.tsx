@@ -62,14 +62,14 @@ const TopNewsAndNoticesManagement = () => {
   const [selectedTopNewsAndNotice, setSelectedTopNewsAndNotice] =
     useState<TopNewsAndNoticesResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchTopNewsAndNotices = async () => {
+  const fetchTopNewsAndNotices = async (page = 1) => {
     setLoading(true);
-    await getAllTopNewsAndNotices()
+    await getAllTopNewsAndNotices({page})
       .then((data) => {
         setTopNewsAndNoticesData(data.topParishNewsAndNotices);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -325,7 +325,7 @@ const TopNewsAndNoticesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
+              totalPages={numberOfPages}
               // onFetch={onPageChange}
               useCustomPagination
             />

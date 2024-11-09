@@ -2,9 +2,8 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
-import { LocationEntity } from "../../entity/LocationEntity";
-import { LanguageEntity } from "../../entity/languageEntity";
 import { ImageEntity } from "../../entity/ImagesEntity";
+import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
@@ -49,15 +48,27 @@ export async function getBannerImages(req: Request, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
+  const pageSize = Number(readEnv('PAGINATION_LIMIT', 10, true))
+  const {  page = 1 } = req.query
+  const skip = (Number(page) - 1) * Number(pageSize)
+
+  if (isNaN(skip) || isNaN(Number(pageSize)) || skip < 0 || Number(pageSize) < 1) {
+    return res.status(400).send({ message: 'Invalid pagination parameters' })
+  }
+
   const ImageRepostory = AppDataSource.getRepository(ImageEntity);
   const queryBuilder = ImageRepostory.createQueryBuilder('images')
+
   if (isBannerImage !== null && isBannerImage !== undefined) {
     queryBuilder.where('images.isBannerImage = :isBannerImage', { isBannerImage: isBannerImage === 'true' ? 1 : 0 })
   }
 
   try {
-    const [totalBannerImages, numberOfAllBannerImages] = await queryBuilder.getManyAndCount()
-    return res.status(200).send({ message: "Banner Images retrieved successfully!", bannerImagesCount: numberOfAllBannerImages, bannerImages: totalBannerImages });
+    const numberOfItems = await queryBuilder.getCount()
+    const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalBannerImages = await queryBuilder.getMany()  
+    return res.status(200).send({ message: "Banner Images retrieved successfully!", totalPages, bannerImages: totalBannerImages });
   } catch (error: any) {
     logger.error("Get Banner Images failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

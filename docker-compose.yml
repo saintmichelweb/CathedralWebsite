@@ -7,7 +7,6 @@ services:
   portal:
     build: 
       context: .
-      # dockerfile: ./Portal/DockerFile
       dockerfile: ./DockerFile-Portal
     restart: unless-stopped
     ports:
@@ -21,15 +20,14 @@ services:
       context: .
       dockerfile: ./DockerFile-Api
     restart: unless-stopped
-    # command: ["npm", "run", "start"]
     ports:
       - "3551:3551"
     networks:
       - stmp-net
-
+    # volumes:
+    #   - ./Api/src:/app/Api/src
     depends_on:
       - stmp-db
-      # - minio
     environment:
       - NODE_ENV=development
       - APP_URL=http://localhost:3551 # for email verification
@@ -38,18 +36,12 @@ services:
       - JWT_SECRET=api-stmp-jwt_secret # TODO: change this in production
       - JWT_EXPIRES_IN=1d
       - INACTIVITY_LIMIT=15m
+      - PAGINATION_LIMIT=10
       - DB_HOST=stmp-db
       - DB_PORT=3306
       - DB_USERNAME=root
       - DB_PASSWORD=password
       - DB_DATABASE=stmp_db
-      - S3_ENDPOINT=localhost
-      - S3_PORT=9000 # 443 for https AWS S3
-      - S3_ACCESS_KEY=minioadmin
-      - S3_SECRET_KEY=minioadmin
-      - S3_REGION=us-east-1 # Not required for Minio.. Minio will ignore it.
-      - S3_USE_SSL=false # set to true if using https AWS S3
-      - S3_DFSP_LOGO_BUCKET_NAME=dfsp-logos
       - MAIL_HOST=St Michel Portal
       - MAIL_PORT=465
       - MAIL_USERNAME=ugashudav@gmail.com
@@ -79,6 +71,5 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ./mysql-init-scripts:/docker-entrypoint-initdb.d
-      # - data:/data/db
     networks:
       - stmp-net

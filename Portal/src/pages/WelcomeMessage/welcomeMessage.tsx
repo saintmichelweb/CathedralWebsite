@@ -41,16 +41,15 @@ const WelcomeMessageManagement = () => {
   const [selectedWelcomeMessage, setSelectedWelcomeMessage] =
     useState<WelcomeMessageResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchWelcomeMessage = async () => {
     setLoading(true);
     await getWelcomeMessage()
       .then((data) => {
-        console.log(data.welcomeMessage)
         setWelcomeMessageData(data.welcomeMessage);
         if (data.welcomeMessage.length) setSelectedWelcomeMessage(data.welcomeMessage[0])
-        setNumberPages(1);
+        setnumberOfPages(1);
         setLoading(false);
       })
       .catch((error) => {
@@ -174,7 +173,7 @@ const WelcomeMessageManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
+              totalPages={numberOfPages}
               // onFetch={onPageChange}
               useCustomPagination
             />

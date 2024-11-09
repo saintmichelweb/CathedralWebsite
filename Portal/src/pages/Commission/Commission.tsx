@@ -53,14 +53,14 @@ const CommissionManagement = () => {
   const [selectedCommission, setSelectedRecentEvent] =
     useState<commissionResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchCommission = async () => {
+  const fetchCommission = async (page = 1) => {
     setLoading(true);
-    await getAllCommissions()
+    await getAllCommissions({page})
       .then((data) => {
         setCommissionData(data.commissions);
-        setNumberPages(1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -367,8 +367,8 @@ const CommissionManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchCommission}
               useCustomPagination
             />
           )}

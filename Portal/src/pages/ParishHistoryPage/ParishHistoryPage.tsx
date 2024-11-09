@@ -4,8 +4,6 @@ import {
   Heading,
   Card,
   useToast,
-  Text,
-  // Box,
 } from "@chakra-ui/react";
 import { FormTextarea } from "../../components/form";
 import {
@@ -218,6 +216,7 @@ const ParishHistoryManagement = () => {
                   minW={"20rem"}
                   maxW={"20rem"}
                   alignSelf={"center"}
+                  mb={'3'}
                 >
                   Submit
                 </CustomButton>

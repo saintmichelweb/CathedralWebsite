@@ -3,9 +3,10 @@ import instance from '../lib/axiosInstance'
 import { EditUserForm, type AddNewUserForm } from '../lib/validations/addNewUser'
 import { ForgotPasswordForm } from '../lib/validations/forgotPassword'
 import { UsersResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
-export async function getUsers() {
-  const response = await instance.get<{ users: UsersResponse[], message: string }>('/users')
+export async function getUsers(params: PaginationParams) {
+  const response = await instance.get<{ users: UsersResponse[], message: string, totalPages: number }>('/users', {params})
   return response.data
 }
 

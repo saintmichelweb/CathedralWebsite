@@ -43,14 +43,14 @@ const PriestsManagement = () => {
   const [selectedPriest, setSelectedPriest] =
     useState<PriestsResponse | null>(null);
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchPriests = async () => {
+  const fetchPriests = async (page = 1) => {
     setLoading(true);
-    await getAllPriests()
+    await getAllPriests({page})
       .then((data) => {
         setPriestsData(data.priests);
-        setNumberPages(1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -209,7 +209,7 @@ const PriestsManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
+              totalPages={numberOfPages}
               // onFetch={onPageChange}
               useCustomPagination
             />

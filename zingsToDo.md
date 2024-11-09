@@ -60,3 +60,5 @@ Not decided Yet
 _ labeling and naming of things
 _ time selects with two selects for start day and end day
 _ time selects with two selects for start time and end time
+_ paginations (remains testing and frontend updates)
+_ search and filters

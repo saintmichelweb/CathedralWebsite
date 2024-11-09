@@ -3,12 +3,10 @@ FROM node:20.15.0-alpine AS builder
 WORKDIR /app
 COPY ./shared-lib /app/shared-lib
 COPY ./Api /app/Api
+COPY ./Api/.env.docker /app/Api/.env
 
 WORKDIR /app/Api
 RUN npm i --save
-# RUN npm i ts-node --save-dev
-# RUN npm i @types/bcrypt --save-dev
-# RUN npm i --save bcrypt 
 
 EXPOSE 3551
 CMD [ "npm", "run", "start" ]
