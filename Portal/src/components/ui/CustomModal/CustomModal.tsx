@@ -57,8 +57,6 @@ const CustomModal = ({
       <ModalContent
         w={{ base: '90vw', lg: widthSize }}
         maxW='1000px'
-        mt='14'
-        mb={{ base: '14', lg: '0' }}
       >
         <ModalHeader py='5' borderBottom='1px' borderColor='gray.100' bg={'primary'} >
           <Heading as='h3' size='md' color={'white'}>

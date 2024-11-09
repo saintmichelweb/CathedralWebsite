@@ -245,8 +245,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
             selectValue={massDay_en}
             isError={errors.day_en ? true : false}
             errorMsg={errors.day_en ? errors.day_en.message : undefined}
-            label="Day"
-            placeholder="Choose day"
+            label="Day (EN)"
+            placeholder="Choose day (EN)"
             options={massDaysOptions_en}
             onChangeFn={(selectedVal) => {
               setMassDay_en(selectedVal);
@@ -260,8 +260,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
             selectValue={massDay_fr}
             isError={errors.day_fr ? true : false}
             errorMsg={errors.day_fr ? errors.day_fr.message : undefined}
-            label="Jour"
-            placeholder="Choisissez le jour"
+            label="Day (FR)"
+            placeholder="Choose day (FR)"
             options={massDaysOptions_fr}
             onChangeFn={(selectedVal) => {
               setMassDay_fr(selectedVal);
@@ -275,8 +275,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
             selectValue={massDay_rw}
             isError={errors.day_rw ? true : false}
             errorMsg={errors.day_rw ? errors.day_rw.message : undefined}
-            label="Umunsi"
-            placeholder="Hitamo umunsi"
+            label="Day (RW)"
+            placeholder="Choose day (RW)"
             options={massDaysOptions_rw}
             onChangeFn={(selectedVal) => {
               setMassDay_rw(selectedVal);

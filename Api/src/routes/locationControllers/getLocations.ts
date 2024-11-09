@@ -75,13 +75,13 @@ export async function getLocations(req: AuthRequest, res: Response) {
 
 
   try {
-    if ( req.query.page ) {
+    if ( !req.query.page ) {
       const totalLocations = await queryBuilder.getMany()
       return res.status(200).send({ message: "Locations retrieved successfully!", totalPages: 1, languages: totalLocations });
     } else {
       const numberOfItems = await queryBuilder.getCount()
       const totalPages = Math.ceil(numberOfItems / pageSize)
-      queryBuilder.skip(skip).take(pageSize)
+      queryBuilder.skip(skip).take(pageSize).orderBy('locations.created_at', 'DESC')
       const totalLocations = await queryBuilder.getMany()  
       return res.status(200).send({ message: "Locations retrieved successfully!", totalPages, locations: totalLocations });
     }

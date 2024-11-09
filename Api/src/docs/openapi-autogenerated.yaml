@@ -126,6 +126,24 @@ paths:
       tags:
         - Choir
       summary: get all Choir
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The page number
+          minimum: 1
+          example: 1
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: The search text
+        - in: isActive
+          name: is active
+          schema:
+            type: boolean
+          description: if choir is active.
       responses:
         '200':
           description: Get Choir

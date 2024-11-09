@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import { Box, Divider, HStack, SimpleGrid, Stack, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AlertDialog, CustomButton } from "../../../components/ui";
@@ -134,13 +134,23 @@ const AddChoirCard = (props: AddChoirProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
+      <SimpleGrid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+          }}
+          columnGap={"2rem"}
+          rowGap={{ base: "4" }}
+          justifyItems={"start"}
+        >
         <FormInput
           name="name"
           register={register}
           errors={errors}
-          label="Choir name"
+          label="Name"
+          placeholder="Enter name"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -148,7 +158,8 @@ const AddChoirCard = (props: AddChoirProps) => {
           name="leader"
           register={register}
           errors={errors}
-          label="Choir Leader"
+          label="Leader"
+          placeholder="Enter leader"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -156,7 +167,8 @@ const AddChoirCard = (props: AddChoirProps) => {
           name="telephone"
           register={register}
           errors={errors}
-          label="Choir Contact Telephone"
+          label="Contact Telephone"
+          placeholder="Enter contact telephone"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -164,8 +176,8 @@ const AddChoirCard = (props: AddChoirProps) => {
           name="description_en"
           register={register}
           errors={errors}
-          label="description (EN)"
-          placeholder="enter event description"
+          label="Description (EN)"
+          placeholder="Enter description (EN)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -173,8 +185,8 @@ const AddChoirCard = (props: AddChoirProps) => {
           name="description_fr"
           register={register}
           errors={errors}
-          label="description (FR)"
-          placeholder="enter event description"
+          label="Description (FR)"
+          placeholder="Enter description (FR)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -182,11 +194,12 @@ const AddChoirCard = (props: AddChoirProps) => {
           name="description_rw"
           register={register}
           errors={errors}
-          label="description (RW)"
-          placeholder="enter event description"
+          label="Description (RW)"
+          placeholder="Enter description (RW)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
+        </SimpleGrid>
         {!choirToEdit && (
           <ImageUploader
             parentSetSelectedImage={(file: File) => setSelectedImage(file)}

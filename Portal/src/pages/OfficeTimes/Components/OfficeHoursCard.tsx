@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  // Card,
-  // Checkbox,
   Divider,
-  // Heading,
   HStack,
   SimpleGrid,
   Stack,
@@ -113,7 +110,6 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
     }
   }, [OfficeHourToEdit]);
 
-  // useEffect(() => {
   const getAllLocations = async () => {
     await getLocations({ page: undefined }, false, true).then((data) => {
       data.locations.map((dataLocation: LocationResponse) => {
@@ -124,6 +120,7 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
       });
     });
   };
+
   if (locationSelectOptions.length == 0) {
     getAllLocations();
   }
@@ -199,7 +196,7 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
             md: "repeat(2, 1fr)",
           }}
           columnGap={"2rem"}
-          rowGap={{ base: "4", sm: "6" }}
+          rowGap={{ base: "4" }}
           justifyItems={"start"}
         >
           <CustomFormSelect
@@ -223,8 +220,8 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
             selectValue={officeHourDay_en}
             isError={errors.day_en ? true : false}
             errorMsg={errors.day_en ? errors.day_en.message : undefined}
-            label="Day"
-            placeholder="Choose the day"
+            label="Day (EN)"
+            placeholder="Choose day (EN)"
             options={officeHourDaysOptions_en}
             onChangeFn={(selectedVal) => {
               setOfficeHourDay_en(selectedVal);
@@ -238,8 +235,8 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
             selectValue={officeHourDay_fr}
             isError={errors.day_fr ? true : false}
             errorMsg={errors.day_fr ? errors.day_fr.message : undefined}
-            label="Jour"
-            placeholder="Choisissez le jour"
+            label="Day (FR)"
+            placeholder="Choose day (FR)"
             options={officeHourDaysOptions_fr}
             onChangeFn={(selectedVal) => {
               setOfficeHourDay_fr(selectedVal);
@@ -253,8 +250,8 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
             selectValue={officeHourDay_rw}
             isError={errors.day_rw ? true : false}
             errorMsg={errors.day_rw ? errors.day_rw.message : undefined}
-            label="Umunsi"
-            placeholder="Hitamo umunsi"
+            label="Day (RW)"
+            placeholder="Choose day (RW)"
             options={officeHourDaysOptions_rw}
             onChangeFn={(selectedVal) => {
               setOfficeHourDay_rw(selectedVal);

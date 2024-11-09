@@ -70,7 +70,7 @@ export async function getUsers(req: AuthRequest, res: Response) {
     const totalPages = Math.ceil(totalCount / limit)
 
     if (all !== 'true') {
-      queryBuilder.skip((Number(page) - 1) * limit).take(limit)
+      queryBuilder.skip((Number(page) - 1) * limit).take(limit).orderBy('user.created_at', 'DESC')
     }
 
     const users = await queryBuilder

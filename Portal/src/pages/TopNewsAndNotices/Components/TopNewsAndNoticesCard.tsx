@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  HStack,
+  SimpleGrid,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AlertDialog, CustomButton } from "../../../components/ui";
@@ -118,59 +125,82 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="title_en"
-          register={register}
-          errors={errors}
-          label="Event title (EN)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="title_fr"
-          register={register}
-          errors={errors}
-          label="Event title (FR)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="title_rw"
-          register={register}
-          errors={errors}
-          label="Event title (RW)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="Event description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="Event description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="Event description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
+        <SimpleGrid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+          }}
+          columnGap={"2rem"}
+          rowGap={{ base: "4" }}
+          justifyItems={"start"}
+        >
+          <Box w={'full'}>
+            <FormTextarea
+              name="description_en"
+              register={register}
+              errors={errors}
+              mb={'1'}
+              label="Description (EN)"
+              placeholder="Enter description (EN)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_fr"
+              register={register}
+              errors={errors}
+              mb={'1'}
+              label="Description (FR)"
+              placeholder="Enter description (FR)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_rw"
+              register={register}
+              errors={errors}
+              mb={'1'}
+              label="Description (RW)"
+              placeholder="Enter description (RW)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Box>
+          <Box w={'full'} >
+            <FormInput
+              name="title_en"
+              register={register}
+              errors={errors}
+              mb={'4'}
+              label="Title (EN)"
+              placeholder="Enter title"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="title_fr"
+              register={register}
+              errors={errors}
+              mb={'4'}
+              label="Title (FR)"
+              placeholder="Enter title"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="title_rw"
+              register={register}
+              errors={errors}
+              mb={'4'}
+              label="Title (RW)"
+              placeholder="Enter title"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Box>
+        </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>

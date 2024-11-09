@@ -20,7 +20,6 @@ import {
   setPasswordSchema,
   type SetPasswordForm,
 } from "../../lib/validations/setPassword";
-// import { useSetPassword } from '../../api/hooks/auth'
 import { CustomButton } from "../../components/ui";
 import { FormInput } from "../../components/form";
 import { ChangePassword } from "../../types/users";
@@ -102,7 +101,6 @@ const SetPassword = () => {
             display={{ base: "none", md: "flex" }}
             justify="space-between"
             bg="primary"
-            // bg="#F0F9FF"
           >
             <Image src={stMichelLogo} w="60" />
 

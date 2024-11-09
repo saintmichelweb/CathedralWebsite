@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  HStack,
+  SimpleGrid,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -119,8 +126,7 @@ const AddServicesCard = (props: AddServiceProps) => {
           work_hours: payload.work_hours,
           work_days: payload.work_days,
           contact_person_name: payload.contact_person_name,
-          contact_person_phone_number:
-            payload.contact_person_phone_number,
+          contact_person_phone_number: payload.contact_person_phone_number,
           backgroundImageId: serviceToEdit.backgroundImage?.id || null,
           servicesId: serviceToEdit?.id || null,
         };
@@ -148,91 +154,108 @@ const AddServicesCard = (props: AddServiceProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="name_en"
-          register={register}
-          errors={errors}
-          label="Event name (EN)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="name_fr"
-          register={register}
-          errors={errors}
-          label="Event name (FR)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="name_rw"
-          register={register}
-          errors={errors}
-          label="Event name (RW)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="Event description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="Event description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="Event description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="work_days"
-          register={register}
-          errors={errors}
-          label="Work Days"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="work_hours"
-          register={register}
-          errors={errors}
-          label="Work Hours"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_name"
-          register={register}
-          errors={errors}
-          label="Contact Person's Name"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_phone_number"
-          register={register}
-          errors={errors}
-          label="Contact Person's Phone Number"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
+        <SimpleGrid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+          }}
+          columnGap={"2rem"}
+          rowGap={{ base: "4" }}
+          justifyItems={"start"}
+        >
+          <FormInput
+            name="name_en"
+            register={register}
+            errors={errors}
+            label="Name (EN)"
+            placeholder="Enter Name (EN)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="name_fr"
+            register={register}
+            errors={errors}
+            label="Name (FR)"
+            placeholder="Enter Name (FR)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="name_rw"
+            register={register}
+            errors={errors}
+            label="Name (RW)"
+            placeholder="Enter Name (RW)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="work_days"
+            register={register}
+            errors={errors}
+            label="Work Days"
+            placeholder="Enter work days"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="work_hours"
+            register={register}
+            errors={errors}
+            label="Work Hours"
+            placeholder="Enter work hours"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="contact_person_name"
+            register={register}
+            errors={errors}
+            label="Contact Person's Name"
+            placeholder="Enter contact person's name"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="contact_person_phone_number"
+            register={register}
+            errors={errors}
+            label="Contact Person's Phone Number"
+            placeholder="Enter contact person's phone number"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_en"
+            register={register}
+            errors={errors}
+            label="Description (EN)"
+            placeholder="Enter description (EN)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_fr"
+            register={register}
+            errors={errors}
+            label="Description (FR)"
+            placeholder="Enter description (FR)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_rw"
+            register={register}
+            errors={errors}
+            label="Description (RW)"
+            placeholder="Enter description (RW)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+        </SimpleGrid>
         {!serviceToEdit && (
           <ImageUploader
             parentSetSelectedImage={(file: File) => setSelectedImage(file)}

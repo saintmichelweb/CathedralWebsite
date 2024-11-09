@@ -63,7 +63,7 @@ export async function getOfficeHours(req: AuthRequest, res: Response) {
   try {
     const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize)
+    queryBuilder.skip(skip).take(pageSize).orderBy('office_hours.created_at', 'DESC')
     const totalOfficeHours = await queryBuilder.getMany() 
     return res.status(200).send({ message: "OfficeHours retrieved successfully!", totalPages, officeHours: totalOfficeHours });
   } catch (error: any) {

@@ -45,7 +45,6 @@ const ChoirsManagement = () => {
   const toast = useToast();
   const [choirsData, setChoirsData] = useState<ChoirsResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewChoirModel, setOpenNewChoirModel] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
@@ -53,7 +52,6 @@ const ChoirsManagement = () => {
   const [selectedChoir, setSelectedChoir] = useState<ChoirsResponse | null>(
     null
   );
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchChoirs = async (page = 1) => {
@@ -217,26 +215,6 @@ const ChoirsManagement = () => {
         },
         header: "Status",
       }),
-      // columnHelper.accessor("id", {
-      //   cell: (info) => {
-      //     const handleEdit = () => {
-      //       setSelectedChoir(info.row.original);
-      //       setOpenNewChoirModel(true);
-      //     };
-
-      //     const handledelete = () => {
-      //       setSelectedChoir(info.row.original);
-      //       setIsOpenDeleteModal(true);
-      //     };
-      //     return (
-      //       <Box>
-      //         {ActionButton("edit", handleEdit)}
-      //         {ActionButton("delete" ,handledelete)}
-      //       </Box>
-      //     );
-      //   },
-      //   header: "Action",
-      // }),
       columnHelper.accessor("id", {
         cell: (info) => {
           const status = info.row.original.isActive;
@@ -256,13 +234,6 @@ const ChoirsManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton(
-            //     status ? "deactivate" : "activate",
-            //     handleActivateOrDeactivate
-            //   )}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
@@ -271,7 +242,6 @@ const ChoirsManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -279,7 +249,6 @@ const ChoirsManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleActivateOrDeactivate}
                 >
                   {ActionButton(
                     status ? "deactivate" : "activate",
@@ -290,7 +259,6 @@ const ChoirsManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
@@ -336,7 +304,6 @@ const ChoirsManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -372,7 +339,7 @@ const ChoirsManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="45vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this choir?`}

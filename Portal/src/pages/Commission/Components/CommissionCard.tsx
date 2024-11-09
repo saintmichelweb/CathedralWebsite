@@ -1,15 +1,29 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  HStack,
+  SimpleGrid,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
-import { commissionResponse, MessageResponse } from "../../../types/apiResponses";
+import {
+  commissionResponse,
+  MessageResponse,
+} from "../../../types/apiResponses";
 import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
 import { addNewImage } from "../../../api/images";
 import { addNewCommission, updateCommission } from "../../../api/commission";
-import { AddCommissionForm, commissionSchema, UpdateCommissionForm } from "../../../lib/validations/commission";
+import {
+  AddCommissionForm,
+  commissionSchema,
+  UpdateCommissionForm,
+} from "../../../lib/validations/commission";
 
 interface AddCommissionProps {
   onClose: () => void;
@@ -48,13 +62,19 @@ const AddCommissionCard = (props: AddCommissionProps) => {
       setValue("name_rw", CommissionToEdit.name_rw);
       setValue("contact_person_name", CommissionToEdit.contact_person_name);
       setValue("contact_person_role", CommissionToEdit.contact_person_role);
-      setValue("contact_person_phone_number", CommissionToEdit.contact_person_phone_number);
+      setValue(
+        "contact_person_phone_number",
+        CommissionToEdit.contact_person_phone_number
+      );
       setValue("contact_person_email", CommissionToEdit.contact_person_email);
       setValue("description_en", CommissionToEdit.description_en);
       setValue("description_fr", CommissionToEdit.description_fr);
       setValue("description_rw", CommissionToEdit.description_rw);
     }
-    setValue("backgroundImageId", CommissionToEdit?.backgroundImage?.id || null);
+    setValue(
+      "backgroundImageId",
+      CommissionToEdit?.backgroundImage?.id || null
+    );
   }, [CommissionToEdit]);
 
   const onConfirm = async (payload: AddCommissionForm | undefined) => {
@@ -140,91 +160,108 @@ const AddCommissionCard = (props: AddCommissionProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="name_en"
-          register={register}
-          errors={errors}
-          label="Commission Name (EN)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="name_fr"
-          register={register}
-          errors={errors}
-          label="Commission Name (FR)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="name_rw"
-          register={register}
-          errors={errors}
-          label="Commission Name (RW)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_name"
-          register={register}
-          errors={errors}
-          label="Commission Contact Person Name"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_role"
-          register={register}
-          errors={errors}
-          label="Commission Contact Person Role"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_phone_number"
-          register={register}
-          errors={errors}
-          label="Commission Contact Person Telephone"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_email"
-          register={register}
-          errors={errors}
-          label="Commission Contact Person Email"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="Event description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="Event description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="Event description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
+        <SimpleGrid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+          }}
+          columnGap={"2rem"}
+          rowGap={{ base: "4" }}
+          justifyItems={"start"}
+        >
+          <FormInput
+            name="name_en"
+            register={register}
+            errors={errors}
+            label="Name (EN)"
+            placeholder="Enter name (EN)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="name_fr"
+            register={register}
+            errors={errors}
+            label="Name (FR)"
+            placeholder="Enter name (FR)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="name_rw"
+            register={register}
+            errors={errors}
+            label="Name (RW)"
+            placeholder="Enter name (RW)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="contact_person_name"
+            register={register}
+            errors={errors}
+            label="Contact Person Name"
+            placeholder="Enter contact person name"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="contact_person_role"
+            register={register}
+            errors={errors}
+            label="Contact Person's Role"
+            placeholder="Enter contact person role"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="contact_person_phone_number"
+            register={register}
+            errors={errors}
+            label="Contact Person Phone Number"
+            placeholder="Enter contact person phone number"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="contact_person_email"
+            register={register}
+            errors={errors}
+            label="Contact Person Email"
+            placeholder="Enter contact person email"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_en"
+            register={register}
+            errors={errors}
+            label="Description (EN)"
+            placeholder="Enter description (EN)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_fr"
+            register={register}
+            errors={errors}
+            label="Description (FR)"
+            placeholder="Enter description (FR)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_rw"
+            register={register}
+            errors={errors}
+            label="Description (RW)"
+            placeholder="Enter description (RW)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+        </SimpleGrid>
         {!CommissionToEdit && (
           <ImageUploader
             parentSetSelectedImage={(file: File) => setSelectedImage(file)}

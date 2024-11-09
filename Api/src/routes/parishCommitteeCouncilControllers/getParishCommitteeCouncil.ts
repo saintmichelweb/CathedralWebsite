@@ -64,7 +64,7 @@ export async function getparishCommitteeCouncil(req: AuthRequest, res: Response)
   try {
     const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize)
+    queryBuilder.skip(skip).take(pageSize).orderBy('parishCommitteeCouncils.created_at', 'DESC')
     const totalparishCommitteeCouncil = await queryBuilder.getMany() 
     return res.status(200).send({ message: "parishCommitteeCouncil retrieved successfully!", totalPages, parishCommitteeCouncils: totalparishCommitteeCouncil });
   } catch (error: any) {

@@ -66,7 +66,7 @@ export async function getBannerImages(req: Request, res: Response) {
   try {
     const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize)
+    queryBuilder.skip(skip).take(pageSize).orderBy('images.created_at', 'DESC')
     const totalBannerImages = await queryBuilder.getMany()  
     return res.status(200).send({ message: "Banner Images retrieved successfully!", totalPages, bannerImages: totalBannerImages });
   } catch (error: any) {

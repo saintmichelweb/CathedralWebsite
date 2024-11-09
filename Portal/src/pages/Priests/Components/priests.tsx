@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  HStack,
+  SimpleGrid,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
-import {
-  MessageResponse,
-  PriestsResponse,
-} from "../../../types/apiResponses";
+import { MessageResponse, PriestsResponse } from "../../../types/apiResponses";
 import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
 import { addNewImage } from "../../../api/images";
-import { AddPriestsForm, priestsSchema, UpdatePriestsForm } from "../../../lib/validations/priests";
+import {
+  AddPriestsForm,
+  priestsSchema,
+  UpdatePriestsForm,
+} from "../../../lib/validations/priests";
 import { addNewPriest, updatePriest } from "../../../api/priests";
 
 interface AddPriestProps {
@@ -33,8 +41,7 @@ const AddPriestCard = (props: AddPriestProps) => {
   const toast = useToast();
   const priestToEdit = props.priest;
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [newPriestPayload, setNewPriestPayload] =
-    useState<AddPriestsForm>();
+  const [newPriestPayload, setNewPriestPayload] = useState<AddPriestsForm>();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const onSubmit = async (values: AddPriestsForm) => {
@@ -49,10 +56,7 @@ const AddPriestCard = (props: AddPriestProps) => {
       setValue("description_en", priestToEdit.description_en);
       setValue("description_fr", priestToEdit.description_fr);
       setValue("description_rw", priestToEdit.description_rw);
-      setValue(
-        "backgroundImageId",
-        priestToEdit?.backgroundImage?.id || null
-      );
+      setValue("backgroundImageId", priestToEdit?.backgroundImage?.id || null);
     }
   }, [priestToEdit]);
 
@@ -134,51 +138,63 @@ const AddPriestCard = (props: AddPriestProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="name"
-          register={register}
-          errors={errors}
-          label="Priest name"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="title"
-          register={register}
-          errors={errors}
-          label="Priest title"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
+        <SimpleGrid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+          }}
+          columnGap={"2rem"}
+          rowGap={{ base: "4" }}
+          justifyItems={"start"}
+        >
+          <FormInput
+            name="name"
+            register={register}
+            errors={errors}
+            label="Name"
+            placeholder="Enter Name"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="title"
+            register={register}
+            errors={errors}
+            label="Title"
+            placeholder="Enter Title"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_en"
+            register={register}
+            errors={errors}
+            label="description (EN)"
+            placeholder="Enter description (EN)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_fr"
+            register={register}
+            errors={errors}
+            label="description (FR)"
+            placeholder="Enter description (FR)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_rw"
+            register={register}
+            errors={errors}
+            label="description (RW)"
+            placeholder="Enter description (RW)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+        </SimpleGrid>
         {!priestToEdit && (
           <ImageUploader
             parentSetSelectedImage={(file: File) => setSelectedImage(file)}

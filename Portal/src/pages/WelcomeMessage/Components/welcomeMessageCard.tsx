@@ -127,14 +127,14 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
       <FormTextarea
           name="welcomeMessage_en"
           register={register}
           errors={errors}
           label="Welcome Message (EN)"
-          placeholder="enter welcome message english"
+          placeholder="enter welcome message (EN)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -143,7 +143,7 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
           register={register}
           errors={errors}
           label="Welcome Message (FR)"
-          placeholder="enter welcome message in french"
+          placeholder="enter welcome message (FR)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -152,7 +152,7 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
           register={register}
           errors={errors}
           label="Welcome Message (RW)"
-          placeholder="enter welcome message in Kinyarwanda"
+          placeholder="enter welcome message (RW)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />

@@ -4,6 +4,7 @@ import logger from "../../services/logger";
 import { ChoirEntity } from "../../entity/ChoirEntity";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { readEnv } from "../../setup/readEnv";
+import { Brackets } from "typeorm";
 
 /**
  * @openapi
@@ -12,6 +13,24 @@ import { readEnv } from "../../setup/readEnv";
  *     tags:
  *       - Choir
  *     summary: get all Choir
+  *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *         description: The page number
+ *         minimum: 1
+ *         example: 1
+ *       - in: query
+ *         name: search
+ *         schema:
+ *           type: string
+ *         description: The search text
+ *       - in: isActive
+ *         name: is active
+ *         schema:
+ *           type: boolean
+ *         description: if choir is active.
  *     responses:
  *       200:
  *         description: Get Choir
@@ -33,34 +52,50 @@ import { readEnv } from "../../setup/readEnv";
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getAllChoir(req: Request, res: Response) {
   const portalUser = req.user;
-  
+  const isActive = req.query.isActive
+  const pageSize = Number(readEnv('PAGINATION_LIMIT', 10, true))
+  const { page = 1 } = req.query
+  const skip = (Number(page) - 1) * Number(pageSize)
+
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
-  
-  // const isActive = req.query.isActive
-  const pageSize = Number(readEnv('PAGINATION_LIMIT', 10, true))
-  const {  page = 1 } = req.query
-  const skip = (Number(page) - 1) * Number(pageSize)
 
   if (isNaN(skip) || isNaN(Number(pageSize)) || skip < 0 || Number(pageSize) < 1) {
     return res.status(400).send({ message: 'Invalid pagination parameters' })
   }
 
   const ChoirRepository = AppDataSource.getRepository(ChoirEntity);
-  const queryBuilder = ChoirRepository.createQueryBuilder('Choir')
-    .leftJoinAndSelect('Choir.backgroundImage', 'backgoundImage')
+  const queryBuilder = ChoirRepository.createQueryBuilder('choir')
+    .leftJoinAndSelect('choir.backgroundImage', 'backgoundImage')
 
-  // if (isActive !==null && isActive !== undefined) {
-  //   queryBuilder.where('recent_events.isActive = :isActive', {isActive: isActive? 1: 0})
+  if (typeof isActive === 'string' && isActive.trim() !== '') {
+    queryBuilder.where('choir.isActive = :isActive', { isActive: isActive == 'true' ? 1 : 0 })
+  }
+
+  // if (typeof search === 'string' && search.trim() !== '') {
+  //   // const encryptedSearch = encryptData(Buffer.from(search.trim()), EncryptionTransformerObject).toString('base64')
+  //   queryBuilder
+  //     .andWhere(new Brackets(qb => {
+  //       qb.where('Choir.name LIKE :search', { search: `%${search}%` })
+  //       .orWhere('Choir.leader LIKE :search', { search: `%${search}%` })
+  //       .orWhere('Choir.telephone LIKE :search', { search: `%${search}%` })
+  //       .orWhere('Choir.isActive LIKE :search', { search: `%${search}%` })
+  //         // .orWhere('portal_user.phone_number LIKE :encryptedSearch', { encryptedSearch: `%${encryptedSearch}%` })
+  //     }))
   // }
 
   try {
-    const numberOfItems = await queryBuilder.getCount()
-    const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize)
+    const totalCount = await queryBuilder.getCount()
+    const totalPages = Math.ceil(totalCount / Number(pageSize))
+
+    queryBuilder
+      .orderBy('choir.created_at', 'DESC')
+      .skip(skip)
+      .take(Number(pageSize))
+
     const totalChoir = await queryBuilder.getMany()
-    return res.status(200).send({ message: "Choirs retrieved successfully!", choirs: totalChoir, totalPages });
+    return res.status(200).send({ message: "Choir retrieved successfully!", choirs: totalChoir, totalPages: totalPages });
   } catch (error: any) {
     logger.error("Getting Choir failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

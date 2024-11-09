@@ -123,7 +123,7 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         {!bannerImageToEdit ? (
           <ImageUploader
@@ -139,8 +139,8 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
           name="bannerDescription_en"
           register={register}
           errors={errors}
-          label="Banner description (EN)"
-          placeholder="Enter banner description"
+          label="Description (EN)"
+          placeholder="Enter description (EN)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -148,8 +148,8 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
           name="bannerDescription_fr"
           register={register}
           errors={errors}
-          label="Description de la bannière"
-          placeholder="Entrez la description de la bannière"
+          label="Description (FR)"
+          placeholder="Enter description (FR)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -157,8 +157,8 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
           name="bannerDescription_rw"
           register={register}
           errors={errors}
-          label="Igisobanuro cy'ifoto"
-          placeholder="Andika igishobanuro cy'ifoto"
+          label="Description (RW)"
+          placeholder="Enter description (RW)"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
