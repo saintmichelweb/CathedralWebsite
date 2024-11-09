@@ -65,6 +65,15 @@ export async function getAllChoir(req: Request, res: Response) {
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
+  
+  // const isActive = req.query.isActive
+  const pageSize = Number(readEnv('PAGINATION_LIMIT', 10, true))
+  const {  page = 1 } = req.query
+  const skip = (Number(page) - 1) * Number(pageSize)
+
+  if (isNaN(skip) || isNaN(Number(pageSize)) || skip < 0 || Number(pageSize) < 1) {
+    return res.status(400).send({ message: 'Invalid pagination parameters' })
+  }
 
   const ChoirRepository = AppDataSource.getRepository(ChoirEntity);
   const queryBuilder = ChoirRepository.createQueryBuilder('choir')

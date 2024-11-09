@@ -54,14 +54,14 @@ const ChoirsManagement = () => {
     null
   );
   // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchChoirs = async () => {
+  const fetchChoirs = async (page = 1) => {
     setLoading(true);
-    await getAllChoirs()
+    await getAllChoirs({page})
       .then((data) => {
         setChoirsData(data.choirs);
-        setNumberPages(1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -346,8 +346,8 @@ const ChoirsManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchChoirs}
               useCustomPagination
             />
           )}

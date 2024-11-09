@@ -1,5 +1,6 @@
 import instance from '../lib/axiosInstance'
 import { imageResponse, BannerImageResponse } from '../types/apiResponses';
+import { PaginationParams } from '../types/params';
 const formData = new FormData();
 interface ImageObj {
     image: File,
@@ -40,7 +41,7 @@ export async function deleteImage(imageId: number | string) {
     return response.data
 }
 
-export async function getBannerImages(isBannerImage?: boolean) {
-    const response = await instance.get<{ bannerImages: BannerImageResponse[], message: string, numberOfPages: number }>(`/images/all${isBannerImage ? `?isBannerImage=${isBannerImage}` : ''}`)
+export async function getBannerImages(params: PaginationParams, isBannerImage?: boolean) {
+    const response = await instance.get<{ bannerImages: BannerImageResponse[], message: string, totalPages: number }>(`/images/all${isBannerImage ? `?isBannerImage=${isBannerImage}` : ''}`, {params})
     return response.data
 }

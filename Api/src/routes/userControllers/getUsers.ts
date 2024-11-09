@@ -32,15 +32,15 @@ export async function getUsers(req: AuthRequest, res: Response) {
     return res.status(401).send({ message: 'Unauthorized' })
   }
 
+  const { status, all } = req.query
+  const { page = 1, search } = req.query
+  const limit = readEnv('PAGINATION_LIMIT', 10, true) as number
+
+  if (isNaN(Number(page)) || Number(page) < 0) {
+    return res.status(400).send({ message: 'Invalid pagination parameters' })
+  }
+
   try {
-    const { status, all } = req.query
-    const { page = 1, search } = req.query
-    const limit = readEnv('PAGINATION_LIMIT', 10, true) as number
-
-    if (isNaN(Number(page)) || Number(page) < 0) {
-      return res.status(400).send({ message: 'Invalid pagination parameters' })
-    }
-
     const queryBuilder = AppDataSource.getRepository(PortalUserEntity).createQueryBuilder('user')
       // .leftJoinAndSelect('user.role', 'role')
       // .where('role.name != :name', {name: 'Hub Super Admin'})
@@ -54,7 +54,6 @@ export async function getUsers(req: AuthRequest, res: Response) {
     // if (!isNaN(Number(role)) && Number(role) > 0) {
     //   queryBuilder.andWhere('role.id = :role', { role: Number(role) })
     // }
-
 
     if (typeof search === 'string' && search.length > 0) {
       const encryptedSearch = encryptData(Buffer.from(search.trim()), EncryptionTransformerObject).toString('base64')
@@ -74,9 +73,7 @@ export async function getUsers(req: AuthRequest, res: Response) {
       queryBuilder.skip((Number(page) - 1) * limit).take(limit)
     }
 
-
-
-    let users = await queryBuilder
+    const users = await queryBuilder
       .select([
         'user.id',
         'user.name',

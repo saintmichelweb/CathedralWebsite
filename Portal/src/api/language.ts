@@ -1,14 +1,15 @@
 import instance from '../lib/axiosInstance'
 import { LanguageForm, UpdateLanguageForm } from '../lib/validations/language'
 import { LanguageResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
 export async function addNewLanguage(languageObj: LanguageForm) {
   const response = await instance.post<{ message: string }>('/language', languageObj)
   return response.data
 }
 
-export async function getLanguages(isActive?: boolean) {
-  const response = await instance.get<{ languages: LanguageResponse[], message: string, numberOfPages: number }>(`/language/all${isActive ? `?isActive=${isActive}` : ''}`)
+export async function getLanguages(params: PaginationParams, isActive?: boolean) {
+  const response = await instance.get<{ languages: LanguageResponse[], message: string, totalPages: number }>(`/language/all${isActive ? `?isActive=${isActive}` : ''}`, {params})
   return response.data
 }
 

@@ -1,14 +1,15 @@
 import instance from '../lib/axiosInstance'
 import { AddRecentEventsForm, UpdateRecentEventsForm } from '../lib/validations/recentEvents'
 import { RecentEventResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
 export async function addNewRecentEvent(recentEventObj: AddRecentEventsForm) {
   const response = await instance.post<{ message: string }>('/recent-events', recentEventObj)
   return response.data
 }
 
-export async function getAllRecentEvents() {
-  const response = await instance.get<{ recentEvents: RecentEventResponse[], message: string, numberOfPages: number }>('/recent-events/all')
+export async function getAllRecentEvents(params: PaginationParams) {
+  const response = await instance.get<{ recentEvents: RecentEventResponse[], message: string, totalPages: number }>('/recent-events/all', {params})
   return response.data
 }
 
