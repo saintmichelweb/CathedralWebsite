@@ -57,7 +57,7 @@ export async function getAllPriests(req: Request, res: Response) {
   try {
     const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize)
+    queryBuilder.skip(skip).take(pageSize).orderBy('priests.created_at', 'DESC')
     const totalPriests = await queryBuilder.getMany() 
     return res.status(200).send({ message: "Priests retrieved successfully!", priests: totalPriests, totalPages });
   } catch (error: any) {

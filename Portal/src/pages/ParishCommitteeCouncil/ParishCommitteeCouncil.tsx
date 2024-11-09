@@ -20,7 +20,6 @@ import {
 import { MdAdd, MdMoreVert } from "react-icons/md";
 import {
   AlertDialog,
-  // CommonIcons,
   CustomButton,
   CustomLink,
   DataTable,
@@ -51,14 +50,10 @@ const ParishCommitteeCouncilManagement = () => {
     parishCommitteeCouncilResponse[]
   >([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
-  // const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
-  //   useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedparishCommitteeCouncil, setSelectedRecentEvent] =
     useState<parishCommitteeCouncilResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchparishCommitteeCouncil = async (page = 1) => {
@@ -84,44 +79,6 @@ const ParishCommitteeCouncilManagement = () => {
   useEffect(() => {
     fetchparishCommitteeCouncil();
   }, []);
-
-  // const handleEventStatus = async (parishCommitteeCouncil: parishCommitteeCouncilResponse) => {
-  //   const editPayload: UpdateparishCommitteeCouncilForm = {
-  //     name_en: parishCommitteeCouncil.name_en,
-  //     name_fr: parishCommitteeCouncil.name_fr,
-  //     name_rw: parishCommitteeCouncil.name_rw,
-  //     description_en: parishCommitteeCouncil.description_en,
-  //     description_fr: parishCommitteeCouncil.description_fr,
-  //     description_rw: parishCommitteeCouncil.description_rw,
-  //     work_hours: parishCommitteeCouncil.work_hours,
-  //     work_days: parishCommitteeCouncil.work_days,
-  //     contact_person_name: parishCommitteeCouncil.contact_person_name,
-  //     contact_person_phone_number: parishCommitteeCouncil.contact_person_phone_number,
-  //     backgroundImageId: parishCommitteeCouncil.backgroundImage?.id || null,
-  //     parishCommitteeCouncilsId: selectedparishCommitteeCouncil?.id || null
-  //   };
-  //   await updateparishCommitteeCouncil(editPayload)
-  //     .then((res: MessageResponse) => {
-  //       toast({
-  //         title: "Change Servise Status Message",
-  //         description:
-  //           res?.message || "parishCommitteeCouncil status changed successfully",
-  //         status: "success",
-  //       });
-  //       setIsOpenActivateOrDeactivateModal(false);
-  //       fetchparishCommitteeCouncil();
-  //       setSelectedRecentEvent(null);
-  //     })
-  //     .catch((error) => {
-  //       toast({
-  //         title: "Change Servise Status Message",
-  //         description:
-  //           error.response.data?.message ||
-  //           "Error editing recent event status!",
-  //         status: "error",
-  //       });
-  //     });
-  // };
 
   const handleLocationDelete = async (parishCommitteeCouncilId: number) => {
     await deleteparishCommitteeCouncil(parishCommitteeCouncilId)
@@ -189,18 +146,6 @@ const ParishCommitteeCouncilManagement = () => {
         cell: (info) => info.getValue(),
         header: "Email",
       }),
-      // columnHelper.accessor("work_days", {
-      //   cell: (info) => info.getValue(),
-      //   header: "Work Days",
-      // }),
-      // columnHelper.accessor("work_hours", {
-      //   cell: (info) => info.getValue(),
-      //   header: "Work Hours",
-      // }),
-      // columnHelper.accessor("event_date", {
-      //   cell: (info) => formatTheDate(info.getValue(), "DD/MM/YYYY"),
-      //   header: "Date",
-      // }),
       columnHelper.accessor("backgroundImage", {
         cell: (info) => {
           const imageUrl = info.row.original.backgroundImage?.imageUrl;
@@ -226,44 +171,8 @@ const ParishCommitteeCouncilManagement = () => {
         },
         header: "Background Image",
       }),
-      // columnHelper.accessor("isActive", {
-      //   cell: (info) => {
-      //     const status_ = info.getValue();
-
-      //     let status_HTML: React.ReactNode;
-      //     switch (status_) {
-      //       case true:
-      //         status_HTML = (
-      //           <Flex alignItems="center" justifyContent="center">
-      //             <CommonIcons iconName="active" colorVal="green.500" />
-      //             <Text ml={2}>{StatusType.ACTIVATED}</Text>
-      //           </Flex>
-      //         );
-      //         break;
-      //       case false:
-      //         status_HTML = (
-      //           <Flex alignItems="center" justifyContent="center">
-      //             <CommonIcons iconName="disable" colorVal="red.500" />
-      //             <Text ml={2}>{StatusType.DEACTIVATED}</Text>
-      //           </Flex>
-      //         );
-      //         break;
-      //       default:
-      //         status_HTML = <Text ml={2}>N/A</Text>;
-      //     }
-      //     return status_HTML;
-      //   },
-      //   header: "Status",
-      // }),
       columnHelper.accessor("id", {
         cell: (info) => {
-          // const status = info.row.original.isActive;
-
-          // const handleActivateOrDeactivate = () => {
-          //   setSelectedRecentEvent(info.row.original);
-          //   setIsOpenActivateOrDeactivateModal(true);
-          // };
-
           const handleEdit = () => {
             setSelectedRecentEvent(info.row.original);
             setOpenNewRecentEventModel(true);
@@ -274,32 +183,14 @@ const ParishCommitteeCouncilManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton(
-            //     status ? "deactivate" : "activate",
-            //     handleActivateOrDeactivate
-            //   )}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
               </MenuButton>
               <MenuList minW="0" w={"8.5rem"}>
-                {/* <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleActivateOrDeactivate}
-                >
-                  {ActionButton(
-                    status ? "deactivate" : "activate",
-                    handleActivateOrDeactivate
-                  )}
-                </MenuItem> */}
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -307,11 +198,9 @@ const ParishCommitteeCouncilManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
-                {/* <Divider /> */}
               </MenuList>
             </Menu>
           );
@@ -334,12 +223,6 @@ const ParishCommitteeCouncilManagement = () => {
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Parish Committee Council Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
@@ -361,7 +244,6 @@ const ParishCommitteeCouncilManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -372,7 +254,7 @@ const ParishCommitteeCouncilManagement = () => {
               alwaysVisibleColumns={[0]}
               hidePagination={false}
               totalPages={numberOfPages}
-              // onFetch={onPageChange}
+              onFetch={fetchparishCommitteeCouncil}
               useCustomPagination
             />
           )}
@@ -399,7 +281,7 @@ const ParishCommitteeCouncilManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="45vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this location?`}
@@ -414,21 +296,6 @@ const ParishCommitteeCouncilManagement = () => {
           }
         }}
       />
-      {/* <AlertDialog
-        alertText={`Are you sure you want to ${
-          selectedparishCommitteeCouncil?.isActive ? "deactivate" : "activate"
-        } this recent event?`}
-        isOpen={isOpenActivateOrDeactivateModal}
-        onClose={() => {
-          setSelectedRecentEvent(null);
-          setIsOpenActivateOrDeactivateModal(false);
-        }}
-        onConfirm={() => {
-          if (selectedparishCommitteeCouncil) {
-            handleEventStatus(selectedparishCommitteeCouncil);
-          }
-        }}
-      /> */}
     </Stack>
   );
 };

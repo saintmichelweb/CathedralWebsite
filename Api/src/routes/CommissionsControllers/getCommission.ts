@@ -58,7 +58,7 @@ export async function getAllCommissions(req: Request, res: Response) {
   try {
     const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize)
+    queryBuilder.skip(skip).take(pageSize).orderBy('Commission.created_at', 'DESC')
     const totalCommission = await queryBuilder.getMany()
     return res.status(200).send({ message: "Commission retrieved successfully!", commissions: totalCommission, totalPages });
   } catch (error: any) {

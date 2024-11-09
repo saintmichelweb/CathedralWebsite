@@ -63,13 +63,13 @@ export async function getLanguages(req: Request, res: Response) {
   }
 
   try {
-    if ( req.query.page ) {
+    if ( !req.query.page ) {
       const totalLanguages = await queryBuilder.getMany()
       return res.status(200).send({ message: "Languages retrieved successfully!", totalPages: 1, languages: totalLanguages });
     } else {
       const numberOfItems = await queryBuilder.getCount()
       const totalPages = Math.ceil(numberOfItems / pageSize)
-      queryBuilder.skip(skip).take(pageSize)
+      queryBuilder.skip(skip).take(pageSize).orderBy('languages.created_at', 'DESC')
       const totalLanguages = await queryBuilder.getMany()
       return res.status(200).send({ message: "Languages retrieved successfully!", totalPages, languages: totalLanguages });
     }

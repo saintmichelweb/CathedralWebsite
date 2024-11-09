@@ -1,15 +1,32 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  HStack,
+  SimpleGrid,
+  Stack,
+  useToast,
+} from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
-import { MessageResponse, parishCommitteeCouncilResponse } from "../../../types/apiResponses";
+import {
+  MessageResponse,
+  parishCommitteeCouncilResponse,
+} from "../../../types/apiResponses";
 import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
 import { addNewImage } from "../../../api/images";
-import { AddParishCommitteeCouncilForm, parishCommitteeCouncilSchema, UpdateParishCommitteeCouncilForm } from "../../../lib/validations/parishCommitteeCouncil";
-import { addNewparishCommitteeCouncil, updateparishCommitteeCouncil } from "../../../api/parishCommitteeCouncil";
+import {
+  AddParishCommitteeCouncilForm,
+  parishCommitteeCouncilSchema,
+  UpdateParishCommitteeCouncilForm,
+} from "../../../lib/validations/parishCommitteeCouncil";
+import {
+  addNewparishCommitteeCouncil,
+  updateparishCommitteeCouncil,
+} from "../../../api/parishCommitteeCouncil";
 
 interface AddparishCommitteeCouncilProps {
   onClose: () => void;
@@ -17,7 +34,9 @@ interface AddparishCommitteeCouncilProps {
   parishCommitteeCouncil: parishCommitteeCouncilResponse | null;
 }
 
-const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) => {
+const AddparishCommitteeCouncilCard = (
+  props: AddparishCommitteeCouncilProps
+) => {
   const {
     register,
     formState: { errors },
@@ -53,10 +72,15 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
       setValue("telephone", parishCommitteeCouncilToEdit.telephone);
       setValue("email", parishCommitteeCouncilToEdit.email);
     }
-    setValue("backgroundImageId", parishCommitteeCouncilToEdit?.backgroundImage?.id || null);
+    setValue(
+      "backgroundImageId",
+      parishCommitteeCouncilToEdit?.backgroundImage?.id || null
+    );
   }, [parishCommitteeCouncilToEdit]);
 
-  const onConfirm = async (payload: AddParishCommitteeCouncilForm | undefined) => {
+  const onConfirm = async (
+    payload: AddParishCommitteeCouncilForm | undefined
+  ) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
@@ -65,7 +89,8 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
           .then((res) => {
             toast({
               title: "Add Image message!",
-              description: res?.message || "parishCommitteeCouncil saved successfully",
+              description:
+                res?.message || "parishCommitteeCouncil saved successfully",
               status: "success",
             });
             payload.backgroundImageId = res.image.id;
@@ -85,7 +110,8 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
           .then((res: MessageResponse) => {
             toast({
               title: "Add parishCommitteeCouncil message!",
-              description: res?.message || "parishCommitteeCouncil saved successfully",
+              description:
+                res?.message || "parishCommitteeCouncil saved successfully",
               status: "success",
             });
             props.fetchparishCommitteeCouncil();
@@ -111,14 +137,16 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
           description_rw: payload.description_rw,
           telephone: payload.telephone,
           email: payload.email,
-          backgroundImageId: parishCommitteeCouncilToEdit.backgroundImage?.id || null,
+          backgroundImageId:
+            parishCommitteeCouncilToEdit.backgroundImage?.id || null,
           parishCommitteeCouncilId: parishCommitteeCouncilToEdit?.id || null,
         };
         await updateparishCommitteeCouncil(editPayload)
           .then((res: MessageResponse) => {
             toast({
               title: "Edit parishCommitteeCouncil message!",
-              description: res?.message || "parishCommitteeCouncil edited successfully",
+              description:
+                res?.message || "parishCommitteeCouncil edited successfully",
               status: "success",
             });
             props.fetchparishCommitteeCouncil();
@@ -128,7 +156,8 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
             toast({
               title: "Edit parishCommitteeCouncil message",
               description:
-                error.response?.data?.message || "Error editing parishCommitteeCouncil!",
+                error.response?.data?.message ||
+                "Error editing parishCommitteeCouncil!",
               status: "error",
             });
           });
@@ -138,83 +167,99 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="names"
-          register={register}
-          errors={errors}
-          label="Names"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="position_en"
-          register={register}
-          errors={errors}
-          label="Position (EN)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="position_fr"
-          register={register}
-          errors={errors}
-          label="Position (FR)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="position_rw"
-          register={register}
-          errors={errors}
-          label="Position (RW)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="Event description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="Event description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="Event description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="telephone"
-          register={register}
-          errors={errors}
-          label="Telephone"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="email"
-          register={register}
-          errors={errors}
-          label="Email"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
+        <SimpleGrid
+          templateColumns={{
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+          }}
+          columnGap={"2rem"}
+          rowGap={{ base: "4" }}
+          justifyItems={"start"}
+        >
+          <FormInput
+            name="names"
+            register={register}
+            errors={errors}
+            label="Names"
+            placeholder="Enter names"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="position_en"
+            register={register}
+            errors={errors}
+            label="Position (EN)"
+            placeholder="Enter position (EN)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="position_fr"
+            register={register}
+            errors={errors}
+            label="Position (FR)"
+            placeholder="Enter position (FR)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="position_rw"
+            register={register}
+            errors={errors}
+            label="Position (RW)"
+            placeholder="Enter position (RW)"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="telephone"
+            register={register}
+            errors={errors}
+            placeholder="Enter telephone"
+            label="Telephone"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormInput
+            name="email"
+            register={register}
+            errors={errors}
+            placeholder="Enter email"
+            label="Email"
+            inputProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_en"
+            register={register}
+            errors={errors}
+            label="Description (EN)"
+            placeholder="Enter description (EN)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_fr"
+            register={register}
+            errors={errors}
+            label="Description (FR)"
+            placeholder="Enter description (FR)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+          <FormTextarea
+            name="description_rw"
+            register={register}
+            errors={errors}
+            label="Description (RW)"
+            placeholder="Enter description (RW)"
+            textareaProps={{ bg: "white" }}
+            maxW={{ base: "25rem", sm: "90vw" }}
+          />
+        </SimpleGrid>
         {!parishCommitteeCouncilToEdit && (
           <ImageUploader
             parentSetSelectedImage={(file: File) => setSelectedImage(file)}

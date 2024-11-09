@@ -37,12 +37,10 @@ const PriestsManagement = () => {
   const toast = useToast();
   const [priestsData, setPriestsData] = useState<PriestsResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewPriestModel, setOpenNewPriestModel] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedPriest, setSelectedPriest] =
     useState<PriestsResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchPriests = async (page = 1) => {
@@ -199,7 +197,6 @@ const PriestsManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -210,7 +207,7 @@ const PriestsManagement = () => {
               alwaysVisibleColumns={[0]}
               hidePagination={false}
               totalPages={numberOfPages}
-              // onFetch={onPageChange}
+              onFetch={fetchPriests}
               useCustomPagination
             />
           )}
@@ -235,7 +232,7 @@ const PriestsManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="45vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this priest?`}

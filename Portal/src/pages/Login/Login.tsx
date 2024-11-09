@@ -183,7 +183,6 @@ const Login = () => {
                 </Box>
 
                 <HStack justify="end">
-                  {/* <Checkbox size='sm'>Remember me</Checkbox> */}
                   <Link
                     as={NavLink}
                     to="/forgot-password"
@@ -193,13 +192,6 @@ const Login = () => {
                     Forgot Password?
                   </Link>
                 </HStack>
-
-                {/* <ReCAPTCHA
-              ref={recaptchaRef}
-              sitekey={recaptchaSiteKey}
-              onChange={onRecaptchaChange}
-            /> */}
-
                 <CustomButton
                   type="submit"
                   size="md"
@@ -300,7 +292,6 @@ const TwoFactorAuth = (props: TwoFactorAuthProps) => {
           />
 
           <HStack justify="end">
-            {/* <Checkbox size='sm'>Remember me</Checkbox> */}
             <Link as={NavLink} onClick={resendOtp} color="info" fontSize="sm">
               Resend OTP Code?
             </Link>

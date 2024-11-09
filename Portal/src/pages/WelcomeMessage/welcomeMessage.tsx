@@ -36,11 +36,9 @@ const WelcomeMessageManagement = () => {
   const toast = useToast();
   const [welcomeMessageData, setWelcomeMessageData] = useState<WelcomeMessageResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewWelcomeMessageModel, setWelcomeMessageModel] = useState(false);
   const [selectedWelcomeMessage, setSelectedWelcomeMessage] =
     useState<WelcomeMessageResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchWelcomeMessage = async () => {
@@ -163,7 +161,6 @@ const WelcomeMessageManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -199,7 +196,7 @@ const WelcomeMessageManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="30vw"
       />
     </Stack>
   );
