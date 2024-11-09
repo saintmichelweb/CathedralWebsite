@@ -67,8 +67,10 @@ export async function getPortalMassTimes(req: Request, res: Response) {
   }
 
   try {
-    const [totalMassTimes, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalMassTimes = await queryBuilder.getMany()  
     return res.status(200).send({ message: "Mass Times retrieved successfully!", massTimes: totalMassTimes, totalPages });
   } catch (error: any) {
     logger.error("Get mass times failed: %s", error);

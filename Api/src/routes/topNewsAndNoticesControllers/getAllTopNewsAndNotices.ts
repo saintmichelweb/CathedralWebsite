@@ -64,8 +64,10 @@ export async function getAllTopParishNewsAndNotices(req: Request, res: Response)
   // }
 
   try {
-    const [totalTopParishNewsAndNotices, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalTopParishNewsAndNotices = await queryBuilder.getMany() 
     return res.status(200).send({ message: "Top News And Notices retrieved successfully!", topParishNewsAndNotices: totalTopParishNewsAndNotices, totalPages });
   } catch (error: any) {
     logger.error("Getting top news and notices failed: %s", error);

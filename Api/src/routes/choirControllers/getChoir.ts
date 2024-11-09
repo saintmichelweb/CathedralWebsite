@@ -56,8 +56,10 @@ export async function getAllChoir(req: Request, res: Response) {
   // }
 
   try {
-    const [totalChoir, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalChoir = await queryBuilder.getMany()
     return res.status(200).send({ message: "Choirs retrieved successfully!", choirs: totalChoir, totalPages });
   } catch (error: any) {
     logger.error("Getting Choir failed: %s", error);

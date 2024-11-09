@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
-import { LocationEntity } from "../../entity/LocationEntity";
-import { LanguageEntity } from "../../entity/languageEntity";
 import { ImageEntity } from "../../entity/ImagesEntity";
 import { readEnv } from "../../setup/readEnv";
 
@@ -66,8 +64,10 @@ export async function getBannerImages(req: Request, res: Response) {
   }
 
   try {
-    const [totalBannerImages, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalBannerImages = await queryBuilder.getMany()  
     return res.status(200).send({ message: "Banner Images retrieved successfully!", totalPages, bannerImages: totalBannerImages });
   } catch (error: any) {
     logger.error("Get Banner Images failed: %s", error);

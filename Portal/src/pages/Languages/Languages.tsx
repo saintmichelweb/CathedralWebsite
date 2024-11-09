@@ -5,24 +5,18 @@ import {
 } from "@tanstack/react-table";
 import {
   Box,
-  Divider,
   Flex,
   Heading,
   Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Stack,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { MdAdd, MdMoreVert } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import {
   AlertDialog,
   CommonIcons,
   CustomButton,
-  CustomLink,
   DataTable,
   EmptyState,
   TableSkeleton,
@@ -45,15 +39,11 @@ const LanguagesManagement = () => {
   const toast = useToast();
   const [languagesData, setLanguagesData] = useState<LanguageResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewLanguageModel, setOpenNewLanguageModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedLanguage, setSelectedLanguage] =
     useState<LanguageResponse | null>(null);
-  // const toast = useToast();
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchLanguages = async (page = 1) => {
@@ -105,28 +95,6 @@ const LanguagesManagement = () => {
         });
       });
   };
-
-  // const handleLanguageDelete = async (languageId: number) => {
-  //   await deletLanguage(languageId)
-  //     .then((res: MessageResponse) => {
-  //       toast({
-  //         title: "Delete Language Message",
-  //         description: res?.message || "Language deleted successfully",
-  //         status: "success",
-  //       });
-  //       setIsOpenDeleteModal(false);
-  //       fetchLanguages();
-  //       setSelectedLanguage(null);
-  //     })
-  //     .catch((error) => {
-  //       toast({
-  //         title: "Delete Language Message",
-  //         description:
-  //           error.response.data?.message || "Error deleting language!",
-  //         status: "error",
-  //       });
-  //     });
-  // };
 
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<LanguageResponse>();
@@ -183,10 +151,6 @@ const LanguagesManagement = () => {
             setOpenNewLanguageModel(true);
           };
 
-          // const handledelete = () => {
-          //   setSelectedLanguage(info.row.original);
-          //   setIsOpenDeleteModal(true);
-          // };
           return (
             <Box>
               {ActionButton("edit", handleEdit)}
@@ -195,36 +159,6 @@ const LanguagesManagement = () => {
                 handleActivateOrDeactivate
               )}
             </Box>
-            // <Menu autoSelect={false}>
-            //   <MenuButton>
-            //     <Icon as={MdMoreVert} color={"black"} boxSize={7} />
-            //   </MenuButton>
-            //   <MenuList minW="0" w={"8.5rem"}>
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handleActivateOrDeactivate}
-            //     >
-            //       {ActionButton(status ? "deactivate" : "activate")}
-            //     // </MenuItem>
-            //     <Divider />
-            //     <MenuItem
-            //       px={0}
-            //       _focus={{ bg: "transparent" }}
-            //       onClick={handledelete}
-            //     >
-            //       {/* {ActionButton("delete")} */}
-            //     </MenuItem>
-            //     {/* // <Divider />
-            //     // <MenuItem
-            //     //   px={0}
-            //     //   _focus={{ bg: "transparent" }}
-            //     //   onClick={handleEdit}
-            //     // > */}
-            //       {ActionButton("edit")}
-            // //     </MenuItem>
-            // //   </MenuList>
-            // // </Menu>
           );
         },
         header: "Action",
@@ -245,12 +179,6 @@ const LanguagesManagement = () => {
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Mass Languages Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
@@ -271,7 +199,6 @@ const LanguagesManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -282,7 +209,7 @@ const LanguagesManagement = () => {
               alwaysVisibleColumns={[0]}
               hidePagination={false}
               totalPages={numberOfPages}
-              // onFetch={onPageChange}
+              onFetch={fetchLanguages}
               useCustomPagination
             />
           )}
@@ -309,19 +236,6 @@ const LanguagesManagement = () => {
         isCentered={true}
         widthSize="25vw"
       />
-      {/* <AlertDialog
-        alertText={`Are you sure you want to delete this language?`}
-        isOpen={isOpenDeleteModal}
-        onClose={() => {
-          setSelectedLanguage(null);
-          setIsOpenDeleteModal(false);
-        }}
-        onConfirm={() => {
-          if (selectedLanguage) {
-            handleLanguageDelete(selectedLanguage?.id);
-          }
-        }}
-      /> */}
       <AlertDialog
         alertText={`Are you sure you want to ${
           selectedLanguage?.isActive ? "deactivate" : "activate"

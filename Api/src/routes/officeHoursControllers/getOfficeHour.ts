@@ -61,8 +61,10 @@ export async function getOfficeHours(req: AuthRequest, res: Response) {
     .leftJoinAndSelect('office_hours.office_place', 'office_place')
 
   try {
-    const [totalOfficeHours, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalOfficeHours = await queryBuilder.getMany() 
     return res.status(200).send({ message: "OfficeHours retrieved successfully!", totalPages, officeHours: totalOfficeHours });
   } catch (error: any) {
     logger.error("Getting officeHour failed: %s", error);

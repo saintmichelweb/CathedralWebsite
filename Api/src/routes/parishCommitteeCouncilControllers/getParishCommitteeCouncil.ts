@@ -62,8 +62,10 @@ export async function getparishCommitteeCouncil(req: AuthRequest, res: Response)
     .leftJoinAndSelect('parishCommitteeCouncils.backgroundImage', 'backgoundImage')
 
   try {
-    const [totalparishCommitteeCouncil, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalparishCommitteeCouncil = await queryBuilder.getMany() 
     return res.status(200).send({ message: "parishCommitteeCouncil retrieved successfully!", totalPages, parishCommitteeCouncils: totalparishCommitteeCouncil });
   } catch (error: any) {
     logger.error("Getting parishCommitteeCouncil failed: %s", error);

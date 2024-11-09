@@ -75,8 +75,10 @@ export async function getLocations(req: AuthRequest, res: Response) {
 
 
   try {
-    const [totalLocations, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalLocations = await queryBuilder.getMany()  
     return res.status(200).send({ message: "Locations retrieved successfully!", totalPages, locations: totalLocations });
   } catch (error: any) {
     logger.error("Getting location failed: %s", error);

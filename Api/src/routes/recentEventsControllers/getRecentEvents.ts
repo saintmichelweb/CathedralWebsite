@@ -65,8 +65,10 @@ export async function getAllRecentEvents(req: Request, res: Response) {
   // }
 
   try {
-    const [totalRecentEvents, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalRecentEvents = await queryBuilder.getMany() 
     return res.status(200).send({ message: "Recent Events retrieved successfully!", totalPages, recentEvents: totalRecentEvents });
   } catch (error: any) {
     logger.error("Getting recent events failed: %s", error);

@@ -63,8 +63,10 @@ export async function getLanguages(req: Request, res: Response) {
   }
 
   try {
-    const [totalLanguages, numberOfItems] = await queryBuilder.getManyAndCount()
+    const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
+    queryBuilder.skip(skip).take(pageSize)
+    const totalLanguages = await queryBuilder.getMany()
     return res.status(200).send({ message: "Languages retrieved successfully!", totalPages, languages: totalLanguages });
   } catch (error: any) {
     logger.error("Get language failed: %s", error);
