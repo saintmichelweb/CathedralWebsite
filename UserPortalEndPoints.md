@@ -1,3 +1,5 @@
+ApiUrl = http://localhost:3551
+
 **homePage page routes** 
 -/homePage/welcomeMessage
 -/homePage/massTimes
