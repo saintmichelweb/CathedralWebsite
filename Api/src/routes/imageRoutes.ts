@@ -6,6 +6,7 @@ import { ImageUpload } from './imagesControllers/postImage';
 import { getBannerImages } from './imagesControllers/getBannerImages';
 import { ImageUpdate } from './imagesControllers/putImage';
 import { deleteImages } from './imagesControllers/deleteImage';
+import { getFrontendBannerImages } from './imagesControllers/getFrontendBannerImages'; 
 
 const router = express.Router()
 
@@ -36,5 +37,6 @@ router.put('/image/:id',
 router.delete('/image/:id',
     authenticateJWT,
     deleteImages);
+router.get('/images/frontend', getFrontendBannerImages);    
 
 export default router;
