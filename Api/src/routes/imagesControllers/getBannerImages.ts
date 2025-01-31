@@ -63,3 +63,5 @@ export async function getBannerImages(req: Request, res: Response) {
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }
+
+
