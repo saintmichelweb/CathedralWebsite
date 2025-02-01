@@ -5,10 +5,11 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { readEnv } from "../../setup/readEnv";
 import { ImageEntity } from "../../entity/ImagesEntity";
 import { AppDataSource } from "../../database/dataSource";
+import fs from "fs";
 
 export async function ImageUpdate(req: AuthRequest, res: Response) {
-    const PORT: number = readEnv("PORT", 3000, true) as number;
-    // const uploadedFile: Express.Multer.File | undefined = req.file;
+    const APP_URL: string = readEnv("APP_URL", '') as string;
+    const uploadedFile: Express.Multer.File | undefined = req.file;
     const portalUser = req.user;
     const id = req.params.id
     const isBannerImage = req.body.isBannerImage
@@ -24,11 +25,6 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
     if (isUndefinedOrNull(portalUser)) {
         return res.status(401).send({ message: "Unauthorized!" });
     }
-
-    // if (!uploadedFile) {
-    //     return res.status(400).json({ message: 'No image uploaded' });
-    // }
-    console.log('req. body ', req.body)
 
     const imageRepository = AppDataSource.getRepository(ImageEntity)
 
@@ -56,6 +52,19 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
 
         if (isActive !== null && isActive !== undefined) {
             oldImage.isActive = isActive
+        }
+
+        if (uploadedFile) {
+            fs.unlink(oldImage.imagePath, (err: any) => {
+                if (err) {
+                    console.error('Error deleting the old Image:', err);
+                    return res.status(500).send('Error deleting the old Image');
+                }
+                res.send('Old image successfully deleted');
+            });
+            oldImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
+            oldImage.imagePath = uploadedFile.path
+            oldImage.filename = uploadedFile.filename
         }
 
         await imageRepository.save(oldImage)
