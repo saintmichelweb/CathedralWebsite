@@ -26,7 +26,10 @@ services:
       - "3551:3551"
     networks:
       - stmp-net
-
+    # volumes:
+    #   - ${CENTRAL_SETTLEMENT_FOLDER:-"./central-settlement"}/docker/central-settlement/default.json:/opt/app/config/default.json
+    #   - ../central-settlement/src:/opt/app/src
+    #   - ${CENTRAL_SETTLEMENT_FOLDER:-"./central-settlement"}/docker/wait-for:/opt/wait-for
     depends_on:
       - stmp-db
       # - minio
