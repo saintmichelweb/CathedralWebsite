@@ -15,21 +15,22 @@ services:
     environment:
       - VITE_API_URL=http://localhost:3551/api
       - VITE_LIMIT_PER_PAGE=10
+    volumes:
+      - ./Portal/src:/app/Portal/src
       
   api:
     build:
       context: .
       dockerfile: ./DockerFile-Api
     restart: unless-stopped
-    # command: ["npm", "run", "start"]
+    # command: ["npm", "run", "dev"] # used in development for nodemon
+    command: ["npm", "run", "start"] 
     ports:
       - "3551:3551"
     networks:
       - stmp-net
-    # volumes:
-    #   - ${CENTRAL_SETTLEMENT_FOLDER:-"./central-settlement"}/docker/central-settlement/default.json:/opt/app/config/default.json
-    #   - ../central-settlement/src:/opt/app/src
-    #   - ${CENTRAL_SETTLEMENT_FOLDER:-"./central-settlement"}/docker/wait-for:/opt/wait-for
+    volumes:
+      - ./Api/src:/app/Api/src
     depends_on:
       - stmp-db
       # - minio
