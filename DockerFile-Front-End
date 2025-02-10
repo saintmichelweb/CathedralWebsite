@@ -1,9 +1,9 @@
 FROM node:20.15.0-alpine AS builder
 WORKDIR /app
 # COPY ./shared-lib /app/shared-lib
-COPY ./Front-End /app/Front-End
+COPY ./Front-end /app/Front-end
 
-WORKDIR /app/Front-End
+WORKDIR /app/Front-end
 RUN npm i 
 # RUN npm install vite --save-dev
 EXPOSE 3553

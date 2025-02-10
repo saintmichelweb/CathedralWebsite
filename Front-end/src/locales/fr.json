@@ -1,0 +1,90 @@
+{
+  "footerLogo": "Logo",
+  "lang":"Français",
+  "home": "Accueil",
+  "about": "À propos",
+  "service": "Service",
+  "serviceSchedule":"Horaire des services ",
+  "Office":"Heures de bureau",
+  "welcome": "Bienvenue dans notre paroisse",
+  "welcomeMessage": "Bienvenue dans notre communauté paroissiale. Nous sommes heureux de vous avoir parmi nous. Notre paroisse est un endroit chaleureux et accueillant où chacun est invité à participer à nos célébrations et activités. Nous croyons que chaque personne apporte des dons et des talents uniques qui enrichissent notre communauté. Nous vous encourageons à vous impliquer dans nos divers ministères et groupes, que vous soyez intéressé par la musique, la sensibilisation, l'éducation ou tout autre domaine. Notre objectif est de favoriser un sentiment d'appartenance et de nous soutenir mutuellement dans nos parcours spirituels. Nous offrons une variété de services et de programmes conçus pour répondre aux besoins de tous nos paroissiens, des enfants aux personnes âgées. Nous offrons également des opportunités de croissance personnelle et de service communautaire. N'hésitez pas à contacter notre personnel ou nos bénévoles si vous avez des questions ou besoin d'assistance. Nous sommes là pour vous aider et vous soutenir. Merci de faire partie de notre famille paroissiale. Nous nous réjouissons de mieux vous connaître et de grandir ensemble dans la foi. Bienvenue encore une fois, et que Dieu vous bénisse abondamment.",
+  "massTimes": "Horaires des Messes",
+  "sundayMass": "Messe du Dimanche",
+  "weekdayMass": "Messe du Lundi au Vendredi",
+  "saturdayMass": "Messe du Samedi",
+  "kinyarwanda": "Kinyarwanda",
+  "english": "Anglais",
+  "french": "Français",
+  "monday": "Lundi",
+  "friday": "Vendredi",
+  "recentEvents": "Événements récents",
+  "menu": "Menu",
+  "sacraments": "Sacrements",
+  "address": "Adresse",
+  "aboutTitle": "À propos de notre paroisse",
+  "aboutDescription": "En savoir plus sur notre histoire, notre mission et nos valeurs.",
+  "serviceTitle": "Nos services",
+  "serviceDescription": "Découvrez les différents services que nous offrons à notre communauté.",
+  "donate": "Faire un don",
+  "topNewsAndNotice": "Principales Actualités de la Paroisse & Annonces Paroissiales",
+  "banners": [
+    { "alt": "Bannière 1", "description": "Une vue pittoresque des montagnes" },
+    { "alt": "Bannière 2", "description": "Un magnifique coucher de soleil sur l'océan" },
+    { "alt": "Bannière 3", "description": "Une forêt verdoyante au printemps" },
+    { "alt": "Bannière 4", "description": "Un paysage enneigé avec des sapins" }
+  ],
+  "banner": {
+  "altText": "Une vue magnifique de notre cathédrale",
+  "title": "Bienvenue dans notre Cathédrale",
+  "description": "Découvrez la riche histoire et la communauté dynamique de notre cathédrale. Rejoignez-nous pour les services et événements tout au long de l'année."
+ },
+ "abouts": {
+  "historyTitle": "Histoire de la Cathédrale",
+  "historyContent": "Notre cathédrale a une riche histoire qui remonte au début du 19e siècle. Elle a été un phare d'espoir et de communauté pour de nombreuses générations.",
+  "readMore": "En savoir plus",
+  "ourLeaders": "Nos dirigeants",
+  "ourChorales": "Nos Chorales",
+  "catholicAction": "Actions Catholiques"
+},
+
+"mission": {
+  "title": "Notre Mission",
+  "content": "Notre mission est de servir la communauté avec compassion et dévouement, en favorisant la croissance spirituelle et en créant un environnement accueillant pour tous."
+},
+"vision": {
+  "title": "Notre Vision",
+  "content": "Notre vision est d'être un phare de foi et d'espoir, inspirant et encourageant les individus à vivre selon leurs valeurs et à contribuer à un bien plus grand."
+},
+"commission": {
+  "title": "Commission des Laïcs",
+  "content": "Nos laïcs jouent un rôle essentiel dans le soutien des activités de notre paroisse et dans la direction de notre communauté. Ils sont engagés à servir avec dévouement et à fournir un leadership dans divers domaines.",
+  "readMore": "En Savoir Plus"
+},
+"aboutTopStories": {
+  "topStories": "Histoires en Vedette",
+  "storyTitle1": "Titre de l'Histoire 1",
+  "storyContent1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+  "storyTitle2": "Titre de l'Histoire 2",
+  "storyContent2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+  "previous": "Précédent",
+  "next": "Suivant"
+},
+"topNewsNotice": [
+  {
+    "title": "Lancement du Programme de Sensibilisation Communautaire",
+    "content": "Nous sommes ravis d'annoncer le lancement de notre nouveau Programme de Sensibilisation Communautaire qui débutera le mois prochain. Cette initiative vise à soutenir les familles locales dans le besoin grâce à des collectes de nourriture, des ateliers éducatifs et des opportunités de bénévolat. Nous encourageons tout le monde à s'impliquer et à faire une différence dans notre communauté."
+  },
+  {
+    "title": "Réussite du Collecte de Fonds Annuelle de la Paroisse",
+    "content": "Merci à tous ceux qui ont participé à notre Collecte de Fonds Annuelle de la Paroisse ! Nous sommes ravis de partager que nous avons dépassé notre objectif de collecte de fonds, en recueillant 15 000 $ pour les projets de rénovation de notre paroisse. Votre générosité est profondément appréciée, et nous avons hâte d'utiliser ces fonds pour améliorer nos installations ecclésiales."
+  },
+  {
+    "title": "Présentation du Nouveau Programme de Ministère des Jeunes",
+    "content": "Nous sommes heureux de présenter un nouveau Programme de Ministère des Jeunes conçu pour engager nos jeunes membres dans la croissance spirituelle et le service communautaire. Le programme comprend des réunions hebdomadaires, des études bibliques et des activités ludiques. Rejoignez-nous ce dimanche après la messe pour en savoir plus et vous inscrire."
+  },
+  {
+    "title": "Présentation de Notre Nouvelle Plateforme de Don en Ligne",
+    "content": "Nous sommes ravis d'annoncer le lancement de notre nouvelle plateforme de don en ligne. Cet outil convivial facilitera votre contribution à la paroisse et la gestion de vos dons. Visitez notre site web pour créer votre compte et explorer les nouvelles fonctionnalités."
+  }
+]
+}

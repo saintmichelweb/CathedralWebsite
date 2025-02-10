@@ -1,0 +1,90 @@
+{
+    "footerLogo": "Logo",
+    "lang":"Español",
+    "home": "Inicio",
+    "about": "Acerca de",
+    "service": "Servicio",
+    "serviceSchedule":"Horario de servicios ",
+    "Office":"Horario de oficina",
+    "welcome": "Bienvenido a nuestra parroquia",
+    "welcomeMessage": "Bienvenidos a nuestra comunidad parroquial. Estamos encantados de tenerlos con nosotros. Nuestra parroquia es un lugar cálido y acogedor donde todos están invitados a participar en nuestras celebraciones y actividades. Creemos que cada persona aporta dones y talentos únicos que enriquecen nuestra comunidad. Los animamos a involucrarse en nuestros diversos ministerios y grupos, ya sea que estén interesados en la música, la divulgación, la educación o cualquier otro área. Nuestro objetivo es fomentar un sentido de pertenencia y apoyarnos mutuamente en nuestros viajes espirituales. Ofrecemos una variedad de servicios y programas diseñados para satisfacer las necesidades de todos nuestros feligreses, desde niños hasta ancianos. También brindamos oportunidades para el crecimiento personal y el servicio comunitario. No dude en comunicarse con nuestro personal o voluntarios si tiene alguna pregunta o necesita ayuda. Estamos aquí para ayudarlo y apoyarlo. Gracias por ser parte de nuestra familia parroquial. Esperamos conocerte mejor y crecer juntos en la fe. Bienvenidos una vez más, y que Dios los bendiga abundantemente.",
+    "massTimes": "Horarios de Misas",
+    "sundayMass": "Misa del Domingo",
+    "weekdayMass": "Misa de Lunes a Viernes",
+    "saturdayMass": "Misa del Sábado",
+    "kinyarwanda": "Kinyarwanda",
+    "english": "Inglés",
+    "french": "Francés",
+    "monday": "Lunes",
+    "friday": "Viernes",
+    "recentEvents": "Eventos recientes",
+    "menu": "Menú",
+    "sacraments": "Sacramentos",
+    "address": "Dirección",
+    "aboutTitle": "Sobre nuestra parroquia",
+    "aboutDescription": "Conozca más sobre nuestra historia, misión y valores.",
+    "serviceTitle": "Nuestros servicios",
+    "serviceDescription": "Descubra los diversos servicios que ofrecemos a nuestra comunidad.",
+    "donate": "Donar",
+    "topNewsAndNotice": "Principales Noticias Parroquiales & Avisos Parroquiales",
+    "banners": [
+    { "alt": "Banner 1", "description": "Una vista panorámica de montañas" },
+    { "alt": "Banner 2", "description": "Una hermosa puesta de sol sobre el océano" },
+    { "alt": "Banner 3", "description": "Un bosque verde y exuberante en primavera" },
+    { "alt": "Banner 4", "description": "Un paisaje nevado con pinos" }
+    ],
+    "banner": {
+    "altText": "Una hermosa vista de nuestra catedral",
+    "title": "Bienvenidos a Nuestra Catedral",
+    "description": "Descubre la rica historia y la vibrante comunidad de nuestra catedral. Únete a nosotros para servicios y eventos durante todo el año."
+  },
+  "abouts": {
+  "historyTitle": "Historia de la Catedral",
+  "historyContent": "Nuestra catedral tiene una rica historia que se remonta a principios del siglo XIX. Ha sido un faro de esperanza y comunidad para muchas generaciones.",
+  "readMore": "Leer más",
+  "ourLeaders": "Nuestros líderes",
+  "ourChorales": "Nuestros Coros",
+  "catholicAction": "Acciones Católicas"
+},
+  "mission": {
+    "title": "Nuestra Misión",
+    "content": "Nuestra misión es servir a la comunidad con compasión y dedicación, fomentando el crecimiento espiritual y creando un entorno acogedor para todos."
+  },
+  "vision": {
+    "title": "Nuestra Visión",
+    "content": "Nuestra visión es ser un faro de fe y esperanza, inspirando y capacitando a las personas para vivir según sus valores y contribuir a un bien mayor."
+  },
+  "commission": {
+    "title": "Comisión de Líderes Laicos",
+    "content": "Nuestros líderes laicos juegan un papel vital en el apoyo a las actividades de nuestra parroquia y en la guía de nuestra comunidad. Están comprometidos a servir con dedicación y a proporcionar liderazgo en diversas áreas.",
+    "readMore": "Saber Más"
+  },
+  "aboutTopStories": {
+    "topStories": "Historias Destacadas",
+    "storyTitle1": "Título de la Historia 1",
+    "storyContent1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+    "storyTitle2": "Título de la Historia 2",
+    "storyContent2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  },
+  "topNewsNotice": [
+    {
+      "title": "Lanzamiento del Programa de Alcance Comunitario",
+      "content": "Estamos emocionados de anunciar el lanzamiento de nuestro nuevo Programa de Alcance Comunitario que comenzará el próximo mes. Esta iniciativa tiene como objetivo apoyar a las familias locales necesitadas a través de campañas de recolección de alimentos, talleres educativos y oportunidades de voluntariado. Animamos a todos a involucrarse y hacer una diferencia en nuestra comunidad."
+    },
+    {
+      "title": "Éxito de la Recaudación de Fondos Anual de la Parroquia",
+      "content": "¡Gracias a todos los que participaron en nuestra Recaudación de Fondos Anual de la Parroquia! Estamos encantados de compartir que superamos nuestra meta de recaudación, recaudando $15,000 para los proyectos de renovación de nuestra parroquia. Su generosidad es profundamente apreciada, y esperamos utilizar estos fondos para mejorar nuestras instalaciones eclesiásticas."
+    },
+    {
+      "title": "Presentación del Nuevo Programa de Ministerio Juvenil",
+      "content": "Nos complace presentar un nuevo Programa de Ministerio Juvenil diseñado para involucrar a nuestros miembros más jóvenes en el crecimiento espiritual y el servicio comunitario. El programa incluye reuniones semanales, estudios bíblicos y actividades recreativas. Únase a nosotros este domingo después de la Misa para conocer más y registrarse."
+    },
+    {
+      "title": "Presentación de Nuestra Nueva Plataforma de Donaciones en Línea",
+      "content": "Estamos emocionados de anunciar el lanzamiento de nuestra nueva plataforma de donaciones en línea. Esta herramienta fácil de usar facilitará su contribución a la parroquia y la gestión de sus donaciones. Visite nuestro sitio web para configurar su cuenta y explorar las nuevas funciones."
+    }
+  ]
+  }
+  

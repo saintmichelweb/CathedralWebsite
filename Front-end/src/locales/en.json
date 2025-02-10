@@ -1,0 +1,91 @@
+{
+  "footerLogo": "Logo",
+  "lang": "English",
+  "home": "Home",
+  "about": "About",
+  "service": "Service",
+  "serviceSchedule":"Service Schedule ",
+  "Office":"Office Hours",
+  "welcome": "Welcome to Our Parish",
+  "welcomeMessage": "Welcome to our parish community. We are glad to have you with us. Our parish is a warm and welcoming place where everyone is invited to participate in our celebrations and activities. We believe that each person brings unique gifts and talents that enrich our community. We encourage you to get involved in our various ministries and groups, whether you are interested in music, outreach, education, or any other area. Our goal is to foster a sense of belonging and to support each other in our spiritual journeys. We offer a variety of services and programs designed to meet the needs of all our parishioners, from children to seniors. We also provide opportunities for personal growth and community service. Please feel free to reach out to our staff or volunteers if you have any questions or need assistance. We are here to help and support you. Thank you for being a part of our parish family. We look forward to getting to know you better and growing together in faith. Welcome once again, and may God bless you abundantly.",
+  "massTimes": "Mass Times",
+  "sundayMass": "Sunday Mass",
+  "weekdayMass": "Monday - Friday Mass",
+  "saturdayMass": "Saturday Mass",
+  "kinyarwanda": "Kinyarwanda",
+  "english": "English",
+  "french": "French",
+  "monday": "Monday",
+  "friday": "Friday",
+  "recentEvents": "Recent Events",
+  "menu": "Menu",
+  "sacraments": "Sacraments",
+  "address": "Address",
+  "aboutTitle": "About Our Parish",
+  "aboutDescription": "Learn more about our history, mission, and values.",
+  "serviceTitle": "Our Services",
+  "serviceDescription": "Discover the various services we offer to our community.",
+  "donate": "Donate",
+  "topNewsAndNotice":"Top Parish News & Parish Notices",
+  "banners": [
+    { "alt": "Banner 1", "description": "A scenic view of mountains" },
+    { "alt": "Banner 2", "description": "A beautiful sunset over the ocean" },
+    { "alt": "Banner 3", "description": "A lush green forest in spring" },
+    { "alt": "Banner 4", "description": "A snowy landscape with pine trees" },
+    { "alt": "Banner 5", "description": "A snowy landscape with pine trees" },
+    { "alt": "Banner 6", "description": "A snowy landscape with pine trees" }
+  ],
+  "banner": {
+    "altText": "A beautiful view of our cathedral",
+    "title": "Welcome to Our Cathedral",
+    "description": "Discover the rich history and vibrant community at our cathedral. Join us for services and events throughout the year."
+  },
+  "abouts": {
+    "historyTitle": "History of the Cathedral",
+    "historyContent": "Our cathedral has a rich history dating back to the early 19th century. It has been a beacon of hope and community for many generations.",
+    "readMore": "Read More",
+    "ourLeaders": "Our Leaders",
+    "ourChorales": "Our Chorals",
+    "catholicAction": "Catholic Actions"
+  },
+  "mission": {
+    "title": "Our Mission",
+    "content": "Our mission is to serve the community with compassion and dedication, fostering spiritual growth and creating a welcoming environment for all."
+  },
+  "vision": {
+    "title": "Our Vision",
+    "content": "Our vision is to be a beacon of faith and hope, inspiring and empowering individuals to live out their values and contribute to a greater good."
+  },
+  "commission": {
+    "title": "Commission of Lay Leaders",
+    "content": "Our lay leaders play a vital role in supporting our parish's activities and guiding our community. They are committed to serving with dedication and providing leadership in various areas.",
+    "readMore": "Learn More"
+  },
+  "aboutTopStories": {
+    "topStories": "Top Stories",
+    "storyTitle1": "Story Title 1",
+    "storyContent1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+    "storyTitle2": "Story Title 2",
+    "storyContent2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "topNewsNotice": [
+    {
+      "title": "Launch of the Community Outreach Program",
+      "content": "We are excited to announce the launch of our new Community Outreach Program starting next month. This initiative aims to support local families in need through food drives, educational workshops, and volunteer opportunities. We encourage everyone to get involved and make a difference in our community."
+    },
+    {
+      "title": "Successful Annual Parish Fundraiser",
+      "content": "Thank you to all who participated in our Annual Parish Fundraiser! We are thrilled to share that we exceeded our fundraising goal, raising $15,000 for our parish's renovation projects. Your generosity is deeply appreciated, and we look forward to using these funds to enhance our church facilities."
+    },
+    {
+      "title": "Introducing the New Youth Ministry Program",
+      "content": "We are pleased to introduce a new Youth Ministry Program designed to engage our younger members in spiritual growth and community service. The program includes weekly meetings, Bible studies, and fun activities. Join us this Sunday after Mass to learn more and sign up."
+    },
+    {
+      "title": "Introducing Our New Online Giving Platform",
+      "content": "We are excited to announce the launch of our new online giving platform. This user-friendly tool will make it easier for you to contribute to the parish and manage your donations. Visit our website to set up your account and explore the new features."
+    }
+  ]
+}

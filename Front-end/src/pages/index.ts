@@ -1,0 +1,7 @@
+export * from './homePages/HomePage'
+export * from './aboutPages/AboutPage'
+export * from './aboutPages/CatholicActionsPage'
+export * from './aboutPages/ChoralsPage'
+export * from './aboutPages/LayLeadersPage'
+export * from './servicePages/ServicePage'
+export * from './NotFoundPage'
