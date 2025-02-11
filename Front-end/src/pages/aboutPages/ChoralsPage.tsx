@@ -1,7 +1,11 @@
-export const Chorals: React.FC = () => {
-    return (
-        <div>
-            <p>Chorals Page</p>
+import { BannerPage, Chorals } from "../../components/aboutComponents";
+import choral from "../../assets/choral.jpg";
+
+export const ChoralsPage = ()=>{
+    return(
+        <div className="w-full">
+            <BannerPage pageTitle="Chorals Page" image={choral}/>
+            <Chorals/>
         </div>
     )
 }

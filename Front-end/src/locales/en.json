@@ -4,6 +4,8 @@
   "home": "Home",
   "about": "About",
   "service": "Service",
+  "services": "Services",
+  "noServiceData": "No service information available at the moment.",
   "serviceSchedule":"Service Schedule ",
   "Office":"Office Hours",
   "welcome": "Welcome to Our Parish",
@@ -46,7 +48,9 @@
     "readMore": "Read More",
     "ourLeaders": "Our Leaders",
     "ourChorales": "Our Chorals",
-    "catholicAction": "Catholic Actions"
+    "catholicAction": "Catholic Actions",
+     "priest": "Our Priests",
+     "community": "Community"
   },
   "mission": {
     "title": "Our Mission",
@@ -87,5 +91,114 @@
       "title": "Introducing Our New Online Giving Platform",
       "content": "We are excited to announce the launch of our new online giving platform. This user-friendly tool will make it easier for you to contribute to the parish and manage your donations. Visit our website to set up your account and explore the new features."
     }
+  ],
+  "tabs": {
+    "officeHours": "Office Hours",
+    "massTimes": "Mass Times",
+    "chapel": "Chapel",
+    "penanceSchedule": "Sacrament of Penance Schedule"
+  },
+  "schedule": {
+    "office": {
+      "title": "Office",
+      "days": ["Tuesday-Saturday", "Sunday"],
+      "hours": ["9:00 - 17:00", "9:00 - 14:00"],
+      "note": "Close Monday"
+    },
+    "priest": {
+      "title": "Parish Priest",
+      "days": ["Tuesday", "Thursday"],
+      "hours": ["16:00 - 19:00", "16:00 - 19:00"]
+    },
+    "caritas": {
+      "title": "Caritas",
+      "days": ["Monday", "Friday"],
+      "hours": ["16:00 - 19:00", "16:00 - 19:00"]
+    }
+  },
+  "contact": {
+        "title": "Contact Us",
+        "description": "Feel free to reach out to us using the form below.",
+        "name": "Name",
+        "namePlaceholder": "Enter your name",
+        "email": "Email",
+        "emailPlaceholder": "Enter your email",
+        "message": "Message",
+        "messagePlaceholder": "Enter your message",
+        "submit": "Send Message",
+        "mapTitle": "Our Location on the Map"
+    },
+    "announcements": {
+    "title": "Announcements",
+    "recent": "Recent Announcements",
+    "item1Title": "Christmas Concert, At Saint Michel",
+    "item1Description": "Celebrate with us on the special occasion.",
+    "item2Title": "Easter's Concert 2023",
+    "item2Description": "Join us for an Easter celebration concert.",
+    "item3Title": "Community Gathering",
+    "item3Description": "A day of fellowship and community bonding.",
+    "date": "Date: {{date}}",
+    "loadMore": "Load More"
+  },
+  "historicalPosts": {
+    "title": "Historical Posts",
+    "post1Title": "Churches",
+    "post2Title": "St Michel",
+    "post3Title": "Easter's Concert 2023"
+  },
+  "subscribe": {
+    "title": "Subscribe to Stay Updated",
+    "emailPlaceholder": "Your Email",
+    "namePlaceholder": "Your Name",
+    "button": "Subscribe"
+  },
+    "contactPage": "Contact",
+    "announcementsPage": "Announcements",
+
+    "donationOptions": [
+    {
+      "title": "Offertory",
+      "description": "Support the parish's daily operations, including utilities, maintenance, and staff salaries. Donations can be made through MOMO: *182*8*1*077222#."
+    },
+    {
+      "title": "Tithe",
+      "description": "A traditional 10% offering of your income to support the church's ministries and outreach programs. Donations can be made through Equity Account: 4024 4200011597 or GT Bank Account: 211103701151180."
+    },
+    {
+      "title": "Charity",
+      "description": "Donations specifically directed towards helping those in need, including food drives and emergency relief. Donations can be made through Equity Account: 4024 4200011597 or GT Bank Account: 211103701151180."
+    },
+    {
+      "title": "Special Donations",
+      "description": "Contributions for specific causes such as building renovations or support for a particular event. Donations can be made through Equity Account: 4024 4200011597 or GT Bank Account: 211103701151180."
+    },
+    {
+      "title": "Memorial Donations",
+      "description": "Give in memory of a loved one to honor their legacy and support the church. Donations can be made through MOMO: *182*8*1*077222#."
+    },
+    {
+      "title": "Mass Intentions",
+      "description": "Offer a donation for a specific Mass to be said in honor of a particular intention or person. Donations can be made through MOMO: *182*8*1*077222#."
+    },
+    {
+      "title": "Equity Account",
+      "description": "Account: 4024 4200011597 Cathedrale Saint Michel."
+    },
+    {
+      "title": "GT Bank Account",
+      "description": "Account: 211103701151180 Cathedrale Saint Michel."
+    },
+    {
+      "title": "MOMO",
+      "description": "Dial *182*8*1*077222# for Paroisse Catholique Saint Michel."
+    }
   ]
+
+  
+
+
+
+
+
+
 }

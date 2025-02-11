@@ -1,10 +1,14 @@
 export interface CommissionLeaderContact {
     id: number;
-    name: string;
-    position: string;
-    phone: string;
-    email: string;
+    contact_person_name: string;
+    title: {
+        name_en:string,
+        name_fr:string,
+        name_rw:string,
+    };
+    contact_person_phone_number: string;
+    contact_person_email: string;
     link: string;
-    image: string;
+    backgroundImage: string;
     content:string
 }

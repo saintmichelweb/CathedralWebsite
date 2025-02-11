@@ -1,4 +1,4 @@
-import { RecentEvent } from "../types/RecentEvent";
+import { RecentEvent } from "../types/RecentEvents";
 import event from '../assets/11E.jpg'
 import event1 from '../assets/12E.jpg'
 import event2 from '../assets/13E.jpg'

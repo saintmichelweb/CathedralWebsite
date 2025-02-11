@@ -4,6 +4,8 @@
   "home": "Accueil",
   "about": "À propos",
   "service": "Service",
+  "services": "Services",
+  "noServiceData": "Aucune information sur les services n'est disponible pour le moment.",
   "serviceSchedule":"Horaire des services ",
   "Office":"Heures de bureau",
   "welcome": "Bienvenue dans notre paroisse",
@@ -44,7 +46,9 @@
   "readMore": "En savoir plus",
   "ourLeaders": "Nos dirigeants",
   "ourChorales": "Nos Chorales",
-  "catholicAction": "Actions Catholiques"
+  "catholicAction": "Actions Catholiques",
+  "priest": "Nos Prêtres",
+  "community": "Communauté"
 },
 
 "mission": {
@@ -86,5 +90,109 @@
     "title": "Présentation de Notre Nouvelle Plateforme de Don en Ligne",
     "content": "Nous sommes ravis d'annoncer le lancement de notre nouvelle plateforme de don en ligne. Cet outil convivial facilitera votre contribution à la paroisse et la gestion de vos dons. Visitez notre site web pour créer votre compte et explorer les nouvelles fonctionnalités."
   }
-]
+],
+
+
+"tabs": {
+    "officeHours": "Heures de Bureau",
+    "massTimes": "Horaires des Messes",
+    "chapel": "Chapelle",
+    "penanceSchedule": "Horaires du Sacrement de Pénitence"
+  },
+  "schedule": {
+    "office": {
+      "title": "Bureau",
+      "days": ["Mardi-Samedi", "Dimanche"],
+      "hours": ["9:00 - 17:00", "9:00 - 14:00"],
+      "note": "Fermé le Lundi"
+    },
+    "priest": {
+      "title": "Prêtre de la Paroisse",
+      "days": ["Mardi", "Jeudi"],
+      "hours": ["16:00 - 19:00", "16:00 - 19:00"]
+    },
+    "caritas": {
+      "title": "Caritas",
+      "days": ["Lundi", "Vendredi"],
+      "hours": ["16:00 - 19:00", "16:00 - 19:00"]
+    }
+  },
+  "contact": {
+    "title": "Nous Contacter",
+    "description": "N'hésitez pas à nous contacter en utilisant le formulaire ci-dessous.",
+    "name": "Nom",
+    "namePlaceholder": "Entrez votre nom",
+    "email": "E-mail",
+    "emailPlaceholder": "Entrez votre e-mail",
+    "message": "Message",
+    "messagePlaceholder": "Entrez votre message",
+    "submit": "Envoyer le Message",
+    "mapTitle": "Notre emplacement sur la carte"
+},
+"announcements": {
+  "title": "Annonces",
+  "recent": "Annonces Récentes",
+  "item1Title": "Concert de Noël, À Saint Michel",
+  "item1Description": "Célébrez avec nous cette occasion spéciale.",
+  "item2Title": "Concert de Pâques 2023",
+  "item2Description": "Rejoignez-nous pour un concert de célébration de Pâques.",
+  "item3Title": "Rassemblement Communautaire",
+  "item3Description": "Une journée de communion et de liens communautaires.",
+  "date": "Date : {{date}}",
+  "loadMore": "Charger Plus"
+},
+"historicalPosts": {
+  "title": "Publications Historiques",
+  "post1Title": "Églises",
+  "post2Title": "Saint Michel",
+  "post3Title": "Concert de Pâques 2023"
+},
+"subscribe": {
+  "title": "Abonnez-vous pour rester informé",
+  "emailPlaceholder": "Votre Email",
+  "namePlaceholder": "Votre Nom",
+  "button": "S'abonner"
+},
+"contactPage": "Contact",
+"announcementsPage": "Annonces",
+"donationOptions": [
+    {
+      "title": "Offrande",
+      "description": "Soutenez les opérations quotidiennes de la paroisse, y compris les services publics, l’entretien et les salaires du personnel. Les dons peuvent être effectués via MOMO : *182*8*1*077222#."
+    },
+    {
+      "title": "Dîme",
+      "description": "Une offrande traditionnelle de 10 % de votre revenu pour soutenir les ministères et les programmes de la paroisse. Les dons peuvent être effectués sur le compte Equity : 4024 4200011597 ou le compte GT Bank : 211103701151180."
+    },
+    {
+      "title": "Charité",
+      "description": "Dons destinés à aider les personnes dans le besoin, y compris les collectes alimentaires et l’aide d’urgence. Les dons peuvent être effectués sur le compte Equity : 4024 4200011597 ou le compte GT Bank : 211103701151180."
+    },
+    {
+      "title": "Dons Spéciaux",
+      "description": "Contributions pour des causes spécifiques telles que la rénovation d’un bâtiment ou le soutien d’un événement particulier. Les dons peuvent être effectués sur le compte Equity : 4024 4200011597 ou le compte GT Bank : 211103701151180."
+    },
+    {
+      "title": "Dons Commémoratifs",
+      "description": "Faites un don à la mémoire d’un être cher pour honorer son héritage et soutenir l’église. Les dons peuvent être effectués via MOMO : *182*8*1*077222#."
+    },
+    {
+      "title": "Intentions de Messe",
+      "description": "Faites un don pour qu’une messe soit célébrée en l’honneur d’une intention ou d’une personne particulière. Les dons peuvent être effectués via MOMO : *182*8*1*077222#."
+    },
+    {
+      "title": "Compte Equity",
+      "description": "Compte : 4024 4200011597 Cathédrale Saint Michel."
+    },
+    {
+      "title": "Compte GT Bank",
+      "description": "Compte : 211103701151180 Cathédrale Saint Michel."
+    },
+    {
+      "title": "MOMO",
+      "description": "Composez *182*8*1*077222# pour la Paroisse Catholique Saint Michel."
+    }
+  ]
+
+
 }

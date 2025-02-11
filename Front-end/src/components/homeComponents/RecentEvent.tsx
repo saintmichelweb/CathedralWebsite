@@ -1,45 +1,76 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "../generalComponents/Card";
-import { RecentEventData } from "../../data/RecentEventData";
+import { fetchRecentEvents } from "../../services";
+import { RecentEvents } from "../../types";
 
 const ITEMS_PER_PAGE = 3;
 
 export const RecentEvent: React.FC = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [error, setError] = useState<string | null>(null);
+    const [events, setEvents] = useState<RecentEvents[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
-    // Calculate the total number of items
-    const totalItems = RecentEventData.length;
+    useEffect(() => {
+        const fetchRecentEventData = async () => {
+            try {
+                const recentEvent = await fetchRecentEvents();
+                if (recentEvent.data?.length) {
+                    setEvents(recentEvent.data);
+                } else {
+                    throw new Error("Empty Recent Event Data");
+                }
+            } catch (error) {
+                console.error("Failed to fetch Recent Events", error);
+                setError(t("error.fetchRecentEvents") || "Failed to load recent events.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchRecentEventData();
+    }, [i18n.language]); // Use i18n.language instead of t
 
-    // Function to handle previous button click
+    const totalItems = events.length;
+
+    const getLocalizedText = (field?: Record<string, string>) =>
+        field?.[`title_${i18n.language}`] || field?.[`description_${i18n.language}`] || "N/A";
+
     const handlePrevClick = () => {
-        setCurrentIndex(prevIndex =>
-            (prevIndex - ITEMS_PER_PAGE + totalItems) % totalItems
-        );
+        if (totalItems > ITEMS_PER_PAGE) {
+            setCurrentIndex((prevIndex) => (prevIndex - ITEMS_PER_PAGE + totalItems) % totalItems);
+        }
     };
 
-    // Function to handle next button click
     const handleNextClick = () => {
-        setCurrentIndex(prevIndex =>
-            (prevIndex + ITEMS_PER_PAGE) % totalItems
-        );
+        if (totalItems > ITEMS_PER_PAGE) {
+            setCurrentIndex((prevIndex) => (prevIndex + ITEMS_PER_PAGE) % totalItems);
+        }
     };
 
-    // Slice the data to get visible items
-    const visibleItems = RecentEventData.slice(currentIndex, currentIndex + ITEMS_PER_PAGE);
+    const visibleItems = events.slice(currentIndex, currentIndex + ITEMS_PER_PAGE);
+
+    if (loading) {
+        return <div>{t("loading")}</div>;
+    }
+
+    if (error) {
+        return <div className="text-red-500">{error}</div>;
+    }
 
     return (
         <div className="p-4">
             <h2 className="text-custom-blue font-bold text-2xl md:text-4xl mb-4">
-                {t('recentEvents')}
+                {t("recentEvents")}
             </h2>
             <div className="flex flex-col md:flex-row items-center justify-between">
                 <button
-                    aria-label={t('previous')}
-                    className="bg-custom-blue text-white p-2 rounded-md flex items-center"
+                    aria-label={t("previous")}
+                    className="bg-custom-blue text-white p-2 rounded-md flex items-center disabled:opacity-50"
                     onClick={handlePrevClick}
+                    disabled={totalItems <= ITEMS_PER_PAGE}
                 >
                     <ChevronLeft className="w-5 h-5" />
                 </button>
@@ -49,20 +80,21 @@ export const RecentEvent: React.FC = () => {
                             <Card
                                 key={recentE.id}
                                 id={recentE.id}
-                                title={recentE.title}
-                                description={recentE.description}
+                                title={getLocalizedText(recentE.title)}
+                                description={getLocalizedText(recentE.description)}
                                 image={recentE.image}
-                                isActive={recentE.isActive}
+                                isActive={true}
                             />
                         ))
                     ) : (
-                        <p>{t('noEvents')}</p>
+                        <p>{t("noEvents")}</p>
                     )}
                 </div>
                 <button
-                    aria-label={t('next')}
-                    className="bg-custom-blue text-white p-2 rounded-md flex items-center"
+                    aria-label={t("next")}
+                    className="bg-custom-blue text-white p-2 rounded-md flex items-center disabled:opacity-50"
                     onClick={handleNextClick}
+                    disabled={totalItems <= ITEMS_PER_PAGE}
                 >
                     <ChevronRight className="w-5 h-5" />
                 </button>

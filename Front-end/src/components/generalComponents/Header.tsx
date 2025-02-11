@@ -46,12 +46,15 @@ export const Header: React.FC = () => {
                 <div className="relative group">
                     <NavigationLink to="about" text={t('about')} />
                     <ul className="absolute hidden group-hover:block bg-custom-blue w-48 z-10 p-2 rounded-md mt-1">
-                        <NavigationLink to="/layLeader" text={t('abouts.ourLeaders')} />
+                        <NavigationLink to="/priest" text={t('abouts.priest')} />
                         <NavigationLink to="/chorals" text={t('abouts.ourChorales')} />
                         <NavigationLink to="/catholicAction" text={t('abouts.catholicAction')} />
+                        <NavigationLink to="/community" text={t('abouts.community')} />
                     </ul>
                 </div>
                 <NavigationLink to="service" text={t('service')} />
+                <NavigationLink to="/contact" text={t('contactPage')} />
+                <NavigationLink to="/announcements" text={t('announcementsPage')} />
                 <li>
                     <button
                         onClick={() => setModalOpen(true)}

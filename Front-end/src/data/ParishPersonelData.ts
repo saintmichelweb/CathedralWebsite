@@ -1,4 +1,4 @@
-import { CardParishPersonnel } from "../types/CardParishPersonnel";
+import { CardParishPersonnel } from "../types/CardParishPersonnelType";
 import priest from '../assets/050421_FrJosephMuth_StMatthew-BlessedSacrement_KP-7058-1-768x512.jpg'
 import secretary from '../assets/WhatsApp Image 2024-08-12 at 21.46.18_04591ab8.jpg'
 import vicePresident from '../assets/WhatsApp Image 2024-08-13 at 00.21.06_9dc27b92.jpg'

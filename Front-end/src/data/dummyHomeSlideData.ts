@@ -11,35 +11,43 @@ import img8 from '../assets/14E.jpg'
 
 export const dummyHomeSlideData:HomeBanner[] = [
     {
-        description :"Home page 1",
-        image : img1,
+        
+bannerDescription_en :"Home page 1",
+        imageUrl : img1,
     },
     {
-        description :"Home page 2",
-        image : img2,
+        
+bannerDescription_en :"Home page 2",
+        imageUrl : img2,
     },
     {
-        description :"Home page 3",
-        image : img3,
+        
+bannerDescription_en :"Home page 3",
+        imageUrl : img3,
     },
     {
-        description :"Home page 4",
-        image : img4,
+        
+bannerDescription_en :"Home page 4",
+        imageUrl : img4,
     },
     {
-        description :"Home page 5",
-        image : img5,
+        
+bannerDescription_en :"Home page 5",
+        imageUrl : img5,
     },
     {
-        description :"Home page 6",
-        image : img6,
+        
+bannerDescription_en :"Home page 6",
+        imageUrl : img6,
     },
     {
-        description :"Home page 7",
-        image : img7,
+        
+bannerDescription_en :"Home page 7",
+        imageUrl : img7,
     },
     {
-        description :"Cathedral",
-        image : img8,
+        
+bannerDescription_en :"Cathedral",
+        imageUrl : img8,
     },
 ]
