@@ -25,10 +25,10 @@ services:
       dockerfile: ./DockerFile-Front-End
     restart: unless-stopped
     ports:
+      # - "5177:5173"
       - "5173:5173"
-    # environment:
-    #   - VITE_API_URL=http://localhost:3551/api
-    #   - VITE_LIMIT_PER_PAGE=10
+    environment:
+      - VITE_API_URL=http://localhost:3551
     volumes:
       - ./Front-end/src:/app/Front-end/src
       
