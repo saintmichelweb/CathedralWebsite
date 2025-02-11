@@ -30,7 +30,7 @@ services:
     #   - VITE_API_URL=http://localhost:3551/api
     #   - VITE_LIMIT_PER_PAGE=10
     volumes:
-      - ./Front-End/src:/app/Front-End/src
+      - ./Front-end/src:/app/Front-end/src
       
   api:
     build:
