@@ -25,7 +25,7 @@ services:
       dockerfile: ./DockerFile-Front-End
     restart: unless-stopped
     ports:
-      # - "5177:5173"
+      # - "5177:5173" #use if the port is used by an other container
       - "5173:5173"
     environment:
       - VITE_API_URL=http://localhost:3551
