@@ -1,4 +1,7 @@
 import { Box, Heading, Stack } from "@chakra-ui/react";
+// import CustomFileUploadModal from "../../components/ui/CustomModal/CustomFileUploadModal";
+import FileUploadModal from "../../components/ui/CustomModal/FileUploadModal";
+// import ZoneFileUpload from "../../components/ui/CustomModal/ZoneFileUpload";
 // import RecentEventsCard from "../RecentEvents/Components/recentEventsCard";
 // import TopParishNewsAndNoticesCard from "../TopNewsAndNotices/Components/topNewsAndNoticesCard";
 
@@ -25,13 +28,14 @@ const UpdateHomePage = () => {
         justifyContent={"center"}
       >
         <Box width={'fit-content'}>
-          <Heading
+          {/* <Heading
             size={"4xl"}
             color={"primary"}
             width={'fit-content'}
           >
             Welcome To Cathedral Saint Michael Portal
-          </Heading>
+          </Heading> */}
+          <FileUploadModal/>
         </Box>
       </Stack>
     </Box>
