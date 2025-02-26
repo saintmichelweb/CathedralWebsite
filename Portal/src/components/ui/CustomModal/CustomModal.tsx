@@ -57,8 +57,8 @@ const CustomModal = ({
       <ModalContent
         w={{ base: '90vw', lg: widthSize }}
         maxW='1000px'
-        mt='14'
-        mb={{ base: '14', lg: '0' }}
+        justifyContent={'center'}
+        alignContent={'center'}
       >
         <ModalHeader py='5' borderBottom='1px' borderColor='gray.100' bg={'primary'} >
           <Heading as='h3' size='md' color={'white'}>
@@ -67,7 +67,7 @@ const CustomModal = ({
         </ModalHeader>
         <ModalCloseButton top='2.5' right='4' bgColor='white' mt={'1.5'}/>
 
-        <ModalBody py='5' px={{ base: '4', md: '6' }} bg={'primaryBackground'}>
+        <ModalBody py='8' px={{ base: '4', md: '6' }} bg={'primaryBackground'}>
           {isLoading && <SectionLoader />}
 
           {child}

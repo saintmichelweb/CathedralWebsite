@@ -368,7 +368,7 @@ const RecentEventsManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="65vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this location?`}

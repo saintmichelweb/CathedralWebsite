@@ -33,12 +33,15 @@ router.get('/images/all',
     getBannerImages);
 router.put('/image/:id',
     authenticateJWT,
-    (req, res, next) => {
-        if (req.body.image){
-            upload.single('image');
-        }
-        next()
-    },
+    // (req, res, next) => {
+    //     if (req.body.image){
+    //         console.log('uploading the new Image')
+    //         upload.single('image');
+    //         console.log('req', req.file)
+    //     }
+    //     next()
+    // },
+    upload.single('image'), 
     ImageUpdate);
 router.delete('/image/:id',
     authenticateJWT,

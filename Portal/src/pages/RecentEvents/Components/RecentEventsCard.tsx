@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import { Box, Divider, HStack, SimpleGrid, Stack, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -18,9 +18,9 @@ import {
   MessageResponse,
   RecentEventResponse,
 } from "../../../types/apiResponses";
-import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
-import { addNewImage } from "../../../api/images";
+import { addNewImage, updateImage } from "../../../api/images";
 import { formatTheDate } from "../../../utils";
+import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
 
 interface AddRecentEventProps {
   onClose: () => void;
@@ -62,7 +62,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
       setValue("description_rw", recentEventToEdit.description_rw);
       setValue(
         "event_date",
-        formatTheDate(recentEventToEdit.event_date, "DD/MM/YYYY" )
+        formatTheDate(recentEventToEdit.event_date, "DD/MM/YYYY")
       );
     }
     setValue(
@@ -75,12 +75,12 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
-        console.log("adding new image");
-        await addNewImage({ image: selectedImage, isBannerImage: false })
+        if (recentEventToEdit) {
+          await updateImage({ imageId: recentEventToEdit.backgroundImage?.id, image: selectedImage, isBannerImage: false })
           .then((res) => {
             toast({
-              title: "Add Image message!",
-              description: res?.message || "Recent Event saved successfully",
+              title: "Update Image message!",
+              description: res?.message || "Image updated successfully",
               status: "success",
             });
             payload.backgroundImageId = res.image.id;
@@ -89,10 +89,29 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
             toast({
               title: "Add Image message",
               description:
-                error.response.data?.message || "Error saving recent Event!",
+                error.response.data?.message || "Error updating image!",
               status: "error",
             });
           });
+        } else {
+          await addNewImage({ image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Add Image message!",
+                description: res?.message || "Image saved successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error savig image!",
+                status: "error",
+              });
+            });
+        }
       }
 
       if (!recentEventToEdit) {
@@ -152,73 +171,93 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
-      <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="title_en"
-          register={register}
-          errors={errors}
-          label="Event title (EN)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="title_fr"
-          register={register}
-          errors={errors}
-          label="Event title (FR)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="title_rw"
-          register={register}
-          errors={errors}
-          label="Event title (RW)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="Event description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="Event description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="Event description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="event_date"
-          register={register}
-          errors={errors}
-          label="Event Date"
-          inputProps={{ bg: "white", type: "date" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        {!recentEventToEdit && (
+    <Box >
+      <Stack as="form" onSubmit={handleSubmit(onSubmit)} >
+        <SimpleGrid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(3, 1fr)',
+            xl: 'repeat(3, 1fr)',
+          }}
+          columnGap='4'
+          rowGap='4'
+          // justifyItems='center'
+          w='full'
+          data-testid='form-skeleton'
+          // bg={'green.300'}
+        >
+          <Stack>
+            <FormInput
+              name="title_en"
+              register={register}
+              errors={errors}
+              label="Event title (EN)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="title_fr"
+              register={register}
+              errors={errors}
+              label="Event title (FR)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="title_rw"
+              register={register}
+              errors={errors}
+              label="Event title (RW)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="event_date"
+              register={register}
+              errors={errors}
+              label="Event Date"
+              inputProps={{ bg: "white", type: "date" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <Stack>
+            <FormTextarea
+              name="description_en"
+              register={register}
+              errors={errors}
+              label="Event description (EN)"
+              placeholder="enter event description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_fr"
+              register={register}
+              errors={errors}
+              label="Event description (FR)"
+              placeholder="enter event description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_rw"
+              register={register}
+              errors={errors}
+              label="Event description (RW)"
+              placeholder="enter event description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          {/* {!recentEventToEdit && (
           <ImageUploader
             parentSetSelectedImage={(file: File) => setSelectedImage(file)}
           />
-        )}
-        <Divider mt={2} color={"gray.400"} />
+        )} */}
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={recentEventToEdit?.backgroundImage?.imageUrl || undefined} width="22rem" height="21.5rem"/>
+        </SimpleGrid>
+        <Divider mt={4} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
             Submit
@@ -237,9 +276,8 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${
-          recentEventToEdit ? "edit" : "add"
-        } this recent event?`}
+        alertText={`Are you sure you want to ${recentEventToEdit ? "edit" : "add"
+          } this recent event?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newRecentEventPayload)}

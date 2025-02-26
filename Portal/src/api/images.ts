@@ -12,6 +12,7 @@ interface ImageObj {
 interface updateImageObj {
     imageId: number,
     isBannerImage: boolean,
+    image?: File,
     bannerDescription_en?: string,
     bannerDescription_fr?: string,
     bannerDescription_rw?: string,
@@ -31,7 +32,19 @@ export async function addNewImage(imageObj: ImageObj) {
 }
 
 export async function updateImage(imageObj: updateImageObj) {
-    const response = await instance.put<{ message: string }>(`/image/${imageObj.imageId}`, imageObj)
+    if (imageObj.image) {
+        formData.append('image', imageObj.image);
+    }
+    if (imageObj.isActive) {
+        formData.append('isActive', `${imageObj.isActive}`);
+    }
+    if (imageObj.isBannerImage) {
+        formData.append('isBannerImage', `${imageObj.isBannerImage}`);
+        formData.append('bannerDescription_en', `${imageObj.bannerDescription_en}`);
+        formData.append('bannerDescription_fr', `${imageObj.bannerDescription_fr}`);
+        formData.append('bannerDescription_rw', `${imageObj.bannerDescription_rw}`);
+    }
+    const response = await instance.put<{ message: string }>(`/image/${imageObj.imageId}`, formData)
     return response.data
 }
 

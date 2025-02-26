@@ -16,7 +16,7 @@ services:
       - VITE_API_URL=http://localhost:3551/api
       - VITE_LIMIT_PER_PAGE=10
     volumes:
-      - ./Portal/src:/app/Portal/src
+      - ./Portal/src:/app/Portal/src # For developmennt purposes
 
   front-end:
     build: 
@@ -25,12 +25,12 @@ services:
       dockerfile: ./DockerFile-Front-End
     restart: unless-stopped
     ports:
-      # - "5177:5173"
-      - "5173:5173"
+      - "5177:5173"
+      # - "5173:5173"
     environment:
       - VITE_API_URL=http://localhost:3551
     volumes:
-      - ./Front-end/src:/app/Front-end/src
+      - ./Front-end/src:/app/Front-end/src # For developmennt purposes
       
   api:
     build:
@@ -44,7 +44,7 @@ services:
     networks:
       - stmp-net
     volumes:
-      - ./Api/src:/app/Api/src
+      - ./Api/src:/app/Api/src # For developmennt purposes
     depends_on:
       - stmp-db
       # - minio

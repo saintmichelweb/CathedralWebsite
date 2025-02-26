@@ -67,7 +67,7 @@ const ZoneFileUpload = ({
       justify='center'
       w='full'
       h='full'
-      mt='8'
+      // mt='8'
       bg={isDraggingOver ? 'blue.50' : 'white'}
       borderWidth='1px'
       borderStyle='dashed'
@@ -83,9 +83,9 @@ const ZoneFileUpload = ({
         resetUploadStates()
         if (!fileList) return
         for (const file of fileList) {
-          if (file.size >  maxFileSize *1024 * 1024) {
+          if (file.size >  maxFileSize *4096 * 1024) {
             setFileError(true)
-            setFileErrorMessage('Sorry, only file size less than 1mb is allowed...')
+            setFileErrorMessage('Sorry, only image size less than 4mb is allowed...')
             return
           }
         }
@@ -99,7 +99,7 @@ const ZoneFileUpload = ({
             return
           } else if (!files.some(file => allowedTypes.includes(file.type))) {
             setFileError(true)
-            setFileErrorMessage('Sorry, only pdf and image file format allowed...')
+            setFileErrorMessage('Sorry, only pdf and image image format allowed...')
             return
           } else {
             files && setFilenameList(files)
@@ -114,7 +114,7 @@ const ZoneFileUpload = ({
       onDragLeave={() => setIsDraggingOver(false)}
       data-testid='dropzone'
     >
-      <Stack content='center' align='center' spacing='3' bg={'blue.200'}>
+      <Stack content='center' align='center' spacing='3' >
         {fileError && <Text color={'red.400'}>{fileErrorMessage}</Text>}
         <Box w='20' h='20' position='relative'>
           {uploadProgress === 0 && (
@@ -176,11 +176,11 @@ const ZoneFileUpload = ({
         <Box textAlign='center' fontSize='sm'>
           {uploadProgress === 0 && (
             <>
-              <Text>Drag & Drop your file here</Text>
+              <Text>Drag & Drop your image here</Text>
               <Text>OR</Text>
             </>
           )}
-          {isUploading && <Text>Loading file...</Text>}
+          {isUploading && <Text>Loading image...</Text>}
           {!isUploading && uploadProgress === 100 && (
             <Box>
               <Text>File loaded successfully</Text>
@@ -211,9 +211,9 @@ const ZoneFileUpload = ({
             if (!fileList) return
 
             for (const file of fileList) {
-              if (file.size >  maxFileSize *1024 * 1024) {
+              if (file.size >  maxFileSize *4096 * 1024) {
                 setFileError(true)
-                setFileErrorMessage('Sorry, only file size less than 1mb is allowed...')
+                setFileErrorMessage('Sorry, only image size less than 4mb is allowed...')
                 return
               }
             }
@@ -223,11 +223,11 @@ const ZoneFileUpload = ({
               const allowedTypes = ['image/jpeg', 'image/png']
               if (fileList.length > 1) {
                 setFileError(true)
-                setFileErrorMessage('Sorry, only 1 file allowed to attach at once...')
+                setFileErrorMessage('Sorry, only 1 image allowed to attach at once...')
                 return
               } else if (!files.some(file => allowedTypes.includes(file.type))) {
                 setFileError(true)
-                setFileErrorMessage('Sorry, only image file format allowed...')
+                setFileErrorMessage('Sorry, only image image format allowed...')
                 return
               } else {
                 files && setFilenameList(files)
@@ -243,7 +243,7 @@ const ZoneFileUpload = ({
           colorVariant='info'
           onClick={() => (fileRef.current ? fileRef.current.click() : '')}
         >
-          {uploadProgress === 0 ? 'Browse File' : 'Change file'}
+          {uploadProgress === 0 ? 'Browse Image' : 'Change Image'}
         </CustomButton>
       </Stack>
     </Flex>
