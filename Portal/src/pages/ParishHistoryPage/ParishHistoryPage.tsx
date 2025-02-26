@@ -217,6 +217,8 @@ const ParishHistoryManagement = () => {
                   isLoading={false}
                   minW={"20rem"}
                   maxW={"20rem"}
+                  mt='3'
+                  mb='5'
                   alignSelf={"center"}
                 >
                   Submit

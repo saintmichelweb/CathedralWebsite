@@ -106,13 +106,14 @@ const AddLocationCard = (props: AddLocationProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           name="location"
           register={register}
           errors={errors}
           label="location"
+          placeholder="Enter location"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />

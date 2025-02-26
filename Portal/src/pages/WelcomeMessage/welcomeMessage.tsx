@@ -200,7 +200,7 @@ const WelcomeMessageManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="40vw"
       />
     </Stack>
   );

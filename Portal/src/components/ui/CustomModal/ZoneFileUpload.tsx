@@ -69,9 +69,9 @@ const ZoneFileUpload = ({
       h='full'
       // mt='8'
       bg={isDraggingOver ? 'blue.50' : 'white'}
-      borderWidth='1px'
-      borderStyle='dashed'
-      borderColor='#c5c5c5'
+      // borderWidth='1px'
+      // borderStyle='dashed'
+      // borderColor='#c5c5c5'
       rounded='md'
       className={isDraggingOver ? 'dragging-over' : ''}
       onDrop={e => {

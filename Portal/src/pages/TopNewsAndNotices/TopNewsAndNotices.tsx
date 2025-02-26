@@ -353,7 +353,7 @@ const TopNewsAndNoticesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="40vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this Top Parish News / Notices?`}

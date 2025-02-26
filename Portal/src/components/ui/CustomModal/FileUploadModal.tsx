@@ -25,6 +25,9 @@ const FileUploadModal = (props: FileUploadModalProps) => {
             // bg={'secondary'}
             alignItems={'center'}
             justifyContent={"center"}
+            borderWidth='1px'
+            borderStyle='dashed'
+            borderColor='#c5c5c5'
         >
             {!isUploadImage ?
                 (
