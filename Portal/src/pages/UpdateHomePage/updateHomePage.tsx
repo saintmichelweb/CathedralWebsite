@@ -28,14 +28,13 @@ const UpdateHomePage = () => {
         justifyContent={"center"}
       >
         <Box width={'fit-content'}>
-          {/* <Heading
+          <Heading
             size={"4xl"}
             color={"primary"}
             width={'fit-content'}
           >
             Welcome To Cathedral Saint Michael Portal
-          </Heading> */}
-          <FileUploadModal/>
+          </Heading>
         </Box>
       </Stack>
     </Box>

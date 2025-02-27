@@ -372,7 +372,7 @@ const ChoirsManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="60vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this choir?`}

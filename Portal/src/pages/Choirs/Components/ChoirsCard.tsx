@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import { Box, Divider, HStack, Stack, useToast, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
 import { MessageResponse, ChoirsResponse } from "../../../types/apiResponses";
-import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
-import { addNewImage } from "../../../api/images";
+import { addNewImage, updateImage } from "../../../api/images";
 import {
   AddChoirsForm,
   choirsSchema,
   UpdateChoirsForm,
 } from "../../../lib/validations/choirs";
 import { addNewChoir, updateChoir } from "../../../api/choirs";
+import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
 
 interface AddChoirProps {
   onClose: () => void;
@@ -58,24 +58,43 @@ const AddChoirCard = (props: AddChoirProps) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
-        console.log("adding new image");
-        await addNewImage({ image: selectedImage, isBannerImage: false })
-          .then((res) => {
-            toast({
-              title: "Add Image message!",
-              description: res?.message || "Image saved successfully",
-              status: "success",
+        if (choirToEdit) {
+          await updateImage({ imageId: choirToEdit.backgroundImage?.id, image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Update Image message!",
+                description: res?.message || "Image updated successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error updating image!",
+                status: "error",
+              });
             });
-            payload.backgroundImageId = res.image.id;
-          })
-          .catch((error) => {
-            toast({
-              title: "Add Image message",
-              description:
-                error.response.data?.message || "Error saving image!",
-              status: "error",
+        } else {
+          await addNewImage({ image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Add Image message!",
+                description: res?.message || "Image saved successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error savig image!",
+                status: "error",
+              });
             });
-          });
+        }
       }
 
       if (!choirToEdit) {
@@ -134,64 +153,76 @@ const AddChoirCard = (props: AddChoirProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="name"
-          register={register}
-          errors={errors}
-          label="Choir name"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="leader"
-          register={register}
-          errors={errors}
-          label="Choir Leader"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="telephone"
-          register={register}
-          errors={errors}
-          label="Choir Contact Telephone"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="description (en)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="description (fr)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="description (rw)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        {!choirToEdit && (
-          <ImageUploader
-            parentSetSelectedImage={(file: File) => setSelectedImage(file)}
-          />
-        )}
+        <SimpleGrid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(3, 1fr)',
+          }}
+          columnGap='4'
+          rowGap='4'
+          w='full'
+          data-testid='form-skeleton'
+        >
+          <Stack>
+            <FormInput
+              name="name"
+              register={register}
+              errors={errors}
+              label="Choir name"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="leader"
+              register={register}
+              errors={errors}
+              label="Choir Leader"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_fr"
+              register={register}
+              errors={errors}
+              label="description (fr)"
+              placeholder="enter event description (en)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <Stack>
+            <FormInput
+              name="telephone"
+              register={register}
+              errors={errors}
+              label="Choir Contact Telephone"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_en"
+              register={register}
+              errors={errors}
+              label="description (en)"
+              placeholder="enter event description (en)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_rw"
+              register={register}
+              errors={errors}
+              label="description (rw)"
+              placeholder="enter event description (en)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={choirToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+        </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
@@ -211,9 +242,8 @@ const AddChoirCard = (props: AddChoirProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${
-          choirToEdit ? "edit" : "add"
-        } this choir?`}
+        alertText={`Are you sure you want to ${choirToEdit ? "edit" : "add"
+          } this choir?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newChoirPayload)}

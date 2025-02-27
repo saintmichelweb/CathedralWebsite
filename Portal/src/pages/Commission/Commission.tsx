@@ -174,30 +174,6 @@ const CommissionManagement = () => {
         cell: (info) => info.getValue(),
         header: "Contact Person Email",
       }),
-      columnHelper.accessor("description_en", {
-        cell: (info) => info.getValue(),
-        header: "Description (en)",
-      }),
-      columnHelper.accessor("description_fr", {
-        cell: (info) => info.getValue(),
-        header: "Description (fr)",
-      }),
-      columnHelper.accessor("description_rw", {
-        cell: (info) => info.getValue(),
-        header: "Description (rw)",
-      }),
-      // columnHelper.accessor("work_days", {
-      //   cell: (info) => info.getValue(),
-      //   header: "Work Days",
-      // }),
-      // columnHelper.accessor("work_hours", {
-      //   cell: (info) => info.getValue(),
-      //   header: "Work Hours",
-      // }),
-      // columnHelper.accessor("event_date", {
-      //   cell: (info) => formatTheDate(info.getValue(), "DD/MM/YYYY"),
-      //   header: "Date",
-      // }),
       columnHelper.accessor("backgroundImage", {
         cell: (info) => {
           const imageUrl = info.row.original.backgroundImage?.imageUrl;
@@ -223,6 +199,30 @@ const CommissionManagement = () => {
         },
         header: "Background Image",
       }),
+      columnHelper.accessor("description_en", {
+        cell: (info) => info.getValue(),
+        header: "Description (en)",
+      }),
+      columnHelper.accessor("description_fr", {
+        cell: (info) => info.getValue(),
+        header: "Description (fr)",
+      }),
+      columnHelper.accessor("description_rw", {
+        cell: (info) => info.getValue(),
+        header: "Description (rw)",
+      }),
+      // columnHelper.accessor("work_days", {
+      //   cell: (info) => info.getValue(),
+      //   header: "Work Days",
+      // }),
+      // columnHelper.accessor("work_hours", {
+      //   cell: (info) => info.getValue(),
+      //   header: "Work Hours",
+      // }),
+      // columnHelper.accessor("event_date", {
+      //   cell: (info) => formatTheDate(info.getValue(), "DD/MM/YYYY"),
+      //   header: "Date",
+      // }),
       // columnHelper.accessor("isActive", {
       //   cell: (info) => {
       //     const status_ = info.getValue();
@@ -296,7 +296,7 @@ const CommissionManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
+                // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -304,7 +304,7 @@ const CommissionManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
+                // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
@@ -378,7 +378,7 @@ const CommissionManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedCommission ? "Update" : "Add"} recent event`}
+        headerTitle={`${selectedCommission ? "Update" : "Add"} commission`}
         isOpen={openNewRecentEventModel}
         onClose={() => setOpenNewRecentEventModel(false)}
         child={
@@ -393,10 +393,10 @@ const CommissionManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="60vw"
       />
       <AlertDialog
-        alertText={`Are you sure you want to delete this location?`}
+        alertText={`Are you sure you want to delete this commission?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
           setSelectedRecentEvent(null);

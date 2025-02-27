@@ -131,7 +131,7 @@ const AddUserCard = (props: AddUserProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           name="name"
