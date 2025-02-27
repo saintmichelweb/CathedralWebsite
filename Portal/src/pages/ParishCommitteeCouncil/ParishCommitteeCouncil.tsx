@@ -159,27 +159,27 @@ const ParishCommitteeCouncilManagement = () => {
       }),
       columnHelper.accessor("position_en", {
         cell: (info) => info.getValue(),
-        header: "position(EN)",
+        header: "position(en)",
       }),
       columnHelper.accessor("position_fr", {
         cell: (info) => info.getValue(),
-        header: "position(FR)",
+        header: "position(fr)",
       }),
       columnHelper.accessor("position_rw", {
         cell: (info) => info.getValue(),
-        header: "position(RW)",
+        header: "position(rw)",
       }),
       columnHelper.accessor("description_en", {
         cell: (info) => info.getValue(),
-        header: "Description(EN)",
+        header: "Description(en)",
       }),
       columnHelper.accessor("description_fr", {
         cell: (info) => info.getValue(),
-        header: "Description(FR)",
+        header: "Description(fr)",
       }),
       columnHelper.accessor("description_rw", {
         cell: (info) => info.getValue(),
-        header: "Description(RW)",
+        header: "Description(rw)",
       }),
       columnHelper.accessor("telephone", {
         cell: (info) => info.getValue(),
@@ -347,7 +347,7 @@ const ParishCommitteeCouncilManagement = () => {
           onClick={() => setOpenNewRecentEventModel(true)}
         >
           <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Parish
-          Committee Council Event
+          Committee Council
         </CustomButton>
       </Flex>
       <Box
@@ -399,7 +399,7 @@ const ParishCommitteeCouncilManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="60vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this location?`}

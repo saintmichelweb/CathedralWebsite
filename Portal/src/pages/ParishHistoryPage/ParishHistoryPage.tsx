@@ -134,24 +134,24 @@ const ParishHistoryManagement = () => {
                 <Stack direction={"row"} justifyContent={"space-around"}>
                   <FormTextarea
                     name="parishHistory_en"
-                    label="History (EN)"
+                    label="History (en)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish history (EN)"
+                    placeholder="Enter parish history (en)"
                   />
                   <FormTextarea
                     name="parishHistory_fr"
-                    label="History (FR)"
+                    label="History (fr)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish history (FR)"
+                    placeholder="Enter parish history (fr)"
                   />
                   <FormTextarea
                     name="parishHistory_rw"
-                    label="History (RW)"
+                    label="History (rw)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish history (RW)"
+                    placeholder="Enter parish history (rw)"
                   />
                 </Stack>
                 <Stack direction={{ base: "column", lg: "row" }}>
@@ -163,24 +163,24 @@ const ParishHistoryManagement = () => {
                 <Stack direction={"row"} justifyContent={"space-around"}>
                   <FormTextarea
                     name="mission_en"
-                    label="Mission (EN)"
+                    label="Mission (en)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish mission (EN)"
+                    placeholder="Enter parish mission (en)"
                   />
                   <FormTextarea
                     name="mission_fr"
-                    label="Mission (FR)"
+                    label="Mission (fr)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish mission (FR)"
+                    placeholder="Enter parish mission (fr)"
                   />
                   <FormTextarea
                     name="mission_rw"
-                    label="Mission (RW)"
+                    label="Mission (rw)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish mission (RW)"
+                    placeholder="Enter parish mission (rw)"
                   />
                 </Stack>
                 <Stack direction={{ base: "column", lg: "row" }}>
@@ -192,24 +192,24 @@ const ParishHistoryManagement = () => {
                 <Stack direction={"row"} justifyContent={"space-around"}>
                   <FormTextarea
                     name="vision_en"
-                    label="Vision (EN)"
+                    label="Vision (en)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish vision (EN)"
+                    placeholder="Enter parish vision (en)"
                   />
                   <FormTextarea
                     name="vision_fr"
-                    label="Vision (FR)"
+                    label="Vision (fr)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish vision (FR)"
+                    placeholder="Enter parish vision (fr)"
                   />
                   <FormTextarea
                     name="vision_rw"
-                    label="Vision (RW)"
+                    label="Vision (rw)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish vision (RW)"
+                    placeholder="Enter parish vision (rw)"
                   />
                 </Stack>
                 <CustomButton

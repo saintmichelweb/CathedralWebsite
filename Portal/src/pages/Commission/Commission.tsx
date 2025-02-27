@@ -148,15 +148,15 @@ const CommissionManagement = () => {
       }),
       columnHelper.accessor("name_en", {
         cell: (info) => info.getValue(),
-        header: "Name(EN)",
+        header: "Name(en)",
       }),
       columnHelper.accessor("name_fr", {
         cell: (info) => info.getValue(),
-        header: "Name(FR))",
+        header: "Name(fr))",
       }),
       columnHelper.accessor("name_rw", {
         cell: (info) => info.getValue(),
-        header: "Name(RW)",
+        header: "Name(rw)",
       }),
       columnHelper.accessor("contact_person_name", {
         cell: (info) => info.getValue(),
@@ -176,15 +176,15 @@ const CommissionManagement = () => {
       }),
       columnHelper.accessor("description_en", {
         cell: (info) => info.getValue(),
-        header: "Description (EN)",
+        header: "Description (en)",
       }),
       columnHelper.accessor("description_fr", {
         cell: (info) => info.getValue(),
-        header: "Description (FR)",
+        header: "Description (fr)",
       }),
       columnHelper.accessor("description_rw", {
         cell: (info) => info.getValue(),
-        header: "Description (RW)",
+        header: "Description (rw)",
       }),
       // columnHelper.accessor("work_days", {
       //   cell: (info) => info.getValue(),

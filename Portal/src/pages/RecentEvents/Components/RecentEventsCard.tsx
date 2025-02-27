@@ -192,23 +192,26 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               name="title_en"
               register={register}
               errors={errors}
-              label="Event title (EN)"
+              label="Event title (en)"
+              placeholder="Enter event title (en)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
-            />
+              />
             <FormInput
               name="title_fr"
               register={register}
               errors={errors}
-              label="Event title (FR)"
+              label="Event title (fr)"
+              placeholder="Enter event title (fr)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
-            />
+              />
             <FormInput
               name="title_rw"
               register={register}
               errors={errors}
-              label="Event title (RW)"
+              label="Event title (rw)"
+              placeholder="Enter event title (rw)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -226,7 +229,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               name="description_en"
               register={register}
               errors={errors}
-              label="Event description (EN)"
+              label="Event description (en)"
               placeholder="enter event description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -235,7 +238,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               name="description_fr"
               register={register}
               errors={errors}
-              label="Event description (FR)"
+              label="Event description (fr)"
               placeholder="enter event description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -244,7 +247,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               name="description_rw"
               register={register}
               errors={errors}
-              label="Event description (RW)"
+              label="Event description (rw)"
               placeholder="enter event description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}

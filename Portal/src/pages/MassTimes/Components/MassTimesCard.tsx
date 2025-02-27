@@ -273,6 +273,7 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           register={register}
           errors={errors}
           label="Time of the Mass"
+          placeholder="Enter time of the mass"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />

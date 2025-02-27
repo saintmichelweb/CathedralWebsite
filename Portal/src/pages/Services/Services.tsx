@@ -45,7 +45,7 @@ const ServicesManagement = () => {
   const [servicesData, setServicesData] = useState<ServicesResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
-  const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
+  const [openNewServiceModel, setOpenNewServiceModel] = useState(false);
   // const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
   //   useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
@@ -147,27 +147,27 @@ const ServicesManagement = () => {
       }),
       columnHelper.accessor("name_en", {
         cell: (info) => info.getValue(),
-        header: "Title(EN)",
+        header: "Title(en)",
       }),
       columnHelper.accessor("name_fr", {
         cell: (info) => info.getValue(),
-        header: "Title(FR)",
+        header: "Title(fr)",
       }),
       columnHelper.accessor("name_rw", {
         cell: (info) => info.getValue(),
-        header: "Title(RW)",
+        header: "Title(rw)",
       }),
       columnHelper.accessor("description_en", {
         cell: (info) => info.getValue(),
-        header: "Description(EN)",
+        header: "Description(en)",
       }),
       columnHelper.accessor("description_fr", {
         cell: (info) => info.getValue(),
-        header: "Description(FR)",
+        header: "Description(fr)",
       }),
       columnHelper.accessor("description_rw", {
         cell: (info) => info.getValue(),
-        header: "Description(RW)",
+        header: "Description(rw)",
       }),
       columnHelper.accessor("contact_person_name", {
         cell: (info) => info.getValue(),
@@ -254,7 +254,7 @@ const ServicesManagement = () => {
 
           const handleEdit = () => {
             setSelectedRecentEvent(info.row.original);
-            setOpenNewRecentEventModel(true);
+            setOpenNewServiceModel(true);
           };
 
           const handledelete = () => {
@@ -284,22 +284,22 @@ const ServicesManagement = () => {
                     handleActivateOrDeactivate
                   )}
                 </MenuItem> */}
-                <Divider />
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
-                >
-                  {ActionButton("delete", handledelete)}
-                </MenuItem>
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
+                // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                // onClick={handledelete}
+                >
+                  {ActionButton("delete", handledelete)}
+                </MenuItem>
+                {/* <Divider /> */}
               </MenuList>
             </Menu>
           );
@@ -332,7 +332,7 @@ const ServicesManagement = () => {
           type="button"
           isLoading={false}
           minW={"8rem"}
-          onClick={() => setOpenNewRecentEventModel(true)}
+          onClick={() => setOpenNewServiceModel(true)}
         >
           <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Service
         </CustomButton>
@@ -370,13 +370,13 @@ const ServicesManagement = () => {
       </Box>
       <CustomModal
         headerTitle={`${selectedRecentEvent ? "Update" : "Add"} Service`}
-        isOpen={openNewRecentEventModel}
-        onClose={() => setOpenNewRecentEventModel(false)}
+        isOpen={openNewServiceModel}
+        onClose={() => setOpenNewServiceModel(false)}
         child={
           <AddServicesCard
             onClose={() => {
               setSelectedRecentEvent(null);
-              setOpenNewRecentEventModel(false);
+              setOpenNewServiceModel(false);
             }}
             fetchServices={fetchServices}
             service={selectedRecentEvent}
@@ -384,7 +384,7 @@ const ServicesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="60vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this location?`}

@@ -164,7 +164,7 @@ const AddChoirCard = (props: AddChoirProps) => {
           name="description_en"
           register={register}
           errors={errors}
-          label="description (EN)"
+          label="description (en)"
           placeholder="enter event description"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
@@ -173,7 +173,7 @@ const AddChoirCard = (props: AddChoirProps) => {
           name="description_fr"
           register={register}
           errors={errors}
-          label="description (FR)"
+          label="description (fr)"
           placeholder="enter event description"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
@@ -182,7 +182,7 @@ const AddChoirCard = (props: AddChoirProps) => {
           name="description_rw"
           register={register}
           errors={errors}
-          label="description (RW)"
+          label="description (rw)"
           placeholder="enter event description"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}

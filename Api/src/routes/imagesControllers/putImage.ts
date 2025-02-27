@@ -26,10 +26,6 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
         return res.status(401).send({ message: "Unauthorized!" });
     }
 
-    if (!uploadedFile) {
-        return res.status(400).json({ message: 'No image uploaded' });
-      }
-
     const imageRepository = AppDataSource.getRepository(ImageEntity)
 
     try {
@@ -39,7 +35,7 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
         }
 
         if (isBannerImage !== null && isBannerImage !== undefined) {
-            oldImage.isBannerImage = isBannerImage === 'true'
+            oldImage.isBannerImage = typeof(isBannerImage) !== 'boolean' ? isBannerImage === 'true' : isBannerImage
         }
 
         if (bannerDescription_en) {

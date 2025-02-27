@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import { Box, Divider, HStack, Stack, useToast, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -9,13 +9,13 @@ import {
   BannerImageResponse,
   MessageResponse,
 } from "../../../types/apiResponses";
-import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
 import { addNewImage, updateImage } from "../../../api/images";
 import {
   BannerImageForm,
   bannerImageSchema,
   UpdateBannerImageForm,
 } from "../../../lib/validations/image";
+import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
 
 interface AddLanguageProps {
   onClose: () => void;
@@ -94,11 +94,12 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
           bannerDescription_en: payload.bannerDescription_en,
           bannerDescription_fr: payload.bannerDescription_fr,
           bannerDescription_rw: payload.bannerDescription_rw,
-          isActive: bannerImageToEdit.isActive,
+          isActive: `${bannerImageToEdit.isActive}`,
+          image: selectedBannerImage ?? null
         };
         await updateImage({
           ...editPayload,
-          isBannerImage: bannerImageToEdit.isBannerImage,
+          isBannerImage: `${bannerImageToEdit.isBannerImage}`,
         })
           .then((res: MessageResponse) => {
             toast({
@@ -123,45 +124,49 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        {!bannerImageToEdit ? (
-          <ImageUploader
-            parentSetSelectedImage={(file: File) =>
-              setSelectedBannerImage(file)
-            }
-          />
-        ) : (
-          // <img src={bannerImageToEdit.imageUrl} alt="Selected Image" />
-          <></>
-        )}
-        <FormTextarea
-          name="bannerDescription_en"
-          register={register}
-          errors={errors}
-          label="Banner description (EN)"
-          placeholder="Enter banner description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="bannerDescription_fr"
-          register={register}
-          errors={errors}
-          label="Description de la bannière"
-          placeholder="Entrez la description de la bannière"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="bannerDescription_rw"
-          register={register}
-          errors={errors}
-          label="Igisobanuro cy'ifoto"
-          placeholder="Andika igishobanuro cy'ifoto"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
+        <SimpleGrid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+          }}
+          columnGap='4'
+          rowGap='4'
+          w='full'
+          data-testid='form-skeleton'
+        >
+          <Stack>
+            <FormTextarea
+              name="bannerDescription_en"
+              register={register}
+              errors={errors}
+              label="Banner description (en)"
+              placeholder="Enter banner description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="bannerDescription_fr"
+              register={register}
+              errors={errors}
+              label="Description de la bannière"
+              placeholder="Entrez la description de la bannière"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="bannerDescription_rw"
+              register={register}
+              errors={errors}
+              label="Igisobanuro cy'ifoto"
+              placeholder="Andika igishobanuro cy'ifoto"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <FileUploadModal setFile={(file) => setSelectedBannerImage(file)} imageUrl={bannerImageToEdit?.imageUrl || undefined} width="20rem" height="full" />
+        </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
@@ -181,9 +186,8 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${
-          bannerImageToEdit ? "edit" : "add"
-        } this language?`}
+        alertText={`Are you sure you want to ${bannerImageToEdit ? "edit" : "add"
+          } this language?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newLanguagePayload)}

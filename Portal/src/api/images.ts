@@ -1,6 +1,5 @@
 import instance from '../lib/axiosInstance'
 import { imageResponse, BannerImageResponse } from '../types/apiResponses';
-const formData = new FormData();
 interface ImageObj {
     image: File,
     isBannerImage: boolean,
@@ -20,6 +19,7 @@ interface updateImageObj {
 }
 
 export async function addNewImage(imageObj: ImageObj) {
+    const formData = new FormData();
     formData.append('image', imageObj.image);
     if (imageObj.isBannerImage) {
         formData.append('isBannerImage', `${imageObj.isBannerImage}`);
@@ -32,19 +32,22 @@ export async function addNewImage(imageObj: ImageObj) {
 }
 
 export async function updateImage(imageObj: updateImageObj) {
+    let body: any = imageObj
     if (imageObj.image) {
+        const formData = new FormData();
         formData.append('image', imageObj.image);
+        if (imageObj.isActive) {
+            formData.append('isActive', `${imageObj.isActive}`);
+        }
+        if (imageObj.isBannerImage !== null && imageObj.isBannerImage !== undefined) {
+            formData.append('isBannerImage', `${imageObj.isBannerImage}`);
+            formData.append('bannerDescription_en', `${imageObj.bannerDescription_en}`);
+            formData.append('bannerDescription_fr', `${imageObj.bannerDescription_fr}`);
+            formData.append('bannerDescription_rw', `${imageObj.bannerDescription_rw}`);
+        }
+        body = formData
     }
-    if (imageObj.isActive) {
-        formData.append('isActive', `${imageObj.isActive}`);
-    }
-    if (imageObj.isBannerImage) {
-        formData.append('isBannerImage', `${imageObj.isBannerImage}`);
-        formData.append('bannerDescription_en', `${imageObj.bannerDescription_en}`);
-        formData.append('bannerDescription_fr', `${imageObj.bannerDescription_fr}`);
-        formData.append('bannerDescription_rw', `${imageObj.bannerDescription_rw}`);
-    }
-    const response = await instance.put<{ message: string }>(`/image/${imageObj.imageId}`, formData)
+    const response = await instance.put<{ message: string }>(`/image/${imageObj.imageId}`, body)
     return response.data
 }
 

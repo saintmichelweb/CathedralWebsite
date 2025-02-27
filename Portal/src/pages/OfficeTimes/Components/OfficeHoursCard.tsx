@@ -201,7 +201,7 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
           isError={errors.day_en ? true : false}
           errorMsg={errors.day_en ? errors.day_en.message : undefined}
           label="Day"
-          placeholder="Choose the day of the OfficeHour (English)"
+          placeholder="Choose the day (en)"
           options={officeHourDaysOptions_en}
           onChangeFn={(selectedVal) => {
             setOfficeHourDay_en(selectedVal);
@@ -245,7 +245,8 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
           name="time"
           register={register}
           errors={errors}
-          label="Time of the OfficeHour"
+          label="Time"
+          placeholder="Enter time"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />

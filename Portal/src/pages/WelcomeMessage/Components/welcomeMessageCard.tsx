@@ -167,7 +167,7 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
               name="welcomeMessage_en"
               register={register}
               errors={errors}
-              label="Welcome Message (EN)"
+              label="Welcome Message (en)"
               placeholder="enter welcome message english"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -176,7 +176,7 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
               name="welcomeMessage_fr"
               register={register}
               errors={errors}
-              label="Welcome Message (FR)"
+              label="Welcome Message (fr)"
               placeholder="enter welcome message in french"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -185,13 +185,13 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
               name="welcomeMessage_rw"
               register={register}
               errors={errors}
-              label="Welcome Message (RW)"
+              label="Welcome Message (rw)"
               placeholder="enter welcome message in Kinyarwanda"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
           </Stack>
-          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={welcomeMessageToEdit?.backgroundImage?.imageUrl || undefined} width="22rem" height="21.5rem" />
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={welcomeMessageToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
         </SimpleGrid>
         {/* {!welcomeMessageToEdit && (
           <ImageUploader

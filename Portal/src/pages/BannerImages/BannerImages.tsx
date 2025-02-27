@@ -172,15 +172,15 @@ const BannerImagesManagement = () => {
       }),
       columnHelper.accessor("bannerDescription_en", {
         cell: (info) => info.getValue(),
-        header: "Description (EN)",
+        header: "Description (en)",
       }),
       columnHelper.accessor("bannerDescription_fr", {
         cell: (info) => info.getValue(),
-        header: "Description (FR)",
+        header: "Description (fr)",
       }),
       columnHelper.accessor("bannerDescription_rw", {
         cell: (info) => info.getValue(),
-        header: "Description (EN)",
+        header: "Description (en)",
       }),
       columnHelper.accessor("isBannerImage", {
         cell: (info) => {
@@ -349,7 +349,7 @@ const BannerImagesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="40vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this Image?`}

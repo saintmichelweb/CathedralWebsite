@@ -149,27 +149,27 @@ const RecentEventsManagement = () => {
       }),
       columnHelper.accessor("title_en", {
         cell: (info) => info.getValue(),
-        header: "Title(EN)",
+        header: "Title(en)",
       }),
       columnHelper.accessor("title_fr", {
         cell: (info) => info.getValue(),
-        header: "Title(FR)",
+        header: "Title(fr)",
       }),
       columnHelper.accessor("title_rw", {
         cell: (info) => info.getValue(),
-        header: "Title(RW)",
+        header: "Title(rw)",
       }),
       columnHelper.accessor("description_en", {
         cell: (info) => info.getValue(),
-        header: "Description(EN)",
+        header: "Description(en)",
       }),
       columnHelper.accessor("description_fr", {
         cell: (info) => info.getValue(),
-        header: "Description(FR)",
+        header: "Description(fr)",
       }),
       columnHelper.accessor("description_rw", {
         cell: (info) => info.getValue(),
-        header: "Description(RW)",
+        header: "Description(rw)",
       }),
       columnHelper.accessor("event_date", {
         cell: (info) => formatTheDate( info.getValue(), "DD/MM/YYYY"),

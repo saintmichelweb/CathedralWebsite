@@ -78,15 +78,15 @@ const WelcomeMessageManagement = () => {
       }),
       columnHelper.accessor("welcomeMessage_en", {
         cell: (info) => info.getValue(),
-        header: "Message (EN)",
+        header: "Message (en)",
       }),
       columnHelper.accessor("welcomeMessage_fr", {
         cell: (info) => info.getValue(),
-        header: "Message (FR)",
+        header: "Message (fr)",
       }),
       columnHelper.accessor("welcomeMessage_rw", {
         cell: (info) => info.getValue(),
-        header: "Message (RW)",
+        header: "Message (rw)",
       }),
       columnHelper.accessor("backgroundImage", {
         cell: (info) => {

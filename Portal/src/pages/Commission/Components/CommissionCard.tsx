@@ -146,7 +146,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
           name="name_en"
           register={register}
           errors={errors}
-          label="Commission Name (EN)"
+          label="Commission Name (en)"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -154,7 +154,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
           name="name_fr"
           register={register}
           errors={errors}
-          label="Commission Name (FR)"
+          label="Commission Name (fr)"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -162,7 +162,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
           name="name_rw"
           register={register}
           errors={errors}
-          label="Commission Name (RW)"
+          label="Commission Name (rw)"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -202,7 +202,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
           name="description_en"
           register={register}
           errors={errors}
-          label="Event description (EN)"
+          label="Event description (en)"
           placeholder="enter event description"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
@@ -211,7 +211,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
           name="description_fr"
           register={register}
           errors={errors}
-          label="Event description (FR)"
+          label="Event description (fr)"
           placeholder="enter event description"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
@@ -220,7 +220,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
           name="description_rw"
           register={register}
           errors={errors}
-          label="Event description (RW)"
+          label="Event description (rw)"
           placeholder="enter event description"
           textareaProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}

@@ -9,11 +9,6 @@ import { deleteImages } from './imagesControllers/deleteImage';
 
 const router = express.Router()
 
-// interface MulterStorageOptions {
-//     destination: string;
-//     filename: (req: any, file: Express.Multer.File, cb: (error: Error | null, filename: string) => void) => void;
-// }
-
 const storage = multer.diskStorage({
     destination: './upload/images',
     filename: (req, file, cb) => {
@@ -22,26 +17,23 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+const uploadMiddleware = upload.single("image");
 
 router.use('/image', express.static('upload/images'));
-router.post('/image/upload', 
+router.post('/image/upload',
     authenticateJWT,
-    upload.single('image'), 
+    uploadMiddleware,
     ImageUpload);
 router.get('/images/all',
     authenticateJWT,
     getBannerImages);
 router.put('/image/:id',
     authenticateJWT,
-    // (req, res, next) => {
-    //     if (req.body.image){
-    //         console.log('uploading the new Image')
-    //         upload.single('image');
-    //         console.log('req', req.file)
-    //     }
-    //     next()
-    // },
-    upload.single('image'), 
+    (req, res, next) => {
+        uploadMiddleware(req, res, function (err: any) {
+            next();
+        });
+    },
     ImageUpdate);
 router.delete('/image/:id',
     authenticateJWT,

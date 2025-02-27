@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import { Box, Divider, HStack, Stack, useToast, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -11,9 +11,9 @@ import {
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
 import { MessageResponse, ServicesResponse } from "../../../types/apiResponses";
-import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
-import { addNewImage } from "../../../api/images";
+import { addNewImage, updateImage } from "../../../api/images";
 import { addNewService, updateService } from "../../../api/services";
+import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
 
 interface AddServiceProps {
   onClose: () => void;
@@ -68,24 +68,43 @@ const AddServicesCard = (props: AddServiceProps) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
-        console.log("adding new image");
-        await addNewImage({ image: selectedImage, isBannerImage: false })
-          .then((res) => {
-            toast({
-              title: "Add Image message!",
-              description: res?.message || "Service saved successfully",
-              status: "success",
+        if (serviceToEdit) {
+          await updateImage({ imageId: serviceToEdit.backgroundImage?.id, image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Update Image message!",
+                description: res?.message || "Image updated successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error updating image!",
+                status: "error",
+              });
             });
-            payload.backgroundImageId = res.image.id;
-          })
-          .catch((error) => {
-            toast({
-              title: "Add Image message",
-              description:
-                error.response.data?.message || "Error saving recent Event!",
-              status: "error",
+        } else {
+          await addNewImage({ image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Add Image message!",
+                description: res?.message || "Image saved successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error savig image!",
+                status: "error",
+              });
             });
-          });
+        }
       }
 
       if (!serviceToEdit) {
@@ -148,96 +167,115 @@ const AddServicesCard = (props: AddServiceProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="name_en"
-          register={register}
-          errors={errors}
-          label="Event name (EN)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="name_fr"
-          register={register}
-          errors={errors}
-          label="Event name (FR)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="name_rw"
-          register={register}
-          errors={errors}
-          label="Event name (RW)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="Event description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="Event description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="Event description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="work_days"
-          register={register}
-          errors={errors}
-          label="Work Days"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="work_hours"
-          register={register}
-          errors={errors}
-          label="Work Hours"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_name"
-          register={register}
-          errors={errors}
-          label="Contact Person's Name"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_phone_number"
-          register={register}
-          errors={errors}
-          label="Contact Person's Phone Number"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        {!serviceToEdit && (
-          <ImageUploader
-            parentSetSelectedImage={(file: File) => setSelectedImage(file)}
-          />
-        )}
+        <SimpleGrid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(3, 1fr)',
+          }}
+          columnGap='4'
+          rowGap='4'
+          w='full'
+          data-testid='form-skeleton'
+        >
+          <Stack>
+            <FormInput
+              name="name_en"
+              register={register}
+              errors={errors}
+              label="Service name (en)"
+              placeholder="Enter service name (en)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="name_fr"
+              register={register}
+              errors={errors}
+              label="Service name (fr)"
+              placeholder="Enter service name (fr)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="name_rw"
+              register={register}
+              errors={errors}
+              label="Service name (rw)"
+              placeholder="Enter service name (rw)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="work_days"
+              register={register}
+              errors={errors}
+              label="Work Days"
+              placeholder="Enter work days"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="work_hours"
+              register={register}
+              errors={errors}
+              label="Work Hours"
+              placeholder="Enter work hours"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="contact_person_name"
+              register={register}
+              errors={errors}
+              label="Contact Person's Name"
+              placeholder="Enter contact person's name"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <Stack>
+            <FormInput
+              name="contact_person_phone_number"
+              register={register}
+              errors={errors}
+              label="Contact Person's Phone Number"
+              placeholder="Enter contact person's phone number"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_en"
+              register={register}
+              errors={errors}
+              label="Event description (en)"
+              placeholder="Enter service description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_fr"
+              register={register}
+              errors={errors}
+              label="Event description (fr)"
+              placeholder="Enter service description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_rw"
+              register={register}
+              errors={errors}
+              label="Event description (rw)"
+              placeholder="Enter service description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={serviceToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+        </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
@@ -257,9 +295,8 @@ const AddServicesCard = (props: AddServiceProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${
-          serviceToEdit ? "edit" : "add"
-        } this service?`}
+        alertText={`Are you sure you want to ${serviceToEdit ? "edit" : "add"
+          } this service?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newRecentEventPayload)}

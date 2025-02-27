@@ -139,15 +139,8 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
               name="title_en"
               register={register}
               errors={errors}
-              label="Event title (EN)"
-              inputProps={{ bg: "white" }}
-              maxW={{ base: "25rem", sm: "90vw" }}
-            />
-            <FormInput
-              name="title_fr"
-              register={register}
-              errors={errors}
-              label="Event title (FR)"
+              label="Event title (en)"
+              placeholder="Enter title(en)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -155,17 +148,36 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
               name="title_rw"
               register={register}
               errors={errors}
-              label="Event title (RW)"
+              label="Event title (rw)"
+              placeholder="Enter title(rw)"
               inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_rw"
+              register={register}
+              errors={errors}
+              label="Event description (rw)"
+              placeholder="enter event description"
+              textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
           </Stack>
           <Stack>
+            <FormInput
+              name="title_fr"
+              register={register}
+              errors={errors}
+              label="Event title (fr)"
+              placeholder="Enter title(fr)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
             <FormTextarea
               name="description_en"
               register={register}
               errors={errors}
-              label="Event description (EN)"
+              label="Event description (en)"
               placeholder="enter event description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -174,16 +186,7 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
               name="description_fr"
               register={register}
               errors={errors}
-              label="Event description (FR)"
-              placeholder="enter event description"
-              textareaProps={{ bg: "white" }}
-              maxW={{ base: "25rem", sm: "90vw" }}
-            />
-            <FormTextarea
-              name="description_rw"
-              register={register}
-              errors={errors}
-              label="Event description (RW)"
+              label="Event description (fr)"
               placeholder="enter event description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
