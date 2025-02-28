@@ -125,7 +125,6 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
 
   return (
     <Box >
-    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <SimpleGrid
           templateColumns={{

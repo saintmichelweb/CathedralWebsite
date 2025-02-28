@@ -317,7 +317,7 @@ const OfficeTimesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="45vw"
+        widthSize="25vw"
       />
       {/* <AlertDialog
         alertText={`Are you sure you want to delete this location?`}
