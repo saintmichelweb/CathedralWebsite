@@ -193,7 +193,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               register={register}
               errors={errors}
               label="Event title (en)"
-              placeholder="Enter event title (en)"
+              placeholder="Enter title (en)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
               />
@@ -202,7 +202,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               register={register}
               errors={errors}
               label="Event title (fr)"
-              placeholder="Enter event title (fr)"
+              placeholder="Enter title (fr)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
               />
@@ -211,7 +211,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               register={register}
               errors={errors}
               label="Event title (rw)"
-              placeholder="Enter event title (rw)"
+              placeholder="Enter title (rw)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -230,7 +230,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               register={register}
               errors={errors}
               label="Event description (en)"
-              placeholder="enter event description"
+              placeholder="Enter description (en)"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -239,7 +239,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               register={register}
               errors={errors}
               label="Event description (fr)"
-              placeholder="enter event description"
+              placeholder="Enter description (fr)"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -248,7 +248,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               register={register}
               errors={errors}
               label="Event description (rw)"
-              placeholder="enter event description"
+              placeholder="Enter description (rw)"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />

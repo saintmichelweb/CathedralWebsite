@@ -171,7 +171,7 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
           isError={errors.office_place ? true : false}
           errorMsg={errors.office_place ? errors.office_place.message : undefined}
           label="Location"
-          placeholder="Choose officeHour location"
+          placeholder="Choose location"
           options={locationSelectOptions}
           onChangeFn={(selectedVal) => {
             setOfficeHourLocation(selectedVal);
@@ -200,8 +200,8 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
           selectValue={officeHourDay_en}
           isError={errors.day_en ? true : false}
           errorMsg={errors.day_en ? errors.day_en.message : undefined}
-          label="Day"
-          placeholder="Choose the day (en)"
+          label="Day (en)"
+          placeholder="Choose day (en)"
           options={officeHourDaysOptions_en}
           onChangeFn={(selectedVal) => {
             setOfficeHourDay_en(selectedVal);
@@ -215,8 +215,8 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
           selectValue={officeHourDay_fr}
           isError={errors.day_fr ? true : false}
           errorMsg={errors.day_fr ? errors.day_fr.message : undefined}
-          label="Jour"
-          placeholder="Choisissez le jour de la messe"
+          label="Day (fr)"
+          placeholder="Choose day (fr)"
           options={officeHourDaysOptions_fr}
           onChangeFn={(selectedVal) => {
             setOfficeHourDay_fr(selectedVal);
@@ -230,8 +230,8 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
           selectValue={officeHourDay_rw}
           isError={errors.day_rw ? true : false}
           errorMsg={errors.day_rw ? errors.day_rw.message : undefined}
-          label="Umunsi"
-          placeholder="Hitamo umunsi wa Misa"
+          label="Day (rw)"
+          placeholder="Choose day (rw)"
           options={officeHourDaysOptions_rw}
           onChangeFn={(selectedVal) => {
             setOfficeHourDay_rw(selectedVal);

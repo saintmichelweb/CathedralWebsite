@@ -142,7 +142,7 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
               register={register}
               errors={errors}
               label="Banner description (en)"
-              placeholder="Enter banner description"
+              placeholder="Enter banner description (en)"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -150,8 +150,8 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
               name="bannerDescription_fr"
               register={register}
               errors={errors}
-              label="Description de la bannière"
-              placeholder="Entrez la description de la bannière"
+              label="Banner description (fr)"
+              placeholder="Enter banner description (fr)"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -159,8 +159,8 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
               name="bannerDescription_rw"
               register={register}
               errors={errors}
-              label="Igisobanuro cy'ifoto"
-              placeholder="Andika igishobanuro cy'ifoto"
+              label="Banner description (rw)"
+              placeholder="Enter banner description (rw)"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />

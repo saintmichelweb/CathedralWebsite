@@ -198,7 +198,7 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           isError={errors.location ? true : false}
           errorMsg={errors.location ? errors.location.message : undefined}
           label="Location"
-          placeholder="Choose mass location"
+          placeholder="Choose location"
           options={locationSelectOptions}
           onChangeFn={(selectedVal) => {
             setMassLocation(selectedVal);
@@ -213,7 +213,7 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           isError={errors.language ? true : false}
           errorMsg={errors.language ? errors.language.message : undefined}
           label="Language"
-          placeholder="Choose mass language"
+          placeholder="Choose language"
           options={languageSelectOptions}
           onChangeFn={(selectedVal) => {
             setMassLanguage(selectedVal);
@@ -227,8 +227,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           selectValue={massDay_en}
           isError={errors.day_en ? true : false}
           errorMsg={errors.day_en ? errors.day_en.message : undefined}
-          label="Day"
-          placeholder="Choose the day of the Mass (English)"
+          label="Day (en)"
+          placeholder="Choose day (en)"
           options={massDaysOptions_en}
           onChangeFn={(selectedVal) => {
             setMassDay_en(selectedVal);
@@ -242,8 +242,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           selectValue={massDay_fr}
           isError={errors.day_fr ? true : false}
           errorMsg={errors.day_fr ? errors.day_fr.message : undefined}
-          label="Jour"
-          placeholder="Choisissez le jour de la messe"
+          label="Day (fr)"
+          placeholder="Choose day (fr)"
           options={massDaysOptions_fr}
           onChangeFn={(selectedVal) => {
             setMassDay_fr(selectedVal);
@@ -257,8 +257,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           selectValue={massDay_rw}
           isError={errors.day_rw ? true : false}
           errorMsg={errors.day_rw ? errors.day_rw.message : undefined}
-          label="Umunsi"
-          placeholder="Hitamo umunsi wa Misa"
+          label="Day (rw)"
+          placeholder="Choose day (rw)"
           options={massDaysOptions_rw}
           onChangeFn={(selectedVal) => {
             setMassDay_rw(selectedVal);
@@ -273,7 +273,7 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           register={register}
           errors={errors}
           label="Time of the Mass"
-          placeholder="Enter time of the mass"
+          placeholder="Enter time"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />

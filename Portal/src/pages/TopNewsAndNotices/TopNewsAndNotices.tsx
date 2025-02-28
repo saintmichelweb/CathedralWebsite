@@ -287,7 +287,7 @@ const TopNewsAndNoticesManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={0} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Top Parish News / Notices Management</Heading>
+          <Heading size="md">Top Parish News And Notices Management</Heading>
         </Stack>
         {/* <CustomLink
           to="/portal-user-management/role-management/create-role"
@@ -301,7 +301,7 @@ const TopNewsAndNoticesManagement = () => {
           minW={"8rem"}
           onClick={() => setOpenNewTopNewsAndNoticeModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New News/Notice
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New News / Notice
         </CustomButton>
       </Flex>
       <Box
@@ -338,7 +338,7 @@ const TopNewsAndNoticesManagement = () => {
       <CustomModal
         headerTitle={`${
           selectedTopNewsAndNotice ? "Update" : "Add"
-        } news/notice`}
+        } news / notice`}
         isOpen={openNewTopNewsAndNoticeModel}
         onClose={() => setOpenNewTopNewsAndNoticeModel(false)}
         child={
