@@ -47,23 +47,20 @@ const BannerImagesManagement = () => {
     BannerImageResponse[]
   >([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewBannerImageModel, setOpenNewBannerImageModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedBannerImage, setSelectedBannerImage] =
     useState<BannerImageResponse | null>(null);
-  // const toast = useToast();
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchBannerImages = async () => {
+  const fetchBannerImages = async (page = 1) => {
     setLoading(true);
-    await getBannerImages()
+    await getBannerImages({page})
       .then((data) => {
         setBannerImagesData(data.bannerImages);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -172,15 +169,15 @@ const BannerImagesManagement = () => {
       }),
       columnHelper.accessor("bannerDescription_en", {
         cell: (info) => info.getValue(),
-        header: "Description (EN)",
+        header: "Description (en)",
       }),
       columnHelper.accessor("bannerDescription_fr", {
         cell: (info) => info.getValue(),
-        header: "Description (FR)",
+        header: "Description (fr)",
       }),
       columnHelper.accessor("bannerDescription_rw", {
         cell: (info) => info.getValue(),
-        header: "Description (EN)",
+        header: "Description (en)",
       }),
       columnHelper.accessor("isBannerImage", {
         cell: (info) => {
@@ -230,13 +227,6 @@ const BannerImagesManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton(
-            //     status ? "deactivate" : "activate",
-            //     handleActivateOrDeactivate
-            //   )}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
@@ -245,7 +235,6 @@ const BannerImagesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -253,7 +242,6 @@ const BannerImagesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleActivateOrDeactivate}
                 >
                   {ActionButton(
                     status ? "deactivate" : "activate",
@@ -264,7 +252,6 @@ const BannerImagesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
@@ -310,7 +297,6 @@ const BannerImagesManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -320,8 +306,8 @@ const BannerImagesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchBannerImages}
               useCustomPagination
             />
           )}
@@ -349,7 +335,7 @@ const BannerImagesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="40vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this Image?`}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import { Box, Divider, HStack, Stack, useToast, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AlertDialog, CustomButton } from "../../../components/ui";
@@ -8,10 +8,10 @@ import {
   MessageResponse,
   WelcomeMessageResponse,
 } from "../../../types/apiResponses";
-import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
-import { addNewImage } from "../../../api/images";
+import { addNewImage, updateImage } from "../../../api/images";
 import { AddWelcomeMessageForm, UpdateWelcomeMessageForm, WelcomeMessageSchema } from "../../../lib/validations/welcomeMessage";
 import { addWelcomeMessage, putWelcomeMessage } from "../../../api/welcomeMessage";
+import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
 
 interface AddPriestProps {
   onClose: () => void;
@@ -55,24 +55,43 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
-        console.log("adding new image");
-        await addNewImage({ image: selectedImage, isBannerImage: false })
-          .then((res) => {
-            toast({
-              title: "Add Image message!",
-              description: res?.message || "Image saved successfully",
-              status: "success",
+        if (welcomeMessageToEdit) {
+          await updateImage({ imageId: welcomeMessageToEdit.backgroundImage?.id, image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Update Image message!",
+                description: res?.message || "Image updated successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error updating image!",
+                status: "error",
+              });
             });
-            payload.backgroundImageId = res.image.id;
-          })
-          .catch((error) => {
-            toast({
-              title: "Add Image message",
-              description:
-                error.response.data?.message || "Error saving image!",
-              status: "error",
+        } else {
+          await addNewImage({ image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Add Image message!",
+                description: res?.message || "Image saved successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error savig image!",
+                status: "error",
+              });
             });
-          });
+        }
       }
 
       if (!welcomeMessageToEdit) {
@@ -127,40 +146,58 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-      <FormTextarea
-          name="welcomeMessage_en"
-          register={register}
-          errors={errors}
-          label="Welcome Message (EN)"
-          placeholder="enter welcome message english"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="welcomeMessage_fr"
-          register={register}
-          errors={errors}
-          label="Welcome Message (FR)"
-          placeholder="enter welcome message in french"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="welcomeMessage_rw"
-          register={register}
-          errors={errors}
-          label="Welcome Message (RW)"
-          placeholder="enter welcome message in Kinyarwanda"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        {!welcomeMessageToEdit && (
+        <SimpleGrid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+            // lg: 'repeat(2, 1fr)',
+            // xl: 'repeat(2, 1fr)',
+          }}
+          columnGap='4'
+          rowGap='4'
+          // justifyItems='center'
+          w='full'
+          data-testid='form-skeleton'
+        // bg={'green.300'}
+        >
+          <Stack>
+            <FormTextarea
+              name="welcomeMessage_en"
+              register={register}
+              errors={errors}
+              label="Welcome Message (en)"
+              placeholder="enter welcome message english"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="welcomeMessage_fr"
+              register={register}
+              errors={errors}
+              label="Welcome Message (fr)"
+              placeholder="enter welcome message in french"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="welcomeMessage_rw"
+              register={register}
+              errors={errors}
+              label="Welcome Message (rw)"
+              placeholder="enter welcome message in Kinyarwanda"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={welcomeMessageToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+        </SimpleGrid>
+        {/* {!welcomeMessageToEdit && (
           <ImageUploader
             parentSetSelectedImage={(file: File) => setSelectedImage(file)}
           />
-        )}
+        )} */}
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
@@ -180,9 +217,8 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${
-          welcomeMessageToEdit ? "edit" : "add"
-        } this recent event?`}
+        alertText={`Are you sure you want to ${welcomeMessageToEdit ? "edit" : "add"
+          } this recent event?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newRecentEventPayload)}

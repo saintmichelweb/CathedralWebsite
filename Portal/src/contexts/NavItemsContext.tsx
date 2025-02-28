@@ -24,13 +24,6 @@ export const NAV_ITEMS = [
     icon: FaHouse,
     // permissions: ['View Transactions'],
   },
-  // {
-  //   name: "Locations",
-  //   to: "/locations",
-  //   label: "Go to locations",
-  //   icon: CgMoreO ,
-  //   // permissions: ['View Transactions'],
-  // },
   {
     name: "Locations & languages",
     label: "Open portal location & languages management nav menu",
@@ -75,13 +68,6 @@ export const NAV_ITEMS = [
       },
     ],
   },
-  // {
-  //   name: "OfficeHours",
-  //   to: "/OfficeHours",
-  //   label: "Go to OfficeHours",
-  //   icon: FaBusinessTime,
-  //   // permissions: ['View Transactions'],
-  // },
   {
     name: "News and events",
     label: "Open portal news and events nav menu",
@@ -148,18 +134,26 @@ export const NAV_ITEMS = [
     // permissions: ['View Transactions'],
   },
   {
-    name: "parish committee council",
-    to: "/parishCommitteeCouncil",
-    label: "Go to parish committee council",
-    icon: MdGroups2,
-    // permissions: ['View Transactions'],
-  },
-  {
-    name: "Commissions",
-    to: "/commissions",
-    label: "Go to commissions",
+    name: "Commissions and Committees",
+    label: "Open Commissions and Committees nav menu",
     icon: TiGroupOutline,
-    // permissions: ['View Transactions'],
+    // permissions: ['View Portal Users'],
+    subNavItems: [
+      {
+        name: "parish committee council",
+    to: "/parishCommitteeCouncil",
+        shortName: "committee council",
+        // icon: IoTimeOutline,
+        // permissions: ['View Transactions'],
+      },
+      {
+        name: "Commissions",
+    to: "/commissions",
+        shortName: "Commissions",
+        // icon: FaLanguage,
+        // permissions: ['View Transactions'],
+      },
+    ],
   },
   {
     name: "Choirs",
@@ -169,8 +163,8 @@ export const NAV_ITEMS = [
     // permissions: ['View Transactions'],
   },
   {
-    name: "User Management",
-    label: "Go to user management",
+    name: "Portal Users Management",
+    label: "Go to users management",
     to: "/users",
     icon: FaUserCircle ,
   },

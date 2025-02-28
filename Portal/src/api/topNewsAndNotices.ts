@@ -1,14 +1,15 @@
 import instance from '../lib/axiosInstance'
 import { TopNewsAndNoticesForm, UpdateTopNewsAndNoticesForm } from '../lib/validations/topParishNewsAndNotices'
 import { TopNewsAndNoticesResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
 export async function addNewTopNewsAndNotices(topNewsAndNoticesObj: TopNewsAndNoticesForm) {
   const response = await instance.post<{ message: string }>('/top-news-and-notices', topNewsAndNoticesObj)
   return response.data
 }
 
-export async function getAllTopNewsAndNotices() {
-  const response = await instance.get<{ topParishNewsAndNotices: TopNewsAndNoticesResponse[], message: string, numberOfPages: number }>('/top-news-and-notices/all')
+export async function getAllTopNewsAndNotices(params: PaginationParams) {
+  const response = await instance.get<{ topParishNewsAndNotices: TopNewsAndNoticesResponse[], message: string, totalPages: number }>('/top-news-and-notices/all', {params})
   return response.data
 }
 

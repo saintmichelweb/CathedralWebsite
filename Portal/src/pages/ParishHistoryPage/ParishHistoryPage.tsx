@@ -4,8 +4,6 @@ import {
   Heading,
   Card,
   useToast,
-  Text,
-  // Box,
 } from "@chakra-ui/react";
 import { FormTextarea } from "../../components/form";
 import {
@@ -134,24 +132,24 @@ const ParishHistoryManagement = () => {
                 <Stack direction={"row"} justifyContent={"space-around"}>
                   <FormTextarea
                     name="parishHistory_en"
-                    label="History (EN)"
+                    label="History (en)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish history (EN)"
+                    placeholder="Enter parish history (en)"
                   />
                   <FormTextarea
                     name="parishHistory_fr"
-                    label="History (FR)"
+                    label="History (fr)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish history (FR)"
+                    placeholder="Enter parish history (fr)"
                   />
                   <FormTextarea
                     name="parishHistory_rw"
-                    label="History (RW)"
+                    label="History (rw)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish history (RW)"
+                    placeholder="Enter parish history (rw)"
                   />
                 </Stack>
                 <Stack direction={{ base: "column", lg: "row" }}>
@@ -163,24 +161,24 @@ const ParishHistoryManagement = () => {
                 <Stack direction={"row"} justifyContent={"space-around"}>
                   <FormTextarea
                     name="mission_en"
-                    label="Mission (EN)"
+                    label="Mission (en)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish mission (EN)"
+                    placeholder="Enter parish mission (en)"
                   />
                   <FormTextarea
                     name="mission_fr"
-                    label="Mission (FR)"
+                    label="Mission (fr)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish mission (FR)"
+                    placeholder="Enter parish mission (fr)"
                   />
                   <FormTextarea
                     name="mission_rw"
-                    label="Mission (RW)"
+                    label="Mission (rw)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish mission (RW)"
+                    placeholder="Enter parish mission (rw)"
                   />
                 </Stack>
                 <Stack direction={{ base: "column", lg: "row" }}>
@@ -192,24 +190,24 @@ const ParishHistoryManagement = () => {
                 <Stack direction={"row"} justifyContent={"space-around"}>
                   <FormTextarea
                     name="vision_en"
-                    label="Vision (EN)"
+                    label="Vision (en)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish vision (EN)"
+                    placeholder="Enter parish vision (en)"
                   />
                   <FormTextarea
                     name="vision_fr"
-                    label="Vision (FR)"
+                    label="Vision (fr)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish vision (FR)"
+                    placeholder="Enter parish vision (fr)"
                   />
                   <FormTextarea
                     name="vision_rw"
-                    label="Vision (RW)"
+                    label="Vision (rw)"
                     register={register}
                     errors={errors}
-                    placeholder="Enter parish vision (RW)"
+                    placeholder="Enter parish vision (rw)"
                   />
                 </Stack>
                 <CustomButton
@@ -217,40 +215,15 @@ const ParishHistoryManagement = () => {
                   isLoading={false}
                   minW={"20rem"}
                   maxW={"20rem"}
+                  mt='3'
+                  mb='5'
                   alignSelf={"center"}
+                  mb={'3'}
                 >
                   Submit
                 </CustomButton>
               </Stack>
             </Card>
-            {/* {parishHistory && (
-              <Stack flexDirection={"column"} w={"50%"}>
-                {parishHistory?.history_en && (
-                  <Card ml={"1"} p={"2"}>
-                    <Stack direction={"column"} mb={"4"}>
-                      <Heading size="sm">Currently Saved History</Heading>
-                      <Text>{parishHistory?.history_en || ""}</Text>
-                    </Stack>
-                  </Card>
-                )}
-                {parishHistory?.history_fr && (
-                  <Card ml={"1"} p={"2"}>
-                    <Stack direction={"column"} mb={"4"}>
-                      <Heading size="sm">Histoire de la </Heading>
-                      <Text>{parishHistory?.history_fr || ""}</Text>
-                    </Stack>
-                  </Card>
-                )}
-                {parishHistory?.history_rw && (
-                  <Card ml={"1"} p={"2"}>
-                    <Stack direction={"column"}>
-                      <Heading size="sm">Amateka ya Cathedral</Heading>
-                      <Text>{parishHistory?.history_rw || ""}</Text>
-                    </Stack>
-                  </Card>
-                )}
-              </Stack>
-            )} */}
           </Stack>
         )}
       </Stack>

@@ -37,6 +37,7 @@ export async function getWebsiteCommissions(req: Request, res: Response) {
   try {
     const totalCommission = await queryBuilder.getMany()
     const responseCommission = Object.values(totalCommission).map(commission => ({
+      id:commission.id,
       title: {
         name_en: commission.name_en,
         name_fr: commission.name_fr,

@@ -126,6 +126,24 @@ paths:
       tags:
         - Choir
       summary: get all Choir
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The page number
+          minimum: 1
+          example: 1
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: The search text
+        - in: isActive
+          name: is active
+          schema:
+            type: boolean
+          description: if choir is active.
       responses:
         '200':
           description: Get Choir
@@ -453,6 +471,23 @@ paths:
                   message:
                     type: string
                     example: Invalid credentials
+        '500':
+          description: Internal Server error
+  /images/frontend:
+    get:
+      tags:
+        - Images
+      parameters:
+        - in: query
+          name: isBannerImage
+          schema:
+            type: boolean
+          required: true
+          description: Status of Image
+      summary: Get all banner images for the frontend
+      responses:
+        '200':
+          description: Successfully retrieved banner images
         '500':
           description: Internal Server error
   /language/{id}:
@@ -2461,6 +2496,16 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
+  /top-news-and-notices/all-public:
+    get:
+      tags:
+        - Top News And Notices
+      summary: Get all top news and notices for public access
+      responses:
+        '200':
+          description: Get Top News And Notices
+        '500':
+          description: Internal Server error
   /top-news-and-notices:
     post:
       tags:
@@ -2912,6 +2957,16 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
+  /WelcomeMessageFrontend/msg:
+    get:
+      tags:
+        - Welcome Message
+      summary: Get welcome message
+      responses:
+        '200':
+          description: Get welcome message
+        '500':
+          description: Internal server error
 tags:
   - name: Users
   - name: Roles
