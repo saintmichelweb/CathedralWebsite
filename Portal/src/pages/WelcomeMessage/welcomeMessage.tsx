@@ -36,21 +36,18 @@ const WelcomeMessageManagement = () => {
   const toast = useToast();
   const [welcomeMessageData, setWelcomeMessageData] = useState<WelcomeMessageResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewWelcomeMessageModel, setWelcomeMessageModel] = useState(false);
   const [selectedWelcomeMessage, setSelectedWelcomeMessage] =
     useState<WelcomeMessageResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
   const fetchWelcomeMessage = async () => {
     setLoading(true);
     await getWelcomeMessage()
       .then((data) => {
-        console.log(data.welcomeMessage)
         setWelcomeMessageData(data.welcomeMessage);
         if (data.welcomeMessage.length) setSelectedWelcomeMessage(data.welcomeMessage[0])
-        setNumberPages(1);
+        setnumberOfPages(1);
         setLoading(false);
       })
       .catch((error) => {
@@ -164,7 +161,6 @@ const WelcomeMessageManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -174,7 +170,7 @@ const WelcomeMessageManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
+              totalPages={numberOfPages}
               // onFetch={onPageChange}
               useCustomPagination
             />

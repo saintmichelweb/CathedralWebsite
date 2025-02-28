@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import {
   Box,
-  // Card,
-  // Checkbox,
   Divider,
-  // Heading,
   HStack,
+  SimpleGrid,
   Stack,
   useToast,
 } from "@chakra-ui/react";
@@ -23,8 +21,17 @@ import { CustomFormSelect, FormInput } from "../../../components/form";
 import { getLocations } from "../../../api/location";
 import { getLanguages } from "../../../api/language";
 import { addNewMassTime, updateMassTime } from "../../../api/massTimes";
-import { LanguageResponse, LocationResponse, MassTimesResponse, MessageResponse } from "../../../types/apiResponses";
-import { MassDaysEnum_FR, MassDaysEnum_EN, MassDaysEnum_RW } from "../../../../../shared-lib/src";
+import {
+  LanguageResponse,
+  LocationResponse,
+  MassTimesResponse,
+  MessageResponse,
+} from "../../../types/apiResponses";
+import {
+  MassDaysEnum_FR,
+  MassDaysEnum_EN,
+  MassDaysEnum_RW,
+} from "../../../../../shared-lib/src";
 
 interface AddMassTimesProps {
   onClose: () => void;
@@ -54,18 +61,18 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newUserPayload, setNewUserPayload] = useState<MassTimesForm>();
 
-  const massDaysOptions_en = Object.values(MassDaysEnum_EN).map(value => ({
+  const massDaysOptions_en = Object.values(MassDaysEnum_EN).map((value) => ({
     value,
     label: value,
-  }))
-  const massDaysOptions_fr = Object.values(MassDaysEnum_FR).map(value => ({
+  }));
+  const massDaysOptions_fr = Object.values(MassDaysEnum_FR).map((value) => ({
     value,
     label: value,
-  }))
-  const massDaysOptions_rw = Object.values(MassDaysEnum_RW).map(value => ({
+  }));
+  const massDaysOptions_rw = Object.values(MassDaysEnum_RW).map((value) => ({
     value,
     label: value,
-  }))
+  }));
 
   useEffect(() => {
     if (massTimeToEdit) {
@@ -98,36 +105,36 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
     }
   }, [massTimeToEdit]);
 
-  // useEffect(() => {
-  const getAllLocations = async () => {
-    await getLocations(true, true).then((data) => {
-      data.locations.map((dataLocation: LocationResponse) => {
-        locationSelectOptions.push({
-          value: dataLocation.id,
-          label: dataLocation.location,
+  useEffect(() => {
+    const getAllLocations = async () => {
+      await getLocations({ page: undefined }, true, true).then((data) => {
+        data.locations.map((dataLocation: LocationResponse) => {
+          locationSelectOptions.push({
+            value: dataLocation.id,
+            label: dataLocation.location,
+          });
         });
       });
-    });
-  };
-  if (locationSelectOptions.length == 0) {
-    getAllLocations();
-  }
+    };
+    if (locationSelectOptions.length == 0) {
+      getAllLocations();
+    }
 
-  const getAllLanguages = async () => {
-    await getLanguages(true).then((data) => {
-      data.languages.map((dataLanguage: LanguageResponse) => {
-        languageSelectOptions.push({
-          value: dataLanguage.id,
-          label: dataLanguage.language,
+    const getAllLanguages = async () => {
+      await getLanguages({ page: undefined }, true).then((data) => {
+        data.languages.map((dataLanguage: LanguageResponse) => {
+          languageSelectOptions.push({
+            value: dataLanguage.id,
+            label: dataLanguage.language,
+          });
         });
       });
-    });
-  };
+    };
 
-  if (languageSelectOptions.length == 0) {
-    getAllLanguages();
-  }
-  // }, []);
+    if (languageSelectOptions.length == 0) {
+      getAllLanguages();
+    }
+  }, []);
 
   const onSubmit = async (values: MassTimesForm) => {
     setNewUserPayload(values);
@@ -145,8 +152,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
               description: res?.message || "Mass Time saved successfully",
               status: "success",
             });
-            props.fetchMassTimes()
-            props.onClose()
+            props.fetchMassTimes();
+            props.onClose();
           })
           .catch((error) => {
             toast({
@@ -166,23 +173,25 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           day_rw: payload.day_rw,
           day_en: payload.day_en,
           day_fr: payload.day_fr,
-          time: payload.time
+          time: payload.time,
         };
         await updateMassTime(editPayload)
           .then((res: MessageResponse) => {
             toast({
               title: "Update Mass Times Message",
-              description: res?.message || "Mass Times status changed successfully",
+              description:
+                res?.message || "Mass Times status changed successfully",
               status: "success",
             });
-            props.fetchMassTimes()
-            props.onClose()
+            props.fetchMassTimes();
+            props.onClose();
           })
           .catch((error) => {
             toast({
               title: "Update Mass Times Message",
               description:
-                error.response.data?.message || "Error editing mass times status!",
+                error.response.data?.message ||
+                "Error editing mass times status!",
               status: "error",
             });
           });
@@ -296,8 +305,9 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`re you sure you want to ${massTimeToEdit ? "update" : "add"
-          } this Mass time?`}
+        alertText={`re you sure you want to ${
+          massTimeToEdit ? "update" : "add"
+        } this Mass time?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newUserPayload)}

@@ -56,7 +56,7 @@ const CustomFormSelect = ({
           options={options}
           placeholder={placeholder}
           value={selectValue}
-          onChange={onChangeFn}
+          onChange={() => onChangeFn}
           chakraStyles={chakraStyles}
         />
       </Box>

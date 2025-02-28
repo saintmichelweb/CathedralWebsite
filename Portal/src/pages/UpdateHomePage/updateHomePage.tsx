@@ -6,18 +6,10 @@ import FileUploadModal from "../../components/ui/CustomModal/FileUploadModal";
 // import TopParishNewsAndNoticesCard from "../TopNewsAndNotices/Components/topNewsAndNoticesCard";
 
 const UpdateHomePage = () => {
-  // useEffect(() => {
-  //   if (updateUser.isSuccess && props.onFetch) props.onFetch()
-  // }, [props, updateUser.isSuccess])
-
   return (
     <Box
       h={"full"}
       bg="primaryBackground"
-      // pt={"6"}
-      // px={{ base: "4", sm: "6", md: "12", xl: "20" }}
-      // pb={"14"}
-      // flexGrow="1"
       alignSelf={"center"}
       alignItems={"center"}
     >

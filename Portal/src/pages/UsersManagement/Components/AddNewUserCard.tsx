@@ -3,7 +3,7 @@ import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AlertDialog, CustomButton } from "../../../components/ui";
-import { FormInput, FormTextarea } from "../../../components/form";
+import { FormInput } from "../../../components/form";
 import { MessageResponse, UsersResponse } from "../../../types/apiResponses";
 import {
   AddNewUserForm,
@@ -33,7 +33,6 @@ const AddUserCard = (props: AddUserProps) => {
   const userToEdit = props.user;
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newUserPayload, setNewUserPayload] = useState<AddNewUserForm>();
-  //   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const onSubmit = async (values: AddNewUserForm) => {
     setNewUserPayload(values);
@@ -46,11 +45,6 @@ const AddUserCard = (props: AddUserProps) => {
       setValue("email", userToEdit.email);
       setValue("phone", userToEdit.phone_number);
       setValue("position", userToEdit.position);
-      //   setValue("status", userToEdit.status);
-      //   setValue(
-      //     "backgroundImageId",
-      //     userToEdit?.backgroundImage?.id || null
-      //   );
     }
   }, [userToEdit]);
 
@@ -138,6 +132,7 @@ const AddUserCard = (props: AddUserProps) => {
           register={register}
           errors={errors}
           label="name"
+          placeholder="Enter name"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -146,6 +141,7 @@ const AddUserCard = (props: AddUserProps) => {
           register={register}
           errors={errors}
           label="Telephone"
+          placeholder="Enter telephone"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -154,18 +150,19 @@ const AddUserCard = (props: AddUserProps) => {
           register={register}
           errors={errors}
           label="Email"
+          placeholder="Enter emal"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
-          //   placeholder="enter user email"
         />
         <FormInput
           name="position"
           register={register}
           errors={errors}
           label="Position"
+          placeholder="Enter position"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
-          //   placeholder="enter user position"
+          
         />
         {/* {!userToEdit && (
           <ImageUploader

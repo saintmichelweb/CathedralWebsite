@@ -48,22 +48,20 @@ const RecentEventsManagement = () => {
     RecentEventResponse[]
   >([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedRecentEvent, setSelectedRecentEvent] =
     useState<RecentEventResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchRecentEvents = async () => {
+  const fetchRecentEvents = async (page = 1) => {
     setLoading(true);
-    await getAllRecentEvents()
+    await getAllRecentEvents({page})
       .then((data) => {
         setRecentEventsData(data.recentEvents);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -248,13 +246,6 @@ const RecentEventsManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton(
-            //     status ? "deactivate" : "activate",
-            //     handleActivateOrDeactivate
-            //   )}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
@@ -263,7 +254,6 @@ const RecentEventsManagement = () => {
               <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -271,7 +261,6 @@ const RecentEventsManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleActivateOrDeactivate}
                 >
                   {ActionButton(status ? "deactivate" : "activate", handleActivateOrDeactivate)}
                 </MenuItem>              
@@ -279,7 +268,6 @@ const RecentEventsManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
@@ -305,12 +293,6 @@ const RecentEventsManagement = () => {
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Recent Events Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
@@ -332,7 +314,6 @@ const RecentEventsManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -342,8 +323,8 @@ const RecentEventsManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchRecentEvents}
               useCustomPagination
             />
           )}

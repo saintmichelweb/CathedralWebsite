@@ -17,7 +17,9 @@ interface AddparishCommitteeCouncilProps {
   parishCommitteeCouncil: parishCommitteeCouncilResponse | null;
 }
 
-const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) => {
+const AddparishCommitteeCouncilCard = (
+  props: AddparishCommitteeCouncilProps
+) => {
   const {
     register,
     formState: { errors },
@@ -53,10 +55,15 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
       setValue("telephone", parishCommitteeCouncilToEdit.telephone);
       setValue("email", parishCommitteeCouncilToEdit.email);
     }
-    setValue("backgroundImageId", parishCommitteeCouncilToEdit?.backgroundImage?.id || null);
+    setValue(
+      "backgroundImageId",
+      parishCommitteeCouncilToEdit?.backgroundImage?.id || null
+    );
   }, [parishCommitteeCouncilToEdit]);
 
-  const onConfirm = async (payload: AddParishCommitteeCouncilForm | undefined) => {
+  const onConfirm = async (
+    payload: AddParishCommitteeCouncilForm | undefined
+  ) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
@@ -65,7 +72,8 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
           .then((res) => {
             toast({
               title: "Add Image message!",
-              description: res?.message || "parishCommitteeCouncil saved successfully",
+              description:
+                res?.message || "parishCommitteeCouncil saved successfully",
               status: "success",
             });
             payload.backgroundImageId = res.image.id;
@@ -85,7 +93,8 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
           .then((res: MessageResponse) => {
             toast({
               title: "Add parishCommitteeCouncil message!",
-              description: res?.message || "parishCommitteeCouncil saved successfully",
+              description:
+                res?.message || "parishCommitteeCouncil saved successfully",
               status: "success",
             });
             props.fetchparishCommitteeCouncil();
@@ -111,14 +120,16 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
           description_rw: payload.description_rw,
           telephone: payload.telephone,
           email: payload.email,
-          backgroundImageId: parishCommitteeCouncilToEdit.backgroundImage?.id || null,
+          backgroundImageId:
+            parishCommitteeCouncilToEdit.backgroundImage?.id || null,
           parishCommitteeCouncilId: parishCommitteeCouncilToEdit?.id || null,
         };
         await updateparishCommitteeCouncil(editPayload)
           .then((res: MessageResponse) => {
             toast({
               title: "Edit parishCommitteeCouncil message!",
-              description: res?.message || "parishCommitteeCouncil edited successfully",
+              description:
+                res?.message || "parishCommitteeCouncil edited successfully",
               status: "success",
             });
             props.fetchparishCommitteeCouncil();
@@ -128,7 +139,8 @@ const AddparishCommitteeCouncilCard = (props: AddparishCommitteeCouncilProps) =>
             toast({
               title: "Edit parishCommitteeCouncil message",
               description:
-                error.response?.data?.message || "Error editing parishCommitteeCouncil!",
+                error.response?.data?.message ||
+                "Error editing parishCommitteeCouncil!",
               status: "error",
             });
           });

@@ -48,13 +48,19 @@ const AddCommissionCard = (props: AddCommissionProps) => {
       setValue("name_rw", CommissionToEdit.name_rw);
       setValue("contact_person_name", CommissionToEdit.contact_person_name);
       setValue("contact_person_role", CommissionToEdit.contact_person_role);
-      setValue("contact_person_phone_number", CommissionToEdit.contact_person_phone_number);
+      setValue(
+        "contact_person_phone_number",
+        CommissionToEdit.contact_person_phone_number
+      );
       setValue("contact_person_email", CommissionToEdit.contact_person_email);
       setValue("description_en", CommissionToEdit.description_en);
       setValue("description_fr", CommissionToEdit.description_fr);
       setValue("description_rw", CommissionToEdit.description_rw);
     }
-    setValue("backgroundImageId", CommissionToEdit?.backgroundImage?.id || null);
+    setValue(
+      "backgroundImageId",
+      CommissionToEdit?.backgroundImage?.id || null
+    );
   }, [CommissionToEdit]);
 
   const onConfirm = async (payload: AddCommissionForm | undefined) => {

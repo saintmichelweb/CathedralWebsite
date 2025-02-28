@@ -5,24 +5,18 @@ import {
 } from "@tanstack/react-table";
 import {
   Box,
-  Divider,
   Flex,
   Heading,
   Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Stack,
   Text,
   useToast,
 } from "@chakra-ui/react";
-import { MdAdd, MdMoreVert } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import {
   AlertDialog,
   CommonIcons,
   CustomButton,
-  CustomLink,
   DataTable,
   EmptyState,
   TableSkeleton,
@@ -45,23 +39,20 @@ const OfficeTimesManagement = () => {
   const toast = useToast();
   const [officeHoursData, setMassTimesData] = useState<OfficeHoursResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openMassTimesModel, setOpenMassTimesModel] = useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  // const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedOfficeHour, setSelectedMassTimes] =
     useState<OfficeHoursResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchOfficeHours = async () => {
+  const fetchOfficeHours = async (page = 1) => {
     setLoading(true);
-    await getAllOfficeHours()
+    await getAllOfficeHours({page})
       .then((data) => {
         console.log(data)
         setMassTimesData(data.officeHours);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -291,7 +282,6 @@ const OfficeTimesManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -301,8 +291,8 @@ const OfficeTimesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchOfficeHours}
               useCustomPagination
             />
           )}
@@ -327,7 +317,7 @@ const OfficeTimesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="22vw"
+        widthSize="45vw"
       />
       {/* <AlertDialog
         alertText={`Are you sure you want to delete this location?`}

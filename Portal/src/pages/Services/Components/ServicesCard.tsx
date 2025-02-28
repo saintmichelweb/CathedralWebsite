@@ -138,8 +138,7 @@ const AddServicesCard = (props: AddServiceProps) => {
           work_hours: payload.work_hours,
           work_days: payload.work_days,
           contact_person_name: payload.contact_person_name,
-          contact_person_phone_number:
-            payload.contact_person_phone_number,
+          contact_person_phone_number: payload.contact_person_phone_number,
           backgroundImageId: serviceToEdit.backgroundImage?.id || null,
           servicesId: serviceToEdit?.id || null,
         };

@@ -53,7 +53,6 @@ const TopNewsAndNoticesManagement = () => {
     TopNewsAndNoticesResponse[]
   >([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewTopNewsAndNoticeModel, setOpenNewTopNewsAndNoticeModel] =
     useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
@@ -61,15 +60,14 @@ const TopNewsAndNoticesManagement = () => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedTopNewsAndNotice, setSelectedTopNewsAndNotice] =
     useState<TopNewsAndNoticesResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchTopNewsAndNotices = async () => {
+  const fetchTopNewsAndNotices = async (page = 1) => {
     setLoading(true);
-    await getAllTopNewsAndNotices()
+    await getAllTopNewsAndNotices({page})
       .then((data) => {
         setTopNewsAndNoticesData(data.topParishNewsAndNotices);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -229,13 +227,6 @@ const TopNewsAndNoticesManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton(
-            //     status ? "deactivate" : "activate",
-            //     handleActivateOrDeactivate
-            //   )}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
@@ -244,7 +235,6 @@ const TopNewsAndNoticesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -252,7 +242,6 @@ const TopNewsAndNoticesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleActivateOrDeactivate}
                 >
                   {ActionButton(
                     status ? "deactivate" : "activate",
@@ -263,7 +252,6 @@ const TopNewsAndNoticesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
@@ -289,12 +277,6 @@ const TopNewsAndNoticesManagement = () => {
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Top Parish News And Notices Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
@@ -315,7 +297,6 @@ const TopNewsAndNoticesManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -325,8 +306,8 @@ const TopNewsAndNoticesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchTopNewsAndNotices}
               useCustomPagination
             />
           )}

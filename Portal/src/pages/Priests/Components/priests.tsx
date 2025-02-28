@@ -33,8 +33,7 @@ const AddPriestCard = (props: AddPriestProps) => {
   const toast = useToast();
   const priestToEdit = props.priest;
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [newPriestPayload, setNewPriestPayload] =
-    useState<AddPriestsForm>();
+  const [newPriestPayload, setNewPriestPayload] = useState<AddPriestsForm>();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const onSubmit = async (values: AddPriestsForm) => {
@@ -49,10 +48,7 @@ const AddPriestCard = (props: AddPriestProps) => {
       setValue("description_en", priestToEdit.description_en);
       setValue("description_fr", priestToEdit.description_fr);
       setValue("description_rw", priestToEdit.description_rw);
-      setValue(
-        "backgroundImageId",
-        priestToEdit?.backgroundImage?.id || null
-      );
+      setValue("backgroundImageId", priestToEdit?.backgroundImage?.id || null);
     }
   }, [priestToEdit]);
 

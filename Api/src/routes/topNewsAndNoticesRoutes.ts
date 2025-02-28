@@ -5,10 +5,12 @@ import { postTopParishNewsAndNotices } from "./topNewsAndNoticesControllers/post
 import { getAllTopParishNewsAndNotices } from "./topNewsAndNoticesControllers/getAllTopNewsAndNotices";
 import { putTopParishNewsAndNotices } from "./topNewsAndNoticesControllers/putTopNewsAndNotices";
 import { deleteTopNewsAndNoticesEntity } from "./topNewsAndNoticesControllers/deleteTopNewsAndNotices";
+import { getAllTopParishNewsAndNoticesPublic } from "./topNewsAndNoticesControllers/getAllTopParishNewsAndNoticesPublic";
 
 const router = express.Router();
 
 router.get("/top-news-and-notices/all", authenticateJWT, getAllTopParishNewsAndNotices )
+router.get("/top-news-and-notices/all-public", getAllTopParishNewsAndNoticesPublic )
 router.post("/top-news-and-notices", authenticateJWT, postTopParishNewsAndNotices )
 router.put("/top-news-and-notices/:id", authenticateJWT, putTopParishNewsAndNotices);
 router.delete("/top-news-and-notices/:id", authenticateJWT, deleteTopNewsAndNoticesEntity);

@@ -13,31 +13,31 @@ import {
   
     @Column({
       nullable: false,
-      length: 255
+       type: 'longtext'
     })
     name!: string
 
     @Column({
       nullable: false,
-      length: 255
+       type: 'longtext'
     })
     title!: string
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     description_en!: string
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     description_fr!: string
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     description_rw!: string
   
