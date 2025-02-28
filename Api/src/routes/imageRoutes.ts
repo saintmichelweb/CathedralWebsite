@@ -27,12 +27,19 @@ const upload = multer({ storage: storage });
 router.use('/image', express.static('upload/images'));
 router.post('/image/upload', 
     authenticateJWT,
-    upload.single('image'), ImageUpload);
+    upload.single('image'), 
+    ImageUpload);
 router.get('/images/all',
     authenticateJWT,
     getBannerImages);
 router.put('/image/:id',
     authenticateJWT,
+    (req, res, next) => {
+        if (req.body.image){
+            upload.single('image');
+        }
+        next()
+    },
     ImageUpdate);
 router.delete('/image/:id',
     authenticateJWT,

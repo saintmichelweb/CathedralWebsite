@@ -1,0 +1,194 @@
+{
+  "footerLogo": "Logo",
+  "lang": "Ikinyarwanda",
+  "home": "Ahabanza",
+  "about": "Ibyerekeye",
+  "service": "Serivisi",
+  "services": "Serivisi",
+  "noServiceData": "Amakuru yerekeye serivisi ntaraboneka ubu.",
+  "serviceSchedule": "Igenamiterere rya Serivisi",
+  "Office": "Igihe cy'akazi",
+  "welcome": "Murakaza neza muri Paruwoya yacu",
+  "welcomeMessage": "Murakaza neza muri communaute yacu. Turishimye kubakira hano. Paruwoya yacu ni ahantu hakiriye kandi hatanga ikaze, aho buri wese ashyikirwa mu birori n'ibikorwa byacu. Twemera ko buri muntu atanga impano n'ubuhanga bwihariye byongera ku ishyirahamwe ryacu. Turabashishikariza kwifatanya mu nzego zitandukanye z'ibikorwa byacu, yaba ari mu muziki, gukwirakwiza ubutumwa, uburezi cyangwa ahandi. Intego yacu ni uguteza imbere umuco wo kwiyumvamo no gufashanya mu rugendo rwacu rw'iyobokamana. Dutanga serivisi zitandukanye n'ibikorwa bigamije gufasha buri muntu muri paruwoya yacu, kuva ku bana kugeza ku basaza. Dufite kandi amahirwe yo gukura ku giti cyacu no gukora ibikorwa byiza muri communaute. Ntutindiganye kuvugana n'abakozi bacu cyangwa abajyanama niba ufite ikibazo cyangwa ukeneye ubufasha. Dufite hano kugira ngo tugufashe no kukuba hafi. Murakoze kuba igice cya paruwoya yacu. Turiteguye kubamenya neza no gukura hamwe mu kwemera. Murakaza neza kandi Imana iguhe umugisha.",
+  "massTimes": "Igihe cyo Gusenga",
+  "sundayMass": "Misa y'icyumweru",
+  "weekdayMass": "Misa y'umunsi w'icyumweru",
+  "saturdayMass": "Misa y'igurura",
+  "kinyarwanda": "Kinyarwanda",
+  "english": "Icyongereza",
+  "french": "Igifaransa",
+  "monday": "Kuwa Mbere",
+  "friday": "Kuwa Gatanu",
+  "recentEvents": "Ibikorwa bya vuba",
+  "menu": "Menu",
+  "sacraments": "Ibisingizo",
+  "address": "Aderesi",
+  "aboutTitle": "Ibyerekeye paruwoya yacu",
+  "aboutDescription": "Menya byinshi ku mateka, inshingano, n'agaciro byacu.",
+  "serviceTitle": "Serivisi zacu",
+  "serviceDescription": "Menya serivisi zitandukanye dutanga muri communaute yacu.",
+  "donate": "Tanga",
+  "topNewsAndNotice": "Amakuru Agezweho muri Paruwoya & Amatangazo",
+  "banners": [
+    { "alt": "Igishushanyo cya 1", "description": "Ishusho ya panorama y'imisozi" },
+    { "alt": "Igishushanyo cya 2", "description": "Izuba rirasira ku nyanja" },
+    { "alt": "Igishushanyo cya 3", "description": "Isumo ry'ishyamba ryoroshye mu mpeshyi" },
+    { "alt": "Igishushanyo cya 4", "description": "Uruhare rw'umucyo w'ibinyomoro" }
+  ],
+  "banner": {
+    "altText": "Igishushanyo cyiza cya katedrali yacu",
+    "title": "Murakaza neza muri Katedrali yacu",
+    "description": "Menya amateka yacu n'ubumwe bwacu muri Katedrali. Twifatanye mu masengesho n'ibikorwa byose muri uyu mwaka."
+  },
+  "abouts": {
+    "historyTitle": "Amateka ya Katedrali",
+    "historyContent": "Katedrali yacu ifite amateka akomeye y'igihe kirekire, agera ku myaka myinshi, yubatse kuba urumuri rw'icyizere n'ubumwe mu buzima bw'abaturage.",
+    "readMore": "Soma birambuye",
+    "ourLeaders": "Abayobozi bacu",
+    "ourChorales": "Chorale zacu",
+    "catholicAction": "Ibikorwa bya Gaturika",
+    "priest": "Abapadiri Bacu",
+    "community": "Imuryango"
+  },
+  "mission": {
+    "title": "Inshingano zacu",
+    "content": "Inshingano zacu ni ugufasha communaute n'umutima w'urukundo n'ubwitange, dufasha gukura mu iyobokamana no kubaka ahantu hiteguye kubakira buri wese."
+  },
+  "vision": {
+    "title": "Icyerekezo cyacu",
+    "content": "Icyerekezo cyacu ni ukuba urumuri rw'iyobokamana n'icyizere, dutanga umwanya n'ubushobozi ku bantu kugira ngo babashe kubaho bakurikije agaciro kabo no gufasha kugera ku nyungu rusange."
+  },
+  "commission": {
+    "title": "Komisiyo y'Abayobozi b'abayobozi b'abakristu",
+    "content": "Abayobozi b'abakristu bafite uruhare runini mu gufasha ibikorwa muri paruwoya yacu no kuyobora communaute. Biyemeje gukorera n'ubwitange no gutanga ubuyobozi mu nzego zitandukanye.",
+    "readMore": "Menya byinshi"
+  },
+  "aboutTopStories": {
+    "topStories": "Inkuru Zibanze",
+    "storyTitle1": "Umutwe w'inkuru 1",
+    "storyContent1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+    "storyTitle2": "Umutwe w'inkuru 2",
+    "storyContent2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+    "previous": "Mbere",
+    "next": "Nyuma"
+  },
+  "topNewsNotice": [
+    {
+      "title": "Itangazo ryo gutangiza gahunda y'Ubuvugizi bw'Abaturage",
+      "content": "Turishimye gutangaza gutangiza gahunda nshya y'ubuvugizi bw'abaturage izatangira umwezi utaha. Iyi gahunda izafasha imiryango ikennye yo mu karere kacu binyujijwe mu bikorwa byo gukusanya ibiribwa, amahugurwa y'uburezi n'amahirwe yo kuba umukozi w'ibyubahiro. Twifuza ko bose bashyigikira no kugira uruhare muri gahunda zacu."
+    },
+    {
+      "title": "Impinduka Nziza mu Gushaka Inkunga ku Muryango",
+      "content": "Murakoze ku bantu bose bitabiriye igikorwa cyo guteranya inkunga mu muryango wacu! Turishimye gutangaza ko twarushijeho kurenga intego yacu, tubona $15,000 ku mirimo y'ubusugire bw'ibikorwa by'umuryango. Kugira umutima w'umuntu wibuka aracyishimira kandi twiteguye gukoresha aya mafaranga kugirango tubyaze umusaruro ibikorwa byacu."
+    },
+    {
+      "title": "Itangazo ry'Imishinga Nshya ya Gahunda y'Ubuvugizi bw'Urubyiruko",
+      "content": "Turishimye kugaragaza gahunda nshya ya Gahunda y'Ubuvugizi bw'Urubyiruko igamije gukora ibikorwa by'ingirakamaro mu gufasha urubyiruko. Gahunda izibanda ku guterana buri cyumweru, amasomo y'ibitekerezo ndetse n'imyidagaduro."
+    },
+    {
+      "title": "Ikoranabuhanga rigezweho mu Gahunda ya 'Online Donations Platform'",
+      "content": "Turishimye gutangaza gutangiza urubuga rushya rwa internet rugufasha kwishyura ibikorwa byo gutera inkunga. Iki gikoresho kizoroha gutanga inkunga no gukurikirana imishinga y'ubufasha. Ushobora gutangira gukoresha urubuga rwacu kuri murandasi."
+    }
+  ],
+  "tabs": {
+    "officeHours": "Amasaha y'Ibiro",
+    "massTimes": "Amasaha ya Misa",
+    "chapel": "Kapela",
+    "penanceSchedule": "Amasaha yo Kwiyunga"
+  },
+  "schedule": {
+    "office": {
+      "title": "Ibiro",
+      "days": ["Kuwa Kabiri-Kuwa Gatandatu", "Ku Cyumweru"],
+      "hours": ["9:00 - 17:00", "9:00 - 14:00"],
+      "note": "Hafunze Kuwa Mbere"
+    },
+    "priest": {
+      "title": "Padiri wa Paruwasi",
+      "days": ["Kuwa Kabiri", "Kuwa Kane"],
+      "hours": ["16:00 - 19:00", "16:00 - 19:00"]
+    },
+    "caritas": {
+      "title": "Karitas",
+      "days": ["Kuwa Mbere", "Kuwa Gatanu"],
+      "hours": ["16:00 - 19:00", "16:00 - 19:00"]
+    }
+  },
+
+  "contact": {
+        "title": "Tuvugishe",
+        "description": "Twandikire ukoresheje ifishi iri hasi.",
+        "name": "Izina",
+        "namePlaceholder": "Andika izina ryawe",
+        "email": "Imeli",
+        "emailPlaceholder": "Andika imeli yawe",
+        "message": "Ubutumwa",
+        "messagePlaceholder": "Andika ubutumwa bwawe",
+        "submit": "Ohereza Ubutumwa",
+        "mapTitle": "Aho Duhereye ku Ikarita"
+    },
+    "announcements": {
+    "title": "Amatangazo",
+    "recent": "Amatangazo Mashya",
+    "item1Title": "Igitaramo cya Noheli, muri Saint Michel",
+    "item1Description": "Mwifatanye natwe mu kwizihiza uyu munsi w'ibanze.",
+    "item2Title": "Igitaramo cya Pasika 2023",
+    "item2Description": "Mwifatanye natwe mu gitaramo cyo kwizihiza Pasika.",
+    "item3Title": "Iteraniro ry’Umuryango",
+    "item3Description": "Umunsi wo guhurira hamwe no kongera ubumwe bw'abaturage.",
+    "date": "Itariki: {{date}}",
+    "loadMore": "Reba Ibindi"
+  },
+  "historicalPosts": {
+    "title": "Amateka Yashyizweho",
+    "post1Title": "Insengero",
+    "post2Title": "Saint Michel",
+    "post3Title": "Igitaramo cya Pasika 2023"
+  },
+  "subscribe": {
+    "title": "Iyandikishe Kugira Umenyeshwe",
+    "emailPlaceholder": "Imeyeri Yawe",
+    "namePlaceholder": "Izina Ryawe",
+    "button": "Iyandikishe"
+  },
+     "contactPage": "Tuvugishe",
+    "announcementsPage": "Amatangazo",
+    "donationOptions": [
+    {
+      "title": "Ituro",
+      "description": "Tera inkunga ibikorwa bya buri munsi bya paruwasi, harimo umuriro, isuku n'imishahara y'abakozi. Ushobora gutanga inkunga ukoresheje MOMO: *182*8*1*077222#."
+    },
+    {
+      "title": "Icyacumi",
+      "description": "Ituro rya 10% ry'inyungu zawe mu gushyigikira umurimo w'itorero n'ibikorwa byaryo. Inkunga ishobora gutangwa kuri konti ya Equity: 4024 4200011597 cyangwa kuri konti ya GT Bank: 211103701151180."
+    },
+    {
+      "title": "Imfashanyo",
+      "description": "Inkunga igenewe gufasha abari mu kaga, harimo ibiribwa n'ubutabazi bwihuse. Inkunga ishobora gutangwa kuri konti ya Equity: 4024 4200011597 cyangwa kuri konti ya GT Bank: 211103701151180."
+    },
+    {
+      "title": "Ituro ridasanzwe",
+      "description": "Inkunga igenewe ibikorwa bidasanzwe nk'ivugurura ry'inyubako cyangwa inkunga y'ibirori runaka. Inkunga ishobora gutangwa kuri konti ya Equity: 4024 4200011597 cyangwa kuri konti ya GT Bank: 211103701151180."
+    },
+    {
+      "title": "Ituro ryo kwibuka",
+      "description": "Tanga ituro wibuka umukunzi wawe mu kumwubaha no gushyigikira itorero. Inkunga ishobora gutangwa ukoresheje MOMO: *182*8*1*077222#."
+    },
+    {
+      "title": "Gutura igitambo cya misa",
+      "description": "Tanga ituro kugira ngo misa ivugirwe umuntu cyangwa umugambi runaka. Inkunga ishobora gutangwa ukoresheje MOMO: *182*8*1*077222#."
+    },
+    {
+      "title": "Konti ya Equity",
+      "description": "Konti: 4024 4200011597 Katederali Saint Michel."
+    },
+    {
+      "title": "Konti ya GT Bank",
+      "description": "Konti: 211103701151180 Katederali Saint Michel."
+    },
+    {
+      "title": "MOMO",
+      "description": "Kanda *182*8*1*077222# kuri Paruwasi Gatolika Saint Michel."
+    }
+  ]
+}

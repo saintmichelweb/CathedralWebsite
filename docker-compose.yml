@@ -13,18 +13,36 @@ services:
     environment:
       - VITE_API_URL=http://localhost:3551/api
       - VITE_LIMIT_PER_PAGE=10
+    volumes:
+      - ./Portal/src:/app/Portal/src
+
+  front-end:
+    build: 
+      context: .
+      # dockerfile: ./Portal/DockerFile
+      dockerfile: ./DockerFile-Front-End
+    restart: unless-stopped
+    ports:
+      # - "5177:5173" #use if the port is used by an other container
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3551
+    volumes:
+      - ./Front-end/src:/app/Front-end/src
       
   api:
     build:
       context: .
       dockerfile: ./DockerFile-Api
     restart: unless-stopped
+    # command: ["npm", "run", "dev"] # used in development for nodemon
+    command: ["npm", "run", "start"] 
     ports:
       - "3551:3551"
     networks:
       - stmp-net
-    # volumes:
-    #   - ./Api/src:/app/Api/src
+    volumes:
+      - ./Api/src:/app/Api/src
     depends_on:
       - stmp-db
     environment:

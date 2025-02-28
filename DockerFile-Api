@@ -6,9 +6,12 @@ COPY ./Api /app/Api
 COPY ./Api/.env.docker /app/Api/.env
 
 WORKDIR /app/Api
-RUN npm i --save
+RUN npm i 
+# RUN npm i ts-node --save-dev
+# RUN npm i @types/bcrypt --save-dev
+# RUN npm i --save bcrypt 
 
 EXPOSE 3551
-CMD [ "npm", "run", "start" ]
+# CMD [ "npm", "run", "start" ]
 
 # Run the app when the container launches
