@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function TimeSelector() {
+function TimeSelectors() {
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
 
@@ -28,4 +28,4 @@ function TimeSelector() {
   );
 }
 
-export default TimeSelector;
+export default TimeSelectors;

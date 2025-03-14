@@ -6,7 +6,8 @@ const TimeSelector = () => {
   const [minute, setMinute] = useState("");
 
   const hours = Array.from({ length: 24 }, (_, i) => i); // 0 to 23
-  const minutes = Array.from({ length: 60 }, (_, i) => i); // 0 to 59
+  // const minutes = Array.from({ length: 60 }, (_, i) => i); // 0 to 59
+  const minutes = Array.from({ length: 60 }, (_, i) => i).filter(num => num % 5 === 0);
 
   return (
     <VStack spacing={4} align="start">
