@@ -1,34 +1,65 @@
-import React, { useState } from "react";
-import { Box, Select, VStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Box, Select, Stack, Text, VStack } from "@chakra-ui/react";
+import { CustomFormSelect } from "../../form";
+import { SelectOption } from "../../../types/forms";
 
 const TimeSelector = () => {
-  const [hour, setHour] = useState("");
-  const [minute, setMinute] = useState("");
+  // const [hour, setHour] = useState("");
+  // const [minute, setMinute] = useState("");
+  const [hour, setHour] = useState<SelectOption | null>(null);
+  const [minute, setMinute] = useState<SelectOption | null>(null);
 
   const hours = Array.from({ length: 24 }, (_, i) => i); // 0 to 23
-  // const minutes = Array.from({ length: 60 }, (_, i) => i); // 0 to 59
   const minutes = Array.from({ length: 60 }, (_, i) => i).filter(num => num % 5 === 0);
+  let hoursArray: SelectOption[] = []
+  let minutesArray: SelectOption[] = []
+  useEffect(() => {
+    // hoursArray=[]
+    // minutesArray=[]
+    hours.map((hour) => hoursArray.push({ label: `${hour}`.padStart(2, "0"), value: `${hour}`.padStart(2, "0") }))
+    minutes.map((minutes) => minutesArray.push({ label: `${minutes}`.padStart(2, "0"), value: `${minutes}`.padStart(2, "0") }))
+  }, [])
+  // const minutes = Array.from({ length: 60 }, (_, i) => i); // 0 to 59
+  console.log('hours', typeof hoursArray)
 
   return (
-    <VStack spacing={4} align="start">
-      <Box>
-        <Select placeholder="Select Hour" value={hour} onChange={(e) => setHour(e.target.value)}>
-          {hours.map((h) => (
-            <option key={h} value={h}>
-              {String(h).padStart(2, "0")}
-            </option>
-          ))}
-        </Select>
-      </Box>
-
-      <Box>
-        <Select placeholder="Select Minute" value={minute} onChange={(e) => setMinute(e.target.value)}>
-          {minutes.map((m) => (
-            <option key={m} value={m}>
-              {String(m).padStart(2, "0")}
-            </option>
-          ))}
-        </Select>
+    <VStack >
+      <Stack alignContent={'space-between'} flexDirection={'row'} w={'full'}>
+        <CustomFormSelect
+          selectValue={hour}
+          isError={true ? true : false}
+          // errorMsg={errors.day_rw ? errors.day_rw.message : undefined}
+          label="Hour"
+          placeholder="Select Hour"
+          options={hoursArray}
+          onChangeFn={(selectedVal) => {
+            console.log(selectedVal)
+            setHour(selectedVal);
+            // if (selectedVal) {
+            //   setValue("day_rw", selectedVal.value.toString());
+            // }
+          }}
+          maxWVal={{ lg: "full", sm: "90vw" }}
+        />
+        <CustomFormSelect
+          selectValue={minute}
+          isError={true? true : false}
+          // errorMsg={errors.day_rw ? errors.day_rw.message : undefined}
+          label="Minute"
+          placeholder="Select Minute"
+          options={minutesArray}
+          onChangeFn={(selectedVal) => {
+            console.log(selectedVal)
+            setMinute(selectedVal);
+            // if (selectedVal) {
+            //   setValue("day_rw", selectedVal.value.toString());
+            // }
+          }}
+          maxWVal={{ lg: "full", sm: "90vw" }}
+        />
+      </Stack>
+      <Box width={'full'}>
+        <Text fontSize={''} color={'red'} >'this is the error we have here!'</Text>
       </Box>
     </VStack>
   );

@@ -1,4 +1,5 @@
 import { Box, Heading, Stack } from "@chakra-ui/react";
+import TimeSelector from "../../components/ui/HoursMinutesInputs/HoursMinutesInputs";
 
 const UpdateHomePage = () => {
   return (
@@ -22,8 +23,8 @@ const UpdateHomePage = () => {
           >
             Welcome To Cathedral Saint Michael Portal
           </Heading>
-          {/* <TimeSelector/>
-          <TimeSelectors/> */}
+          <TimeSelector/>
+          {/* <TimeSelectors/> */}
         </Box>
       </Stack>
     </Box>

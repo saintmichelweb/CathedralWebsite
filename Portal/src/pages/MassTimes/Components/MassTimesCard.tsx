@@ -32,6 +32,7 @@ import {
   MassDaysEnum_EN,
   MassDaysEnum_RW,
 } from "../../../../../shared-lib/src";
+import TimeSelector from "../../../components/ui/HoursMinutesInputs/HoursMinutesInputs";
 
 interface AddMassTimesProps {
   onClose: () => void;
@@ -277,6 +278,7 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           }}
           maxWVal={{ lg: "full", sm: "90vw" }}
         />
+        <TimeSelector />
         <FormInput
           name="time"
           register={register}
