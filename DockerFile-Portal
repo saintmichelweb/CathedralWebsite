@@ -4,7 +4,7 @@ COPY ./shared-lib /app/shared-lib
 COPY ./Portal /app/Portal
 
 WORKDIR /app/Portal
-RUN npm i 
+RUN npm i --legacy-peer-deps
 
 EXPOSE 3550
 
