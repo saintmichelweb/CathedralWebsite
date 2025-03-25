@@ -31,7 +31,7 @@ import { MassTimesEntity } from './MasstimesEntity'
     @CreateDateColumn()
     updated_at!: Date
 
-    @OneToMany(() => MassTimesEntity, massTime => massTime.language)
+    @OneToMany(() => MassTimesEntity, (massTime: MassTimesEntity) => massTime.language)
     languageMassTimes!: MassTimesEntity[]
   
   }

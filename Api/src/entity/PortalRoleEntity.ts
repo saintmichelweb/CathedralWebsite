@@ -19,7 +19,7 @@ export class PortalRoleEntity {
   @Column({ nullable: false, length: 255, default: '' })
     description!: string
 
-  @ManyToMany(() => PortalPermissionEntity, permission => permission.roles)
+  @ManyToMany(() => PortalPermissionEntity, (permission: PortalPermissionEntity) => permission.roles)
   
   @JoinTable()
     permissions!: PortalPermissionEntity[]

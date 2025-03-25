@@ -58,13 +58,13 @@ export class PortalUserEntity {
   @UpdateDateColumn()
   updated_at!: Date
 
-  @OneToMany(() => JwtTokenEntity, (jwtToken) => jwtToken.user)
+  @OneToMany(() => JwtTokenEntity, (jwtToken: JwtTokenEntity) => jwtToken.user)
   tokens!: JwtTokenEntity[]
 
-  @OneToMany(() => PortalUserEntity, (user) => user.created_by)
+  @OneToMany(() => PortalUserEntity, (user: PortalUserEntity) => user.created_by)
   created_users!: PortalUserEntity[]
 
-  @ManyToOne(() => PortalUserEntity, (user) => user.created_users)
+  @ManyToOne(() => PortalUserEntity, (user: PortalUserEntity) => user.created_users)
   created_by!: PortalUserEntity
 
   // @ManyToOne(() => PortalRoleEntity, (role) => role.users)

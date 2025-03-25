@@ -23,7 +23,7 @@ export class PortalPermissionEntity {
   @Column({ nullable: false, length: 255, default: '' })
     description!: string
 
-  @ManyToMany(() => PortalRoleEntity, role => role.permissions)
+  @ManyToMany(() => PortalRoleEntity, (role: PortalRoleEntity) => role.permissions)
     roles!: PortalRoleEntity[]
 
   @CreateDateColumn()

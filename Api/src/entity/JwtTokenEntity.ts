@@ -13,7 +13,7 @@ export class JwtTokenEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @ManyToOne(() => PortalUserEntity, user => user.tokens, { onDelete: 'CASCADE' })
+  @ManyToOne(() => PortalUserEntity, (user: PortalUserEntity) => user.tokens, { onDelete: 'CASCADE' })
   user!: PortalUserEntity
 
   @Column({

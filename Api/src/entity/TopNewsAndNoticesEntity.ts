@@ -51,18 +51,6 @@ export class TopNewsAndNoticesEntity {
   })
   isActive!: boolean;
 
-  // @Column({
-  //   nullable: false,
-  //   length: 255
-  // })
-  // ImageUrl!: string
-
-  // @Column({
-  //   nullable: false,
-  //   length: 255
-  // })
-  // slidingImageDescription!: string
-
   @CreateDateColumn()
   created_at!: Date
 

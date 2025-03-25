@@ -55,7 +55,7 @@ import { LocationEntity } from './LocationEntity'
     @UpdateDateColumn()
     updated_at!: Date
   
-    @ManyToOne(() => LocationEntity, location => location.officeTimes)
+    @ManyToOne(() => LocationEntity, (location: LocationEntity) => location.officeTimes)
     office_place!: LocationEntity
   
     // @ManyToOne(() => LanguageEntity, language => language.languageMassTimes)

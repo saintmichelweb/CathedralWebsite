@@ -45,10 +45,10 @@ export class MassTimesEntity {
   @CreateDateColumn()
   created_at!: Date
 
-  @ManyToOne(() => LocationEntity, location => location.locationMassTimes)
+  @ManyToOne(() => LocationEntity, (location: LocationEntity) => location.locationMassTimes)
   location!: LocationEntity
 
-  @ManyToOne(() => LanguageEntity, language => language.languageMassTimes)
+  @ManyToOne(() => LanguageEntity, (language: LanguageEntity) => language.languageMassTimes)
   language!: LanguageEntity
 
 }

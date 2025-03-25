@@ -77,7 +77,7 @@ import {
     @UpdateDateColumn()
     updated_at!: Date
   
-    @ManyToOne(() => ImageEntity, image => image.connectedServices)
+    @ManyToOne(() => ImageEntity, (image: ImageEntity) => image.connectedServices)
     backgroundImage!: ImageEntity
   
   }

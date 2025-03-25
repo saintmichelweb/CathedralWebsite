@@ -58,7 +58,7 @@ export class RecentEventsEntity {
   @CreateDateColumn()
   created_at!: Date
 
-  @ManyToOne(() => ImageEntity, image => image.connectedEvents)
+  @ManyToOne(() => ImageEntity, (image: ImageEntity) => image.connectedEvents)
   backgroundImage!: ImageEntity
 
 }
