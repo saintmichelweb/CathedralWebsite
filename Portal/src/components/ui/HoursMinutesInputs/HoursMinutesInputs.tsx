@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { Box, Select, Stack, Text, VStack } from "@chakra-ui/react";
+import { Box, Stack, Text, VStack } from "@chakra-ui/react";
 import { CustomFormSelect } from "../../form";
 import { SelectOption } from "../../../types/forms";
 
 const TimeSelector = () => {
-  // const [hour, setHour] = useState("");
-  // const [minute, setMinute] = useState("");
   const [hour, setHour] = useState<SelectOption | null>(null);
   const [minute, setMinute] = useState<SelectOption | null>(null);
 
@@ -14,13 +12,11 @@ const TimeSelector = () => {
   let hoursArray: SelectOption[] = []
   let minutesArray: SelectOption[] = []
   useEffect(() => {
-    // hoursArray=[]
-    // minutesArray=[]
-    hours.map((hour) => hoursArray.push({ label: `${hour}`.padStart(2, "0"), value: `${hour}`.padStart(2, "0") }))
-    minutes.map((minutes) => minutesArray.push({ label: `${minutes}`.padStart(2, "0"), value: `${minutes}`.padStart(2, "0") }))
+    if (hoursArray.length === 0) {
+      hours.map((hour) => hoursArray.push({ label: `${hour}`.padStart(2, "0"), value: `${hour}`.padStart(2, "0") }))
+      minutes.map((minutes) => minutesArray.push({ label: `${minutes}`.padStart(2, "0"), value: `${minutes}`.padStart(2, "0") }))
+    }
   }, [])
-  // const minutes = Array.from({ length: 60 }, (_, i) => i); // 0 to 59
-  console.log('hours', typeof hoursArray)
 
   return (
     <VStack >

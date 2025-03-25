@@ -23,8 +23,7 @@ const UpdateHomePage = () => {
           >
             Welcome To Cathedral Saint Michael Portal
           </Heading>
-          <TimeSelector/>
-          {/* <TimeSelectors/> */}
+          {/* <TimeSelector/> */}
         </Box>
       </Stack>
     </Box>
