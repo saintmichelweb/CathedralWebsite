@@ -163,7 +163,7 @@ export const NAV_ITEMS = [
     // permissions: ['View Transactions'],
   },
   {
-    name: "Portal Users Management",
+    name: "Users Management",
     label: "Go to users management",
     to: "/users",
     icon: FaUserCircle ,
