@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast, SimpleGrid } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  HStack,
+  Stack,
+  useToast,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -69,7 +76,11 @@ const AddServicesCard = (props: AddServiceProps) => {
     if (payload) {
       if (selectedImage) {
         if (serviceToEdit) {
-          await updateImage({ imageId: serviceToEdit.backgroundImage?.id, image: selectedImage, isBannerImage: false })
+          await updateImage({
+            imageId: serviceToEdit.backgroundImage?.id,
+            image: selectedImage,
+            isBannerImage: false,
+          })
             .then((res) => {
               toast({
                 title: "Update Image message!",
@@ -166,18 +177,18 @@ const AddServicesCard = (props: AddServiceProps) => {
   };
 
   return (
-    <Box >
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <SimpleGrid
           templateColumns={{
-            base: 'repeat(1, 1fr)',
-            md: 'repeat(2, 1fr)',
-            lg: 'repeat(3, 1fr)',
+            base: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
           }}
-          columnGap='4'
-          rowGap='4'
-          w='full'
-          data-testid='form-skeleton'
+          columnGap="4"
+          rowGap="4"
+          w="full"
+          data-testid="form-skeleton"
         >
           <Stack>
             <FormInput
@@ -273,7 +284,12 @@ const AddServicesCard = (props: AddServiceProps) => {
               maxW={{ base: "25rem", sm: "90vw" }}
             />
           </Stack>
-          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={serviceToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+          <FileUploadModal
+            setFile={(file) => setSelectedImage(file)}
+            imageUrl={serviceToEdit?.backgroundImage?.imageUrl || undefined}
+            width="20rem"
+            height="full"
+          />
         </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
@@ -294,8 +310,9 @@ const AddServicesCard = (props: AddServiceProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${serviceToEdit ? "edit" : "add"
-          } this service?`}
+        alertText={`Are you sure you want to ${
+          serviceToEdit ? "edit" : "add"
+        } this service?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newRecentEventPayload)}

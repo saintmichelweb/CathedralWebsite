@@ -204,4 +204,14 @@ export interface UsersResponse {
     created_at: string
     updated_at: string
     // backgroundImage: imageResponse | null
+} 
+export interface actionsResponse {
+    id: number
+    name: string
+    email: string
+    position: string
+    phone_number: string
+    status: string
+    created_at: string
+    updated_at: string
 }

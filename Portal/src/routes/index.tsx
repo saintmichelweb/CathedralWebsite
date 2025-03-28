@@ -1,7 +1,7 @@
 // import { useState } from 'react'
-import { useRoutes } from 'react-router-dom'
+import { useRoutes } from "react-router-dom";
 
-import { Layout } from '../components/layout'
+import { Layout } from "../components/layout";
 import {
   BannerImagesManagement,
   ChoirsManagement,
@@ -22,15 +22,16 @@ import {
   WelcomeMessageManagement,
   SetPassword,
   UsersManagement,
-} from '../pages'
-import UpdateHomePage from '../pages/UpdateHomePage/updateHomePage'
+  actionsManagement,
+} from "../pages";
+import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
 const Routes = () => {
   // const [isLoading, setIsLoading] = useState(false)
 
   const element = useRoutes([
     {
-      path: '/',
+      path: "/",
       element: <Layout />,
       errorElement: <div>Oops! something went wrong</div>,
       children: [
@@ -39,94 +40,99 @@ const Routes = () => {
           element: <UpdateHomePage />,
         },
         {
-          path: 'home-page',
+          path: "home-page",
           index: true,
           element: <UpdateHomePage />,
         },
         {
-          path: 'locations',
+          path: "locations",
           index: true,
           element: <LocationsManagement />,
         },
         {
-          path: 'languages',
+          path: "languages",
           index: true,
           element: <LanguagesManagement />,
         },
         {
-          path: 'mass-schedule',
+          path: "mass-schedule",
           index: true,
           element: <MassTimesManagement />,
         },
         {
-          path: 'recent-events',
+          path: "recent-events",
           index: true,
           element: <RecentEventsManagement />,
         },
         {
-          path: 'top-news-and-notices',
+          path: "top-news-and-notices",
           index: true,
           element: <TopNewsAndNoticesManagement />,
         },
         {
-          path: 'banner-images',
+          path: "banner-images",
           index: true,
           element: <BannerImagesManagement />,
         },
         {
-          path: 'parish-history',
+          path: "parish-history",
           index: true,
           element: <ParishHistoryManagement />,
         },
         {
-          path: 'priests',
+          path: "priests",
           index: true,
           element: <PriestsManagement />,
         },
         {
-          path: 'welcomeMessage',
+          path: "welcomeMessage",
           index: true,
           element: <WelcomeMessageManagement />,
         },
         {
-          path: 'Services',
+          path: "Services",
           index: true,
           element: <ServicesManagement />,
         },
         {
-          path: 'parishCommitteeCouncil',
+          path: "parishCommitteeCouncil",
           index: true,
           element: <ParishCommitteeCouncilManagement />,
         },
         {
-          path: 'commissions',
+          path: "commissions",
           index: true,
           element: <CommissionManagement />,
         },
         {
-          path: 'OfficeHours',
+          path: "OfficeHours",
           index: true,
           element: <OfficeTimesManagement />,
         },
         {
-          path: 'choirs',
+          path: "choirs",
           index: true,
           element: <ChoirsManagement />,
         },
         {
-          path: 'users',
+          path: "users",
           index: true,
           element: <UsersManagement />,
         },
-      ]
+        {
+          path: "actions",
+          index: true,
+          element: <actionsManagement />,
+        },
+      ],
     },
     {
-      path: '/login',
+      path: "/login",
       element: <Login />,
       caseSensitive: true,
     },
     {
-      path: '/forgot-password',
+      path: "/forgot-password",
       element: <ForgotPassword />,
       caseSensitive: true,
     },
@@ -135,12 +141,11 @@ const Routes = () => {
       element: <SetPassword />,
       caseSensitive: true,
     },
-    
-  ])
+  ]);
   // if (isLoading) {
   //   return <div></div>
   // }
-  return element
-}
+  return element;
+};
 
-export default Routes
+export default Routes;
