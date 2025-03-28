@@ -22,7 +22,7 @@ import {
   WelcomeMessageManagement,
   SetPassword,
   UsersManagement,
-  actionsManagement,
+  Actions,
 } from "../pages";
 import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
@@ -122,7 +122,7 @@ const Routes = () => {
         {
           path: "actions",
           index: true,
-          element: <actionsManagement />,
+          element: <Actions />,
         },
       ],
     },
