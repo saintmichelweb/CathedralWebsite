@@ -17,7 +17,7 @@ import CommissionManagement from './Commission/Commission';
 import OfficeTimesManagement from './OfficeTimes/OfficeHours';
 import ChoirsManagement from './Choirs/Choirs';
 import UsersManagement from './UsersManagement/UserManagement';
-
+import  Actions from './Actions/Action';
 
 export {
   // AddNewUser,
@@ -38,5 +38,6 @@ export {
   CommissionManagement,
   OfficeTimesManagement,
   ChoirsManagement,
-  UsersManagement
+  UsersManagement,
+  Actions
 }
