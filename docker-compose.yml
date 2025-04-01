@@ -20,18 +20,20 @@ services:
 
   front-end:
     build: 
-      context: .
+      context: ./Front-end
       # dockerfile: ./Portal/DockerFile
       dockerfile: ./DockerFile-Front-End
     restart: unless-stopped
     ports:
-      # - "5177:5173" #use if the port is used by an other container
-      - "5173:5173"
+      # - "3000:3000" #use if the port is used by an other container
+      - "3000:3000"
     environment:
-      - VITE_API_URL=http://localhost:3551
+      - NEXT_PUBLIC_API_URL=http://localhost:3551
+    networks:
+      - stmp-net  
     volumes:
-      - ./Front-end/src:/app/Front-end/src
-      
+      - ./Front-end:/app
+      - /app/node_modules
   api:
     build:
       context: .
