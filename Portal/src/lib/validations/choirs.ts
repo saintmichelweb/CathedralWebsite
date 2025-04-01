@@ -43,15 +43,15 @@ export const updateChoirsSchema = z.object({
     description_en: z
         .string()
         .trim()
-        .min(1, { message: "Description (EN) is required" }),
+        .min(1, { message: "Description (en) is required" }),
     description_fr: z
         .string()
         .trim()
-        .min(1, { message: "Description (FR) is required" }),
+        .min(1, { message: "Description (fr) is required" }),
     description_rw: z
         .string()
         .trim()
-        .min(1, { message: "Description (RW) is required" }),
+        .min(1, { message: "Description (rw) is required" }),
     leader: z
         .string()
         .trim()

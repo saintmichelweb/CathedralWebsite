@@ -37,20 +37,18 @@ const PriestsManagement = () => {
   const toast = useToast();
   const [priestsData, setPriestsData] = useState<PriestsResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewPriestModel, setOpenNewPriestModel] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedPriest, setSelectedPriest] =
     useState<PriestsResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchPriests = async () => {
+  const fetchPriests = async (page = 1) => {
     setLoading(true);
-    await getAllPriests()
+    await getAllPriests({page})
       .then((data) => {
         setPriestsData(data.priests);
-        setNumberPages(1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -108,15 +106,15 @@ const PriestsManagement = () => {
       }),
       columnHelper.accessor("description_en", {
         cell: (info) => info.getValue(),
-        header: "Description(EN)",
+        header: "Description(en)",
       }),
       columnHelper.accessor("description_fr", {
         cell: (info) => info.getValue(),
-        header: "Description(FR)",
+        header: "Description(fr)",
       }),
       columnHelper.accessor("description_rw", {
         cell: (info) => info.getValue(),
-        header: "Description(RW)",
+        header: "Description(rw)",
       }),
       columnHelper.accessor("backgroundImage", {
         cell: (info) => {
@@ -199,7 +197,6 @@ const PriestsManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -209,8 +206,8 @@ const PriestsManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchPriests}
               useCustomPagination
             />
           )}
@@ -235,7 +232,7 @@ const PriestsManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="40vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this priest?`}

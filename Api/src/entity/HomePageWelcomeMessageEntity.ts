@@ -13,13 +13,13 @@ export class HomePageWelcomeMessageEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ nullable: false, length: 255 })
+  @Column({ type: "longtext", nullable: false })
   welcomeMessage_en!: string;
 
-  @Column({ nullable: false, length: 255 })
+  @Column({ type: "longtext", nullable: false })
   welcomeMessage_fr!: string;
 
-  @Column({ nullable: false, length: 255 })
+  @Column({ type: "longtext", nullable: false })
   welcomeMessage_rw!: string;
 
   // @Column({

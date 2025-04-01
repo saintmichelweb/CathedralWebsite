@@ -6,13 +6,9 @@ import { ImageUpload } from './imagesControllers/postImage';
 import { getBannerImages } from './imagesControllers/getBannerImages';
 import { ImageUpdate } from './imagesControllers/putImage';
 import { deleteImages } from './imagesControllers/deleteImage';
+import { getFrontendBannerImages } from './imagesControllers/getFrontendBannerImages'; 
 
 const router = express.Router()
-
-// interface MulterStorageOptions {
-//     destination: string;
-//     filename: (req: any, file: Express.Multer.File, cb: (error: Error | null, filename: string) => void) => void;
-// }
 
 const storage = multer.diskStorage({
     destination: './upload/images',
@@ -22,11 +18,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+const uploadMiddleware = upload.single("image");
 
 router.use('/image', express.static('upload/images'));
-router.post('/image/upload', 
+router.post('/image/upload',
     authenticateJWT,
-    upload.single('image'), 
+    uploadMiddleware,
     ImageUpload);
 router.get('/images/all',
     authenticateJWT,
@@ -34,14 +31,14 @@ router.get('/images/all',
 router.put('/image/:id',
     authenticateJWT,
     (req, res, next) => {
-        if (req.body.image){
-            upload.single('image');
-        }
-        next()
+        uploadMiddleware(req, res, function (err: any) {
+            next();
+        });
     },
     ImageUpdate);
 router.delete('/image/:id',
     authenticateJWT,
     deleteImages);
+router.get('/images/frontend', getFrontendBannerImages);    
 
 export default router;

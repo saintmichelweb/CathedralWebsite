@@ -1,14 +1,15 @@
 import instance from '../lib/axiosInstance'
 import { AddParishCommitteeCouncilForm, UpdateParishCommitteeCouncilForm, } from '../lib/validations/parishCommitteeCouncil'
 import { parishCommitteeCouncilResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
 export async function addNewparishCommitteeCouncil(priestObj: AddParishCommitteeCouncilForm) {
   const response = await instance.post<{ message: string }>('/parishCommitteeCouncil', priestObj)
   return response.data
 }
 
-export async function getAllparishCommitteeCouncils() {
-  const response = await instance.get<{ parishCommitteeCouncils: parishCommitteeCouncilResponse[], message: string }>('/parishCommitteeCouncil/all')
+export async function getAllparishCommitteeCouncils(params: PaginationParams) {
+  const response = await instance.get<{ parishCommitteeCouncils: parishCommitteeCouncilResponse[], message: string, totalPages: number }>('/parishCommitteeCouncil/all', {params})
   return response.data
 }
 

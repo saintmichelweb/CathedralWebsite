@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "test") {
 const DB_HOSTNAME: string = readEnv("DB_HOST", "smtp-db") as string
 const PORT: number = readEnv("DB_PORT", 3306, true) as number
 const DB_USERNAME: string = readEnv("DB_USERNAME", "root") as string
-const DB_PASSWORD: string = readEnv("DB_PASSWORD", "password") as string
+const DB_PASSWORD: string = readEnv("DB_PASSWORD", "") as string
 const DB_DATABASE: string = readEnv("DB_DATABASE", "stmp_db") as string
 
 let dbConfig = {

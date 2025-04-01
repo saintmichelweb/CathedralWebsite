@@ -20,7 +20,6 @@ import {
 import { MdAdd, MdMoreVert } from "react-icons/md";
 import {
   AlertDialog,
-  // CommonIcons,
   CustomButton,
   CustomLink,
   DataTable,
@@ -33,7 +32,6 @@ import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
 import AddServicesCard from "./Components/ServicesCard";
 import { deleteService, getAllServices } from "../../api/services";
-// import { UpdateServiceForm } from "../../lib/validations/services";
 
 const ServicesManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -45,21 +43,20 @@ const ServicesManagement = () => {
   const [servicesData, setServicesData] = useState<ServicesResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   // const ignore = useRef(false);
-  const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
+  const [openNewServiceModel, setOpenNewServiceModel] = useState(false);
   // const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
   //   useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedRecentEvent, setSelectedRecentEvent] =
     useState<ServicesResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchServices = async () => {
+  const fetchServices = async (page = 1) => {
     setLoading(true);
-    await getAllServices()
+    await getAllServices({page})
       .then((data) => {
         setServicesData(data.services);
-        setNumberPages(1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -76,44 +73,6 @@ const ServicesManagement = () => {
   useEffect(() => {
     fetchServices();
   }, []);
-
-  // const handleEventStatus = async (service: ServicesResponse) => {
-  //   const editPayload: UpdateServiceForm = {
-  //     name_en: service.name_en,
-  //     name_fr: service.name_fr,
-  //     name_rw: service.name_rw,
-  //     description_en: service.description_en,
-  //     description_fr: service.description_fr,
-  //     description_rw: service.description_rw,
-  //     work_hours: service.work_hours,
-  //     work_days: service.work_days,
-  //     contact_person_name: service.contact_person_name,
-  //     contact_person_phone_number: service.contact_person_phone_number,
-  //     backgroundImageId: service.backgroundImage?.id || null,
-  //     servicesId: selectedRecentEvent?.id || null
-  //   };
-  //   await updateService(editPayload)
-  //     .then((res: MessageResponse) => {
-  //       toast({
-  //         title: "Change Servise Status Message",
-  //         description:
-  //           res?.message || "Service status changed successfully",
-  //         status: "success",
-  //       });
-  //       setIsOpenActivateOrDeactivateModal(false);
-  //       fetchServices();
-  //       setSelectedRecentEvent(null);
-  //     })
-  //     .catch((error) => {
-  //       toast({
-  //         title: "Change Servise Status Message",
-  //         description:
-  //           error.response.data?.message ||
-  //           "Error editing recent event status!",
-  //         status: "error",
-  //       });
-  //     });
-  // };
 
   const handleLocationDelete = async (serviceId: number) => {
     await deleteService(serviceId)
@@ -147,27 +106,27 @@ const ServicesManagement = () => {
       }),
       columnHelper.accessor("name_en", {
         cell: (info) => info.getValue(),
-        header: "Title(EN)",
+        header: "Title(en)",
       }),
       columnHelper.accessor("name_fr", {
         cell: (info) => info.getValue(),
-        header: "Title(FR)",
+        header: "Title(fr)",
       }),
       columnHelper.accessor("name_rw", {
         cell: (info) => info.getValue(),
-        header: "Title(RW)",
+        header: "Title(rw)",
       }),
       columnHelper.accessor("description_en", {
         cell: (info) => info.getValue(),
-        header: "Description(EN)",
+        header: "Description(en)",
       }),
       columnHelper.accessor("description_fr", {
         cell: (info) => info.getValue(),
-        header: "Description(FR)",
+        header: "Description(fr)",
       }),
       columnHelper.accessor("description_rw", {
         cell: (info) => info.getValue(),
-        header: "Description(RW)",
+        header: "Description(rw)",
       }),
       columnHelper.accessor("contact_person_name", {
         cell: (info) => info.getValue(),
@@ -185,10 +144,6 @@ const ServicesManagement = () => {
         cell: (info) => info.getValue(),
         header: "Work Hours",
       }),
-      // columnHelper.accessor("event_date", {
-      //   cell: (info) => formatTheDate(info.getValue(), "DD/MM/YYYY"),
-      //   header: "Date",
-      // }),
       columnHelper.accessor("backgroundImage", {
         cell: (info) => {
           const imageUrl = info.row.original.backgroundImage?.imageUrl;
@@ -214,47 +169,11 @@ const ServicesManagement = () => {
         },
         header: "Background Image",
       }),
-      // columnHelper.accessor("isActive", {
-      //   cell: (info) => {
-      //     const status_ = info.getValue();
-
-      //     let status_HTML: React.ReactNode;
-      //     switch (status_) {
-      //       case true:
-      //         status_HTML = (
-      //           <Flex alignItems="center" justifyContent="center">
-      //             <CommonIcons iconName="active" colorVal="green.500" />
-      //             <Text ml={2}>{StatusType.ACTIVATED}</Text>
-      //           </Flex>
-      //         );
-      //         break;
-      //       case false:
-      //         status_HTML = (
-      //           <Flex alignItems="center" justifyContent="center">
-      //             <CommonIcons iconName="disable" colorVal="red.500" />
-      //             <Text ml={2}>{StatusType.DEACTIVATED}</Text>
-      //           </Flex>
-      //         );
-      //         break;
-      //       default:
-      //         status_HTML = <Text ml={2}>N/A</Text>;
-      //     }
-      //     return status_HTML;
-      //   },
-      //   header: "Status",
-      // }),
       columnHelper.accessor("id", {
         cell: (info) => {
-          // const status = info.row.original.isActive;
-
-          // const handleActivateOrDeactivate = () => {
-          //   setSelectedRecentEvent(info.row.original);
-          //   setIsOpenActivateOrDeactivateModal(true);
-          // };
-
           const handleEdit = () => {
             setSelectedRecentEvent(info.row.original);
-            setOpenNewRecentEventModel(true);
+            setOpenNewServiceModel(true);
           };
 
           const handledelete = () => {
@@ -262,13 +181,6 @@ const ServicesManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton(
-            //     status ? "deactivate" : "activate",
-            //     handleActivateOrDeactivate
-            //   )}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
@@ -284,22 +196,22 @@ const ServicesManagement = () => {
                     handleActivateOrDeactivate
                   )}
                 </MenuItem> */}
-                <Divider />
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
-                >
-                  {ActionButton("delete", handledelete)}
-                </MenuItem>
-                <Divider />
-                <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
+                // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
+                <Divider />
+                <MenuItem
+                  px={0}
+                  _focus={{ bg: "transparent" }}
+                // onClick={handledelete}
+                >
+                  {ActionButton("delete", handledelete)}
+                </MenuItem>
+                {/* <Divider /> */}
               </MenuList>
             </Menu>
           );
@@ -322,17 +234,11 @@ const ServicesManagement = () => {
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Services Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
           minW={"8rem"}
-          onClick={() => setOpenNewRecentEventModel(true)}
+          onClick={() => setOpenNewServiceModel(true)}
         >
           <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Service
         </CustomButton>
@@ -348,7 +254,6 @@ const ServicesManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -358,8 +263,8 @@ const ServicesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchServices}
               useCustomPagination
             />
           )}
@@ -370,13 +275,13 @@ const ServicesManagement = () => {
       </Box>
       <CustomModal
         headerTitle={`${selectedRecentEvent ? "Update" : "Add"} Service`}
-        isOpen={openNewRecentEventModel}
-        onClose={() => setOpenNewRecentEventModel(false)}
+        isOpen={openNewServiceModel}
+        onClose={() => setOpenNewServiceModel(false)}
         child={
           <AddServicesCard
             onClose={() => {
               setSelectedRecentEvent(null);
-              setOpenNewRecentEventModel(false);
+              setOpenNewServiceModel(false);
             }}
             fetchServices={fetchServices}
             service={selectedRecentEvent}
@@ -384,7 +289,7 @@ const ServicesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="60vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this location?`}
@@ -399,21 +304,6 @@ const ServicesManagement = () => {
           }
         }}
       />
-      {/* <AlertDialog
-        alertText={`Are you sure you want to ${
-          selectedRecentEvent?.isActive ? "deactivate" : "activate"
-        } this recent event?`}
-        isOpen={isOpenActivateOrDeactivateModal}
-        onClose={() => {
-          setSelectedRecentEvent(null);
-          setIsOpenActivateOrDeactivateModal(false);
-        }}
-        onConfirm={() => {
-          if (selectedRecentEvent) {
-            handleEventStatus(selectedRecentEvent);
-          }
-        }}
-      /> */}
     </Stack>
   );
 };

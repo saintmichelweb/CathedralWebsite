@@ -29,7 +29,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
     newImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
     newImage.imagePath = uploadedFile.path
     if (isBannerImage) {
-      newImage.isBannerImage = isBannerImage === 'true' ? true : false
+      newImage.isBannerImage = isBannerImage === 'true' 
     }
     if (bannerDescription_en) {
       newImage.bannerDescription_en = bannerDescription_en

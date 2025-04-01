@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import { Box, Divider, HStack, Stack, useToast, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
 import { commissionResponse, MessageResponse } from "../../../types/apiResponses";
-import { ImageUploader } from "../../../components/ui/ImageUpload/ImageUpload";
-import { addNewImage } from "../../../api/images";
+import { addNewImage, updateImage } from "../../../api/images";
 import { addNewCommission, updateCommission } from "../../../api/commission";
 import { AddCommissionForm, commissionSchema, UpdateCommissionForm } from "../../../lib/validations/commission";
+import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
 
 interface AddCommissionProps {
   onClose: () => void;
@@ -48,37 +48,62 @@ const AddCommissionCard = (props: AddCommissionProps) => {
       setValue("name_rw", CommissionToEdit.name_rw);
       setValue("contact_person_name", CommissionToEdit.contact_person_name);
       setValue("contact_person_role", CommissionToEdit.contact_person_role);
-      setValue("contact_person_phone_number", CommissionToEdit.contact_person_phone_number);
+      setValue(
+        "contact_person_phone_number",
+        CommissionToEdit.contact_person_phone_number
+      );
       setValue("contact_person_email", CommissionToEdit.contact_person_email);
       setValue("description_en", CommissionToEdit.description_en);
       setValue("description_fr", CommissionToEdit.description_fr);
       setValue("description_rw", CommissionToEdit.description_rw);
     }
-    setValue("backgroundImageId", CommissionToEdit?.backgroundImage?.id || null);
+    setValue(
+      "backgroundImageId",
+      CommissionToEdit?.backgroundImage?.id || null
+    );
   }, [CommissionToEdit]);
 
   const onConfirm = async (payload: AddCommissionForm | undefined) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
-        console.log("adding new image");
-        await addNewImage({ image: selectedImage, isBannerImage: false })
-          .then((res) => {
-            toast({
-              title: "Add Image message!",
-              description: res?.message || "Commission saved successfully",
-              status: "success",
+        if (CommissionToEdit) {
+          await updateImage({ imageId: CommissionToEdit.backgroundImage?.id, image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Update Image message!",
+                description: res?.message || "Image updated successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error updating image!",
+                status: "error",
+              });
             });
-            payload.backgroundImageId = res.image.id;
-          })
-          .catch((error) => {
-            toast({
-              title: "Add Image message",
-              description:
-                error.response.data?.message || "Error saving recent Event!",
-              status: "error",
+        } else {
+          await addNewImage({ image: selectedImage, isBannerImage: false })
+            .then((res) => {
+              toast({
+                title: "Add Image message!",
+                description: res?.message || "Image saved successfully",
+                status: "success",
+              });
+              payload.backgroundImageId = res.image.id;
+            })
+            .catch((error) => {
+              toast({
+                title: "Add Image message",
+                description:
+                  error.response.data?.message || "Error savig image!",
+                status: "error",
+              });
             });
-          });
+        }
       }
 
       if (!CommissionToEdit) {
@@ -140,96 +165,115 @@ const AddCommissionCard = (props: AddCommissionProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="name_en"
-          register={register}
-          errors={errors}
-          label="Commission Name (EN)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="name_fr"
-          register={register}
-          errors={errors}
-          label="Commission Name (FR)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="name_rw"
-          register={register}
-          errors={errors}
-          label="Commission Name (RW)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_name"
-          register={register}
-          errors={errors}
-          label="Commission Contact Person Name"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_role"
-          register={register}
-          errors={errors}
-          label="Commission Contact Person Role"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_phone_number"
-          register={register}
-          errors={errors}
-          label="Commission Contact Person Telephone"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="contact_person_email"
-          register={register}
-          errors={errors}
-          label="Commission Contact Person Email"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="Event description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="Event description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="Event description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        {!CommissionToEdit && (
-          <ImageUploader
-            parentSetSelectedImage={(file: File) => setSelectedImage(file)}
-          />
-        )}
+        <SimpleGrid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(3, 1fr)',
+          }}
+          columnGap='4'
+          rowGap='4'
+          w='full'
+          data-testid='form-skeleton'
+        >
+          <Stack>
+            <FormInput
+              name="name_en"
+              register={register}
+              errors={errors}
+              label="Commission Name (en)"
+              placeholder="Enter commission name (en)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="name_fr"
+              register={register}
+              errors={errors}
+              label="Commission Name (fr)"
+              placeholder="Enter commission name (fr)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="name_rw"
+              register={register}
+              errors={errors}
+              label="Commission Name (rw)"
+              placeholder="Enter commission name (rw)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="contact_person_name"
+              register={register}
+              errors={errors}
+              label="Commission Contact Person Name"
+              placeholder="Enter Contact Person Name"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="contact_person_role"
+              register={register}
+              errors={errors}
+              label="Commission Contact Person Role"
+              placeholder="Enter Contact Person Role"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="contact_person_phone_number"
+              register={register}
+              errors={errors}
+              label="Commission Contact Person Telephone"
+              placeholder="Enter Contact Person Telephone"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <Stack>
+            <FormInput
+              name="contact_person_email"
+              register={register}
+              errors={errors}
+              label="Commission Contact Person Email"
+              placeholder="Enter Contact Person Email"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_en"
+              register={register}
+              errors={errors}
+              label="Event description (en)"
+              placeholder="Enter commission description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_fr"
+              register={register}
+              errors={errors}
+              label="Event description (fr)"
+              placeholder="Enter commission description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_rw"
+              register={register}
+              errors={errors}
+              label="Event description (rw)"
+              placeholder="Enter commission description"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={CommissionToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+        </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
@@ -249,9 +293,8 @@ const AddCommissionCard = (props: AddCommissionProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${
-          CommissionToEdit ? "edit" : "add"
-        } this Commission?`}
+        alertText={`Are you sure you want to ${CommissionToEdit ? "edit" : "add"
+          } this Commission?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newRecentEventPayload)}

@@ -1,20 +1,11 @@
 import { Box, Heading, Stack } from "@chakra-ui/react";
-// import RecentEventsCard from "../RecentEvents/Components/recentEventsCard";
-// import TopParishNewsAndNoticesCard from "../TopNewsAndNotices/Components/topNewsAndNoticesCard";
+import TimeSelector from "../../components/ui/HoursMinutesInputs/HoursMinutesInputs";
 
 const UpdateHomePage = () => {
-  // useEffect(() => {
-  //   if (updateUser.isSuccess && props.onFetch) props.onFetch()
-  // }, [props, updateUser.isSuccess])
-
   return (
     <Box
       h={"full"}
       bg="primaryBackground"
-      // pt={"6"}
-      // px={{ base: "4", sm: "6", md: "12", xl: "20" }}
-      // pb={"14"}
-      // flexGrow="1"
       alignSelf={"center"}
       alignItems={"center"}
     >
@@ -32,6 +23,7 @@ const UpdateHomePage = () => {
           >
             Welcome To Cathedral Saint Michael Portal
           </Heading>
+          {/* <TimeSelector/> */}
         </Box>
       </Stack>
     </Box>

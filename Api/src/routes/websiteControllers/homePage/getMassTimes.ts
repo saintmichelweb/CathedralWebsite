@@ -22,6 +22,7 @@ export async function getMassTimes(req: Request, res: Response) {
         const masstimes = await queryBuilder.getMany()
 
         const responseMassTimes: any[] = []
+        let id = 0;
         for (const location of totalLocations) {
             const locationMassTimes: any[] = []
             Object.values(MassDaysEnum_EN).map(value => {
@@ -40,12 +41,14 @@ export async function getMassTimes(req: Request, res: Response) {
                     })
                 }
             })
-
+            
             if (locationMassTimes.length) {
                 responseMassTimes.push({
+                    id,
                     tabTitle: location.location,
                     content: locationMassTimes
                 })
+                id++;
             }
         }
         res.status(200).send({ data: responseMassTimes })

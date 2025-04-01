@@ -1,19 +1,20 @@
 import instance from '../lib/axiosInstance'
 import { LocationForm, UpdateLocationForm } from '../lib/validations/location'
 import { LocationResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
 export async function addNewLocation(locationObj: LocationForm) {
   const response = await instance.post<{ message: string }>('/location', locationObj)
   return response.data
 }
 
-export async function getLocations(isMassLocation?: boolean, isActive?: boolean) {
+export async function getLocations(params: PaginationParams, isMassLocation?: boolean, isActive?: boolean) {
   let apiPath = `/location/all?`
   if (isActive) apiPath += `isActive=${isActive}`
   if (isActive && isMassLocation) apiPath += `&isMassLocation=${isMassLocation}`
   if (!isActive && isMassLocation) apiPath += `isMassLocation=${isMassLocation}`
   console.log(apiPath)
-  const response = await instance.get<{ locations: LocationResponse[], message: string, numberOfPages: number }>(apiPath)
+  const response = await instance.get<{ locations: LocationResponse[], message: string, totalPages: number }>(apiPath, {params})
   return response.data
 }
 

@@ -1,14 +1,15 @@
 import instance from '../lib/axiosInstance'
 import { AddServiceForm, UpdateServiceForm } from '../lib/validations/services'
 import { ServicesResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
 export async function addNewService(priestObj: AddServiceForm) {
   const response = await instance.post<{ message: string }>('/services', priestObj)
   return response.data
 }
 
-export async function getAllServices() {
-  const response = await instance.get<{ services: ServicesResponse[], message: string }>('/services/all')
+export async function getAllServices(params: PaginationParams) {
+  const response = await instance.get<{ services: ServicesResponse[], message: string, totalPages: number }>('/services/all', {params})
   return response.data
 }
 

@@ -106,13 +106,14 @@ const AddLocationCard = (props: AddLocationProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           name="location"
           register={register}
           errors={errors}
           label="location"
+          placeholder="Enter location"
           inputProps={{ bg: "white" }}
           maxW={{ base: "25rem", sm: "90vw" }}
         />
@@ -120,14 +121,12 @@ const AddLocationCard = (props: AddLocationProps) => {
         <Checkbox
           name="Does location host Masses"
           isChecked={isMassLocation}
-          // label="Is Mass location?"
           onChange={() => {
             setIsMassLocation(!isMassLocation)
             setValue('isMassLocation', !isMassLocation)
           }}
           aria-label='Select row'
           borderColor='blackAlpha.400'
-          bgColor={'white'}
           p={2}
         >Is Mass location</Checkbox>
         <Divider mt={2} color={"gray.400"} />

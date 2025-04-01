@@ -1,14 +1,15 @@
 import instance from '../lib/axiosInstance'
 import { AddCommissionForm, UpdateCommissionForm } from '../lib/validations/commission'
 import { commissionResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params'
 
 export async function addNewCommission(priestObj: AddCommissionForm) {
   const response = await instance.post<{ message: string }>('/commissions', priestObj)
   return response.data
 }
 
-export async function getAllCommissions() {
-  const response = await instance.get<{ commissions: commissionResponse[], message: string }>('/commissions/all')
+export async function getAllCommissions(params: PaginationParams) {
+  const response = await instance.get<{ commissions: commissionResponse[], message: string, totalPages: number }>('/commissions/all', {params})
   return response.data
 }
 

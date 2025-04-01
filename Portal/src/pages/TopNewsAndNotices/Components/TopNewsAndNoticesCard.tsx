@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Divider, HStack, Stack, useToast } from "@chakra-ui/react";
+import { Box, Divider, HStack, Stack, useToast, SimpleGrid } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AlertDialog, CustomButton } from "../../../components/ui";
@@ -118,59 +118,81 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
   };
 
   return (
-    <Box py={"2rem"}>
+    <Box >
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
-        <FormInput
-          name="title_en"
-          register={register}
-          errors={errors}
-          label="Event title (EN)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="title_fr"
-          register={register}
-          errors={errors}
-          label="Event title (FR)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormInput
-          name="title_rw"
-          register={register}
-          errors={errors}
-          label="Event title (RW)"
-          inputProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_en"
-          register={register}
-          errors={errors}
-          label="Event description (EN)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_fr"
-          register={register}
-          errors={errors}
-          label="Event description (FR)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
-        <FormTextarea
-          name="description_rw"
-          register={register}
-          errors={errors}
-          label="Event description (RW)"
-          placeholder="enter event description"
-          textareaProps={{ bg: "white" }}
-          maxW={{ base: "25rem", sm: "90vw" }}
-        />
+        <SimpleGrid
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            md: 'repeat(2, 1fr)',
+            lg: 'repeat(2, 1fr)',
+            xl: 'repeat(2, 1fr)',
+          }}
+          columnGap='4'
+          rowGap='4'
+          // justifyItems='center'
+          w='full'
+          data-testid='form-skeleton'
+        // bg={'green.300'}
+        >
+          <Stack>
+            <FormInput
+              name="title_en"
+              register={register}
+              errors={errors}
+              label="News/Notice title (en)"
+              placeholder="Enter title (en)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormInput
+              name="title_rw"
+              register={register}
+              errors={errors}
+              label="News/Notice title (rw)"
+              placeholder="Enter title (rw)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_rw"
+              register={register}
+              errors={errors}
+              label="News/Notice description (rw)"
+              placeholder="Enter description (rw)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <Stack>
+            <FormInput
+              name="title_fr"
+              register={register}
+              errors={errors}
+              label="News/Notice title (fr)"
+              placeholder="Enter title (fr)"
+              inputProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_en"
+              register={register}
+              errors={errors}
+              label="News/Notice description (en)"
+              placeholder="Enter description (en)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+            <FormTextarea
+              name="description_fr"
+              register={register}
+              errors={errors}
+              label="News/Notice description (fr)"
+              placeholder="Enter description (fr)"
+              textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+        </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
@@ -190,9 +212,8 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${
-          topParishNewsOrNOticeToEdit ? "edit" : "add"
-        } this Top News / Notice?`}
+        alertText={`Are you sure you want to ${topParishNewsOrNOticeToEdit ? "edit" : "add"
+          } this Top News / Notice?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newTopParishNewsOrNoticePayload)}

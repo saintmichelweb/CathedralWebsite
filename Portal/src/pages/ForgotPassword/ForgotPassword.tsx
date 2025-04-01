@@ -117,9 +117,7 @@ const ForgotPassword = () => {
                 type="submit"
                 size="md"
                 mt="8"
-                // isLoading={forgotPassword.isPending}
                 loadingText="Sending..."
-                // isDisabled={forgotPassword.isPending}
               >
                 Send Reset Password Link
               </CustomButton>

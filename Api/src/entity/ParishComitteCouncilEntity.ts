@@ -13,43 +13,43 @@ import { ImageEntity } from './ImagesEntity'
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     names!: string
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     position_en!: string
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     position_fr!: string
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     position_rw!: string
 
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     description_en!: string
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     description_fr!: string
   
     @Column({
       nullable: true,
-      length: 255,
+       type: 'longtext',
     })
     description_rw!: string
   

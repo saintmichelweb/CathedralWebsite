@@ -23,7 +23,7 @@ export async function getTopParishNewsAndNotices(req: Request, res: Response) {
                 description_rw: newsAndNotice.description_rw
             }
         }))
-        res.status(200).send({ data: responseNewsAndNotices })
+        res.status(200).send(responseNewsAndNotices)
     } catch (error: any) {
         logger.error('Getting home page failed with error: %s', error)
         res.status(400).send({ success: false, message: error.message })

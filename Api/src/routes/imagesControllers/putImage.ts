@@ -35,7 +35,7 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
         }
 
         if (isBannerImage !== null && isBannerImage !== undefined) {
-            oldImage.isBannerImage = isBannerImage
+            oldImage.isBannerImage = typeof(isBannerImage) !== 'boolean' ? isBannerImage === 'true' : isBannerImage
         }
 
         if (bannerDescription_en) {
@@ -51,7 +51,7 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
         }
 
         if (isActive !== null && isActive !== undefined) {
-            oldImage.isActive = isActive
+            oldImage.isActive = isActive === 'true'
         }
 
         if (uploadedFile) {
@@ -60,7 +60,6 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
                     console.error('Error deleting the old Image:', err);
                     return res.status(500).send('Error deleting the old Image');
                 }
-                res.send('Old image successfully deleted');
             });
             oldImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
             oldImage.imagePath = uploadedFile.path
@@ -68,7 +67,7 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
         }
 
         await imageRepository.save(oldImage)
-        return res.status(201).send({ message: 'Image updated successfully' });
+        return res.status(201).send({ message: 'Image updated successfully', image: oldImage });
     } catch (error) {
         logger.error("saving image failed: %s", error);
         res.status(500).send({ success: false, message: "Internal server error!" });

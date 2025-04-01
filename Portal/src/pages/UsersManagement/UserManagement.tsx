@@ -22,7 +22,6 @@ import {
   AlertDialog,
   CommonIcons,
   CustomButton,
-  //   CustomLink,
   DataTable,
   EmptyState,
   TableSkeleton,
@@ -50,21 +49,19 @@ const UsersManagement = () => {
   const toast = useToast();
   const [usersData, setUsersData] = useState<UsersResponse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewUserModel, setOpenNewUserModel] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UsersResponse | null>(null);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
     useState(false);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (page = 1) => {
     setLoading(true);
-    await getUsers()
+    await getUsers({page})
       .then((data) => {
         setUsersData(data.users);
-        setNumberPages(1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -239,10 +236,6 @@ const UsersManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton("delete", handledelete)}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
@@ -251,7 +244,6 @@ const UsersManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -261,7 +253,6 @@ const UsersManagement = () => {
                     <MenuItem
                       px={0}
                       _focus={{ bg: "transparent" }}
-                      // onClick={handleActivateOrDeactivate}
                     >
                       {ActionButton(
                         status == PortalUserStatus.ACTIVE
@@ -277,7 +268,6 @@ const UsersManagement = () => {
                     <MenuItem
                       px={0}
                       _focus={{ bg: "transparent" }}
-                      // onClick={handleActivateOrDeactivate}
                     >
                       {ActionButton("resend", handleResend)}
                     </MenuItem>
@@ -287,7 +277,6 @@ const UsersManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
@@ -333,7 +322,6 @@ const UsersManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -343,8 +331,8 @@ const UsersManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchUsers}
               useCustomPagination
             />
           )}
@@ -369,7 +357,7 @@ const UsersManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="30vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this user?`}

@@ -37,19 +37,19 @@ import {
   
     @Column({
       nullable: true,
-      length: 255,
+      type: "longtext",
     })
     description_en!: string
   
     @Column({
       nullable: true,
-      length: 255,
+      type: "longtext",
     })
     description_fr!: string
   
     @Column({
       nullable: true,
-      length: 255,
+      type: "longtext",
     })
     description_rw!: string
 

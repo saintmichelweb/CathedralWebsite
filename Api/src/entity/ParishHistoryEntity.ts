@@ -7,69 +7,65 @@ import {
 @Entity('parish_history')
 export class ParishHistoryEntity {
   @PrimaryGeneratedColumn()
-  id!: number
-  @Column({
-    nullable: true,
-    // length: 4096
-  })
-
-  history_en!: string
-  @Column({
-    nullable: true,
-    // length: 4096
-  })
-
-  history_fr!: string
-  @Column({
-    nullable: true,
-    // length: 4096
-  })
-
-  history_rw!: string
-  @Column({
-    nullable: true,
-    // length: 4096
-  })
-
-  mission_en!: string
-  @Column({
-    nullable: true,
-    // length: 4096
-  })
-
-  mission_fr!: string
-  @Column({
-    nullable: true,
-    // length: 4096
-  })
-
-  mission_rw!: string
-  @Column({
-    nullable: true,
-    // length: 4096
-  })
-
-  vision_en!: string
-  @Column({
-    nullable: true,
-    // length: 4096
-  })
-  vision_fr!: string
+  id!: number;
 
   @Column({
+    type: 'longtext',
     nullable: true,
-    // length: 4096
   })
+  history_en!: string;
 
-  vision_rw!: string
   @Column({
+    type: 'longtext',
     nullable: true,
-    // length: 4096
   })
+  history_fr!: string;
+
+  @Column({
+    type: 'longtext',
+    nullable: true,
+  })
+  history_rw!: string;
+
+  @Column({
+    type: 'longtext',
+    nullable: true,
+  })
+  mission_en!: string;
+
+  @Column({
+    type: 'longtext',
+    nullable: true,
+  })
+  mission_fr!: string;
+
+  @Column({
+    type: 'longtext',
+    nullable: true,
+  })
+  mission_rw!: string;
+
+  @Column({
+    type: 'longtext',
+    nullable: true,
+  })
+  vision_en!: string;
+
+  @Column({
+    type: 'longtext',
+    nullable: true,
+  })
+  vision_fr!: string;
+
+  @Column({
+    type: 'longtext',
+    nullable: true,
+  })
+  vision_rw!: string;
+
   @CreateDateColumn()
-  created_at!: Date
+  created_at!: Date;
 
   @UpdateDateColumn()
-  updated_at!: Date
-
+  updated_at!: Date;
 }

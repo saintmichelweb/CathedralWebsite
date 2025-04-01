@@ -53,7 +53,6 @@ const TopNewsAndNoticesManagement = () => {
     TopNewsAndNoticesResponse[]
   >([]);
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewTopNewsAndNoticeModel, setOpenNewTopNewsAndNoticeModel] =
     useState(false);
   const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
@@ -61,15 +60,14 @@ const TopNewsAndNoticesManagement = () => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedTopNewsAndNotice, setSelectedTopNewsAndNotice] =
     useState<TopNewsAndNoticesResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchTopNewsAndNotices = async () => {
+  const fetchTopNewsAndNotices = async (page = 1) => {
     setLoading(true);
-    await getAllTopNewsAndNotices()
+    await getAllTopNewsAndNotices({page})
       .then((data) => {
         setTopNewsAndNoticesData(data.topParishNewsAndNotices);
-        setNumberPages(data.numberOfPages || 1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -159,27 +157,27 @@ const TopNewsAndNoticesManagement = () => {
       }),
       columnHelper.accessor("title_en", {
         cell: (info) => info.getValue(),
-        header: "Title(EN)",
+        header: "Title(en)",
       }),
       columnHelper.accessor("title_fr", {
         cell: (info) => info.getValue(),
-        header: "Title(FR)",
+        header: "Title(fr)",
       }),
       columnHelper.accessor("title_rw", {
         cell: (info) => info.getValue(),
-        header: "Title(RW)",
+        header: "Title(rw)",
       }),
       columnHelper.accessor("description_en", {
         cell: (info) => info.getValue(),
-        header: "Description(EN)",
+        header: "Description(en)",
       }),
       columnHelper.accessor("description_fr", {
         cell: (info) => info.getValue(),
-        header: "Description(FR)",
+        header: "Description(fr)",
       }),
       columnHelper.accessor("description_rw", {
         cell: (info) => info.getValue(),
-        header: "Description(RW)",
+        header: "Description(rw)",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
@@ -229,13 +227,6 @@ const TopNewsAndNoticesManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton(
-            //     status ? "deactivate" : "activate",
-            //     handleActivateOrDeactivate
-            //   )}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
@@ -244,7 +235,6 @@ const TopNewsAndNoticesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -252,7 +242,6 @@ const TopNewsAndNoticesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleActivateOrDeactivate}
                 >
                   {ActionButton(
                     status ? "deactivate" : "activate",
@@ -263,7 +252,6 @@ const TopNewsAndNoticesManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
@@ -287,21 +275,15 @@ const TopNewsAndNoticesManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={0} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Top Parish News / Notices Management</Heading>
+          <Heading size="md">Top Parish News And Notices Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
           minW={"8rem"}
           onClick={() => setOpenNewTopNewsAndNoticeModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New News/Notice
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New News / Notice
         </CustomButton>
       </Flex>
       <Box
@@ -315,7 +297,6 @@ const TopNewsAndNoticesManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -325,8 +306,8 @@ const TopNewsAndNoticesManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchTopNewsAndNotices}
               useCustomPagination
             />
           )}
@@ -338,7 +319,7 @@ const TopNewsAndNoticesManagement = () => {
       <CustomModal
         headerTitle={`${
           selectedTopNewsAndNotice ? "Update" : "Add"
-        } news/notice`}
+        } news / notice`}
         isOpen={openNewTopNewsAndNoticeModel}
         onClose={() => setOpenNewTopNewsAndNoticeModel(false)}
         child={
@@ -353,7 +334,7 @@ const TopNewsAndNoticesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="40vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this Top Parish News / Notices?`}

@@ -1,14 +1,15 @@
 import instance from '../lib/axiosInstance'
 import { MassTimesForm, UpdateMassTimesForm } from '../lib/validations/massTimes';
 import { MassTimesResponse } from '../types/apiResponses'
+import { PaginationParams } from '../types/params';
 
 export async function addNewMassTime(massTimeObj: MassTimesForm) {
   const response = await instance.post<{ message: string }>('/mass-times', massTimeObj)
   return response.data
 }
 
-export async function getAllMassTimes() {
-  const response = await instance.get<{ massTimes: MassTimesResponse [], message: string, numberOfPages: number }>('/mass-times/all?isPortalRequest=true')
+export async function getAllMassTimes(params: PaginationParams) {
+  const response = await instance.get<{ massTimes: MassTimesResponse [], message: string, totalPages: number }>('/mass-times/all?isPortalRequest=true', {params})
   return response.data
 }
 

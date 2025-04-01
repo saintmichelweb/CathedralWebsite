@@ -20,7 +20,6 @@ import {
 import { MdAdd, MdMoreVert } from "react-icons/md";
 import {
   AlertDialog,
-  // CommonIcons,
   CustomButton,
   CustomLink,
   DataTable,
@@ -45,22 +44,18 @@ const CommissionManagement = () => {
     []
   );
   const [loading, setLoading] = useState<boolean>(false);
-  // const ignore = useRef(false);
   const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
-  // const [isOpenActivateOrDeactivateModal, setIsOpenActivateOrDeactivateModal] =
-  //   useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [selectedCommission, setSelectedRecentEvent] =
     useState<commissionResponse | null>(null);
-  // const [searchOn, setSearchOn] = useState<boolean>(false);
-  const [numberPages, setNumberPages] = useState<number>(1);
+  const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchCommission = async () => {
+  const fetchCommission = async (page = 1) => {
     setLoading(true);
-    await getAllCommissions()
+    await getAllCommissions({page})
       .then((data) => {
         setCommissionData(data.commissions);
-        setNumberPages(1);
+        setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
@@ -77,44 +72,6 @@ const CommissionManagement = () => {
   useEffect(() => {
     fetchCommission();
   }, []);
-
-  // const handleEventStatus = async (Commission: commissionResponse) => {
-  //   const editPayload: UpdateCommissionForm = {
-  //     name_en: Commission.name_en,
-  //     name_fr: Commission.name_fr,
-  //     name_rw: Commission.name_rw,
-  //     description_en: Commission.description_en,
-  //     description_fr: Commission.description_fr,
-  //     description_rw: Commission.description_rw,
-  //     work_hours: Commission.work_hours,
-  //     work_days: Commission.work_days,
-  //     contact_person_name: Commission.contact_person_name,
-  //     contact_person_phone_number: Commission.contact_person_phone_number,
-  //     backgroundImageId: Commission.backgroundImage?.id || null,
-  //     CommissionsId: selectedCommission?.id || null
-  //   };
-  //   await updateCommission(editPayload)
-  //     .then((res: MessageResponse) => {
-  //       toast({
-  //         title: "Change Commission Status Message",
-  //         description:
-  //           res?.message || "Commission status changed successfully",
-  //         status: "success",
-  //       });
-  //       setIsOpenActivateOrDeactivateModal(false);
-  //       fetchCommission();
-  //       setSelectedRecentEvent(null);
-  //     })
-  //     .catch((error) => {
-  //       toast({
-  //         title: "Change Commission Status Message",
-  //         description:
-  //           error.response.data?.message ||
-  //           "Error editing recent event status!",
-  //         status: "error",
-  //       });
-  //     });
-  // };
 
   const handleLocationDelete = async (CommissionId: number) => {
     await deleteCommission(CommissionId)
@@ -148,15 +105,15 @@ const CommissionManagement = () => {
       }),
       columnHelper.accessor("name_en", {
         cell: (info) => info.getValue(),
-        header: "Name(EN)",
+        header: "Name(en)",
       }),
       columnHelper.accessor("name_fr", {
         cell: (info) => info.getValue(),
-        header: "Name(FR))",
+        header: "Name(fr))",
       }),
       columnHelper.accessor("name_rw", {
         cell: (info) => info.getValue(),
-        header: "Name(RW)",
+        header: "Name(rw)",
       }),
       columnHelper.accessor("contact_person_name", {
         cell: (info) => info.getValue(),
@@ -174,30 +131,6 @@ const CommissionManagement = () => {
         cell: (info) => info.getValue(),
         header: "Contact Person Email",
       }),
-      columnHelper.accessor("description_en", {
-        cell: (info) => info.getValue(),
-        header: "Description (EN)",
-      }),
-      columnHelper.accessor("description_fr", {
-        cell: (info) => info.getValue(),
-        header: "Description (FR)",
-      }),
-      columnHelper.accessor("description_rw", {
-        cell: (info) => info.getValue(),
-        header: "Description (RW)",
-      }),
-      // columnHelper.accessor("work_days", {
-      //   cell: (info) => info.getValue(),
-      //   header: "Work Days",
-      // }),
-      // columnHelper.accessor("work_hours", {
-      //   cell: (info) => info.getValue(),
-      //   header: "Work Hours",
-      // }),
-      // columnHelper.accessor("event_date", {
-      //   cell: (info) => formatTheDate(info.getValue(), "DD/MM/YYYY"),
-      //   header: "Date",
-      // }),
       columnHelper.accessor("backgroundImage", {
         cell: (info) => {
           const imageUrl = info.row.original.backgroundImage?.imageUrl;
@@ -223,6 +156,30 @@ const CommissionManagement = () => {
         },
         header: "Background Image",
       }),
+      columnHelper.accessor("description_en", {
+        cell: (info) => info.getValue(),
+        header: "Description (en)",
+      }),
+      columnHelper.accessor("description_fr", {
+        cell: (info) => info.getValue(),
+        header: "Description (fr)",
+      }),
+      columnHelper.accessor("description_rw", {
+        cell: (info) => info.getValue(),
+        header: "Description (rw)",
+      }),
+      // columnHelper.accessor("work_days", {
+      //   cell: (info) => info.getValue(),
+      //   header: "Work Days",
+      // }),
+      // columnHelper.accessor("work_hours", {
+      //   cell: (info) => info.getValue(),
+      //   header: "Work Hours",
+      // }),
+      // columnHelper.accessor("event_date", {
+      //   cell: (info) => formatTheDate(info.getValue(), "DD/MM/YYYY"),
+      //   header: "Date",
+      // }),
       // columnHelper.accessor("isActive", {
       //   cell: (info) => {
       //     const status_ = info.getValue();
@@ -254,13 +211,6 @@ const CommissionManagement = () => {
       // }),
       columnHelper.accessor("id", {
         cell: (info) => {
-          // const status = info.row.original.isActive;
-
-          // const handleActivateOrDeactivate = () => {
-          //   setSelectedRecentEvent(info.row.original);
-          //   setIsOpenActivateOrDeactivateModal(true);
-          // };
-
           const handleEdit = () => {
             setSelectedRecentEvent(info.row.original);
             setOpenNewRecentEventModel(true);
@@ -271,32 +221,15 @@ const CommissionManagement = () => {
             setIsOpenDeleteModal(true);
           };
           return (
-            // <Box>
-            //   {ActionButton("edit", handleEdit)}
-            //   {ActionButton(
-            //     status ? "deactivate" : "activate",
-            //     handleActivateOrDeactivate
-            //   )}
-            // </Box>
             <Menu autoSelect={false}>
               <MenuButton>
                 <Icon as={MdMoreVert} color={"black"} boxSize={7} />
               </MenuButton>
               <MenuList minW="0" w={"8.5rem"}>
-                {/* <MenuItem
-                  px={0}
-                  _focus={{ bg: "transparent" }}
-                  // onClick={handleActivateOrDeactivate}
-                >
-                  {ActionButton(
-                    status ? "deactivate" : "activate",
-                    handleActivateOrDeactivate
-                  )}
-                </MenuItem> */}
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handleEdit}
+                // onClick={handleEdit}
                 >
                   {ActionButton("edit", handleEdit)}
                 </MenuItem>
@@ -304,11 +237,10 @@ const CommissionManagement = () => {
                 <MenuItem
                   px={0}
                   _focus={{ bg: "transparent" }}
-                  // onClick={handledelete}
+                // onClick={handledelete}
                 >
                   {ActionButton("delete", handledelete)}
                 </MenuItem>
-                {/* <Divider /> */}
               </MenuList>
             </Menu>
           );
@@ -331,12 +263,6 @@ const CommissionManagement = () => {
         <Stack direction={{ base: "column", lg: "row" }}>
           <Heading size="md">Commission Management</Heading>
         </Stack>
-        {/* <CustomLink
-          to="/portal-user-management/role-management/create-role"
-          mr={{ base: 0, lg: 2 }}
-        >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Location
-        </CustomLink> */}
         <CustomButton
           type="button"
           isLoading={false}
@@ -357,7 +283,6 @@ const CommissionManagement = () => {
         mb="-14"
       >
         <>
-          {/* Show TableSkeleton while fetching data */}
           {loading && (
             <TableSkeleton breakpoint="xl" mt={{ base: "3", xl: "4" }} />
           )}
@@ -367,8 +292,8 @@ const CommissionManagement = () => {
               breakpoint="xl"
               alwaysVisibleColumns={[0]}
               hidePagination={false}
-              totalPages={numberPages}
-              // onFetch={onPageChange}
+              totalPages={numberOfPages}
+              onFetch={fetchCommission}
               useCustomPagination
             />
           )}
@@ -378,7 +303,7 @@ const CommissionManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedCommission ? "Update" : "Add"} recent event`}
+        headerTitle={`${selectedCommission ? "Update" : "Add"} commission`}
         isOpen={openNewRecentEventModel}
         onClose={() => setOpenNewRecentEventModel(false)}
         child={
@@ -393,10 +318,10 @@ const CommissionManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="25vw"
+        widthSize="60vw"
       />
       <AlertDialog
-        alertText={`Are you sure you want to delete this location?`}
+        alertText={`Are you sure you want to delete this commission?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
           setSelectedRecentEvent(null);
@@ -408,21 +333,6 @@ const CommissionManagement = () => {
           }
         }}
       />
-      {/* <AlertDialog
-        alertText={`Are you sure you want to ${
-          selectedCommission?.isActive ? "deactivate" : "activate"
-        } this recent event?`}
-        isOpen={isOpenActivateOrDeactivateModal}
-        onClose={() => {
-          setSelectedRecentEvent(null);
-          setIsOpenActivateOrDeactivateModal(false);
-        }}
-        onConfirm={() => {
-          if (selectedCommission) {
-            handleEventStatus(selectedCommission);
-          }
-        }}
-      /> */}
     </Stack>
   );
 };

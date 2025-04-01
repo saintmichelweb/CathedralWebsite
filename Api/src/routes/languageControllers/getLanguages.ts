@@ -4,6 +4,7 @@ import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { LocationEntity } from "../../entity/LocationEntity";
 import { LanguageEntity } from "../../entity/languageEntity";
+import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
@@ -47,6 +48,14 @@ export async function getLanguages(req: Request, res: Response) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
+  const pageSize = Number(readEnv('PAGINATION_LIMIT', 10, true))
+  const {  page = 1 } = req.query
+  const skip = (Number(page) - 1) * Number(pageSize)
+
+  if (isNaN(skip) || isNaN(Number(pageSize)) || skip < 0 || Number(pageSize) < 1) {
+    return res.status(400).send({ message: 'Invalid pagination parameters' })
+  }
+  
   const languageRepository = AppDataSource.getRepository(LanguageEntity);
   const queryBuilder = languageRepository.createQueryBuilder('languages')
   if (isActive !==null && isActive !== undefined) {
@@ -54,8 +63,16 @@ export async function getLanguages(req: Request, res: Response) {
   }
 
   try {
-    const [totalLanguages, numberOfAllLanguages] = await queryBuilder.getManyAndCount()
-    return res.status(200).send({ message: "Languages retrieved successfully!", languagesCount: numberOfAllLanguages, languages: totalLanguages });
+    if ( !req.query.page ) {
+      const totalLanguages = await queryBuilder.getMany()
+      return res.status(200).send({ message: "Languages retrieved successfully!", totalPages: 1, languages: totalLanguages });
+    } else {
+      const numberOfItems = await queryBuilder.getCount()
+      const totalPages = Math.ceil(numberOfItems / pageSize)
+      queryBuilder.skip(skip).take(pageSize).orderBy('languages.created_at', 'DESC')
+      const totalLanguages = await queryBuilder.getMany()
+      return res.status(200).send({ message: "Languages retrieved successfully!", totalPages, languages: totalLanguages });
+    }
   } catch (error: any) {
     logger.error("Get language failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
