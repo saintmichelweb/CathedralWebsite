@@ -18,7 +18,7 @@ export async function hashPassword(password: string): Promise<string> {
   // 10 is the number of rounds to use, higher means more secure but slower
   // const salt = await bcrypt.genSalt(saltRounds)
   try {
-    const salt = bcrypt.genSaltSync(saltRounds);
+    const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(password, salt)
     return hashedPassword
   } catch (error) {
