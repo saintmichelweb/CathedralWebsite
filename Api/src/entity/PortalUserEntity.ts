@@ -12,14 +12,14 @@ export class PortalUserEntity {
   id!: number
 
   @Column({
-    nullable: false,
+    nullable: true,
     length: 255,
     transformer: new EncryptionTransformer(EncryptionTransformerObject),
   })
   name!: string
 
   @Column({
-    nullable: true,
+    nullable: false,
     unique: true,
     length: 255,
     transformer: new EncryptionTransformer(EncryptionTransformerObject),

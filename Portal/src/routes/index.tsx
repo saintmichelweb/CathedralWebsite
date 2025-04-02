@@ -114,7 +114,7 @@ const Routes = () => {
           element: <ChoirsManagement />,
         },
         {
-          path: " UsersManagement",
+          path: "users",
           index: true,
           element: <UsersManagement />,
         }
