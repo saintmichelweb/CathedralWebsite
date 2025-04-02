@@ -6,6 +6,6 @@ COPY ./Front-end /app/Front-end
 WORKDIR /app/Front-end
 RUN npm i 
 # RUN npm install vite --save-dev
-EXPOSE 3553
+EXPOSE 3000
 
 CMD [ "npm", "run", "dev", "--", "--host"]
