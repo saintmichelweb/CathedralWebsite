@@ -71,7 +71,7 @@ export async function deleteImages(req: AuthRequest, res: Response) {
         }
 
         fs.unlinkSync(oldImage.imagePath);
-        console.log('File deleted successfully.');
+        logger.info('File deleted successfully.');
 
         await imageRepository.delete(oldImage.id);
         return res.status(201).send({ message: "Image deleted successfully!" });

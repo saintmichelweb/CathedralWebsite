@@ -35,6 +35,6 @@ export class HomePageWelcomeMessageEntity {
   @UpdateDateColumn()
   updated_at!: Date;
 
-  @ManyToOne(() => ImageEntity, image => image.connectedWelcomeMessage)
+  @ManyToOne(() => ImageEntity, (image: ImageEntity) => image.connectedWelcomeMessage)
   backgroundImage!: ImageEntity
 }

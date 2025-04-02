@@ -57,7 +57,7 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
         if (uploadedFile) {
             fs.unlink(oldImage.imagePath, (err: any) => {
                 if (err) {
-                    console.error('Error deleting the old Image:', err);
+                    logger.error('Error deleting the old Image:', err);
                     return res.status(500).send('Error deleting the old Image');
                 }
             });

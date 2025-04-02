@@ -135,7 +135,6 @@ export async function postMassTime(req: AuthRequest, res: Response) {
     newMassTime.day_rw = parsedBody.data.day_rw
     newMassTime.time = parsedBody.data.time
     newMassTime.isActive = true
-    console.log('newMassTime', newMassTime)
     await newMassTimeRepository.save(newMassTime)
     return res.status(201).send({ message: "Mass Time saved successfully" });
   } catch (error: any) {

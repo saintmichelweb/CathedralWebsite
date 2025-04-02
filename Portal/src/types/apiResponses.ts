@@ -205,3 +205,32 @@ export interface UsersResponse {
     updated_at: string
     // backgroundImage: imageResponse | null
 }
+
+export interface CommunityResponse {
+    id: number
+    name: string
+    created_at: string
+    updated_at: string
+}
+
+export interface MpuzaResponse {
+    id: number
+    title: string
+    leader: string
+    phone: string
+    description_en: string
+    description_fr: string
+    description_rw: string
+    created_at: string
+    updated_at: string 
+    backgroundImage: imageResponse | null
+}
+
+export interface MiryangoremezoResponse {
+    id: number
+    title: string
+    header: string
+    phone: string
+    created_at: string
+    updated_at: string 
+}

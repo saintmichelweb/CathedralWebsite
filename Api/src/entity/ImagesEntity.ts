@@ -11,6 +11,7 @@ import { PriestsEntity } from './PriestsEntity'
 import { ServiceEntity } from './ServiceEntity'
 import { ParishComitteCouncilEntity } from './ParishComitteCouncilEntity'
 import { ChoirEntity } from './ChoirEntity'
+import { MpuzaEntity } from './MpuzaEntity'
 
 @Entity('images')
 export class ImageEntity {
@@ -71,25 +72,28 @@ export class ImageEntity {
   @CreateDateColumn()
   created_at!: Date
 
-  @OneToMany(() => RecentEventsEntity, recentEvent => recentEvent.backgroundImage)
+  @OneToMany(() => RecentEventsEntity, (recentEvent: RecentEventsEntity) => recentEvent.backgroundImage)
   connectedEvents!: RecentEventsEntity[]
 
-  @OneToMany(() => CommissionEntity, commission => commission.backgroundImage)
+  @OneToMany(() => CommissionEntity, (commission: CommissionEntity) => commission.backgroundImage)
   connectedCommissions!: CommissionEntity[]
 
-  @OneToMany(() => PriestsEntity, priest => priest.backgroundImage)
+  @OneToMany(() => PriestsEntity, (priest: PriestsEntity) => priest.backgroundImage)
   connectedPriests!: PriestsEntity[]
 
-  @OneToMany(() => ServiceEntity, service => service.backgroundImage)
+  @OneToMany(() => ServiceEntity, (service: ServiceEntity) => service.backgroundImage)
   connectedServices!: ServiceEntity[]
 
-  @OneToMany(() => ParishComitteCouncilEntity, parishCommitteeMember => parishCommitteeMember.backgroundImage)
+  @OneToMany(() => ParishComitteCouncilEntity, (parishCommitteeMember: ParishComitteCouncilEntity) => parishCommitteeMember.backgroundImage)
   connectedCommitteeMembers!: ParishComitteCouncilEntity[]
 
-  @OneToMany(() => HomePageWelcomeMessageEntity, welcomeMessage => welcomeMessage.backgroundImage)
+  @OneToMany(() => HomePageWelcomeMessageEntity, (welcomeMessage: HomePageWelcomeMessageEntity) => welcomeMessage.backgroundImage)
   connectedWelcomeMessage!: HomePageWelcomeMessageEntity[]
 
-  @OneToMany(() => ChoirEntity, choir => choir.backgroundImage)
+  @OneToMany(() => ChoirEntity, (choir: ChoirEntity) => choir.backgroundImage)
   connectedChoir!: ChoirEntity[]
+
+  @OneToMany(() => MpuzaEntity, (mpuza: MpuzaEntity) => mpuza.backgroundImage)
+  connectedMpuzas!: MpuzaEntity[]
 
 }

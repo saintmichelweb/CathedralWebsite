@@ -66,7 +66,7 @@ services:
       - MAIL_HOST=St Michel Portal
       - MAIL_PORT=465
       - MAIL_USERNAME=ugashudav@gmail.com
-      - MAIL_PASSWORD=tunq fxhj fyvf mamw
+      - MAIL_PASSWORD=gepd vfrw iaux rdro
       - LOG_PATH=./logs
       - LOG_LEVEL=debug
       - LOG_DISABLED=false
@@ -74,7 +74,7 @@ services:
       - ALGORITHM=aes-256-cbc
       - IVLENGTH=16
       - IV=ff5ac19190424b1d88f9419ef949ae56
-      - Portal_SUPERADMIN_EMAIL=ugashudav+stmpsuperadmin@gmail.com
+      - Portal_SUPERADMIN_EMAIL=michelsaint658@gmail.com
       - Portal_SUPERADMIN_NAME=Portal Super Admin
       - Portal_SUPERADMIN_PASSWORD=password
       - Portal_SUPERADMIN_PHONE_NUMBER=0780000000

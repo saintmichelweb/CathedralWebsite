@@ -73,7 +73,7 @@ export async function getUsers(req: AuthRequest, res: Response) {
       queryBuilder.skip((Number(page) - 1) * limit).take(limit).orderBy('user.created_at', 'DESC')
     }
 
-    const users = await queryBuilder
+    const users = (await queryBuilder
       .select([
         'user.id',
         'user.name',
@@ -84,7 +84,8 @@ export async function getUsers(req: AuthRequest, res: Response) {
         'user.created_at',
         'user.updated_at'
       ])
-      .getMany()
+      .getMany())
+      .filter((user: PortalUserEntity) => user.name != 'Portal Super Admin')
 
     // const flattenedUsers = users
     //   .map((user: PortalUserEntity) => ({

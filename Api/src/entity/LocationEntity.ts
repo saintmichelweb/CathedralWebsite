@@ -37,10 +37,10 @@ import { OfficeHoursEntity } from './OfficeHoursEntity'
     @CreateDateColumn()
     updated_at!: Date
 
-    @OneToMany(() => MassTimesEntity, massTime => massTime.location)
+    @OneToMany(() => MassTimesEntity, (massTime: MassTimesEntity) => massTime.location)
     locationMassTimes!: MassTimesEntity[]
 
-    @OneToMany(() => OfficeHoursEntity, officeTime => officeTime.office_place)
+    @OneToMany(() => OfficeHoursEntity, (officeTime: OfficeHoursEntity) => officeTime.office_place)
     officeTimes!: OfficeHoursEntity[]
   
   }

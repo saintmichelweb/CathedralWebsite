@@ -59,7 +59,7 @@ import {
     @UpdateDateColumn()
     updated_at!: Date
   
-    @ManyToOne(() => ImageEntity, image => image.connectedChoir)
+    @ManyToOne(() => ImageEntity, (image: ImageEntity) => image.connectedChoir)
     backgroundImage!: ImageEntity
   
   }

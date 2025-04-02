@@ -71,7 +71,7 @@ import { ImageEntity } from './ImagesEntity'
     @UpdateDateColumn()
     updated_at!: Date
 
-    @ManyToOne(() => ImageEntity, image => image.connectedCommitteeMembers)
+    @ManyToOne(() => ImageEntity, (image: ImageEntity) => image.connectedCommitteeMembers)
     backgroundImage!: ImageEntity
   
   }

@@ -41,23 +41,23 @@ if (process.env.NODE_ENV === 'test') {
 
 
 
-export async function sendOTPEmail(email: string, otp: string): Promise<void> {
-  const body = generateEmailTemplate({
-    notificationMessage: `
-      Dear Mr/Mrs,<br/>
-      <br/> 
-      Here is the verification code for your RSwitch Portal User account: 
-      <strong>${otp}</strong>,<br/>
-      This code can only be used within the next 5 minutes. <br/>
-      <br/>
-    `
-  })
-  await sendEmail(
-    email,
-    'RSwitch Portal User Verification Code',
-    body
-  )
-}
+// export async function sendOTPEmail(email: string, otp: string): Promise<void> {
+//   const body = generateEmailTemplate({
+//     notificationMessage: `
+//       Dear Mr/Mrs,<br/>
+//       <br/> 
+//       Here is the verification code for your RSwitch Portal User account: 
+//       <strong>${otp}</strong>,<br/>
+//       This code can only be used within the next 5 minutes. <br/>
+//       <br/>
+//     `
+//   })
+//   await sendEmail(
+//     email,
+//     'RSwitch Portal User Verification Code',
+//     body
+//   )
+// }
 
 export async function sendVerificationEmail(email: string, token: string): Promise<void> {
   const emailVerificationBody = generateEmailTemplate({
@@ -71,12 +71,12 @@ export async function sendVerificationEmail(email: string, token: string): Promi
           </a>
         <br/><br/>
         Best regards,<br/>
-        The RSwitch Team
+        Cathedral Saint Michel
       `
   })
   sendEmail(
     email,
-    'St Michel Portal Email Notification',
+    'Cathedral St Michel Portal Email Notification',
     emailVerificationBody
   )
 }
@@ -84,21 +84,21 @@ export async function sendVerificationEmail(email: string, token: string): Promi
 export async function sendForgotPasswordEmail(email: string, token: string): Promise<void> {
   const body = generateEmailTemplate({
     notificationMessage: `
-    Dear Mr/Mrs,<br/>
-    Please ignore this email if you did not request to reset your password. <br />
-    Your reset Password Link for RSwitch Portal: <br />
-    <a href="${FRONTEND_SET_PASSWORD_URL}?token=${token}"> 
-    ${FRONTEND_SET_PASSWORD_URL}
-    </a> 
-    <br/>
-    <br/>
-    Best regards,<br/>
-    The RSwitch Team
+      Dear Mr/Mrs,<br/>
+      Please ignore this email if you did not request to reset your password. <br />
+      Your reset Password Link for RSwitch Portal: <br />
+      <a href="${FRONTEND_SET_PASSWORD_URL}?token=${token}"> 
+      ${FRONTEND_SET_PASSWORD_URL}
+      </a> 
+      <br/>
+      <br/>
+      Best regards,<br/>
+      Cathedral Saint Michel
   `
   })
   sendEmail(
     email,
-    'RSwitch Portal User Reset Password Link',
+    'Cathedral St Michel Portal User Reset Password Link',
     body
   )
 }

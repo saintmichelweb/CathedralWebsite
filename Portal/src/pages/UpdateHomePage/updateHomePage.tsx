@@ -1,7 +1,11 @@
 import { Box, Heading, Stack } from "@chakra-ui/react";
-import TimeSelector from "../../components/ui/HoursMinutesInputs/HoursMinutesInputs";
+import { useEffect } from "react";
+import { getUserProfile } from "../../api/users";
 
 const UpdateHomePage = () => {
+  useEffect(() => {
+    getUserProfile()
+  },[])
   return (
     <Box
       h={"full"}
@@ -17,11 +21,11 @@ const UpdateHomePage = () => {
       >
         <Box width={'fit-content'}>
           <Heading
-            size={"4xl"}
+            size={"3xl"}
             color={"primary"}
             width={'fit-content'}
           >
-            Welcome To Cathedral Saint Michael Portal
+            Welcome To Cathedral Saint Michel Website Portal
           </Heading>
           {/* <TimeSelector/> */}
         </Box>

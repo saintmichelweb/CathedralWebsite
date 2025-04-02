@@ -13,7 +13,6 @@ export async function getLocations(params: PaginationParams, isMassLocation?: bo
   if (isActive) apiPath += `isActive=${isActive}`
   if (isActive && isMassLocation) apiPath += `&isMassLocation=${isMassLocation}`
   if (!isActive && isMassLocation) apiPath += `isMassLocation=${isMassLocation}`
-  console.log(apiPath)
   const response = await instance.get<{ locations: LocationResponse[], message: string, totalPages: number }>(apiPath, {params})
   return response.data
 }

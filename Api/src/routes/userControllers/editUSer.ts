@@ -114,6 +114,10 @@ export async function editUser(req: AuthRequest, res: Response) {
       return res.status(404).json({ message: 'User not found' })
     }
 
+    if (user.name === 'Portal Super Admin') {
+      return res.status(404).send({ message: "Can not update SuperAdmin!" });
+    }
+
     let newEmail = ''
     let newName = ''
     let newPhoneNumber = ''
