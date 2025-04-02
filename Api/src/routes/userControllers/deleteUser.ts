@@ -70,6 +70,10 @@ export async function deleteUser(req: AuthRequest, res: Response) {
       return res.status(404).send({ message: "User does not exist!" });
     }
 
+    if (oldUsers.name === 'Portal Super Admin') {
+      return res.status(404).send({ message: "Can not delete SuperAdmin!" });
+    }
+
     // if (oldUsers.backgroundImage) {
     //   fs.unlinkSync(oldUsers.backgroundImage.imagePath);
     // }

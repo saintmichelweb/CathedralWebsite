@@ -1,9 +1,10 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import path from 'path'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { type PortalUserEntity } from '../entity/PortalUserEntity'
 import { readEnv } from '../setup/readEnv'
+import logger from '../services/logger'
 
 if (process.env.NODE_ENV === 'test') {
   dotenv.config({ path: path.resolve(process.cwd(), '.env.test'), override: true })
@@ -15,17 +16,13 @@ const JWT_EXPIRES_IN = readEnv('JWT_EXPIRES_IN', '1d', true) as string
 const saltRounds = 10
 export async function hashPassword(password: string): Promise<string> {
   // 10 is the number of rounds to use, higher means more secure but slower
-  console.log('1=========3')
   // const salt = await bcrypt.genSalt(saltRounds)
   try {
     const salt = bcrypt.genSaltSync(saltRounds);
-    console.log("Generated Salt:", salt);
-    console.log('1=========4')
     const hashedPassword = await bcrypt.hash(password, salt)
-    console.log('1=========5')
     return hashedPassword
   } catch (error) {
-    console.error("Error generating salt:", error);
+    logger.error("Error generating salt:", error);
     return ''
   }
 }

@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt'
 import { type Request, type Response } from 'express'
 import * as z from 'zod'
 import { AppDataSource } from '../../database/dataSource'
@@ -6,7 +5,7 @@ import { PortalUserEntity } from '../../entity/PortalUserEntity'
 import logger from '../../services/logger'
 import jwt from 'jsonwebtoken'
 import { PortalUserStatus } from '../../../../shared-lib'
-import { readEnv, readEnvAsBoolean } from '../../setup/readEnv'
+import { readEnv } from '../../setup/readEnv'
 import { JwtTokenEntity } from '../../entity/JwtTokenEntity'
 import ms from 'ms'
 import { comparePassword } from '../../utils/utils'
@@ -104,8 +103,6 @@ export async function postUserLogin(req: Request, res: Response) {
       throw new Error('User needs to be active to login')
     }
 
-    // TODO: check why bcrypt is failing
-    // const passwordMatch = await bcrypt.compare(req.body.password, user.password)
     const passwordMatch = comparePassword(req.body.password, user.password)
     if (!passwordMatch) {
       throw new Error('Invalid credentials')

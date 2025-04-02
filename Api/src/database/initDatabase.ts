@@ -30,13 +30,11 @@ export async function seedDefaultHubSuperAdmin (appDataSource: DataSource): Prom
   logger.info('Seeding Default Portal Super Admin...')
 
   try {
-    console.log('1=========')
     const user = DefaultHubSuperAdmin
     const userEntity = await appDataSource.manager.findOne(
       PortalUserEntity,
       { where: { email: user.email } }
     )
-    console.log('1=========2')
     
     if (userEntity != null) {
       logger.info(`User ${user.email} already seeded. Skipping...`)
@@ -44,14 +42,12 @@ export async function seedDefaultHubSuperAdmin (appDataSource: DataSource): Prom
     }
     
     const newUser = new PortalUserEntity()
-    console.log('user', user)
     newUser.name = user.name
     newUser.email = user.email
     newUser.password = await hashPassword(user.password)
-    console.log('1=========6')
     newUser.phone_number = user.phone_number
     newUser.status = PortalUserStatus.ACTIVE
-    // await appDataSource.manager.save(newUser)
+    await appDataSource.manager.save(newUser)
   } catch (error) {
     logger.error(`Error, Seeding Default Portal Super Admin ${error}`)
     return
