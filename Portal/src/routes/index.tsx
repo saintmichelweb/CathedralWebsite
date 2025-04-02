@@ -22,7 +22,6 @@ import {
   WelcomeMessageManagement,
   SetPassword,
   UsersManagement,
-  Actions,
 } from "../pages";
 import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
@@ -118,17 +117,9 @@ const Routes = () => {
           path: " UsersManagement",
           index: true,
           element: <UsersManagement />,
-        },
-
-        {
-          path: "actions",
-          index: true,
-          element: <Actions onClose={function (): void {
-            throw new Error("Function not implemented.");
-          } } fetchActions={function (): void {
-            throw new Error("Function not implemented.");
-          } } action={undefined}/>
-        },
+        }
+      ]
+    },
     {
       path: "/login",
       element: <Login />,
