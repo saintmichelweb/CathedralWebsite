@@ -127,69 +127,25 @@ export async function editUser(req: AuthRequest, res: Response) {
 
     if (name && name.trim() !== '' && name !== user.name) {
       newName = name
-    } 
+    }
     if (email && email.trim() !== '' && email !== user.email) {
       newEmail = email
-    } 
+    }
     if (phone && phone.trim() !== '' && phone !== user.phone_number) {
       newPhoneNumber = phone
-    } 
+    }
     if (position && position.trim() !== '') {
       newPosition = position
-    } 
+    }
     if (status && status.trim() !== '') {
       newStatus = status
-    } 
+    }
 
-    if(newEmail === "" && newPhoneNumber === "" && newName === "" && newPosition === "" ) {
+    if (newEmail === "" && newPhoneNumber === "" && newName === "" && newPosition === "") {
       return res.status(400).json({ message: 'You have made no changes' })
     }
 
     const emailBeforeUpdate = user?.email
-
-    let roleObj
-
-    // if (roleId) {
-    //   roleObj = await roleRepository.findOne({ where: { id: roleId } })
-    //   if (roleObj == null || roleObj.level === PortalRolesLevels.HUB_SUPER_ADMIN ) {
-    //     audit(
-    //       AuditActionType.EDIT,
-    //       AuditTrasactionStatus.FAILURE,
-    //       'editUser',
-    //       'User update failed',
-    //       'PortalUserEntity',
-    //       {},
-    //       {},
-    //       null
-    //     )
-    //     return res.status(400).send({ message: 'Invalid role' })
-    //   }
-
-    //   if (roleObj.level === PortalRolesLevels.HUB_ADMIN && portalUser.role.level !== PortalRolesLevels.HUB_SUPER_ADMIN) {
-    //     return res.status(400).send({ message: 'Only Hub Super Admin can assign / unassign Hub Admin role' })
-    //   }
-
-    //   if (
-    //     portalUser.role &&
-    //     portalUser.role.level === PortalRolesLevels.DFSP_ADMIN &&
-    //     roleObj.level &&
-    //     ![PortalRolesLevels.DFSP_USER, PortalRolesLevels.DFSP_ADMIN].includes(roleObj.level)
-    //   ) {
-    //     return res.status(400).send({ message: 'You cannot change this role level' })
-    //   }
-
-    //   if (user.role && user.role.level === PortalRolesLevels.DFSP_ADMIN) {
-    //     return res.status(400).send({ message: 'You cannot change role of DFSP Admin' })
-    //   }
-
-    //   if (portalUser.role && portalUser.role.level === PortalRolesLevels.DFSP_USER) {
-    //     return res.status(400).send({ message: 'You cannot change this role level' })
-    //   }
-
-    //   if (portalUser.id === user.id) {
-    //     return res.status(400).send({ message: 'Not allowed to change your role' })
-    //   }
-    // }
 
     if (newEmail) {
       const existsEmail = await AppDataSource.manager.exists(PortalUserEntity, { where: { email } })
@@ -204,15 +160,14 @@ export async function editUser(req: AuthRequest, res: Response) {
     if (newEmail) user.email = newEmail
     if (newPhoneNumber) user.phone_number = newPhoneNumber
     if (newPosition) user.position = newPosition
-    if (newStatus) user.status = newStatus == PortalUserStatus.ACTIVE ? PortalUserStatus.ACTIVE: PortalUserStatus.DISABLED
-    if (roleObj) user.position = newPosition
+    if (newStatus) user.status = getStatus(newStatus)
 
     await AppDataSource.manager.transaction(async (transactionalEntityManager) => {
       await transactionalEntityManager.save(user)
-      logger.info("User update successfull: %o", user);
+      logger.debug("User update successfull: %o", user);
     })
 
-    if (newEmail && newEmail !== emailBeforeUpdate && emailBeforeUpdate !== user.email) {
+    if (newEmail && newEmail !== emailBeforeUpdate) {
       await AppDataSource.getRepository(JwtTokenEntity).delete({ user: user })
       // generate new token
       const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '1h' })
@@ -236,5 +191,18 @@ export async function editUser(req: AuthRequest, res: Response) {
   } catch (error) /* istanbul ignore next */ {
     logger.error("Error editting user: %o", error);
     res.status(500).send({ message: "Internal server error!" })
+  }
+}
+
+
+const getStatus = (newStatus: string): PortalUserStatus => {
+  if (newStatus === PortalUserStatus.ACTIVE) {
+    return PortalUserStatus.ACTIVE
+  } else if (newStatus === PortalUserStatus.UNVERIFIED) {
+    return PortalUserStatus.UNVERIFIED
+  } else if (newStatus === PortalUserStatus.RESETPASSWORD) {
+    return PortalUserStatus.RESETPASSWORD
+  } else {
+    return PortalUserStatus.DISABLED
   }
 }
