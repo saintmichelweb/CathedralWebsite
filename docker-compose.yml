@@ -11,7 +11,7 @@ services:
     ports:
       - "3550:3550"
     environment:
-      - VITE_API_URL=http://localhost:3551/api
+      - VITE_API_URL=https://api.saintmichel.rw/api
       - VITE_LIMIT_PER_PAGE=10
     volumes:
       - ./Portal/src:/app/Portal/src # For developmennt purposes

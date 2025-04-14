@@ -25,13 +25,13 @@ import {
   DataTable,
   EmptyState,
   TableSkeleton,
-} from "../../components/ui";
-import { commissionResponse, MessageResponse } from "../../types/apiResponses";
-import { useTable } from "../../hooks";
-import CustomModal from "../../components/ui/CustomModal/CustomModal";
-import ActionButton from "../../components/ui/ActionButton/ActionButton";
+} from "../../../components/ui";
+import { commissionResponse, MessageResponse } from "../../../types/apiResponses";
+import { useTable } from "../../../hooks";
+import CustomModal from "../../../components/ui/CustomModal/CustomModal";
+import ActionButton from "../../../components/ui/ActionButton/ActionButton";
 import AddCommissionCard from "./Components/CommissionCard";
-import { deleteCommission, getAllCommissions } from "../../api/commission";
+import { deleteCommission, getAllCommissions } from "../../../api/commission";
 
 const CommissionManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({

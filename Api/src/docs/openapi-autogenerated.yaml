@@ -401,6 +401,174 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
+  /community/{id}:
+    delete:
+      tags:
+        - Community
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Community ID
+      summary: delete a Mass community
+      responses:
+        '200':
+          description: Community deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Community deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Community
+      security:
+        - Authorization: []
+      summary: Update a community
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: community ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: community
+                  description: community title
+      responses:
+        '200':
+          description: community saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: community updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Community not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+  /community:
+    get:
+      tags:
+        - Community
+      summary: get all Community
+      responses:
+        '200':
+          description: Get Community
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    post:
+      tags:
+        - Community
+      security:
+        - Authorization: []
+      summary: Add a Community
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Community
+                  description: Community name
+      responses:
+        '200':
+          description: Community saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Community  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /image/{id}:
     delete:
       tags:
@@ -1038,6 +1206,382 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
+  /mpuzamiryangoremezo/{id}:
+    delete:
+      tags:
+        - Mpuza Miryango Remezo
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: MpuzaMiryangoRemezo ID
+      summary: delete a Mass commission
+      responses:
+        '200':
+          description: MpuzaMiryangoRemezo deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: MpuzaMiryangoRemezo deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Commission
+      security:
+        - Authorization: []
+      summary: Update a commission
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: commission ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: commission
+                  description: commission title
+                description:
+                  type: string
+                  example: description
+                  description: commission description
+                backgroundImageId:
+                  type: number
+                  example: 1
+                  description: Id of the saved image entity
+      responses:
+        '200':
+          description: commission saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: commission updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Commission not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+  /mpuzamiryangoremezo:
+    get:
+      tags:
+        - Mpuza Miryango Remezo
+      summary: get all Mpuza
+      responses:
+        '200':
+          description: Get Mpuza
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    post:
+      tags:
+        - Mpuza Miryango Remezo
+      security:
+        - Authorization: []
+      summary: Add a MpuzaMiryangoRemezo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: MpuzaMiryangoRemezo
+                  description: MpuzaMiryangoRemezo title
+                description:
+                  type: string
+                  example: description
+                  description: MpuzaMiryangoRemezo description
+                backgroundImageId:
+                  type: number
+                  example: description
+                  description: MpuzaMiryangoRemezo backgroundImageId
+      responses:
+        '200':
+          description: MpuzaMiryangoRemezo saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: MpuzaMiryangoRemezo  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+  /muryangoremezo/{id}:
+    delete:
+      tags:
+        - Muryango Remezo
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: MuryangoRemezo ID
+      summary: delete a Mass muryangoremezo
+      responses:
+        '200':
+          description: MuryangoRemezo deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: MuryangoRemezo deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Muryango Remezo
+      security:
+        - Authorization: []
+      summary: Update a muryangoRemezo
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: muryangoRemezo ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: MuryangoRemezo
+                  description: MuryangoRemezo title
+                header:
+                  type: string
+                  example: MuryangoRemezo
+                  description: MuryangoRemezo header
+                phone:
+                  type: string
+                  example: MuryangoRemezo
+                  description: MuryangoRemezo phone
+                mpuza:
+                  type: number
+                  example: 2
+                  description: MuryangoRemezo mpuza
+      responses:
+        '200':
+          description: muryangoRemezo saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: muryangoRemezo updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: MuryangoRemezo not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+  /muryangoremezo:
+    get:
+      tags:
+        - Muryango Remezo
+      summary: get all MuryangoRemezo
+      responses:
+        '200':
+          description: Get MuryangoRemezo
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    post:
+      tags:
+        - Muryango Remezo
+      security:
+        - Authorization: []
+      summary: Add a MuryangoRemezo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: MuryangoRemezo
+                  description: MuryangoRemezo title
+                header:
+                  type: string
+                  example: MuryangoRemezo
+                  description: MuryangoRemezo header
+                phone:
+                  type: string
+                  example: MuryangoRemezo
+                  description: MuryangoRemezo phone
+                mpuza:
+                  type: number
+                  example: 2
+                  description: MuryangoRemezo mpuza
+      responses:
+        '200':
+          description: MuryangoRemezo saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: MuryangoRemezo  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /office-hours/{id}:
     delete:
       tags:
