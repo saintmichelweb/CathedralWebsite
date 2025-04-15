@@ -4,7 +4,6 @@ import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { AuthRequest } from "../../types/express";
-import { ImageEntity } from "../../entity/ImagesEntity";
 import { CommunityEntity } from "../../entity/CommunityEntity";
 
 const communitySchema = z.object({
@@ -16,7 +15,7 @@ const communitySchema = z.object({
 
 /**
  * @openapi
- * /community:
+ * /communities:
  *   post:
  *     tags:
  *       - Community

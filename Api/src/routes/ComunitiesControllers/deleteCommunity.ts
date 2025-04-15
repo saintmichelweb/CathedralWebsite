@@ -4,11 +4,9 @@ import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { AuthRequest } from "../../types/express";
 import { CommunityEntity } from "../../entity/CommunityEntity";
-import * as fs from 'fs'
-
 /**
  * @openapi
- * /community/{id}:
+ * /communities/{id}:
  *   delete:
  *     tags:
  *       - Community

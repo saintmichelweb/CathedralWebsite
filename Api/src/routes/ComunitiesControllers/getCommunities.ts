@@ -7,7 +7,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /community:
+ * /communities:
  *   get:
  *     tags:
  *       - Community
