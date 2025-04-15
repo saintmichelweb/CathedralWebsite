@@ -115,7 +115,7 @@ const RecentEventsManagement = () => {
       });
   };
 
-  const handleLocationDelete = async (recentEventId: number) => {
+  const handleRecentEventDelete = async (recentEventId: number) => {
     await deleteRecentEvent(recentEventId)
       .then((res: MessageResponse) => {
         toast({
@@ -360,7 +360,7 @@ const RecentEventsManagement = () => {
         }}
         onConfirm={() => {
           if (selectedRecentEvent) {
-            handleLocationDelete(selectedRecentEvent?.id);
+            handleRecentEventDelete(selectedRecentEvent?.id);
           }
         }}
       />

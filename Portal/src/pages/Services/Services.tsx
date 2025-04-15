@@ -74,7 +74,7 @@ const ServicesManagement = () => {
     fetchServices();
   }, []);
 
-  const handleLocationDelete = async (serviceId: number) => {
+  const handleServiceDelete = async (serviceId: number) => {
     await deleteService(serviceId)
       .then((res: MessageResponse) => {
         toast({
@@ -300,7 +300,7 @@ const ServicesManagement = () => {
         }}
         onConfirm={() => {
           if (selectedRecentEvent) {
-            handleLocationDelete(selectedRecentEvent?.id);
+            handleServiceDelete(selectedRecentEvent?.id);
           }
         }}
       />
