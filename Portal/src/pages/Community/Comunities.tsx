@@ -30,8 +30,8 @@ import { CommunityResponse, MessageResponse } from "../../types/apiResponses";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
-import AddCommunityCard from "./Components/CommunityCard";
 import { deleteCommunity, getAllCommunities } from "../../api/community";
+import AddCommunityCard from "./Components/ComunityCard";
 
 const CommunityManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
