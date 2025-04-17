@@ -26,68 +26,68 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { commissionResponse, MessageResponse } from "../../types/apiResponses";
+import { MessageResponse, MpuzaResponse } from "../../types/apiResponses";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
-import AddCommissionCard from "./Components/CommissionCard";
-import { deleteCommission, getAllCommissions } from "../../api/commission";
+import AddMpuzaCard from "./Components/MpuzasCard";
+import { deleteMpuza, getAllMpuza } from "../../api/MpuzaMiryangoRemezo";
 
-const CommissionManagement = () => {
+const MpuzaMiryangoRemezoManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
   });
 
   const toast = useToast();
-  const [CommissionsData, setCommissionData] = useState<commissionResponse[]>(
+  const [MpuzaData, setMpuzaData] = useState<MpuzaResponse[]>(
     []
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
+  const [openNewMpuzaModel, setOpenNewMpuzaModel] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [selectedCommission, setSelectedRecentEvent] =
-    useState<commissionResponse | null>(null);
+  const [selectedMpuza, setSelectedMpuza] =
+    useState<MpuzaResponse | null>(null);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchCommission = async (page = 1) => {
+  const fetchMpuza = async (page = 1) => {
     setLoading(true);
-    await getAllCommissions({page})
+    await getAllMpuza({page})
       .then((data) => {
-        setCommissionData(data.commissions);
+        setMpuzaData(data.mpuzaMiryangoRemezo);
         setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         toast({
-          title: "Get Commission Message",
+          title: "Get Mpuza Message",
           description:
-            error.response.data?.message || "Error geting Commissions time!",
+            error.response.data?.message || "Error geting Mpuza time!",
           status: "error",
         });
       });
   };
 
   useEffect(() => {
-    fetchCommission();
+    fetchMpuza();
   }, []);
 
-  const handleMpuzaDelete = async (CommissionId: number) => {
-    await deleteCommission(CommissionId)
+  const handleMpuzaDelete = async (MpuzaId: number) => {
+    await deleteMpuza(MpuzaId)
       .then((res: MessageResponse) => {
         toast({
-          title: "Delete Commission Message",
-          description: res?.message || "Commission deleted successfully",
+          title: "Delete Mpuza Message",
+          description: res?.message || "Mpuza deleted successfully",
           status: "success",
         });
         setIsOpenDeleteModal(false);
-        fetchCommission();
-        setSelectedRecentEvent(null);
+        fetchMpuza();
+        setSelectedMpuza(null);
       })
       .catch((error) => {
         toast({
-          title: "Delete Commission Message",
+          title: "Delete Mpuza Message",
           description:
             error.response.data?.message || "Error deleting recent event!",
           status: "error",
@@ -96,40 +96,24 @@ const CommissionManagement = () => {
   };
 
   const columns = useMemo(() => {
-    const columnHelper = createColumnHelper<commissionResponse>();
+    const columnHelper = createColumnHelper<MpuzaResponse>();
     return [
       columnHelper.display({
         id: "identifier",
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("name_en", {
+      columnHelper.accessor("title", {
         cell: (info) => info.getValue(),
-        header: "Name(en)",
+        header: "Title",
       }),
-      columnHelper.accessor("name_fr", {
+      columnHelper.accessor("leader", {
         cell: (info) => info.getValue(),
-        header: "Name(fr))",
+        header: "Leader",
       }),
-      columnHelper.accessor("name_rw", {
+      columnHelper.accessor("phone", {
         cell: (info) => info.getValue(),
-        header: "Name(rw)",
-      }),
-      columnHelper.accessor("contact_person_name", {
-        cell: (info) => info.getValue(),
-        header: "Contact Person Name",
-      }),
-      columnHelper.accessor("contact_person_role", {
-        cell: (info) => info.getValue(),
-        header: "Contact Person Role",
-      }),
-      columnHelper.accessor("contact_person_phone_number", {
-        cell: (info) => info.getValue(),
-        header: "Contact Person Phone",
-      }),
-      columnHelper.accessor("contact_person_email", {
-        cell: (info) => info.getValue(),
-        header: "Contact Person Email",
+        header: "Phone",
       }),
       columnHelper.accessor("backgroundImage", {
         cell: (info) => {
@@ -168,56 +152,15 @@ const CommissionManagement = () => {
         cell: (info) => info.getValue(),
         header: "Description (rw)",
       }),
-      // columnHelper.accessor("work_days", {
-      //   cell: (info) => info.getValue(),
-      //   header: "Work Days",
-      // }),
-      // columnHelper.accessor("work_hours", {
-      //   cell: (info) => info.getValue(),
-      //   header: "Work Hours",
-      // }),
-      // columnHelper.accessor("event_date", {
-      //   cell: (info) => formatTheDate(info.getValue(), "DD/MM/YYYY"),
-      //   header: "Date",
-      // }),
-      // columnHelper.accessor("isActive", {
-      //   cell: (info) => {
-      //     const status_ = info.getValue();
-
-      //     let status_HTML: React.ReactNode;
-      //     switch (status_) {
-      //       case true:
-      //         status_HTML = (
-      //           <Flex alignItems="center" justifyContent="center">
-      //             <CommonIcons iconName="active" colorVal="green.500" />
-      //             <Text ml={2}>{StatusType.ACTIVATED}</Text>
-      //           </Flex>
-      //         );
-      //         break;
-      //       case false:
-      //         status_HTML = (
-      //           <Flex alignItems="center" justifyContent="center">
-      //             <CommonIcons iconName="disable" colorVal="red.500" />
-      //             <Text ml={2}>{StatusType.DEACTIVATED}</Text>
-      //           </Flex>
-      //         );
-      //         break;
-      //       default:
-      //         status_HTML = <Text ml={2}>N/A</Text>;
-      //     }
-      //     return status_HTML;
-      //   },
-      //   header: "Status",
-      // }),
       columnHelper.accessor("id", {
         cell: (info) => {
           const handleEdit = () => {
-            setSelectedRecentEvent(info.row.original);
-            setOpenNewRecentEventModel(true);
+            setSelectedMpuza(info.row.original);
+            setOpenNewMpuzaModel(true);
           };
 
           const handledelete = () => {
-            setSelectedRecentEvent(info.row.original);
+            setSelectedMpuza(info.row.original);
             setIsOpenDeleteModal(true);
           };
           return (
@@ -251,7 +194,7 @@ const CommissionManagement = () => {
   }, []);
 
   const table = useTable({
-    data: CommissionsData || [],
+    data: MpuzaData || [],
     columns,
     pagination,
     setPagination,
@@ -261,15 +204,15 @@ const CommissionManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={0} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Commission Management</Heading>
+          <Heading size="md">Mpuza Management</Heading>
         </Stack>
         <CustomButton
           type="button"
           isLoading={false}
           minW={"8rem"}
-          onClick={() => setOpenNewRecentEventModel(true)}
+          onClick={() => setOpenNewMpuzaModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Commission
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Mpuza
         </CustomButton>
       </Flex>
       <Box
@@ -293,27 +236,27 @@ const CommissionManagement = () => {
               alwaysVisibleColumns={[0]}
               hidePagination={false}
               totalPages={numberOfPages}
-              onFetch={fetchCommission}
+              onFetch={fetchMpuza}
               useCustomPagination
             />
           )}
         </>
-        {!loading && CommissionsData.length === 0 && (
+        {!loading && MpuzaData.length === 0 && (
           <EmptyState text="There are no events to present yet." mt="10" />
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedCommission ? "Update" : "Add"} commission`}
-        isOpen={openNewRecentEventModel}
-        onClose={() => setOpenNewRecentEventModel(false)}
+        headerTitle={`${selectedMpuza ? "Update" : "Add"} commission`}
+        isOpen={openNewMpuzaModel}
+        onClose={() => setOpenNewMpuzaModel(false)}
         child={
-          <AddCommissionCard
+          <AddMpuzaCard
             onClose={() => {
-              setSelectedRecentEvent(null);
-              setOpenNewRecentEventModel(false);
+              setSelectedMpuza(null);
+              setOpenNewMpuzaModel(false);
             }}
-            fetchCommission={fetchCommission}
-            Commission={selectedCommission}
+            fetchMpuza={fetchMpuza}
+            Mpuza={selectedMpuza}
           />
         }
         showFooter={false}
@@ -324,12 +267,12 @@ const CommissionManagement = () => {
         alertText={`Are you sure you want to delete this commission?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
-          setSelectedRecentEvent(null);
+          setSelectedMpuza(null);
           setIsOpenDeleteModal(false);
         }}
         onConfirm={() => {
-          if (selectedCommission) {
-            handleMpuzaDelete(selectedCommission?.id);
+          if (selectedMpuza) {
+            handleMpuzaDelete(selectedMpuza?.id);
           }
         }}
       />
@@ -337,4 +280,4 @@ const CommissionManagement = () => {
   );
 };
 
-export default CommissionManagement;
+export default MpuzaMiryangoRemezoManagement;

@@ -5,70 +5,63 @@ import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
-import { commissionResponse, MessageResponse } from "../../../types/apiResponses";
+import { MpuzaResponse, MessageResponse } from "../../../types/apiResponses";
 import { addNewImage, updateImage } from "../../../api/images";
-import { addNewCommission, updateCommission } from "../../../api/commission";
-import { AddCommissionForm, commissionSchema, UpdateCommissionForm } from "../../../lib/validations/commission";
+import { addNewMpuza, updateMpuza } from "../../../api/MpuzaMiryangoRemezo";
+import { AddMpuzaMiryangoRemezoForm, mpuzaMiryangoRemezoSchema, UpdateMpuzaMiryangoRemezoForm } from "../../../lib/validations/MpuzaMiryangoRemezo";
 import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
 
-interface AddCommissionProps {
+interface AddMpuzaProps {
   onClose: () => void;
-  fetchCommission: () => void;
-  Commission: commissionResponse | null;
+  fetchMpuza: () => void;
+  Mpuza: MpuzaResponse | null;
 }
 
-const AddCommissionCard = (props: AddCommissionProps) => {
+const AddMpuzaCard = (props: AddMpuzaProps) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
     reset,
     setValue,
-  } = useForm<AddCommissionForm>({
-    resolver: zodResolver(commissionSchema),
+  } = useForm<AddMpuzaMiryangoRemezoForm>({
+    resolver: zodResolver(mpuzaMiryangoRemezoSchema),
   });
 
   const toast = useToast();
-  const CommissionToEdit = props.Commission;
+  const MpuzaToEdit = props.Mpuza;
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newRecentEventPayload, setNewRecentEventPayload] =
-    useState<AddCommissionForm>();
+    useState<AddMpuzaMiryangoRemezoForm>();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
-  const onSubmit = async (values: AddCommissionForm) => {
+  const onSubmit = async (values: AddMpuzaMiryangoRemezoForm) => {
     setNewRecentEventPayload(values);
     setIsOpenModal(true);
   };
 
   useEffect(() => {
-    if (CommissionToEdit) {
-      console.log(CommissionToEdit);
-      setValue("name_en", CommissionToEdit.name_en);
-      setValue("name_fr", CommissionToEdit.name_fr);
-      setValue("name_rw", CommissionToEdit.name_rw);
-      setValue("contact_person_name", CommissionToEdit.contact_person_name);
-      setValue("contact_person_role", CommissionToEdit.contact_person_role);
-      setValue(
-        "contact_person_phone_number",
-        CommissionToEdit.contact_person_phone_number
-      );
-      setValue("contact_person_email", CommissionToEdit.contact_person_email);
-      setValue("description_en", CommissionToEdit.description_en);
-      setValue("description_fr", CommissionToEdit.description_fr);
-      setValue("description_rw", CommissionToEdit.description_rw);
+    if (MpuzaToEdit) {
+      console.log(MpuzaToEdit);
+      setValue("title", MpuzaToEdit.title);
+      setValue("leader", MpuzaToEdit.leader);
+      setValue("phone", MpuzaToEdit.phone);
+      setValue("description_en", MpuzaToEdit.description_en);
+      setValue("description_fr", MpuzaToEdit.description_fr);
+      setValue("description_rw", MpuzaToEdit.description_rw);
     }
     setValue(
       "backgroundImageId",
-      CommissionToEdit?.backgroundImage?.id || null
+      MpuzaToEdit?.backgroundImage?.id || null
     );
-  }, [CommissionToEdit]);
+  }, [MpuzaToEdit]);
 
-  const onConfirm = async (payload: AddCommissionForm | undefined) => {
+  const onConfirm = async (payload: AddMpuzaMiryangoRemezoForm | undefined) => {
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
-        if (CommissionToEdit) {
-          await updateImage({ imageId: CommissionToEdit.backgroundImage?.id, image: selectedImage, isBannerImage: false })
+        if (MpuzaToEdit) {
+          await updateImage({ imageId: MpuzaToEdit.backgroundImage?.id, image: selectedImage, isBannerImage: false })
             .then((res) => {
               toast({
                 title: "Update Image message!",
@@ -106,56 +99,52 @@ const AddCommissionCard = (props: AddCommissionProps) => {
         }
       }
 
-      if (!CommissionToEdit) {
-        await addNewCommission(payload)
+      if (!MpuzaToEdit) {
+        await addNewMpuza(payload)
           .then((res: MessageResponse) => {
             toast({
-              title: "Add Commission message!",
-              description: res?.message || "Commission saved successfully",
+              title: "Add Mpuza message!",
+              description: res?.message || "Mpuza saved successfully",
               status: "success",
             });
-            props.fetchCommission();
+            props.fetchMpuza();
             props.onClose();
           })
           .catch((error) => {
             toast({
-              title: "Add Commission message",
+              title: "Add Mpuza message",
               description:
                 error.response.data?.message || "Error saving recent Event!",
               status: "error",
             });
           });
         reset();
-      } else if (CommissionToEdit) {
-        const editPayload: UpdateCommissionForm = {
-          name_en: payload.name_en,
-          name_fr: payload.name_fr,
-          name_rw: payload.name_rw,
-          contact_person_name: payload.contact_person_name,
-          contact_person_role: payload.contact_person_role,
-          contact_person_phone_number: payload.contact_person_phone_number,
-          contact_person_email: payload.contact_person_email,
+      } else if (MpuzaToEdit) {
+        const editPayload: UpdateMpuzaMiryangoRemezoForm = {
+          title: payload.title,
+          leader: payload.leader,
+          phone: payload.phone,
           description_en: payload.description_en,
           description_fr: payload.description_fr,
           description_rw: payload.description_rw,
-          backgroundImageId: CommissionToEdit.backgroundImage?.id || null,
-          commissionId: CommissionToEdit?.id || null,
+          backgroundImageId: MpuzaToEdit.backgroundImage?.id || null,
+          mpuzMiryangoRemezoId: MpuzaToEdit?.id || null,
         };
-        await updateCommission(editPayload)
+        await updateMpuza(editPayload)
           .then((res: MessageResponse) => {
             toast({
-              title: "Edit Commission message!",
-              description: res?.message || "Commission edited successfully",
+              title: "Edit Mpuza message!",
+              description: res?.message || "Mpuza edited successfully",
               status: "success",
             });
-            props.fetchCommission();
+            props.fetchMpuza();
             props.onClose();
           })
           .catch((error) => {
             toast({
-              title: "Edit Commission message",
+              title: "Edit Mpuza message",
               description:
-                error.response?.data?.message || "Error editing Commission!",
+                error.response?.data?.message || "Error editing Mpuza!",
               status: "error",
             });
           });
@@ -180,67 +169,20 @@ const AddCommissionCard = (props: AddCommissionProps) => {
         >
           <Stack>
             <FormInput
-              name="name_en"
+              name="title"
               register={register}
               errors={errors}
-              label="Commission Name (en)"
+              label="Mpuza Title"
               placeholder="Enter commission name (en)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
             <FormInput
-              name="name_fr"
+              name="leader"
               register={register}
               errors={errors}
-              label="Commission Name (fr)"
+              label="Mpuza Leader"
               placeholder="Enter commission name (fr)"
-              inputProps={{ bg: "white" }}
-              maxW={{ base: "25rem", sm: "90vw" }}
-            />
-            <FormInput
-              name="name_rw"
-              register={register}
-              errors={errors}
-              label="Commission Name (rw)"
-              placeholder="Enter commission name (rw)"
-              inputProps={{ bg: "white" }}
-              maxW={{ base: "25rem", sm: "90vw" }}
-            />
-            <FormInput
-              name="contact_person_name"
-              register={register}
-              errors={errors}
-              label="Commission Contact Person Name"
-              placeholder="Enter Contact Person Name"
-              inputProps={{ bg: "white" }}
-              maxW={{ base: "25rem", sm: "90vw" }}
-            />
-            <FormInput
-              name="contact_person_role"
-              register={register}
-              errors={errors}
-              label="Commission Contact Person Role"
-              placeholder="Enter Contact Person Role"
-              inputProps={{ bg: "white" }}
-              maxW={{ base: "25rem", sm: "90vw" }}
-            />
-            <FormInput
-              name="contact_person_phone_number"
-              register={register}
-              errors={errors}
-              label="Commission Contact Person Telephone"
-              placeholder="Enter Contact Person Telephone"
-              inputProps={{ bg: "white" }}
-              maxW={{ base: "25rem", sm: "90vw" }}
-            />
-          </Stack>
-          <Stack>
-            <FormInput
-              name="contact_person_email"
-              register={register}
-              errors={errors}
-              label="Commission Contact Person Email"
-              placeholder="Enter Contact Person Email"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -251,6 +193,17 @@ const AddCommissionCard = (props: AddCommissionProps) => {
               label="Event description (en)"
               placeholder="Enter commission description"
               textareaProps={{ bg: "white" }}
+              maxW={{ base: "25rem", sm: "90vw" }}
+            />
+          </Stack>
+          <Stack>
+            <FormInput
+              name="phone"
+              register={register}
+              errors={errors}
+              label="Mpuza Phone"
+              placeholder="Enter commission name (rw)"
+              inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
             <FormTextarea
@@ -272,7 +225,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
               maxW={{ base: "25rem", sm: "90vw" }}
             />
           </Stack>
-          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={CommissionToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={MpuzaToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
         </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
@@ -293,8 +246,8 @@ const AddCommissionCard = (props: AddCommissionProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${CommissionToEdit ? "edit" : "add"
-          } this Commission?`}
+        alertText={`Are you sure you want to ${MpuzaToEdit ? "edit" : "add"
+          } this Mpuza?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newRecentEventPayload)}
@@ -303,4 +256,4 @@ const AddCommissionCard = (props: AddCommissionProps) => {
   );
 };
 
-export default AddCommissionCard;
+export default AddMpuzaCard;

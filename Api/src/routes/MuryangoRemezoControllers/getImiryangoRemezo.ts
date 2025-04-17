@@ -7,7 +7,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /muryangoremezo:
+ * /miryangoremezo:
  *   get:
  *     tags:
  *       - Muryango Remezo

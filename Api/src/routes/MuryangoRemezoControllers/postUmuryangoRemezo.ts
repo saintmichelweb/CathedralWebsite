@@ -21,14 +21,14 @@ const muryangoRemezoSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "name is required" }),
-  mpuza: z
-  .number()
-  .min(1, { message: "mpuzaMiryangoRemezo id is required" }),
+  mpuzaId: z
+    .number()
+    .min(1, { message: "mpuzaMiryangoRemezo id is required" }),
 });
 
 /**
  * @openapi
- * /muryangoremezo:
+ * /miryangoremezo:
  *   post:
  *     tags:
  *       - Muryango Remezo
@@ -116,7 +116,7 @@ export async function postMuryangoRemezo(req: AuthRequest, res: Response) {
     newMuryangoRemezo.header = parsedBody.data.header
     newMuryangoRemezo.phone = parsedBody.data.phone
 
-    const mpuza =  await mpuzaRepository.findOne({where: {id: parsedBody.data.mpuza}})
+    const mpuza =  await mpuzaRepository.findOne({where: {id: parsedBody.data.mpuzaId}})
     if ( mpuza !== null ) {
       newMuryangoRemezo.mpuza = mpuza
     } else {

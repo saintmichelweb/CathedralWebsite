@@ -8,7 +8,7 @@ import * as fs from 'fs'
 
 /**
  * @openapi
- * /muryangoremezo/{id}:
+ * /miryangoremezo/{id}:
  *   delete:
  *     tags:
  *       - Muryango Remezo
