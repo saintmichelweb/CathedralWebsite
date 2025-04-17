@@ -80,7 +80,7 @@ const ParishCommitteeCouncilManagement = () => {
     fetchparishCommitteeCouncil();
   }, []);
 
-  const handleLocationDelete = async (parishCommitteeCouncilId: number) => {
+  const handleParishCommitteeDelete = async (parishCommitteeCouncilId: number) => {
     await deleteparishCommitteeCouncil(parishCommitteeCouncilId)
       .then((res: MessageResponse) => {
         toast({
@@ -292,7 +292,7 @@ const ParishCommitteeCouncilManagement = () => {
         }}
         onConfirm={() => {
           if (selectedparishCommitteeCouncil) {
-            handleLocationDelete(selectedparishCommitteeCouncil?.id);
+            handleParishCommitteeDelete(selectedparishCommitteeCouncil?.id);
           }
         }}
       />

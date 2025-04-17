@@ -73,7 +73,7 @@ const CommissionManagement = () => {
     fetchCommission();
   }, []);
 
-  const handleLocationDelete = async (CommissionId: number) => {
+  const handleCommissionDelete = async (CommissionId: number) => {
     await deleteCommission(CommissionId)
       .then((res: MessageResponse) => {
         toast({
@@ -329,7 +329,7 @@ const CommissionManagement = () => {
         }}
         onConfirm={() => {
           if (selectedCommission) {
-            handleLocationDelete(selectedCommission?.id);
+            handleCommissionDelete(selectedCommission?.id);
           }
         }}
       />

@@ -26,68 +26,68 @@ import {
   EmptyState,
   TableSkeleton,
 } from "../../components/ui";
-import { commissionResponse, MessageResponse } from "../../types/apiResponses";
+import { MiryangoremezoResponse, MessageResponse } from "../../types/apiResponses";
 import { useTable } from "../../hooks";
 import CustomModal from "../../components/ui/CustomModal/CustomModal";
 import ActionButton from "../../components/ui/ActionButton/ActionButton";
-import AddCommissionCard from "./Components/CommissionCard";
-import { deleteCommission, getAllCommissions } from "../../api/commission";
+import AddMuryangoRemezoCard from "./Components/UmuryangoremezoCard";
+import { deleteMuryangoRemezo, getAllMuryangoRemezo } from "../../api/MiryangoRemezo";
 
-const CommissionManagement = () => {
+const MiryangoRemezoManagement = () => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: import.meta.env.VITE_LIMIT_PER_PAGE || 10,
   });
 
   const toast = useToast();
-  const [CommissionsData, setCommissionData] = useState<commissionResponse[]>(
+  const [MuryangoRemezosData, setMuryangoRemezoData] = useState<MiryangoremezoResponse[]>(
     []
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const [openNewRecentEventModel, setOpenNewRecentEventModel] = useState(false);
+  const [openNewRecentEventModel, setOpenNewMuryangoRemezoModel] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [selectedCommission, setSelectedRecentEvent] =
-    useState<commissionResponse | null>(null);
+  const [selectedMuryangoRemezo, setSelectedMuryangoRemezo] =
+    useState<MiryangoremezoResponse | null>(null);
   const [numberOfPages, setnumberOfPages] = useState<number>(1);
 
-  const fetchCommission = async (page = 1) => {
+  const fetchMuryangoRemezo = async (page = 1) => {
     setLoading(true);
-    await getAllCommissions({page})
+    await getAllMuryangoRemezo({page})
       .then((data) => {
-        setCommissionData(data.commissions);
+        setMuryangoRemezoData(data.miryangoRemezo);
         setnumberOfPages(data.totalPages);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         toast({
-          title: "Get Commission Message",
+          title: "Get MuryangoRemezo Message",
           description:
-            error.response.data?.message || "Error geting Commissions time!",
+            error.response.data?.message || "Error geting MuryangoRemezos time!",
           status: "error",
         });
       });
   };
 
   useEffect(() => {
-    fetchCommission();
+    fetchMuryangoRemezo();
   }, []);
 
-  const handleLocationDelete = async (CommissionId: number) => {
-    await deleteCommission(CommissionId)
+  const handleMuryangoRemezoDelete = async (MuryangoRemezoId: number) => {
+    await deleteMuryangoRemezo(MuryangoRemezoId)
       .then((res: MessageResponse) => {
         toast({
-          title: "Delete Commission Message",
-          description: res?.message || "Commission deleted successfully",
+          title: "Delete MuryangoRemezo Message",
+          description: res?.message || "MuryangoRemezo deleted successfully",
           status: "success",
         });
         setIsOpenDeleteModal(false);
-        fetchCommission();
-        setSelectedRecentEvent(null);
+        fetchMuryangoRemezo();
+        setSelectedMuryangoRemezo(null);
       })
       .catch((error) => {
         toast({
-          title: "Delete Commission Message",
+          title: "Delete MuryangoRemezo Message",
           description:
             error.response.data?.message || "Error deleting recent event!",
           status: "error",
@@ -96,77 +96,24 @@ const CommissionManagement = () => {
   };
 
   const columns = useMemo(() => {
-    const columnHelper = createColumnHelper<commissionResponse>();
+    const columnHelper = createColumnHelper<MiryangoremezoResponse>();
     return [
       columnHelper.display({
         id: "identifier",
         header: "Id",
         cell: ({ row }) => row.original.id,
       }),
-      columnHelper.accessor("name_en", {
+      columnHelper.accessor("title", {
         cell: (info) => info.getValue(),
-        header: "Name(en)",
+        header: "Title",
       }),
-      columnHelper.accessor("name_fr", {
+      columnHelper.accessor("header", {
         cell: (info) => info.getValue(),
-        header: "Name(fr))",
+        header: "Header",
       }),
-      columnHelper.accessor("name_rw", {
+      columnHelper.accessor("phone", {
         cell: (info) => info.getValue(),
-        header: "Name(rw)",
-      }),
-      columnHelper.accessor("contact_person_name", {
-        cell: (info) => info.getValue(),
-        header: "Contact Person Name",
-      }),
-      columnHelper.accessor("contact_person_role", {
-        cell: (info) => info.getValue(),
-        header: "Contact Person Role",
-      }),
-      columnHelper.accessor("contact_person_phone_number", {
-        cell: (info) => info.getValue(),
-        header: "Contact Person Phone",
-      }),
-      columnHelper.accessor("contact_person_email", {
-        cell: (info) => info.getValue(),
-        header: "Contact Person Email",
-      }),
-      columnHelper.accessor("backgroundImage", {
-        cell: (info) => {
-          const imageUrl = info.row.original.backgroundImage?.imageUrl;
-          const filename = info.row.original.backgroundImage?.filename;
-          return (
-            <>
-              {imageUrl ? (
-                <CustomLink
-                  to="#"
-                  mr={{ base: 0, lg: 2 }}
-                  colorVariant={"link-outline"}
-                  onClick={() =>
-                    window.open(imageUrl, "_blank", "noopener,noreferrer")
-                  }
-                >
-                  <Text decoration="underline">{filename}</Text>
-                </CustomLink>
-              ) : (
-                <Text>N/A</Text>
-              )}
-            </>
-          );
-        },
-        header: "Background Image",
-      }),
-      columnHelper.accessor("description_en", {
-        cell: (info) => info.getValue(),
-        header: "Description (en)",
-      }),
-      columnHelper.accessor("description_fr", {
-        cell: (info) => info.getValue(),
-        header: "Description (fr)",
-      }),
-      columnHelper.accessor("description_rw", {
-        cell: (info) => info.getValue(),
-        header: "Description (rw)",
+        header: "Phone",
       }),
       // columnHelper.accessor("work_days", {
       //   cell: (info) => info.getValue(),
@@ -212,12 +159,12 @@ const CommissionManagement = () => {
       columnHelper.accessor("id", {
         cell: (info) => {
           const handleEdit = () => {
-            setSelectedRecentEvent(info.row.original);
-            setOpenNewRecentEventModel(true);
+            setSelectedMuryangoRemezo(info.row.original);
+            setOpenNewMuryangoRemezoModel(true);
           };
 
           const handledelete = () => {
-            setSelectedRecentEvent(info.row.original);
+            setSelectedMuryangoRemezo(info.row.original);
             setIsOpenDeleteModal(true);
           };
           return (
@@ -251,7 +198,7 @@ const CommissionManagement = () => {
   }, []);
 
   const table = useTable({
-    data: CommissionsData || [],
+    data: MuryangoRemezosData || [],
     columns,
     pagination,
     setPagination,
@@ -261,15 +208,15 @@ const CommissionManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={0} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">Commission Management</Heading>
+          <Heading size="md">MiryangoRemezo Management</Heading>
         </Stack>
         <CustomButton
           type="button"
           isLoading={false}
           minW={"8rem"}
-          onClick={() => setOpenNewRecentEventModel(true)}
+          onClick={() => setOpenNewMuryangoRemezoModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Commission
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New MuryangoRemezo
         </CustomButton>
       </Flex>
       <Box
@@ -293,27 +240,27 @@ const CommissionManagement = () => {
               alwaysVisibleColumns={[0]}
               hidePagination={false}
               totalPages={numberOfPages}
-              onFetch={fetchCommission}
+              onFetch={fetchMuryangoRemezo}
               useCustomPagination
             />
           )}
         </>
-        {!loading && CommissionsData.length === 0 && (
+        {!loading && MuryangoRemezosData.length === 0 && (
           <EmptyState text="There are no events to present yet." mt="10" />
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedCommission ? "Update" : "Add"} commission`}
+        headerTitle={`${selectedMuryangoRemezo ? "Update" : "Add"} muryangoRemezo`}
         isOpen={openNewRecentEventModel}
-        onClose={() => setOpenNewRecentEventModel(false)}
+        onClose={() => setOpenNewMuryangoRemezoModel(false)}
         child={
-          <AddCommissionCard
+          <AddMuryangoRemezoCard
             onClose={() => {
-              setSelectedRecentEvent(null);
-              setOpenNewRecentEventModel(false);
+              setSelectedMuryangoRemezo(null);
+              setOpenNewMuryangoRemezoModel(false);
             }}
-            fetchCommission={fetchCommission}
-            Commission={selectedCommission}
+            fetchMuryangoRemezo={fetchMuryangoRemezo}
+            MuryangoRemezo={selectedMuryangoRemezo}
           />
         }
         showFooter={false}
@@ -321,15 +268,15 @@ const CommissionManagement = () => {
         widthSize="60vw"
       />
       <AlertDialog
-        alertText={`Are you sure you want to delete this commission?`}
+        alertText={`Are you sure you want to delete this muryangoRemezo?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
-          setSelectedRecentEvent(null);
+          setSelectedMuryangoRemezo(null);
           setIsOpenDeleteModal(false);
         }}
         onConfirm={() => {
-          if (selectedCommission) {
-            handleLocationDelete(selectedCommission?.id);
+          if (selectedMuryangoRemezo) {
+            handleMuryangoRemezoDelete(selectedMuryangoRemezo?.id);
           }
         }}
       />
@@ -337,4 +284,4 @@ const CommissionManagement = () => {
   );
 };
 
-export default CommissionManagement;
+export default MiryangoRemezoManagement;
