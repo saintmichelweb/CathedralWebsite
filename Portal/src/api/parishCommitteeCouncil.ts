@@ -9,7 +9,7 @@ export async function addNewparishCommitteeCouncil(priestObj: AddParishCommittee
 }
 
 export async function getAllparishCommitteeCouncils(params: PaginationParams) {
-  const response = await instance.get<{ parishCommitteeCouncils: parishCommitteeCouncilResponse[], message: string, totalPages: number }>('/parishCommitteeCouncil/all', {params})
+  const response = await instance.get<{ parishCommitteeCouncils: parishCommitteeCouncilResponse[], message: string, totalPages: number }>('/parishCommitteeCouncil', {params})
   return response.data
 }
 

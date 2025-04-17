@@ -9,7 +9,7 @@ export async function addNewPriest(priestObj: AddPriestsForm) {
 }
 
 export async function getAllPriests(params: PaginationParams) {
-  const response = await instance.get<{ priests: PriestsResponse[], message: string, totalPages: number }>('/priests/all', {params})
+  const response = await instance.get<{ priests: PriestsResponse[], message: string, totalPages: number }>('/priests', {params})
   return response.data
 }
 

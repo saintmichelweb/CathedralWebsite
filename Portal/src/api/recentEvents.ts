@@ -9,7 +9,7 @@ export async function addNewRecentEvent(recentEventObj: AddRecentEventsForm) {
 }
 
 export async function getAllRecentEvents(params: PaginationParams) {
-  const response = await instance.get<{ recentEvents: RecentEventResponse[], message: string, totalPages: number }>('/recent-events/all', {params})
+  const response = await instance.get<{ recentEvents: RecentEventResponse[], message: string, totalPages: number }>('/recent-events', {params})
   return response.data
 }
 
