@@ -8,7 +8,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /language/all:
+ * /language:
  *   get:
  *     tags:
  *       - Language

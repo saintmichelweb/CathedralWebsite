@@ -9,7 +9,7 @@ import { deleteRecentEvent } from "./recentEventsControllers/deleteRecentEvent";
 const router = express.Router();
 
 router.post("/recent-events", authenticateJWT, postRecentEvent )
-router.get("/recent-events/all", authenticateJWT, getAllRecentEvents )
+router.get("/recent-events", authenticateJWT, getAllRecentEvents )
 router.put("/recent-events/:id", authenticateJWT, putRecentEvent);
 router.delete("/recent-events/:id", authenticateJWT, deleteRecentEvent);
 

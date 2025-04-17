@@ -8,7 +8,7 @@ import { getLocations } from "./locationControllers/getLocations";
 
 const router = express.Router();
 
-router.get("/location/all", authenticateJWT, getLocations )
+router.get("/location", authenticateJWT, getLocations )
 router.post("/location", authenticateJWT, postLocation )
 router.put("/location/:id", authenticateJWT, putLocation);
 router.delete("/location/:id", authenticateJWT, deleteLocation);

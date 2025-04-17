@@ -7,7 +7,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /priests/all:
+ * /priests:
  *   get:
  *     tags:
  *       - Priests

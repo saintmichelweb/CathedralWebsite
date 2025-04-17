@@ -5,7 +5,7 @@ import { PriestsEntity } from "../../entity/PriestsEntity";
 
 // /**
 //  * @openapi
-//  * /priests/all:
+//  * /priests:
 //  *   get:
 //  *     tags:
 //  *       - Priests

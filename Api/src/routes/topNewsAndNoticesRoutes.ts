@@ -9,8 +9,8 @@ import { getAllTopParishNewsAndNoticesPublic } from "./topNewsAndNoticesControll
 
 const router = express.Router();
 
-router.get("/top-news-and-notices/all", authenticateJWT, getAllTopParishNewsAndNotices )
-router.get("/top-news-and-notices/all-public", getAllTopParishNewsAndNoticesPublic )
+router.get("/top-news-and-notices", authenticateJWT, getAllTopParishNewsAndNotices )
+router.get("/top-news-and-notices-public", getAllTopParishNewsAndNoticesPublic )
 router.post("/top-news-and-notices", authenticateJWT, postTopParishNewsAndNotices )
 router.put("/top-news-and-notices/:id", authenticateJWT, putTopParishNewsAndNotices);
 router.delete("/top-news-and-notices/:id", authenticateJWT, deleteTopNewsAndNoticesEntity);

@@ -5,7 +5,7 @@ import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
 
 /**
  * @openapi
- * /top-news-and-notices/all-public:
+ * /top-news-and-notices-public:
  *   get:
  *     tags:
  *       - Top News And Notices
