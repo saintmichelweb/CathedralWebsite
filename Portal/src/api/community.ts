@@ -15,7 +15,7 @@ export async function getAllCommunities(params: PaginationParams) {
 
 export async function updateCommunity(UpdateCommunityObj: UpdateCommunityForm) {
   const response = await instance.put<{ message: string }>(`/communities/${UpdateCommunityObj.communityId}`, {
-    name_en: UpdateCommunityObj.name
+    name: UpdateCommunityObj.name
   })
   return response.data
 }

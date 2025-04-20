@@ -49,7 +49,6 @@ export async function getAllCommunities(req: Request, res: Response) {
 
   const CommunityRepository = AppDataSource.getRepository(CommunityEntity);
   const queryBuilder = CommunityRepository.createQueryBuilder('Community')
-    .leftJoinAndSelect('Community.backgroundImage', 'backgroundImage')
 
   // if (isActive !==null && isActive !== undefined) {
   //   queryBuilder.where('recent_events.isActive = :isActive', {isActive: isActive? 1: 0})

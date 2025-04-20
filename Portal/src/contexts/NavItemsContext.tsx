@@ -15,6 +15,7 @@ import { getUserProfile } from "../api/users";
 import { useUserContext } from "./UserContext";
 import { PortalUserStatus } from "../../../shared-lib/src";
 import { AiFillSchedule } from "react-icons/ai";
+import { RiCommunityFill } from "react-icons/ri";
 
 export const NAV_ITEMS = [
   {
@@ -150,6 +151,42 @@ export const NAV_ITEMS = [
         name: "Commissions",
     to: "/commissions",
         shortName: "Commissions",
+        // icon: FaLanguage,
+        // permissions: ['View Transactions'],
+      },
+      {
+        name: "Communities",
+    to: "/communities",
+        shortName: "Communities",
+        // icon: FaLanguage,
+        // permissions: ['View Transactions'],
+      },
+    ],
+  },
+  {
+    name: "communities, Mpuza and miryangoremezo",
+    label: "Open communities, Mpuza and miryangoremezo nav menu",
+    icon: RiCommunityFill,
+    // permissions: ['View Portal Users'],
+    subNavItems: [
+      {
+        name: "Communities",
+    to: "/communities",
+        shortName: "Communities",
+        // icon: FaLanguage,
+        // permissions: ['View Transactions'],
+      },
+      {
+        name: "Mpuzamiryangoremezo",
+    to: "/mpuza",
+        shortName: "Mpuza",
+        // icon: IoTimeOutline,
+        // permissions: ['View Transactions'],
+      },
+      {
+        name: "Miryangoremezo",
+    to: "/miryangoremezo",
+        shortName: "Miryangoremezo",
         // icon: FaLanguage,
         // permissions: ['View Transactions'],
       },

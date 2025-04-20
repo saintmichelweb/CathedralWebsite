@@ -22,6 +22,9 @@ import {
   WelcomeMessageManagement,
   SetPassword,
   UsersManagement,
+  CommunityManagement,
+  MpuzaMiryangoRemezoManagement,
+  MiryangoRemezoManagement,
 } from "../pages";
 import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
@@ -117,6 +120,21 @@ const Routes = () => {
           path: "users",
           index: true,
           element: <UsersManagement />,
+        },
+        {
+          path: "communities",
+          index: true,
+          element: <CommunityManagement />,
+        },
+        {
+          path: "mpuza",
+          index: true,
+          element: <MpuzaMiryangoRemezoManagement />,
+        },
+        {
+          path: "miryangoremezo",
+          index: true,
+          element: <MiryangoRemezoManagement />,
         }
       ]
     },
