@@ -1,12 +1,9 @@
-// import { useState } from 'react'
 import { useRoutes } from "react-router-dom";
-
 import { Layout } from "../components/layout";
 import {
   BannerImagesManagement,
   ChoirsManagement,
   CommissionManagement,
-  // Dashboard,
   ForgotPassword,
   LanguagesManagement,
   LocationsManagement,

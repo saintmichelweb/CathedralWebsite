@@ -27,6 +27,9 @@ export const mpuzaMiryangoRemezoSchema = z.object({
         .string()
         .trim()
         .min(1, { message: "MpuzaMiryangoRemezo description_rw is required" }),
+    community: z
+        .number()
+        .min(1, { message: "Community is required" }),
     backgroundImageId: z
         .number()
         .nullable()
@@ -62,6 +65,9 @@ export const updateMpuzaMiryangoRemezoSchema = z.object({
     backgroundImageId: z
         .number()
         .nullable(),
+    community: z
+        .number()
+        .min(1, { message: "Community is required" }),
     mpuzMiryangoRemezoId: z
         .number()
         .nullable(),

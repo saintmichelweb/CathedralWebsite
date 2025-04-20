@@ -4,10 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
-import { FormInput } from "../../../components/form";
-import { MiryangoremezoResponse, MessageResponse } from "../../../types/apiResponses";
+import { CustomFormSelect, FormInput } from "../../../components/form";
+import { MiryangoremezoResponse, MessageResponse, MpuzaResponse } from "../../../types/apiResponses";
 import { addNewMuryangoRemezo, updateMuryangoRemezo } from "../../../api/MiryangoRemezo";
 import { AddMiryangoRemezoForm, miryangoRemezoSchema, UpdateMiryangoRemezoForm } from "../../../lib/validations/MiryangoRemezo";
+import { SelectOption } from "../../../types/forms";
+import { getAllMpuza } from "../../../api/MpuzaMiryangoRemezo";
 
 interface AddMuryangoRemezoProps {
   onClose: () => void;
@@ -31,6 +33,8 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newRecentEventPayload, setNewRecentEventPayload] =
     useState<AddMiryangoRemezoForm>();
+  const [massCommunity, setMassCommunity] = useState<SelectOption | null>(null);
+  const communitiesSelectOptions: SelectOption[] = [];
 
   const onSubmit = async (values: AddMiryangoRemezoForm) => {
     setNewRecentEventPayload(values);
@@ -42,8 +46,31 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
       setValue("title", MuryangoRemezoToEdit.title);
       setValue("header", MuryangoRemezoToEdit.header);
       setValue("phone", MuryangoRemezoToEdit.phone);
+      setValue("mpuzaId", MuryangoRemezoToEdit.mpuza.id);
+      setMassCommunity({
+        value: MuryangoRemezoToEdit.mpuza.id,
+        label: MuryangoRemezoToEdit.mpuza.title,
+      });
     }
   }, [MuryangoRemezoToEdit]);
+
+  useEffect(() => {
+    const getCommunities = async () => {
+      await getAllMpuza({ page: undefined }).then((data) => {
+        console.log('data', data)
+        data.mpuzaMiryangoRemezo.map((dataLocation: MpuzaResponse) => {
+          communitiesSelectOptions.push({
+            value: dataLocation.id,
+            label: dataLocation.title,
+          });
+        });
+      });
+    };
+
+    if (communitiesSelectOptions.length === 0) {
+      getCommunities();
+    }
+  }, []);
 
   const onConfirm = async (payload: AddMiryangoRemezoForm | undefined) => {
     setIsOpenModal(false);
@@ -103,12 +130,27 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
     <Box>
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <Stack>
+          <CustomFormSelect
+            selectValue={massCommunity}
+            isError={errors.mpuzaId ? true : false}
+            errorMsg={errors.mpuzaId ? errors.mpuzaId.message : undefined}
+            label="Mpuzamuryango remezo"
+            placeholder="Choose mpuzamuryango remezo"
+            options={communitiesSelectOptions}
+            onChangeFn={(selectedVal: SelectOption| null) => {
+              setMassCommunity(selectedVal);
+              if (selectedVal) {
+                setValue("mpuzaId", Number(selectedVal.value));
+              }
+            }}
+            maxWVal={{ lg: "full", sm: "90vw" }}
+          />
           <FormInput
             name="title"
             register={register}
             errors={errors}
-            label="MuryangoRemezo Title"
-            placeholder="Enter muryangoRemezo title"
+            label="Title"
+            placeholder="Enter title"
             inputProps={{ bg: "white" }}
             maxW={{ base: "25rem", sm: "90vw" }}
           />
@@ -116,8 +158,8 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
             name="header"
             register={register}
             errors={errors}
-            label="MuryangoRemezo Header"
-            placeholder="Enter muryangoRemezo header"
+            label="Header"
+            placeholder="Enter header"
             inputProps={{ bg: "white" }}
             maxW={{ base: "25rem", sm: "90vw" }}
           />
@@ -125,8 +167,8 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
             name="phone"
             register={register}
             errors={errors}
-            label="MuryangoRemezo Phone"
-            placeholder="Enter muryangoRemezo phone"
+            label="Phone"
+            placeholder="Enter phone"
             inputProps={{ bg: "white" }}
             maxW={{ base: "25rem", sm: "90vw" }}
           />
