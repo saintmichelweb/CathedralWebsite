@@ -15,10 +15,21 @@ import {
   type AddActionForm,
 } from "../../lib/validations/CatholicAction";
 import { CustomButton } from "../../components/ui";
-import { FormInput, FormTextarea } from "../../components/form";
-import { MessageResponse } from "../../types/apiResponses";
-// Catholic Actions Data
-const catholicActions = [
+import { MessageResponse, ActionsResponse } from "../../types/apiResponses";
+
+// Define Action type
+interface Action {
+  name: string;
+  logo: string;
+  description: string;
+  leader: {
+    name: string;
+    phone: string;
+  };
+}
+
+// Sample default Catholic actions
+const catholicActions: Action[] = [
   {
     name: "Charismatique",
     logo: "charismatique_logo.png",
@@ -64,8 +75,6 @@ interface AddActionProps {
 
 const AddActionsCard = (props: AddActionProps) => {
   const {
-    register,
-    formState: { errors },
     handleSubmit,
     reset,
   } = useForm<AddActionForm>({
@@ -73,7 +82,7 @@ const AddActionsCard = (props: AddActionProps) => {
   });
 
   const toast = useToast();
-  const [actions, setActions] = useState(catholicActions);
+  const [actions, setActions] = useState<Action[]>(catholicActions);
 
   const onSubmit = async (values: AddActionForm) => {
     await addNewAction(values)
@@ -83,21 +92,27 @@ const AddActionsCard = (props: AddActionProps) => {
           description: res?.message || "Action saved successfully",
           status: "success",
         });
-        setActions([...actions, {
-          ...values, logo: "",
-          leader: undefined,
+
+        // Add a default logo and dummy leader for new entries
+        const newAction: Action = {
+          ...values,
+          logo: "", // Optionally, handle image upload separately
+          leader: { name: "New Leader", phone: "+250000000000" },
           description: ""
-        }]);
+        };
+
+        setActions([...actions, newAction]);
         props.fetchActions();
         props.onClose();
       })
       .catch((error: { response: { data: { message: any } } }) => {
         toast({
           title: "Add Action message",
-          description: error.response.data?.message || "Error saving action!",
+          description: error.response?.data?.message || "Error saving action!",
           status: "error",
         });
       });
+
     reset();
   };
 
@@ -130,20 +145,6 @@ const AddActionsCard = (props: AddActionProps) => {
           ))}
         </SimpleGrid>
 
-        {/* Form Fields */}
-        <FormInput
-           label="Description"
-           name="description_en"
-           register={register}
-           errors={errors}
-        />
-        <FormTextarea
-          label="Description"
-          name="description_en"
-          register={register}
-          errors={errors}
-        />
-        
 
         <CustomButton type="submit">Add Action</CustomButton>
       </Stack>
