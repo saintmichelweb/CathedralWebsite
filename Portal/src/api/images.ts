@@ -49,7 +49,9 @@ export async function updateImage(imageObj: updateImageObj) {
         }
         body = formData
     }
-    const response = await instance.put<{ message: string }>(`/image/${imageObj.imageId}`, body)
+    const response = await instance.put<{
+        image: any; message: string
+    }>(`/image/${imageObj.imageId}`, body)
     return response.data
 }
 
@@ -59,6 +61,6 @@ export async function deleteImage(imageId: number | string) {
 }
 
 export async function getBannerImages(params: PaginationParams, isBannerImage?: boolean) {
-    const response = await instance.get<{ bannerImages: BannerImageResponse[], message: string, totalPages: number }>(`/images/all${isBannerImage ? `?isBannerImage=${isBannerImage}` : ''}`, {params})
+    const response = await instance.get<{ bannerImages: BannerImageResponse[], message: string, totalPages: number }>(`/images/all${isBannerImage ? `?isBannerImage=${isBannerImage}` : ''}`, { params })
     return response.data
 }

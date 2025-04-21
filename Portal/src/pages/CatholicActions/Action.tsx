@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Stack,
@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import {
   actionSchema,
   type AddActionForm,
-} from "../../lib/validations/";
+} from "../../lib/validations/CatholicAction";
 import { CustomButton } from "../../components/ui";
 import { FormInput, FormTextarea } from "../../components/form";
 import { MessageResponse } from "../../types/apiResponses";
@@ -83,7 +83,11 @@ const AddActionsCard = (props: AddActionProps) => {
           description: res?.message || "Action saved successfully",
           status: "success",
         });
-        setActions([...actions, { ...values, logo: "" }]);
+        setActions([...actions, {
+          ...values, logo: "",
+          leader: undefined,
+          description: ""
+        }]);
         props.fetchActions();
         props.onClose();
       })
@@ -139,6 +143,7 @@ const AddActionsCard = (props: AddActionProps) => {
           register={register}
           errors={errors}
         />
+        
 
         <CustomButton type="submit">Add Action</CustomButton>
       </Stack>
@@ -147,3 +152,7 @@ const AddActionsCard = (props: AddActionProps) => {
 };
 
 export default AddActionsCard;
+function addNewAction(_values: { description_en: string; name: string; description_rw: string; leaderName: string; phone: string; }) {
+  throw new Error("Function not implemented.");
+}
+

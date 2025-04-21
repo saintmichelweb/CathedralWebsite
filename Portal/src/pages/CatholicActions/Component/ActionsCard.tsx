@@ -14,10 +14,10 @@ import {
   actionSchema,
   UpdateactionForm,
   type AddactionForm,
-} from "../../../lib/validations/actions";
+} from "../../../lib/validations/CatholicAction";
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { FormInput, FormTextarea } from "../../../components/form";
-import { MessageResponse, actionsResponse } from "../../../types/apiResponses";
+import { MessageResponse } from "../../../types/apiResponses";
 import { addNewImage, updateImage } from "../../../api/images";
 import { addNewaction, updateaction } from "../../../api/actions";
 import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
@@ -129,7 +129,7 @@ const AddactionsCard = (props: AddactionProps) => {
             props.fetchactions();
             props.onClose();
           })
-          .catch((error) => {
+          .catch((error: { response: { data: { message: any; }; }; }) => {
             toast({
               title: "Add action message",
               description:
@@ -163,7 +163,7 @@ const AddactionsCard = (props: AddactionProps) => {
             props.fetchactions();
             props.onClose();
           })
-          .catch((error) => {
+          .catch((error: { response: { data: { message: any; }; }; }) => {
             toast({
               title: "Edit action message",
               description:
