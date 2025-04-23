@@ -78,17 +78,17 @@ const ParishHistoryManagement = () => {
     await addOrUpdateParishHistory(payload)
       .then((res: MessageResponse) => {
         toast({
-          title: `${!parishHistory ? "Create" : "Update"} History message!`,
-          description: res?.message || "Parish History saved successfully",
+          title: `${!parishHistory ? "Add" : "Update"} History, Mission and Vision message!`,
+          description: res?.message || "History, Mission and Vision saved successfully",
           status: "success",
         });
         fetchParishHistory();
       })
       .catch((error) => {
         toast({
-          title: `${!parishHistory ? "Create" : "Update"} History message!`,
+          title: `${!parishHistory ? "Add" : "Update"} History, Mission and Vision message!`,
           description:
-            error.response.data?.message || "Error saving parish history!",
+            error.response.data?.message || "Error saving History, Mission and Vision!",
           status: "error",
         });
       });
@@ -128,7 +128,7 @@ const ParishHistoryManagement = () => {
                 <Stack direction={{ base: "column", lg: "row" }}>
                   <Heading size="sm">
                     {" "}
-                    {!parishHistory ? "Create" : "Update"} History
+                    {!parishHistory ? "Add" : "Update"} History
                   </Heading>
                 </Stack>
                 <Stack direction={"row"} justifyContent={"space-around"} pb={'4'}>
@@ -163,7 +163,7 @@ const ParishHistoryManagement = () => {
                 <Stack direction={{ base: "column", lg: "row" }}>
                   <Heading size="sm">
                     {" "}
-                    {!parishHistory ? "Create" : "Update"} Mission
+                    {!parishHistory ? "Add" : "Update"} Mission
                   </Heading>
                 </Stack>
                 <Stack direction={"row"} justifyContent={"space-around"} pb={'4'}>
@@ -198,7 +198,7 @@ const ParishHistoryManagement = () => {
                 <Stack direction={{ base: "column", lg: "row" }}>
                   <Heading size="sm">
                     {" "}
-                    {!parishHistory ? "Create" : "Update"} Vision
+                    {!parishHistory ? "Add" : "Update"} Vision
                   </Heading>
                 </Stack>
                 <Stack direction={"row"} justifyContent={"space-around"} pb={'4'}>
@@ -238,7 +238,6 @@ const ParishHistoryManagement = () => {
                   mt='3'
                   mb='5'
                   alignSelf={"center"}
-                  mb={'3'}
                 >
                   Submit
                 </CustomButton>

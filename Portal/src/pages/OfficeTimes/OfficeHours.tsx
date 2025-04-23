@@ -149,7 +149,7 @@ const OfficeTimesManagement = () => {
       }),
       columnHelper.accessor("office_place", {
         cell: (info) => info.getValue().location,
-        header: "Place",
+        header: "Location",
       }),
       columnHelper.accessor("isActive", {
         cell: (info) => {
