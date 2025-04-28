@@ -22,18 +22,19 @@ const allowedOrigins = ['http://localhost:5173', 'http://localhost:3550','http:/
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true); // Allow the origin
-    } else {
-      callback(new Error('Not allowed by CORS')); // Reject the origin
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true, // If you're using cookies or authorization headers
-}));
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true); // Allow the origin
+//     } else {
+//       callback(new Error('Not allowed by CORS')); // Reject the origin
+//     }
+//   },
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true, // If you're using cookies or authorization headers
+// }));
+app.use(cors());
 
 // Serve static files and set additional headers for /api/image
 app.use('/api/image', (req, res, next) => {
