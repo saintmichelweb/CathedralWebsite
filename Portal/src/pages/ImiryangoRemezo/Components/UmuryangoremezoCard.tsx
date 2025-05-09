@@ -55,9 +55,8 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
   }, [MuryangoRemezoToEdit]);
 
   useEffect(() => {
-    const getCommunities = async () => {
+    const getMPuzaMiryangoremezo = async () => {
       await getAllMpuza({ page: undefined }).then((data) => {
-        console.log('data', data)
         data.mpuzaMiryangoRemezo.map((dataLocation: MpuzaResponse) => {
           communitiesSelectOptions.push({
             value: dataLocation.id,
@@ -68,7 +67,7 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
     };
 
     if (communitiesSelectOptions.length === 0) {
-      getCommunities();
+      getMPuzaMiryangoremezo();
     }
   }, []);
 

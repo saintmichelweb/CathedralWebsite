@@ -68,7 +68,6 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
   useEffect(() => {
     const getCommunities = async () => {
       await getAllCommunities({ page: undefined }).then((data) => {
-        console.log('data', data)
         data.communities.map((dataLocation: CommunityResponse) => {
           communitiesSelectOptions.push({
             value: dataLocation.id,
@@ -216,7 +215,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Mpuza Title"
-              placeholder="Enter commission name (en)"
+              placeholder="Enter name (en)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -225,7 +224,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Mpuza Leader"
-              placeholder="Enter commission name (fr)"
+              placeholder="Enter name (fr)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -234,7 +233,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Event description (en)"
-              placeholder="Enter commission description"
+              placeholder="Enter description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -245,7 +244,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Mpuza Phone"
-              placeholder="Enter commission name (rw)"
+              placeholder="Enter name (rw)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -254,7 +253,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Event description (fr)"
-              placeholder="Enter commission description"
+              placeholder="Enter description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -263,7 +262,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Event description (rw)"
-              placeholder="Enter commission description"
+              placeholder="Enter description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
