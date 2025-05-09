@@ -3,7 +3,6 @@ import {
   Box,
   Divider,
   HStack,
-  SimpleGrid,
   Stack,
   useToast,
 } from "@chakra-ui/react";
@@ -32,7 +31,6 @@ import {
   MassDaysEnum_EN,
   MassDaysEnum_RW,
 } from "../../../../../shared-lib/src";
-import TimeSelector from "../../../components/ui/HoursMinutesInputs/HoursMinutesInputs";
 
 interface AddMassTimesProps {
   onClose: () => void;
@@ -52,8 +50,8 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
   });
   const toast = useToast();
   const massTimeToEdit = props.massTime;
-  const locationSelectOptions: SelectOption[] = [];
-  const languageSelectOptions: SelectOption[] = [];
+  const [locationSelectOptions, setLocationSelectOptions] = useState<SelectOption[]>([]);
+  const [languageSelectOptions, setLanguageSelectOptions] = useState<SelectOption[]>([]);
   const [massLocation, setMassLocation] = useState<SelectOption | null>(null);
   const [massLanguage, setMassLanguage] = useState<SelectOption | null>(null);
   const [massDay_en, setMassDay_en] = useState<SelectOption | null>(null);
@@ -109,33 +107,37 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
   useEffect(() => {
     const getAllLocations = async () => {
       await getLocations({ page: undefined }, true, true).then((data) => {
-        data.locations.map((dataLocation: LocationResponse) => {
-          locationSelectOptions.push({
+        const newLocationOptions = data.locations.map(
+          (dataLocation: LocationResponse) => ({
             value: dataLocation.id,
             label: dataLocation.location,
-          });
-        });
+          })
+        );
+        setLocationSelectOptions(newLocationOptions);
       });
     };
-    if (locationSelectOptions.length == 0) {
+    if (locationSelectOptions.length === 0) {
+      console.log("locationSelectOptions", locationSelectOptions);
       getAllLocations();
     }
 
     const getAllLanguages = async () => {
       await getLanguages({ page: undefined }, true).then((data) => {
-        data.languages.map((dataLanguage: LanguageResponse) => {
-          languageSelectOptions.push({
+        const newLanguageOptions = data.languages.map(
+          (dataLanguage: LanguageResponse) => ({
             value: dataLanguage.id,
             label: dataLanguage.language,
-          });
-        });
+          })
+        );
+        setLanguageSelectOptions(newLanguageOptions);
       });
     };
 
-    if (languageSelectOptions.length == 0) {
+    if (languageSelectOptions.length === 0) {
+      console.log("languageSelectOptions", languageSelectOptions);
       getAllLanguages();
     }
-  }, []);
+  });
 
   const onSubmit = async (values: MassTimesForm) => {
     setNewUserPayload(values);
