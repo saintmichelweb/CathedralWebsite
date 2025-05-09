@@ -8,7 +8,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /mass-times/all:
+ * /mass-times:
  *   get:
  *     tags:
  *       - Mass Times

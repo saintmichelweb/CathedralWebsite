@@ -9,7 +9,7 @@ export async function addNewMpuza(priestObj: AddMpuzaMiryangoRemezoForm) {
 }
 
 export async function getAllMpuza(params: PaginationParams) {
-  const response = await instance.get<{ mpuzaMiryangoRemezo: MpuzaResponse[], message: string, totalPages: number }>('/mpuzamiryangoremezo/all', {params})
+  const response = await instance.get<{ mpuzaMiryangoRemezo: MpuzaResponse[], message: string, totalPages: number }>('/mpuzamiryangoremezo', {params})
   return response.data
 }
 

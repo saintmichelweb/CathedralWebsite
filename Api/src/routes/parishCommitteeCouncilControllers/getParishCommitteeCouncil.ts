@@ -8,7 +8,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /parishCommitteeCouncil/all:
+ * /parishCommitteeCouncil:
  *   get:
  *     tags:
  *       - parishCommitteeCouncil

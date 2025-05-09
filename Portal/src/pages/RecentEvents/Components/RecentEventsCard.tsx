@@ -253,12 +253,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               maxW={{ base: "25rem", sm: "90vw" }}
             />
           </Stack>
-          {/* {!recentEventToEdit && (
-          <ImageUploader
-            parentSetSelectedImage={(file: File) => setSelectedImage(file)}
-          />
-        )} */}
-          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={recentEventToEdit?.backgroundImage?.imageUrl || undefined} width="22rem" height="21.5rem"/>
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={recentEventToEdit?.backgroundImage?.imageUrl || undefined} width="full" height="21.5rem"/>
         </SimpleGrid>
         <Divider mt={4} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">

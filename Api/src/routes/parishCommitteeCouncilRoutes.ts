@@ -10,7 +10,7 @@ import { deleteparishCommitteeCouncil } from "./parishCommitteeCouncilController
 const router = express.Router();
 
 router.post("/parishCommitteeCouncil", authenticateJWT, postparishCommitteeCouncil )
-router.get("/parishCommitteeCouncil/all",
+router.get("/parishCommitteeCouncil",
     authenticateJWT, 
     getparishCommitteeCouncil )
 router.put("/parishCommitteeCouncil/:id", authenticateJWT, putparishCommitteeCouncil);

@@ -9,7 +9,7 @@ export async function addNewChoir(ChoirObj: AddChoirsForm) {
 }
 
 export async function getAllChoirs(params: PaginationParams) {
-  const response = await instance.get<{ choirs: ChoirsResponse[], message: string, totalPages: number }>('/Choir/all', {params})
+  const response = await instance.get<{ choirs: ChoirsResponse[], message: string, totalPages: number }>('/Choir', {params})
   return response.data
 }
 

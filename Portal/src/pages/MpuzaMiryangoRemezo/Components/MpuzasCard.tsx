@@ -4,12 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
-import { FormInput, FormTextarea } from "../../../components/form";
-import { MpuzaResponse, MessageResponse } from "../../../types/apiResponses";
+import { CustomFormSelect, FormInput, FormTextarea } from "../../../components/form";
+import { MpuzaResponse, MessageResponse, CommunityResponse } from "../../../types/apiResponses";
 import { addNewImage, updateImage } from "../../../api/images";
 import { addNewMpuza, updateMpuza } from "../../../api/MpuzaMiryangoRemezo";
 import { AddMpuzaMiryangoRemezoForm, mpuzaMiryangoRemezoSchema, UpdateMpuzaMiryangoRemezoForm } from "../../../lib/validations/MpuzaMiryangoRemezo";
 import FileUploadModal from "../../../components/ui/CustomModal/FileUploadModal";
+import { SelectOption } from "../../../types/forms";
+import { getAllCommunities } from "../../../api/community";
 
 interface AddMpuzaProps {
   onClose: () => void;
@@ -34,6 +36,8 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
   const [newRecentEventPayload, setNewRecentEventPayload] =
     useState<AddMpuzaMiryangoRemezoForm>();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [massCommunity, setMassCommunity] = useState<SelectOption | null>(null);
+  const communitiesSelectOptions: SelectOption[] = [];
 
   const onSubmit = async (values: AddMpuzaMiryangoRemezoForm) => {
     setNewRecentEventPayload(values);
@@ -49,12 +53,34 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
       setValue("description_en", MpuzaToEdit.description_en);
       setValue("description_fr", MpuzaToEdit.description_fr);
       setValue("description_rw", MpuzaToEdit.description_rw);
+      setValue("community", MpuzaToEdit.community.id);
+      setMassCommunity({
+        value: MpuzaToEdit.community.id,
+        label: MpuzaToEdit.community.name,
+      });
     }
     setValue(
       "backgroundImageId",
       MpuzaToEdit?.backgroundImage?.id || null
     );
   }, [MpuzaToEdit]);
+
+  useEffect(() => {
+    const getCommunities = async () => {
+      await getAllCommunities({ page: undefined }).then((data) => {
+        data.communities.map((dataLocation: CommunityResponse) => {
+          communitiesSelectOptions.push({
+            value: dataLocation.id,
+            label: dataLocation.name,
+          });
+        });
+      });
+    };
+
+    if (communitiesSelectOptions.length === 0) {
+      getCommunities();
+    }
+  }, []);
 
   const onConfirm = async (payload: AddMpuzaMiryangoRemezoForm | undefined) => {
     setIsOpenModal(false);
@@ -127,6 +153,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
           description_en: payload.description_en,
           description_fr: payload.description_fr,
           description_rw: payload.description_rw,
+          community: payload.community,
           backgroundImageId: MpuzaToEdit.backgroundImage?.id || null,
           mpuzMiryangoRemezoId: MpuzaToEdit?.id || null,
         };
@@ -168,12 +195,27 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
           data-testid='form-skeleton'
         >
           <Stack>
+            <CustomFormSelect
+              selectValue={massCommunity}
+              isError={errors.community ? true : false}
+              errorMsg={errors.community ? errors.community.message : undefined}
+              label="Community"
+              placeholder="Choose community"
+              options={communitiesSelectOptions}
+              onChangeFn={(selectedVal: SelectOption| null) => {
+                setMassCommunity(selectedVal);
+                if (selectedVal) {
+                  setValue("community", Number(selectedVal.value));
+                }
+              }}
+              maxWVal={{ lg: "full", sm: "90vw" }}
+            />
             <FormInput
               name="title"
               register={register}
               errors={errors}
               label="Mpuza Title"
-              placeholder="Enter commission name (en)"
+              placeholder="Enter name (en)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -182,7 +224,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Mpuza Leader"
-              placeholder="Enter commission name (fr)"
+              placeholder="Enter name (fr)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -191,7 +233,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Event description (en)"
-              placeholder="Enter commission description"
+              placeholder="Enter description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -202,7 +244,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Mpuza Phone"
-              placeholder="Enter commission name (rw)"
+              placeholder="Enter name (rw)"
               inputProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -211,7 +253,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Event description (fr)"
-              placeholder="Enter commission description"
+              placeholder="Enter description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
@@ -220,12 +262,12 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
               register={register}
               errors={errors}
               label="Event description (rw)"
-              placeholder="Enter commission description"
+              placeholder="Enter description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
             />
           </Stack>
-          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={MpuzaToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={MpuzaToEdit?.backgroundImage?.imageUrl || undefined} width="full" height="full" />
         </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">

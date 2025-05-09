@@ -8,7 +8,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /location/all:
+ * /location:
  *   get:
  *     tags:
  *       - Location
@@ -77,7 +77,7 @@ export async function getLocations(req: AuthRequest, res: Response) {
   try {
     if ( !req.query.page ) {
       const totalLocations = await queryBuilder.getMany()
-      return res.status(200).send({ message: "Locations retrieved successfully!", totalPages: 1, languages: totalLocations });
+      return res.status(200).send({ message: "Locations retrieved successfully!", totalPages: 1, locations: totalLocations });
     } else {
       const numberOfItems = await queryBuilder.getCount()
       const totalPages = Math.ceil(numberOfItems / pageSize)

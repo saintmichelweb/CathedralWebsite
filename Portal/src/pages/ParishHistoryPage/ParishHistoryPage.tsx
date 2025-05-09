@@ -78,17 +78,17 @@ const ParishHistoryManagement = () => {
     await addOrUpdateParishHistory(payload)
       .then((res: MessageResponse) => {
         toast({
-          title: `${!parishHistory ? "Create" : "Update"} History message!`,
-          description: res?.message || "Parish History saved successfully",
+          title: `${!parishHistory ? "Add" : "Update"} History, Mission and Vision message!`,
+          description: res?.message || "History, Mission and Vision saved successfully",
           status: "success",
         });
         fetchParishHistory();
       })
       .catch((error) => {
         toast({
-          title: `${!parishHistory ? "Create" : "Update"} History message!`,
+          title: `${!parishHistory ? "Add" : "Update"} History, Mission and Vision message!`,
           description:
-            error.response.data?.message || "Error saving parish history!",
+            error.response.data?.message || "Error saving History, Mission and Vision!",
           status: "error",
         });
       });
@@ -122,17 +122,21 @@ const ParishHistoryManagement = () => {
                 spacing="4"
                 onSubmit={handleSubmit(onSubmit)}
                 width={"100%"}
+                py={4}
+                px={4}
               >
                 <Stack direction={{ base: "column", lg: "row" }}>
                   <Heading size="sm">
                     {" "}
-                    {!parishHistory ? "Create" : "Update"} History
+                    {!parishHistory ? "Add" : "Update"} History
                   </Heading>
                 </Stack>
-                <Stack direction={"row"} justifyContent={"space-around"}>
+                <Stack direction={"row"} justifyContent={"space-around"} pb={'4'}>
                   <FormTextarea
                     name="parishHistory_en"
                     label="History (en)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish history (en)"
@@ -140,6 +144,8 @@ const ParishHistoryManagement = () => {
                   <FormTextarea
                     name="parishHistory_fr"
                     label="History (fr)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish history (fr)"
@@ -147,6 +153,8 @@ const ParishHistoryManagement = () => {
                   <FormTextarea
                     name="parishHistory_rw"
                     label="History (rw)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish history (rw)"
@@ -155,13 +163,15 @@ const ParishHistoryManagement = () => {
                 <Stack direction={{ base: "column", lg: "row" }}>
                   <Heading size="sm">
                     {" "}
-                    {!parishHistory ? "Create" : "Update"} Mission
+                    {!parishHistory ? "Add" : "Update"} Mission
                   </Heading>
                 </Stack>
-                <Stack direction={"row"} justifyContent={"space-around"}>
+                <Stack direction={"row"} justifyContent={"space-around"} pb={'4'}>
                   <FormTextarea
                     name="mission_en"
                     label="Mission (en)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish mission (en)"
@@ -169,6 +179,8 @@ const ParishHistoryManagement = () => {
                   <FormTextarea
                     name="mission_fr"
                     label="Mission (fr)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish mission (fr)"
@@ -176,6 +188,8 @@ const ParishHistoryManagement = () => {
                   <FormTextarea
                     name="mission_rw"
                     label="Mission (rw)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish mission (rw)"
@@ -184,13 +198,15 @@ const ParishHistoryManagement = () => {
                 <Stack direction={{ base: "column", lg: "row" }}>
                   <Heading size="sm">
                     {" "}
-                    {!parishHistory ? "Create" : "Update"} Vision
+                    {!parishHistory ? "Add" : "Update"} Vision
                   </Heading>
                 </Stack>
-                <Stack direction={"row"} justifyContent={"space-around"}>
+                <Stack direction={"row"} justifyContent={"space-around"} pb={'4'}>
                   <FormTextarea
                     name="vision_en"
                     label="Vision (en)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish vision (en)"
@@ -198,6 +214,8 @@ const ParishHistoryManagement = () => {
                   <FormTextarea
                     name="vision_fr"
                     label="Vision (fr)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish vision (fr)"
@@ -205,6 +223,8 @@ const ParishHistoryManagement = () => {
                   <FormTextarea
                     name="vision_rw"
                     label="Vision (rw)"
+                    textareaProps={{height: '8rem'}}
+                    px={2}
                     register={register}
                     errors={errors}
                     placeholder="Enter parish vision (rw)"
@@ -218,7 +238,6 @@ const ParishHistoryManagement = () => {
                   mt='3'
                   mb='5'
                   alignSelf={"center"}
-                  mb={'3'}
                 >
                   Submit
                 </CustomButton>

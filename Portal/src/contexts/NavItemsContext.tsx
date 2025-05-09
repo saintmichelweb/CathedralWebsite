@@ -5,8 +5,6 @@ import { GiSunPriest } from "react-icons/gi";
 import { IoImages, IoTextSharp } from "react-icons/io5";
 import { FaHandsHelping, FaUserCircle } from "react-icons/fa";
 import { TiGroupOutline } from "react-icons/ti";
-import { MdGroups2 } from "react-icons/md";
-import { BsMusicNoteList } from "react-icons/bs";
 import Cookies from "universal-cookie";
 import { CgMoreO } from "react-icons/cg";
 import { BiSolidNews } from "react-icons/bi";
@@ -15,6 +13,7 @@ import { getUserProfile } from "../api/users";
 import { useUserContext } from "./UserContext";
 import { PortalUserStatus } from "../../../shared-lib/src";
 import { AiFillSchedule } from "react-icons/ai";
+import { RiCommunityFill } from "react-icons/ri";
 
 export const NAV_ITEMS = [
   {
@@ -134,8 +133,8 @@ export const NAV_ITEMS = [
     // permissions: ['View Transactions'],
   },
   {
-    name: "Commissions and Committees",
-    label: "Open Commissions and Committees nav menu",
+    name: "Committees, Commissions and choirs",
+    label: "Open Committees, Commissions and choirs nav menu",
     icon: TiGroupOutline,
     // permissions: ['View Portal Users'],
     subNavItems: [
@@ -153,15 +152,51 @@ export const NAV_ITEMS = [
         // icon: FaLanguage,
         // permissions: ['View Transactions'],
       },
+      {
+        name: "Choirs",
+    to: "/choirs",
+        shortName: "Choirs",
+        // icon: FaLanguage,
+        // permissions: ['View Transactions'],
+      },
     ],
   },
   {
-    name: "Choirs",
-    to: "/choirs",
-    label: "Go to choirs",
-    icon: BsMusicNoteList,
-    // permissions: ['View Transactions'],
+    name: "communities, Mpuza miryango remezo and miryango remezo",
+    label: "Open communities, Mpuza miryango remezo and miryango remezo nav menu",
+    icon: RiCommunityFill,
+    // permissions: ['View Portal Users'],
+    subNavItems: [
+      {
+        name: "Communities",
+    to: "/communities",
+        shortName: "Communities",
+        // icon: FaLanguage,
+        // permissions: ['View Transactions'],
+      },
+      {
+        name: "Mpuza Miryango Remezo",
+    to: "/mpuza",
+        shortName: "Mpuza miryango remezo",
+        // icon: IoTimeOutline,
+        // permissions: ['View Transactions'],
+      },
+      {
+        name: "Miryango remezo",
+    to: "/miryangoremezo",
+        shortName: "Miryango remezo",
+        // icon: FaLanguage,
+        // permissions: ['View Transactions'],
+      },
+    ],
   },
+  // {
+  //   name: "Choirs",
+  //   to: "/choirs",
+  //   label: "Go to choirs",
+  //   icon: BsMusicNoteList,
+  //   // permissions: ['View Transactions'],
+  // },
   {
     name: "Users Management",
     label: "Go to users management",

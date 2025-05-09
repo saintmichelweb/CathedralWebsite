@@ -9,7 +9,7 @@ export async function addNewMassTime(massTimeObj: MassTimesForm) {
 }
 
 export async function getAllMassTimes(params: PaginationParams) {
-  const response = await instance.get<{ massTimes: MassTimesResponse [], message: string, totalPages: number }>('/mass-times/all?isPortalRequest=true', {params})
+  const response = await instance.get<{ massTimes: MassTimesResponse [], message: string, totalPages: number }>('/mass-times?isPortalRequest=true', {params})
   return response.data
 }
 

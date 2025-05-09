@@ -9,7 +9,7 @@ export async function addNewLocation(locationObj: LocationForm) {
 }
 
 export async function getLocations(params: PaginationParams, isMassLocation?: boolean, isActive?: boolean) {
-  let apiPath = `/location/all?`
+  let apiPath = `/location?`
   if (isActive) apiPath += `isActive=${isActive}`
   if (isActive && isMassLocation) apiPath += `&isMassLocation=${isMassLocation}`
   if (!isActive && isMassLocation) apiPath += `isMassLocation=${isMassLocation}`

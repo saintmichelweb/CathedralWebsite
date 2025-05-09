@@ -221,6 +221,7 @@ export interface MpuzaResponse {
     description_en: string
     description_fr: string
     description_rw: string
+    community: CommunityResponse
     created_at: string
     updated_at: string 
     backgroundImage: imageResponse | null
@@ -231,6 +232,7 @@ export interface MiryangoremezoResponse {
     title: string
     header: string
     phone: string
+    mpuza: MpuzaResponse
     created_at: string
     updated_at: string 
 }

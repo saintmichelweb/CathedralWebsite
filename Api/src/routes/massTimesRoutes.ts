@@ -7,7 +7,7 @@ import { putMassTimes } from "./massTimesControllers/putMassTime";
 
 const router = express.Router();
 
-router.get("/mass-times/all", authenticateJWT, getPortalMassTimes )
+router.get("/mass-times", authenticateJWT, getPortalMassTimes )
 router.post("/mass-times", authenticateJWT, postMassTime )
 router.put("/mass-times/:id", authenticateJWT, putMassTimes);
 // router.delete("/location/:id", authenticateJWT, deleteLocation);

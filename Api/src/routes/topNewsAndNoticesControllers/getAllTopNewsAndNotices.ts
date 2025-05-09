@@ -7,7 +7,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /top-news-and-notices/all:
+ * /top-news-and-notices:
  *   get:
  *     tags:
  *       - Top News And Notices

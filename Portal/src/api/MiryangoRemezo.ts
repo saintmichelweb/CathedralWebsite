@@ -9,7 +9,7 @@ export async function addNewMuryangoRemezo(priestObj: AddMiryangoRemezoForm) {
 }
 
 export async function getAllMuryangoRemezo(params: PaginationParams) {
-  const response = await instance.get<{ miryangoRemezo: MiryangoremezoResponse[], message: string, totalPages: number }>('/miryangoremezo/all', {params})
+  const response = await instance.get<{ miryangoRemezo: MiryangoremezoResponse[], message: string, totalPages: number }>('/miryangoremezo', {params})
   return response.data
 }
 

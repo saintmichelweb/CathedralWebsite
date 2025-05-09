@@ -10,7 +10,7 @@ import { deleteCommission } from "./CommissionsControllers/deleteCommission";
 const router = express.Router();
 
 router.post("/commissions", authenticateJWT, postCommission )
-router.get("/commissions/all",
+router.get("/commissions",
     authenticateJWT, 
     getAllCommissions )
 router.put("/commissions/:id", authenticateJWT, putCommission);

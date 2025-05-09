@@ -10,7 +10,7 @@ import { deleteOfficeHour } from "./officeHoursControllers/deletOfficeHour";
 const router = express.Router();
 
 router.post("/office-hours", authenticateJWT, postOfficeHour )
-router.get("/office-hours/all",
+router.get("/office-hours",
     authenticateJWT, 
     getOfficeHours )
 router.put("/office-hours/:id", authenticateJWT, putOfficeHour);

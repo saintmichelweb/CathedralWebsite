@@ -8,7 +8,7 @@ import { deleteChoir } from "./choirControllers/deleteChoir";
 
 const router = express.Router();
 
-router.get("/Choir/all", authenticateJWT, getAllChoir )
+router.get("/Choir", authenticateJWT, getAllChoir )
 router.post("/Choir", authenticateJWT, postChoir )
 router.put("/Choir/:id", authenticateJWT, putChoir);
 router.delete("/Choir/:id", authenticateJWT, deleteChoir);
