@@ -60,7 +60,7 @@ export async function getAllMpuzas(req: Request, res: Response) {
     const totalPages = Math.ceil(numberOfItems / pageSize)
     queryBuilder.skip(skip).take(pageSize).orderBy('Mpuza.created_at', 'DESC')
     const totalMpuza = await queryBuilder.getMany()
-    return res.status(200).send({ message: "Mpuza retrieved successfully!", commissions: totalMpuza, totalPages });
+    return res.status(200).send({ message: "Mpuza retrieved successfully!", mpuzaMiryangoRemezo: totalMpuza, totalPages });
   } catch (error: any) {
     logger.error("Getting Mpuza failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

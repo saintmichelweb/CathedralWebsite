@@ -273,7 +273,7 @@ const AddServicesCard = (props: AddServiceProps) => {
               maxW={{ base: "25rem", sm: "90vw" }}
             />
           </Stack>
-          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={serviceToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={serviceToEdit?.backgroundImage?.imageUrl || undefined} width="full" height="full" />
         </SimpleGrid>
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">

@@ -121,7 +121,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /Choir/all:
+  /Choir:
     get:
       tags:
         - Choir
@@ -159,7 +159,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /Choir:
     post:
       tags:
         - Choir
@@ -324,7 +323,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /commissions/all:
+  /commissions:
     get:
       tags:
         - Commission
@@ -344,7 +343,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /commissions:
     post:
       tags:
         - Commission
@@ -612,7 +610,7 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /images/all:
+  /images:
     get:
       tags:
         - Images
@@ -762,7 +760,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /language/all:
+  /language:
     get:
       tags:
         - Language
@@ -791,7 +789,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /language:
     post:
       tags:
         - Language
@@ -948,7 +945,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /location/all:
+  /location:
     get:
       tags:
         - Location
@@ -983,7 +980,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /location:
     post:
       tags:
         - Location
@@ -1036,7 +1032,7 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
-  /mass-times/all:
+  /mass-times:
     get:
       tags:
         - Mass Times
@@ -1071,7 +1067,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /mass-times:
     post:
       tags:
         - Mass Times
@@ -1251,17 +1246,17 @@ paths:
           description: Internal Server error
     put:
       tags:
-        - Commission
+        - Mpuza
       security:
         - Authorization: []
-      summary: Update a commission
+      summary: Update a mpuzaMiryangoRemezo
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: integer
-          description: commission ID
+          description: mpuzaMiryangoRemezo ID
       requestBody:
         required: true
         content:
@@ -1271,19 +1266,19 @@ paths:
               properties:
                 name:
                   type: string
-                  example: commission
-                  description: commission title
+                  example: mpuzaMiryangoRemezo
+                  description: mpuzaMiryangoRemezo title
                 description:
                   type: string
                   example: description
-                  description: commission description
+                  description: mpuzaMiryangoRemezo description
                 backgroundImageId:
                   type: number
                   example: 1
                   description: Id of the saved image entity
       responses:
         '200':
-          description: commission saved successfully
+          description: mpuzaMiryangoRemezo saved successfully
           content:
             application/json:
               schema:
@@ -1294,7 +1289,7 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: commission updated successfully.
+                    example: mpuzaMiryangoRemezo updated successfully.
         '401':
           description: Invalid credentials!
           content:
@@ -1309,7 +1304,7 @@ paths:
                     type: string
                     example: Invalid credentials!
         '404':
-          description: Commission not found!
+          description: Mpuza not found!
         '422':
           description: Validation error!
         '500':
@@ -1686,7 +1681,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /office-hours/all:
+  /office-hours:
     get:
       tags:
         - Office Hours
@@ -1715,7 +1710,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /office-hours:
     post:
       tags:
         - Office Hours
@@ -1868,7 +1862,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /parishCommitteeCouncil/all:
+  /parishCommitteeCouncil:
     get:
       tags:
         - parishCommitteeCouncil
@@ -1897,7 +1891,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /parishCommitteeCouncil:
     post:
       tags:
         - parishCommitteeCouncil
@@ -2156,7 +2149,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /priests/all:
+  /priests:
     get:
       tags:
         - Priests
@@ -2176,7 +2169,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /priests:
     post:
       tags:
         - Priests
@@ -2341,7 +2333,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /recent-events/all:
+  /recent-events:
     get:
       tags:
         - Recent Events
@@ -2370,7 +2362,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /recent-events:
     post:
       tags:
         - Recent Events
@@ -2825,7 +2816,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /services/all:
+  /services:
     get:
       tags:
         - Service
@@ -2854,7 +2845,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /services:
     post:
       tags:
         - Service
@@ -3011,7 +3001,7 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
-  /top-news-and-notices/all:
+  /top-news-and-notices:
     get:
       tags:
         - Top News And Notices
@@ -3040,17 +3030,6 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
-  /top-news-and-notices/all-public:
-    get:
-      tags:
-        - Top News And Notices
-      summary: Get all top news and notices for public access
-      responses:
-        '200':
-          description: Get Top News And Notices
-        '500':
-          description: Internal Server error
-  /top-news-and-notices:
     post:
       tags:
         - Top News And Notices
@@ -3101,6 +3080,16 @@ paths:
                     example: Invalid credentials
         '422':
           description: Validation error
+        '500':
+          description: Internal Server error
+  /top-news-and-notices-public:
+    get:
+      tags:
+        - Top News And Notices
+      summary: Get all top news and notices for public access
+      responses:
+        '200':
+          description: Get Top News And Notices
         '500':
           description: Internal Server error
   /users/add:

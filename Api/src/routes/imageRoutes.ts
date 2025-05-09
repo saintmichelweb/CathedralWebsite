@@ -25,7 +25,7 @@ router.post('/image/upload',
     authenticateJWT,
     uploadMiddleware,
     ImageUpload);
-router.get('/images/all',
+router.get('/images',
     authenticateJWT,
     getBannerImages);
 router.put('/image/:id',

@@ -278,7 +278,7 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
           }}
           maxWVal={{ lg: "full", sm: "90vw" }}
         />
-        <TimeSelector />
+        {/* <TimeSelector /> */}
         <FormInput
           name="time"
           register={register}

@@ -9,7 +9,7 @@ export async function addNewCommission(priestObj: AddCommissionForm) {
 }
 
 export async function getAllCommissions(params: PaginationParams) {
-  const response = await instance.get<{ commissions: commissionResponse[], message: string, totalPages: number }>('/commissions/all', {params})
+  const response = await instance.get<{ commissions: commissionResponse[], message: string, totalPages: number }>('/commissions', {params})
   return response.data
 }
 

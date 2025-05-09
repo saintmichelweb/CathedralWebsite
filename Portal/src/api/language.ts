@@ -9,7 +9,7 @@ export async function addNewLanguage(languageObj: LanguageForm) {
 }
 
 export async function getLanguages(params: PaginationParams, isActive?: boolean) {
-  const response = await instance.get<{ languages: LanguageResponse[], message: string, totalPages: number }>(`/language/all${isActive ? `?isActive=${isActive}` : ''}`, {params})
+  const response = await instance.get<{ languages: LanguageResponse[], message: string, totalPages: number }>(`/language${isActive ? `?isActive=${isActive}` : ''}`, {params})
   return response.data
 }
 

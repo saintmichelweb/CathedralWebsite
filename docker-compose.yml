@@ -38,8 +38,8 @@ services:
       context: .
       dockerfile: ./DockerFile-Api
     restart: unless-stopped
-    # command: ["npm", "run", "dev"] # used in development for nodemon
-    command: ["npm", "run", "start"] 
+    command: ["npm", "run", "dev"] # used in development for nodemon
+    # command: ["npm", "run", "start"] 
     ports:
       - "3551:3551"
     networks:

@@ -7,7 +7,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /recent-events/all:
+ * /recent-events:
  *   get:
  *     tags:
  *       - Recent Events

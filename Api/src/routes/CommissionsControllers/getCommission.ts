@@ -7,7 +7,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /commissions/all:
+ * /commissions:
  *   get:
  *     tags:
  *       - Commission

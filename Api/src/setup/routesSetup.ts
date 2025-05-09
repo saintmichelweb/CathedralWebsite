@@ -15,6 +15,9 @@ import parishCommitteeCouncil from '../routes/parishCommitteeCouncilRoutes'
 import commissions from '../routes/commissionsRoutes'
 import officeHours from '../routes/officeHours'
 import choirs from '../routes/choirsRoutes'
+import communities from '../routes/communitiesRoutes'
+import mpuza from '../routes/MpuzaRoutes'
+import miryangoremezo from '../routes/MiryangoremezoRoutes'
 
 
 
@@ -36,6 +39,9 @@ export default function setupRoutes (app: Application): void {
   app.use('/api', commissions)
   app.use('/api', officeHours)
   app.use('/api', choirs)
+  app.use('/api', communities)
+  app.use('/api', mpuza)
+  app.use('/api', miryangoremezo)
 
   // Catch-all route to handle 404s
   app.use('*', (req, res) => {

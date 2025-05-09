@@ -9,7 +9,7 @@ export async function addNewOfficeHour(massTimeObj: OfficeHoursForm) {
 }
 
 export async function getAllOfficeHours(params: PaginationParams) {
-  const response = await instance.get<{ officeHours: OfficeHoursResponse[], message: string, totalPages: number }>('/office-hours/all?isPortalRequest=true', {params})
+  const response = await instance.get<{ officeHours: OfficeHoursResponse[], message: string, totalPages: number }>('/office-hours?isPortalRequest=true', {params})
   return response.data
 }
 
