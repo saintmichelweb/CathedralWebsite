@@ -8,7 +8,7 @@ import { Brackets } from "typeorm";
 
 /**
  * @openapi
- * /Choir/all:
+ * /Choir:
  *   get:
  *     tags:
  *       - Choir

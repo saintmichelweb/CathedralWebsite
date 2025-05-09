@@ -9,7 +9,7 @@ import { putPriests } from "./priestsControllers/putPriests";
 const router = express.Router();
 
 router.post("/priests", authenticateJWT, postPriests )
-router.get("/priests/all",
+router.get("/priests",
     authenticateJWT, 
     getAllPriests )
 router.put("/priests/:id", authenticateJWT, putPriests);

@@ -49,7 +49,6 @@ export async function getAllMiryangoRemezo(req: Request, res: Response) {
 
   const MuryangoRemezoRepository = AppDataSource.getRepository(MuryangoremezoEntity);
   const queryBuilder = MuryangoRemezoRepository.createQueryBuilder('muryangoremezo')
-    .leftJoinAndSelect('muryangoremezo.backgroundImage', 'backgroundImage')
 
   // if (isActive !==null && isActive !== undefined) {
   //   queryBuilder.where('recent_events.isActive = :isActive', {isActive: isActive? 1: 0})
@@ -58,9 +57,9 @@ export async function getAllMiryangoRemezo(req: Request, res: Response) {
   try {
     const numberOfItems = await queryBuilder.getCount()
     const totalPages = Math.ceil(numberOfItems / pageSize)
-    queryBuilder.skip(skip).take(pageSize).orderBy('MuryangoRemezo.created_at', 'DESC')
+    queryBuilder.skip(skip).take(pageSize).orderBy('muryangoremezo.created_at', 'DESC')
     const totalMuryangoRemezo = await queryBuilder.getMany()
-    return res.status(200).send({ message: "MuryangoRemezo retrieved successfully!", communities: totalMuryangoRemezo, totalPages });
+    return res.status(200).send({ message: "MuryangoRemezo retrieved successfully!", miryangoRemezo: totalMuryangoRemezo, totalPages });
   } catch (error: any) {
     logger.error("Getting MuryangoRemezo failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });

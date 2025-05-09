@@ -9,7 +9,7 @@ export async function addNewTopNewsAndNotices(topNewsAndNoticesObj: TopNewsAndNo
 }
 
 export async function getAllTopNewsAndNotices(params: PaginationParams) {
-  const response = await instance.get<{ topParishNewsAndNotices: TopNewsAndNoticesResponse[], message: string, totalPages: number }>('/top-news-and-notices/all', {params})
+  const response = await instance.get<{ topParishNewsAndNotices: TopNewsAndNoticesResponse[], message: string, totalPages: number }>('/top-news-and-notices', {params})
   return response.data
 }
 

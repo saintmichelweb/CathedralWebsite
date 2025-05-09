@@ -246,7 +246,7 @@ const MpuzaMiryangoRemezoManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedMpuza ? "Update" : "Add"} commission`}
+        headerTitle={`${selectedMpuza ? "Update" : "Add"} Mpuza`}
         isOpen={openNewMpuzaModel}
         onClose={() => setOpenNewMpuzaModel(false)}
         child={
@@ -264,7 +264,7 @@ const MpuzaMiryangoRemezoManagement = () => {
         widthSize="60vw"
       />
       <AlertDialog
-        alertText={`Are you sure you want to delete this commission?`}
+        alertText={`Are you sure you want to delete this Mpuza?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
           setSelectedMpuza(null);

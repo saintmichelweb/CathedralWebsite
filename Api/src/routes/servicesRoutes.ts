@@ -10,7 +10,7 @@ import { deleteService } from "./servicesControllers/deletService";
 const router = express.Router();
 
 router.post("/services", authenticateJWT, postService )
-router.get("/services/all",
+router.get("/services",
     authenticateJWT, 
     getServices )
 router.put("/services/:id", authenticateJWT, putService);

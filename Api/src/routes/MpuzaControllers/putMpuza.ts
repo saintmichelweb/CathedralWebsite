@@ -5,49 +5,37 @@ import logger from "../../services/logger";
 import { isUndefinedOrNull } from "../../utils/utils";
 import { z } from "zod";
 import { ImageEntity } from "../../entity/ImagesEntity";
-import { CommissionEntity } from "../../entity/CommissionEntity";
+import { MpuzaEntity } from "../../entity/MpuzaEntity";
+import { CommunityEntity } from "../../entity/CommunityEntity";
 
-const commissionSchema = z.object({
-  name_en: z
+const mpuzaMiryangoRemezoSchema = z.object({
+  title: z
     .string()
     .trim()
-    .min(1, { message: "name_en is required" }),
-  name_fr: z
+    .min(1, { message: "title is required" }),
+  leader: z
     .string()
     .trim()
-    .min(1, { message: "name_fr is required" }),
-  name_rw: z
+    .min(1, { message: "leader is required" }),
+  phone: z
     .string()
     .trim()
-    .min(1, { message: "name_rw is required" }),
-  contact_person_name: z
-    .string()
-    .trim()
-    .min(1, { message: "contact_person_name is required" }),
-  contact_person_role: z
-    .string()
-    .trim()
-    .min(1, { message: "contact_person_role is required" }),
-  contact_person_phone_number: z
-    .string()
-    .trim()
-    .min(1, { message: "contact_person_phone_number is required" }),
-  contact_person_email: z
-    .string()
-    .trim()
-    .min(1, { message: "contact_person_email is required" }),
+    .min(1, { message: "phone is required" }),
   description_en: z
     .string()
     .trim()
-    .min(1, { message: "Description is required" }),
+    .min(1, { message: "Description (en) is required" }),
   description_fr: z
     .string()
     .trim()
-    .min(1, { message: "Description is required" }),
+    .min(1, { message: "Description (fr) is required" }),
   description_rw: z
     .string()
     .trim()
-    .min(1, { message: "Description is required" }),
+    .min(1, { message: "Description (rw) is required" }),
+  community: z
+    .number()
+    .min(1, { message: "community id is required" }),
   backgroundImageId: z
     .number()
     .nullable()
@@ -58,17 +46,17 @@ const commissionSchema = z.object({
  * /mpuzamiryangoremezo/{id}:
  *   put:
  *     tags:
- *       - Commission
+ *       - Mpuza
  *     security:
  *       - Authorization: []
- *     summary: Update a commission
+ *     summary: Update a mpuzaMiryangoRemezo
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *            type: integer
- *         description: commission ID
+ *         description: mpuzaMiryangoRemezo ID
  *     requestBody:
  *       required: true
  *       content:
@@ -78,19 +66,19 @@ const commissionSchema = z.object({
  *             properties:
  *               name:
  *                 type: string
- *                 example: "commission"
- *                 description: "commission title"
+ *                 example: "mpuzaMiryangoRemezo"
+ *                 description: "mpuzaMiryangoRemezo title"
  *               description:
  *                 type: string
  *                 example: "description"
- *                 description: "commission description"
+ *                 description: "mpuzaMiryangoRemezo description"
  *               backgroundImageId:
  *                 type: number
  *                 example: 1
  *                 description: "Id of the saved image entity"
  *     responses:
  *       200:
- *         description: commission saved successfully
+ *         description: mpuzaMiryangoRemezo saved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -101,7 +89,7 @@ const commissionSchema = z.object({
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "commission updated successfully."
+ *                   example: "mpuzaMiryangoRemezo updated successfully."
  *       401:
  *         description: Invalid credentials!
  *         content:
@@ -116,7 +104,7 @@ const commissionSchema = z.object({
  *                   type: string
  *                   example: "Invalid credentials!"
  *       404:
- *         description: Commission not found! 
+ *         description: Mpuza not found! 
  *       422:
  *         description: Validation error!
  *       500:
@@ -125,80 +113,69 @@ const commissionSchema = z.object({
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-export async function putCommission(req: AuthRequest, res: Response) {
+export async function putMpuzamiryangoremezo(req: AuthRequest, res: Response) {
   let portalUser = req.user;
   if (isUndefinedOrNull(portalUser)) {
     return res.status(401).send({ message: "Unauthorized!" });
   }
 
-  const parsedBody = commissionSchema.safeParse(req.body);
+  const parsedBody = mpuzaMiryangoRemezoSchema.safeParse(req.body);
   if (!parsedBody.success) {
     logger.error("Validation error: %o", parsedBody.error.issues);
     logger.error("Validation error: %o", req.body);
     return res.status(422).send({ message: "Validation error!" });
   }
 
-  const CommissionRepository = AppDataSource.getRepository(CommissionEntity);
+  const MpuzaRepository = AppDataSource.getRepository(MpuzaEntity);
   try {
     const id = Number(req.params.id);
-    const savedCommission = await CommissionRepository.findOne({ where: { id } });
-    if (savedCommission === null) {
-      return res.status(404).send({ message: "Commission does not exist!" });
+    const savedMpuza = await MpuzaRepository.findOne({ where: { id } });
+    if (savedMpuza === null) {
+      return res.status(404).send({ message: "Mpuza does not exist!" });
     }
 
-    if (parsedBody.data.name_en) {
-      savedCommission.name_en = parsedBody.data.name_en;
+    if (parsedBody.data.title) {
+      savedMpuza.title = parsedBody.data.title;
     }
 
-    if (parsedBody.data.name_fr) {
-      savedCommission.name_fr = parsedBody.data.name_fr;
+    if (parsedBody.data.leader) {
+      savedMpuza.leader = parsedBody.data.leader;
     }
 
-    if (parsedBody.data.name_rw) {
-      savedCommission.name_rw = parsedBody.data.name_rw;
+    if (parsedBody.data.phone) {
+      savedMpuza.phone = parsedBody.data.phone;
     }
 
-    if (parsedBody.data.contact_person_name) {
-      savedCommission.contact_person_name = parsedBody.data.contact_person_name;
-    }
-
-    if (parsedBody.data.contact_person_role) {
-      savedCommission.contact_person_role = parsedBody.data.contact_person_role;
-    }
-
-    if (parsedBody.data.contact_person_email) {
-      savedCommission.contact_person_email = parsedBody.data.contact_person_email;
-    }
-
-    if (parsedBody.data.contact_person_phone_number) {
-      savedCommission.contact_person_phone_number = parsedBody.data.contact_person_phone_number;
-    }
-
-    // if (parsedBody.data.title) {
-    //   savedCommission.title = parsedBody.data.title;
-    // }
     if (parsedBody.data.description_en) {
-      savedCommission.description_en = parsedBody.data.description_en;
+      savedMpuza.description_en = parsedBody.data.description_en;
     }
     if (parsedBody.data.description_fr) {
-      savedCommission.description_fr = parsedBody.data.description_fr;
+      savedMpuza.description_fr = parsedBody.data.description_fr;
     }
     if (parsedBody.data.description_rw) {
-      savedCommission.description_rw = parsedBody.data.description_rw;
+      savedMpuza.description_rw = parsedBody.data.description_rw;
+    }
+
+    if (parsedBody.data.community) {
+      const communityRepository = AppDataSource.getRepository(CommunityEntity);
+      const savedCommunity = await communityRepository.findOne({ where: { id: parsedBody.data.community } });
+      if (savedCommunity) {
+        savedMpuza.community = savedCommunity
+      }
     }
 
     if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroundImageId } });
       if (savedImage) {
-        savedCommission.backgroundImage = savedImage
+        savedMpuza.backgroundImage = savedImage
       }
     }
 
-    await CommissionRepository.save(savedCommission);
-    return res.status(201).send({ message: "Commission updated successfully." });
+    await MpuzaRepository.save(savedMpuza);
+    return res.status(201).send({ message: "Mpuza updated successfully." });
   } catch (error: any) {
-    logger.error("Updating Commission failed: %s", error);
+    logger.error("Updating Mpuza failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

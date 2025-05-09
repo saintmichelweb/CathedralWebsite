@@ -120,10 +120,11 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
       });
     });
   };
-
+useEffect(() => {
   if (locationSelectOptions.length == 0) {
     getAllLocations();
   }
+})
 
   const onSubmit = async (values: OfficeHoursForm) => {
     setNewUserPayload(values);

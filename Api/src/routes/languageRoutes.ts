@@ -8,7 +8,7 @@ import { deleteLanguage } from "./languageControllers/deletLanguage";
 
 const router = express.Router();
 
-router.get("/language/all", authenticateJWT, getLanguages )
+router.get("/language", authenticateJWT, getLanguages )
 router.post("/language", authenticateJWT, postLanguage )
 router.put("/language/:id", authenticateJWT, putLanguage);
 router.delete("/language/:id", authenticateJWT, deleteLanguage);

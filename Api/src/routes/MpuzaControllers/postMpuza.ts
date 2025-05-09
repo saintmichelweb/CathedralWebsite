@@ -125,10 +125,10 @@ export async function postMpuzaMiryangoRemezo(req: AuthRequest, res: Response) {
     newMpuzaMiryangoRemezo.title = parsedBody.data.title
     newMpuzaMiryangoRemezo.leader = parsedBody.data.leader
     newMpuzaMiryangoRemezo.phone = parsedBody.data.phone
-    // newMpuzaMiryangoRemezo.title = parsedBody.data.title
     newMpuzaMiryangoRemezo.description_en = parsedBody.data.description_en
     newMpuzaMiryangoRemezo.description_fr = parsedBody.data.description_fr
     newMpuzaMiryangoRemezo.description_rw = parsedBody.data.description_rw
+
     if (parsedBody.data.community) {
       const communityRepository = AppDataSource.getRepository(CommunityEntity);
       const savedCommunity = await communityRepository.findOne({ where: { id: parsedBody.data.community } });
@@ -136,6 +136,7 @@ export async function postMpuzaMiryangoRemezo(req: AuthRequest, res: Response) {
         newMpuzaMiryangoRemezo.community = savedCommunity
       }
     }
+
     if (parsedBody.data.backgroundImageId) {
       const imageRepository = AppDataSource.getRepository(ImageEntity);
       const savedImage = await imageRepository.findOne({ where: { id: parsedBody.data.backgroundImageId } });
@@ -143,6 +144,7 @@ export async function postMpuzaMiryangoRemezo(req: AuthRequest, res: Response) {
         newMpuzaMiryangoRemezo.backgroundImage = savedImage
       }
     }
+
     await newMpuzaMiryangoRemezoRepository.save(newMpuzaMiryangoRemezo)
     return res.status(201).send({ message: "MpuzaMiryangoRemezo details added successfully" });
   } catch (error: any) {

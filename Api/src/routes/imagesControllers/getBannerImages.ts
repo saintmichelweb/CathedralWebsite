@@ -7,7 +7,7 @@ import { readEnv } from "../../setup/readEnv";
 
 /**
  * @openapi
- * /images/all:
+ * /images:
  *   get:
  *     tags:
  *       - Images

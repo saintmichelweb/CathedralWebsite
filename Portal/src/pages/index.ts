@@ -1,4 +1,3 @@
-// import AddNewUser from './AddNewUser/AddNewUser'
 import ForgotPassword from './ForgotPassword/ForgotPassword'
 import Login from './Login/Login'
 import SetPassword from './SetPassword/SetPassword'
@@ -17,9 +16,11 @@ import CommissionManagement from './Commission/Commission';
 import OfficeTimesManagement from './OfficeTimes/OfficeHours';
 import ChoirsManagement from './Choirs/Choirs';
 import UsersManagement from './UsersManagement/UserManagement';
+import CommunityManagement from './Community/Comunities';
+import MpuzaMiryangoRemezoManagement from './MpuzaMiryangoRemezo/Impuzamiryangoremezo';
+import MiryangoRemezoManagement from './ImiryangoRemezo/Imiryangoremezo';
 
 export {
-  // AddNewUser,
   Login,
   SetPassword,
   ForgotPassword,
@@ -38,4 +39,7 @@ export {
   OfficeTimesManagement,
   ChoirsManagement,
   UsersManagement,
+  CommunityManagement,
+  MpuzaMiryangoRemezoManagement,
+  MiryangoRemezoManagement
 }

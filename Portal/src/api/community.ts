@@ -9,13 +9,13 @@ export async function addNewCommunity(priestObj: AddCommunityForm) {
 }
 
 export async function getAllCommunities(params: PaginationParams) {
-  const response = await instance.get<{ communities: CommunityResponse[], message: string, totalPages: number }>('/communities/all', {params})
+  const response = await instance.get<{ communities: CommunityResponse[], message: string, totalPages: number }>('/communities', {params})
   return response.data
 }
 
 export async function updateCommunity(UpdateCommunityObj: UpdateCommunityForm) {
   const response = await instance.put<{ message: string }>(`/communities/${UpdateCommunityObj.communityId}`, {
-    name_en: UpdateCommunityObj.name
+    name: UpdateCommunityObj.name
   })
   return response.data
 }

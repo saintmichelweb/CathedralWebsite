@@ -208,7 +208,7 @@ const MiryangoRemezoManagement = () => {
     <Stack minH="full" pt="0" px={{ base: "4", sm: "6", lg: "8" }} pb="14">
       <Flex justify="space-between" mb={0} mt={7}>
         <Stack direction={{ base: "column", lg: "row" }}>
-          <Heading size="md">MiryangoRemezo Management</Heading>
+          <Heading size="md">Miryango Remezo Management</Heading>
         </Stack>
         <CustomButton
           type="button"
@@ -216,7 +216,7 @@ const MiryangoRemezoManagement = () => {
           minW={"8rem"}
           onClick={() => setOpenNewMuryangoRemezoModel(true)}
         >
-          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New MuryangoRemezo
+          <Icon as={MdAdd} color={"white"} mr={1} boxSize={5} /> New Muryango Remezo
         </CustomButton>
       </Flex>
       <Box
@@ -250,7 +250,7 @@ const MiryangoRemezoManagement = () => {
         )}
       </Box>
       <CustomModal
-        headerTitle={`${selectedMuryangoRemezo ? "Update" : "Add"} muryangoRemezo`}
+        headerTitle={`${selectedMuryangoRemezo ? "Update" : "Add"} Muryango Remezo`}
         isOpen={openNewRecentEventModel}
         onClose={() => setOpenNewMuryangoRemezoModel(false)}
         child={
@@ -265,10 +265,10 @@ const MiryangoRemezoManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="60vw"
+        widthSize="25vw"
       />
       <AlertDialog
-        alertText={`Are you sure you want to delete this muryangoRemezo?`}
+        alertText={`Are you sure you want to delete this Muryango Remezo?`}
         isOpen={isOpenDeleteModal}
         onClose={() => {
           setSelectedMuryangoRemezo(null);

@@ -1,12 +1,9 @@
-// import { useState } from 'react'
 import { useRoutes } from "react-router-dom";
-
 import { Layout } from "../components/layout";
 import {
   BannerImagesManagement,
   ChoirsManagement,
   CommissionManagement,
-  // Dashboard,
   ForgotPassword,
   LanguagesManagement,
   LocationsManagement,
@@ -22,6 +19,9 @@ import {
   WelcomeMessageManagement,
   SetPassword,
   UsersManagement,
+  CommunityManagement,
+  MpuzaMiryangoRemezoManagement,
+  MiryangoRemezoManagement,
 } from "../pages";
 import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
@@ -117,6 +117,21 @@ const Routes = () => {
           path: "users",
           index: true,
           element: <UsersManagement />,
+        },
+        {
+          path: "communities",
+          index: true,
+          element: <CommunityManagement />,
+        },
+        {
+          path: "mpuza",
+          index: true,
+          element: <MpuzaMiryangoRemezoManagement />,
+        },
+        {
+          path: "miryangoremezo",
+          index: true,
+          element: <MiryangoRemezoManagement />,
         }
       ]
     },

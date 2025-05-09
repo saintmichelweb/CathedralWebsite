@@ -191,13 +191,8 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
               maxW={{ base: "25rem", sm: "90vw" }}
             />
           </Stack>
-          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={welcomeMessageToEdit?.backgroundImage?.imageUrl || undefined} width="20rem" height="full" />
+          <FileUploadModal setFile={(file) => setSelectedImage(file)} imageUrl={welcomeMessageToEdit?.backgroundImage?.imageUrl || undefined} width="full" height="full" />
         </SimpleGrid>
-        {/* {!welcomeMessageToEdit && (
-          <ImageUploader
-            parentSetSelectedImage={(file: File) => setSelectedImage(file)}
-          />
-        )} */}
         <Divider mt={2} color={"gray.400"} />
         <HStack spacing="3" alignSelf="center" mt="2">
           <CustomButton type="submit" isLoading={false} minW={"8rem"}>
