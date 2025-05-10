@@ -33,7 +33,7 @@ export async function addNewImage(imageObj: ImageObj) {
 }
 
 export async function updateImage(imageObj: updateImageObj) {
-    let body: any = imageObj
+    let body: updateImageObj | FormData = imageObj
     if (imageObj.image) {
         const formData = new FormData();
         formData.append('image', imageObj.image);
