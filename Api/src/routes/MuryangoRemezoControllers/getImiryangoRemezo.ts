@@ -49,6 +49,7 @@ export async function getAllMiryangoRemezo(req: Request, res: Response) {
 
   const MuryangoRemezoRepository = AppDataSource.getRepository(MuryangoremezoEntity);
   const queryBuilder = MuryangoRemezoRepository.createQueryBuilder('muryangoremezo')
+    .leftJoinAndSelect('muryangoremezo.mpuza', 'mpuza')
 
   // if (isActive !==null && isActive !== undefined) {
   //   queryBuilder.where('recent_events.isActive = :isActive', {isActive: isActive? 1: 0})
