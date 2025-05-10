@@ -1,7 +1,6 @@
 import instance from '../lib/axiosInstance'
 import { imageResponse, BannerImageResponse } from '../types/apiResponses';
 import { PaginationParams } from '../types/params';
-const formData = new FormData();
 interface ImageObj {
     image: File,
     isBannerImage: boolean,
