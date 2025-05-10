@@ -42,7 +42,7 @@ const AddCommunityCard = (props: AddCommunityProps) => {
       console.log(CommunityToEdit);
       setValue("name", CommunityToEdit.name)
     }
-  }, [CommunityToEdit]);
+  }, [CommunityToEdit, setValue]);
 
   const onConfirm = async (payload: AddCommunityForm | undefined) => {
     setIsOpenModal(false);

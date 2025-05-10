@@ -59,7 +59,7 @@ const AddparishCommitteeCouncilCard = (
       "backgroundImageId",
       parishCommitteeCouncilToEdit?.backgroundImage?.id || null
     );
-  }, [parishCommitteeCouncilToEdit]);
+  }, [parishCommitteeCouncilToEdit, setValue]);
 
   const onConfirm = async (
     payload: AddParishCommitteeCouncilForm | undefined

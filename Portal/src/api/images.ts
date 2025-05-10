@@ -11,7 +11,7 @@ interface ImageObj {
     isActive?: boolean
 }
 interface updateImageObj {
-    imageId: number,
+    imageId: number | undefined,
     isBannerImage: boolean,
     image?: File,
     bannerDescription_en?: string,

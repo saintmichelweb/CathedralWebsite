@@ -3,7 +3,6 @@ import {
   Box,
   Divider,
   HStack,
-  SimpleGrid,
   Stack,
   useToast,
 } from "@chakra-ui/react";
@@ -50,7 +49,9 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
   });
   const toast = useToast();
   const OfficeHourToEdit = props.officeHour;
-  const locationSelectOptions: SelectOption[] = [];
+  const [locationSelectOptions, setLocationSelectOptions] = useState<
+    SelectOption[]
+  >([]);
   const [officeHourLocation, setOfficeHourLocation] =
     useState<SelectOption | null>(null);
   const [officeHourDay_en, setOfficeHourDay_en] = useState<SelectOption | null>(
@@ -108,23 +109,24 @@ const OfficetimeCard = (props: AddOfficeHourTimesProps) => {
         label: OfficeHourToEdit.day_rw,
       });
     }
-  }, [OfficeHourToEdit]);
+  }, [OfficeHourToEdit, setValue]);
 
   const getAllLocations = async () => {
     await getLocations({ page: undefined }, false, true).then((data) => {
-      data.locations.map((dataLocation: LocationResponse) => {
-        locationSelectOptions.push({
+      const newLocationOptions = data.locations.map(
+        (dataLocation: LocationResponse) => ({
           value: dataLocation.id,
           label: dataLocation.location,
-        });
-      });
+        })
+      );
+      setLocationSelectOptions(newLocationOptions);
     });
   };
-useEffect(() => {
-  if (locationSelectOptions.length == 0) {
-    getAllLocations();
-  }
-})
+  useEffect(() => {
+    if (locationSelectOptions.length == 0) {
+      getAllLocations();
+    }
+  });
 
   const onSubmit = async (values: OfficeHoursForm) => {
     setNewUserPayload(values);
@@ -194,7 +196,9 @@ useEffect(() => {
         <CustomFormSelect
           selectValue={officeHourLocation}
           isError={errors.office_place ? true : false}
-          errorMsg={errors.office_place ? errors.office_place.message : undefined}
+          errorMsg={
+            errors.office_place ? errors.office_place.message : undefined
+          }
           label="Location"
           placeholder="Choose location"
           options={locationSelectOptions}

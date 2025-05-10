@@ -5,9 +5,20 @@ import { useForm } from "react-hook-form";
 
 import { AlertDialog, CustomButton } from "../../../components/ui";
 import { CustomFormSelect, FormInput } from "../../../components/form";
-import { MiryangoremezoResponse, MessageResponse, MpuzaResponse } from "../../../types/apiResponses";
-import { addNewMuryangoRemezo, updateMuryangoRemezo } from "../../../api/MiryangoRemezo";
-import { AddMiryangoRemezoForm, miryangoRemezoSchema, UpdateMiryangoRemezoForm } from "../../../lib/validations/MiryangoRemezo";
+import {
+  MiryangoremezoResponse,
+  MessageResponse,
+  MpuzaResponse,
+} from "../../../types/apiResponses";
+import {
+  addNewMuryangoRemezo,
+  updateMuryangoRemezo,
+} from "../../../api/MiryangoRemezo";
+import {
+  AddMiryangoRemezoForm,
+  miryangoRemezoSchema,
+  UpdateMiryangoRemezoForm,
+} from "../../../lib/validations/MiryangoRemezo";
 import { SelectOption } from "../../../types/forms";
 import { getAllMpuza } from "../../../api/MpuzaMiryangoRemezo";
 
@@ -33,8 +44,10 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [newRecentEventPayload, setNewRecentEventPayload] =
     useState<AddMiryangoRemezoForm>();
-  const [massCommunity, setMassCommunity] = useState<SelectOption | null>(null);
-  const communitiesSelectOptions: SelectOption[] = [];
+  const [mpuza, setMpuza] = useState<SelectOption | null>(null);
+  const [MpuzaSelectOptions, setMpuzaSelectOptions] = useState<
+    SelectOption[]
+  >([]);
 
   const onSubmit = async (values: AddMiryangoRemezoForm) => {
     setNewRecentEventPayload(values);
@@ -47,29 +60,30 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
       setValue("header", MuryangoRemezoToEdit.header);
       setValue("phone", MuryangoRemezoToEdit.phone);
       setValue("mpuzaId", MuryangoRemezoToEdit.mpuza.id);
-      setMassCommunity({
+      setMpuza({
         value: MuryangoRemezoToEdit.mpuza.id,
         label: MuryangoRemezoToEdit.mpuza.title,
       });
     }
-  }, [MuryangoRemezoToEdit]);
+  }, [MuryangoRemezoToEdit, setValue]);
 
   useEffect(() => {
     const getMPuzaMiryangoremezo = async () => {
       await getAllMpuza({ page: undefined }).then((data) => {
-        data.mpuzaMiryangoRemezo.map((dataLocation: MpuzaResponse) => {
-          communitiesSelectOptions.push({
+        const newMpuzaSelectOptions = data.mpuzaMiryangoRemezo.map(
+          (dataLocation: MpuzaResponse) => ({
             value: dataLocation.id,
             label: dataLocation.title,
-          });
-        });
+          })
+        );
+        setMpuzaSelectOptions(newMpuzaSelectOptions);
       });
     };
 
-    if (communitiesSelectOptions.length === 0) {
+    if (MpuzaSelectOptions.length === 0) {
       getMPuzaMiryangoremezo();
     }
-  }, []);
+  });
 
   const onConfirm = async (payload: AddMiryangoRemezoForm | undefined) => {
     setIsOpenModal(false);
@@ -116,7 +130,8 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
             toast({
               title: "Edit MuryangoRemezo message",
               description:
-                error.response?.data?.message || "Error editing MuryangoRemezo!",
+                error.response?.data?.message ||
+                "Error editing MuryangoRemezo!",
               status: "error",
             });
           });
@@ -130,14 +145,14 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
       <Stack as="form" spacing="4" onSubmit={handleSubmit(onSubmit)}>
         <Stack>
           <CustomFormSelect
-            selectValue={massCommunity}
+            selectValue={mpuza}
             isError={errors.mpuzaId ? true : false}
             errorMsg={errors.mpuzaId ? errors.mpuzaId.message : undefined}
             label="Mpuzamuryango remezo"
             placeholder="Choose mpuzamuryango remezo"
-            options={communitiesSelectOptions}
-            onChangeFn={(selectedVal: SelectOption| null) => {
-              setMassCommunity(selectedVal);
+            options={MpuzaSelectOptions}
+            onChangeFn={(selectedVal: SelectOption | null) => {
+              setMpuza(selectedVal);
               if (selectedVal) {
                 setValue("mpuzaId", Number(selectedVal.value));
               }
@@ -191,8 +206,9 @@ const AddMuryangoRemezoCard = (props: AddMuryangoRemezoProps) => {
         </HStack>
       </Stack>
       <AlertDialog
-        alertText={`Are you sure you want to ${MuryangoRemezoToEdit ? "edit" : "add"
-          } this MuryangoRemezo?`}
+        alertText={`Are you sure you want to ${
+          MuryangoRemezoToEdit ? "edit" : "add"
+        } this MuryangoRemezo?`}
         isOpen={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         onConfirm={() => onConfirm(newRecentEventPayload)}

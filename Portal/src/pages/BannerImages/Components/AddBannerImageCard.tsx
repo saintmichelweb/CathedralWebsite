@@ -54,7 +54,7 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
       setValue("bannerDescription_fr", bannerImageToEdit.bannerDescription_fr);
       setValue("bannerDescription_rw", bannerImageToEdit.bannerDescription_rw);
     }
-  }, [bannerImageToEdit]);
+  }, [bannerImageToEdit, setValue]);
 
   const onConfirm = async (payload: BannerImageForm | undefined) => {
     setIsOpenModal(false);
@@ -94,12 +94,12 @@ const AddBannerImageCard = (props: AddLanguageProps) => {
           bannerDescription_en: payload.bannerDescription_en,
           bannerDescription_fr: payload.bannerDescription_fr,
           bannerDescription_rw: payload.bannerDescription_rw,
-          isActive: `${bannerImageToEdit.isActive}`,
-          image: selectedBannerImage ?? null
+          isActive: bannerImageToEdit.isActive,
         };
         await updateImage({
           ...editPayload,
-          isBannerImage: `${bannerImageToEdit.isBannerImage}`,
+          image: selectedBannerImage ?? undefined,
+          isBannerImage: bannerImageToEdit.isBannerImage,
         })
           .then((res: MessageResponse) => {
             toast({

@@ -69,7 +69,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
       "backgroundImageId",
       recentEventToEdit?.backgroundImage?.id || null
     );
-  }, [recentEventToEdit]);
+  }, [recentEventToEdit, setValue]);
 
   const onConfirm = async (payload: AddRecentEventsForm | undefined) => {
     setIsOpenModal(false);
@@ -83,6 +83,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               description: res?.message || "Image updated successfully",
               status: "success",
             });
+            // @ts-expect-error (undefined type)
             payload.backgroundImageId = res.image.id;
           })
           .catch((error) => {

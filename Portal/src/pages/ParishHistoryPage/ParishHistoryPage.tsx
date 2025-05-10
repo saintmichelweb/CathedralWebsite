@@ -72,7 +72,7 @@ const ParishHistoryManagement = () => {
       setValue("vision_fr", parishHistory.vision_fr);
       setValue("vision_rw", parishHistory.vision_rw);
     }
-  }, [parishHistory]);
+  }, [parishHistory, setValue]);
 
   const onSubmit = async (payload: ParishHistoryForm) => {
     await addOrUpdateParishHistory(payload)

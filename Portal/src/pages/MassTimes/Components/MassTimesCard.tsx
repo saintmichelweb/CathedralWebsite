@@ -102,7 +102,7 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
         label: massTimeToEdit.day_rw,
       });
     }
-  }, [massTimeToEdit]);
+  }, [massTimeToEdit, setValue]);
 
   useEffect(() => {
     const getAllLocations = async () => {

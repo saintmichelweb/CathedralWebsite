@@ -46,7 +46,7 @@ const AddUserCard = (props: AddUserProps) => {
       setValue("phone", userToEdit.phone_number);
       setValue("position", userToEdit.position);
     }
-  }, [userToEdit]);
+  }, [userToEdit, setValue]);
 
   const onConfirm = async (payload: AddNewUserForm | undefined) => {
     setIsOpenModal(false);

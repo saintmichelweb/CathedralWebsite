@@ -49,7 +49,7 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
       setValue("welcomeMessage_fr", welcomeMessageToEdit.welcomeMessage_fr);
       setValue("welcomeMessage_rw", welcomeMessageToEdit.welcomeMessage_rw);
     }
-  }, [welcomeMessageToEdit]);
+  }, [welcomeMessageToEdit, setValue]);
 
   const onConfirm = async (payload: AddWelcomeMessageForm | undefined) => {
     setIsOpenModal(false);
@@ -63,6 +63,7 @@ const AddWelcomeMessageCard = (props: AddPriestProps) => {
                 description: res?.message || "Image updated successfully",
                 status: "success",
               });
+              // @ts-expect-error (undefined type)
               payload.backgroundImageId = res.image.id;
             })
             .catch((error) => {

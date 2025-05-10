@@ -62,7 +62,7 @@ const AddServicesCard = (props: AddServiceProps) => {
       );
     }
     setValue("backgroundImageId", serviceToEdit?.backgroundImage?.id || null);
-  }, [serviceToEdit]);
+  }, [serviceToEdit, setValue]);
 
   const onConfirm = async (payload: AddServiceForm | undefined) => {
     setIsOpenModal(false);
@@ -76,6 +76,7 @@ const AddServicesCard = (props: AddServiceProps) => {
                 description: res?.message || "Image updated successfully",
                 status: "success",
               });
+              // @ts-expect-error (undefined type)
               payload.backgroundImageId = res.image.id;
             })
             .catch((error) => {

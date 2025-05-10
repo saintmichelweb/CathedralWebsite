@@ -37,7 +37,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
     useState<AddMpuzaMiryangoRemezoForm>();
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [massCommunity, setMassCommunity] = useState<SelectOption | null>(null);
-  const communitiesSelectOptions: SelectOption[] = [];
+  const [communitiesSelectOptions, setCommunitiesSelectOptions] =  useState<SelectOption[]>([]);
 
   const onSubmit = async (values: AddMpuzaMiryangoRemezoForm) => {
     setNewRecentEventPayload(values);
@@ -63,24 +63,25 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
       "backgroundImageId",
       MpuzaToEdit?.backgroundImage?.id || null
     );
-  }, [MpuzaToEdit]);
+  }, [MpuzaToEdit, setValue]);
 
   useEffect(() => {
     const getCommunities = async () => {
       await getAllCommunities({ page: undefined }).then((data) => {
-        data.communities.map((dataLocation: CommunityResponse) => {
-          communitiesSelectOptions.push({
+        const newCommunitiesSelectOptions = data.communities.map(
+          (dataLocation: CommunityResponse) => ({
             value: dataLocation.id,
             label: dataLocation.name,
-          });
-        });
+          })
+        );
+        setCommunitiesSelectOptions(newCommunitiesSelectOptions)
       });
     };
 
     if (communitiesSelectOptions.length === 0) {
       getCommunities();
     }
-  }, []);
+  });
 
   const onConfirm = async (payload: AddMpuzaMiryangoRemezoForm | undefined) => {
     setIsOpenModal(false);
@@ -94,6 +95,7 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
                 description: res?.message || "Image updated successfully",
                 status: "success",
               });
+              // @ts-expect-error (undefined type)
               payload.backgroundImageId = res.image.id;
             })
             .catch((error) => {
