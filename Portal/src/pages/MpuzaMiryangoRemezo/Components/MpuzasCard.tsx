@@ -46,7 +46,6 @@ const AddMpuzaCard = (props: AddMpuzaProps) => {
 
   useEffect(() => {
     if (MpuzaToEdit) {
-      console.log(MpuzaToEdit);
       setValue("title", MpuzaToEdit.title);
       setValue("leader", MpuzaToEdit.leader);
       setValue("phone", MpuzaToEdit.phone);

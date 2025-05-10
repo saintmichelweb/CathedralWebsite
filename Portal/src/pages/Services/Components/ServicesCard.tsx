@@ -46,7 +46,6 @@ const AddServicesCard = (props: AddServiceProps) => {
 
   useEffect(() => {
     if (serviceToEdit) {
-      console.log(serviceToEdit);
       setValue("name_en", serviceToEdit.name_en);
       setValue("name_fr", serviceToEdit.name_fr);
       setValue("name_rw", serviceToEdit.name_rw);

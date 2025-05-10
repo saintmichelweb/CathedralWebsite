@@ -53,7 +53,6 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
 
   useEffect(() => {
     if (recentEventToEdit) {
-      console.log(recentEventToEdit);
       setValue("title_en", recentEventToEdit.title_en);
       setValue("title_fr", recentEventToEdit.title_fr);
       setValue("title_rw", recentEventToEdit.title_rw);

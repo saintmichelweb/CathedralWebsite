@@ -117,7 +117,6 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
       });
     };
     if (locationSelectOptions.length === 0) {
-      console.log("locationSelectOptions", locationSelectOptions);
       getAllLocations();
     }
 
@@ -134,7 +133,6 @@ const AddMasstimeCard = (props: AddMassTimesProps) => {
     };
 
     if (languageSelectOptions.length === 0) {
-      console.log("languageSelectOptions", languageSelectOptions);
       getAllLanguages();
     }
   });

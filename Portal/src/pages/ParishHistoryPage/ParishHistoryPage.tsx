@@ -42,7 +42,6 @@ const ParishHistoryManagement = () => {
     setLoading(true);
     await getParishHistory()
       .then((data) => {
-        console.log("data", data);
         setParishHistory(data.parishHistory);
         setLoading(false);
       })

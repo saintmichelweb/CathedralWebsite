@@ -39,7 +39,6 @@ const AddCommunityCard = (props: AddCommunityProps) => {
 
   useEffect(() => {
     if (CommunityToEdit) {
-      console.log(CommunityToEdit);
       setValue("name", CommunityToEdit.name)
     }
   }, [CommunityToEdit, setValue]);

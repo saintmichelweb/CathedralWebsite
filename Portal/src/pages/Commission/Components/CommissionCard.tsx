@@ -42,7 +42,6 @@ const AddCommissionCard = (props: AddCommissionProps) => {
 
   useEffect(() => {
     if (CommissionToEdit) {
-      console.log(CommissionToEdit);
       setValue("name_en", CommissionToEdit.name_en);
       setValue("name_fr", CommissionToEdit.name_fr);
       setValue("name_rw", CommissionToEdit.name_rw);
