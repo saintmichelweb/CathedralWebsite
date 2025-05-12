@@ -51,7 +51,7 @@ const AddLocationCard = (props: AddLocationProps) => {
       setValue('location', locationToEdit.location)
       setValue('isMassLocation', locationToEdit.isMassLocation)
     }
-  },[locationToEdit])
+  },[locationToEdit, setValue])
 
   const onConfirm = async (payload: LocationForm | undefined) => {
     setIsOpenModal(false);

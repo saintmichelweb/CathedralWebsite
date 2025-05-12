@@ -1246,17 +1246,17 @@ paths:
           description: Internal Server error
     put:
       tags:
-        - Commission
+        - Mpuza
       security:
         - Authorization: []
-      summary: Update a commission
+      summary: Update a mpuzaMiryangoRemezo
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: integer
-          description: commission ID
+          description: mpuzaMiryangoRemezo ID
       requestBody:
         required: true
         content:
@@ -1266,19 +1266,19 @@ paths:
               properties:
                 name:
                   type: string
-                  example: commission
-                  description: commission title
+                  example: mpuzaMiryangoRemezo
+                  description: mpuzaMiryangoRemezo title
                 description:
                   type: string
                   example: description
-                  description: commission description
+                  description: mpuzaMiryangoRemezo description
                 backgroundImageId:
                   type: number
                   example: 1
                   description: Id of the saved image entity
       responses:
         '200':
-          description: commission saved successfully
+          description: mpuzaMiryangoRemezo saved successfully
           content:
             application/json:
               schema:
@@ -1289,7 +1289,7 @@ paths:
                     example: true
                   message:
                     type: string
-                    example: commission updated successfully.
+                    example: mpuzaMiryangoRemezo updated successfully.
         '401':
           description: Invalid credentials!
           content:
@@ -1304,7 +1304,7 @@ paths:
                     type: string
                     example: Invalid credentials!
         '404':
-          description: Commission not found!
+          description: Mpuza not found!
         '422':
           description: Validation error!
         '500':

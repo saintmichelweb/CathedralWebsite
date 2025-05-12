@@ -1,5 +1,5 @@
 # Use official Node.js image as a base
-FROM node:18-alpine AS builder
+FROM node:18.20.8-alpine AS builder
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Use a smaller image for the final production build
-FROM node:18-alpine AS runner
+FROM node:18.20.8-alpine AS runner
 
 # Set working directory
 WORKDIR /app

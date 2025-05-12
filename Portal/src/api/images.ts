@@ -1,7 +1,6 @@
 import instance from '../lib/axiosInstance'
 import { imageResponse, BannerImageResponse } from '../types/apiResponses';
 import { PaginationParams } from '../types/params';
-const formData = new FormData();
 interface ImageObj {
     image: File,
     isBannerImage: boolean,
@@ -11,7 +10,7 @@ interface ImageObj {
     isActive?: boolean
 }
 interface updateImageObj {
-    imageId: number,
+    imageId: number | undefined,
     isBannerImage: boolean,
     image?: File,
     bannerDescription_en?: string,
@@ -34,7 +33,7 @@ export async function addNewImage(imageObj: ImageObj) {
 }
 
 export async function updateImage(imageObj: updateImageObj) {
-    let body: any = imageObj
+    let body: updateImageObj | FormData = imageObj
     if (imageObj.image) {
         const formData = new FormData();
         formData.append('image', imageObj.image);

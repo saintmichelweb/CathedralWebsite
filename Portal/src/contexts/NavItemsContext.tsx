@@ -262,8 +262,6 @@ const NavItemsProvider = ({ children }: { children: React.ReactNode }) => {
       if (userProfile.data.status === PortalUserStatus.DISABLED) {
         logOutFn();
       }
-      console.log("user", userProfile);
-
       setLoggedUser(userProfile.data);
 
       // if (userProfile.name === 'Portal Super Admin') {

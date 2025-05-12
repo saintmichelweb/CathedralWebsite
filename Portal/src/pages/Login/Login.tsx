@@ -53,7 +53,6 @@ const Login = () => {
     setIsPending(true);
     await login(values.email, values.password)
       .then((data) => {
-        console.log("data", data);
         if (data.token) {
           cookies.set("token", data.token);
           navigate("/home-page");

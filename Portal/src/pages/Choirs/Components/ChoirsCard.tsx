@@ -52,7 +52,7 @@ const AddChoirCard = (props: AddChoirProps) => {
       setValue("telephone", choirToEdit.telephone);
       setValue("backgroundImageId", choirToEdit?.backgroundImage?.id || null);
     }
-  }, [choirToEdit]);
+  }, [choirToEdit, setValue]);
 
   const onConfirm = async (payload: AddChoirsForm | undefined) => {
     setIsOpenModal(false);
@@ -66,6 +66,7 @@ const AddChoirCard = (props: AddChoirProps) => {
                 description: res?.message || "Image updated successfully",
                 status: "success",
               });
+              // @ts-expect-error (undefined type)
               payload.backgroundImageId = res.image.id;
             })
             .catch((error) => {

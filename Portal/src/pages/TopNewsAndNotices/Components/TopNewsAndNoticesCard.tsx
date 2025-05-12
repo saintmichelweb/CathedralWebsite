@@ -55,7 +55,7 @@ const AddTopParishNewsOrNoticeCard = (props: AddTopNewsOrNoticeProps) => {
       setValue("description_fr", topParishNewsOrNOticeToEdit.description_fr);
       setValue("description_rw", topParishNewsOrNOticeToEdit.description_rw);
     }
-  }, [topParishNewsOrNOticeToEdit]);
+  }, [topParishNewsOrNOticeToEdit, setValue]);
 
   const onConfirm = async (payload: TopNewsAndNoticesForm | undefined) => {
     setIsOpenModal(false);
