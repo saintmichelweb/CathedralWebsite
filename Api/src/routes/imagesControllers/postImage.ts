@@ -26,7 +26,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   const imageRepository = AppDataSource.getRepository(ImageEntity)
   try {
     const newImage = new ImageEntity();
-    newImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
+    newImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}.png`
     newImage.imagePath = uploadedFile.path
     if (isBannerImage) {
       newImage.isBannerImage = isBannerImage === 'true' 

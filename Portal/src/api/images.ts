@@ -1,6 +1,7 @@
 import instance from '../lib/axiosInstance'
 import { imageResponse, BannerImageResponse } from '../types/apiResponses';
 import { PaginationParams } from '../types/params';
+import { compressImage } from '../utils';
 interface ImageObj {
     image: File,
     isBannerImage: boolean,
@@ -20,8 +21,10 @@ interface updateImageObj {
 }
 
 export async function addNewImage(imageObj: ImageObj) {
+    const compressed = await compressImage(imageObj.image); // compress the image
+    
     const formData = new FormData();
-    formData.append('image', imageObj.image);
+    formData.append('image', compressed);
     if (imageObj.isBannerImage) {
         formData.append('isBannerImage', `${imageObj.isBannerImage}`);
         formData.append('bannerDescription_en', `${imageObj.bannerDescription_en}`);
