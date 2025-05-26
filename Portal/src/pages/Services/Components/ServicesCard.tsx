@@ -249,7 +249,7 @@ const AddServicesCard = (props: AddServiceProps) => {
               name="description_en"
               register={register}
               errors={errors}
-              label="Event description (en)"
+              label="Description (en)"
               placeholder="Enter service description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -258,7 +258,7 @@ const AddServicesCard = (props: AddServiceProps) => {
               name="description_fr"
               register={register}
               errors={errors}
-              label="Event description (fr)"
+              label="Description (fr)"
               placeholder="Enter service description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -267,7 +267,7 @@ const AddServicesCard = (props: AddServiceProps) => {
               name="description_rw"
               register={register}
               errors={errors}
-              label="Event description (rw)"
+              label="Description (rw)"
               placeholder="Enter service description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
