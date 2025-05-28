@@ -46,6 +46,7 @@ const FileUploadModal = (props: FileUploadModalProps) => {
                         <Image
                             // maxW={'fit-content'}
                             // width={props.width || '30rem'}
+                            loading="lazy"
                             height={props.height || '30rem'}
                             maxH={'fit-content'}
                             alt="Image"

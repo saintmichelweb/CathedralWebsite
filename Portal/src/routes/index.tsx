@@ -26,8 +26,6 @@ import {
 import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
 const Routes = () => {
-  // const [isLoading, setIsLoading] = useState(false)
-
   const element = useRoutes([
     {
       path: "/",
@@ -151,9 +149,6 @@ const Routes = () => {
       caseSensitive: true,
     },
   ]);
-  // if (isLoading) {
-  //   return <div></div>
-  // }
   return element;
 };
 

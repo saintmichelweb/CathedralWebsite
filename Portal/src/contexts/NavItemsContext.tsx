@@ -133,7 +133,7 @@ export const NAV_ITEMS = [
     // permissions: ['View Transactions'],
   },
   {
-    name: "Committees, Commissions and choirs",
+    name: "Committees, Commissions & choirs",
     label: "Open Committees, Commissions and choirs nav menu",
     icon: TiGroupOutline,
     // permissions: ['View Portal Users'],
@@ -162,7 +162,7 @@ export const NAV_ITEMS = [
     ],
   },
   {
-    name: "communities, Mpuza miryango remezo and miryango remezo",
+    name: "communities, Mpuza & miryango remezo",
     label: "Open communities, Mpuza miryango remezo and miryango remezo nav menu",
     icon: RiCommunityFill,
     // permissions: ['View Portal Users'],

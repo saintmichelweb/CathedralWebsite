@@ -178,7 +178,6 @@ export interface commissionResponse {
     updated_at: string
 }
 
-
 export interface ChoirsResponse {
     id: number
     name: string
@@ -193,7 +192,6 @@ export interface ChoirsResponse {
     backgroundImage: imageResponse | null
 }
 
-
 export interface UsersResponse {
     id: number
     name: string
@@ -203,7 +201,6 @@ export interface UsersResponse {
     status: string
     created_at: string
     updated_at: string
-    // backgroundImage: imageResponse | null
 }
 
 export interface CommunityResponse {

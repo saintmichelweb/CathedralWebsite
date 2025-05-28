@@ -101,7 +101,7 @@ const Login = () => {
             justify="space-between"
             bg='primary'
           >
-            <Image src={stMichelLogo} w="60" />
+            <Image src={stMichelLogo} w="60" loading="lazy"/>
 
             <Heading as="h1" color="white" textAlign="center">
               Portal

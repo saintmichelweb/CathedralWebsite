@@ -1,11 +1,12 @@
-import { Box, Heading, Stack } from "@chakra-ui/react";
+import { Box, Heading, Image, Stack } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { getUserProfile } from "../../api/users";
+import logo from '../../assets/Logo.png'
 
 const UpdateHomePage = () => {
   useEffect(() => {
     getUserProfile()
-  },[])
+  }, [])
   return (
     <Box
       h={"full"}
@@ -19,16 +20,26 @@ const UpdateHomePage = () => {
         alignItems={"center"}
         justifyContent={"center"}
       >
-        <Box width={'fit-content'}>
-          <Heading
-            size={"3xl"}
-            color={"primary"}
-            width={'fit-content'}
-          >
-            Welcome To Cathedral Saint Michel Website Portal
-          </Heading>
-          {/* <TimeSelector/> */}
-        </Box>
+        <Image
+          border={'dashed'}
+          borderColor={'gray.200'}
+          rounded={10}
+          mt={'-20'}
+          loading="lazy"
+          height={'10rem'}
+          maxH={'fit-content'}
+          alt="Image"
+          objectFit={'contain'}
+          src={logo}
+          crossOrigin="anonymous"
+        />
+        <Heading
+          size={"3xl"}
+          color={"primary"}
+          width={'fit-content'}
+        >
+          Website's Management Portal
+        </Heading>
       </Stack>
     </Box>
   );
