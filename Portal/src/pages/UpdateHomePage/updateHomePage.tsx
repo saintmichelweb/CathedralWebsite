@@ -27,6 +27,7 @@ const UpdateHomePage = () => {
           mt={'-20'}
           loading="lazy"
           height={'10rem'}
+          bg={'gray.200'}
           maxH={'fit-content'}
           alt="Image"
           objectFit={'contain'}

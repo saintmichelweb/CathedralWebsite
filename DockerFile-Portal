@@ -2,6 +2,7 @@ FROM node:20.15.0-alpine AS builder
 WORKDIR /app
 COPY ./shared-lib /app/shared-lib
 COPY ./Portal /app/Portal
+COPY ./Portal/.env.dev /app/Portal/.env
 
 WORKDIR /app/Portal
 RUN npm i 
