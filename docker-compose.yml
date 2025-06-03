@@ -45,7 +45,7 @@ services:
     depends_on:
       - stmp-db
     env_file:
-      - .env.dev
+      - Api/.env.dev
 
   stmp-db:
     container_name: stmp-db

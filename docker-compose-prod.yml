@@ -16,7 +16,7 @@ services:
       # - "3000:3000" #use if the port is used by an other container
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://204.12.205.105:3551
+      - NEXT_PUBLIC_API_URL=http://83.147.37.125:3551
     networks:
       - stmp-net
     volumes:
@@ -43,8 +43,8 @@ services:
       - stmp-net
     depends_on:
       - stmp-db
-    environment:
-      - .env.prod
+    env_file:
+      - Api/.env.prod
 
   stmp-db:
     container_name: stmp-db
