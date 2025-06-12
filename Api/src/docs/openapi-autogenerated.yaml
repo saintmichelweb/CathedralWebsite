@@ -13,6 +13,208 @@ components:
       bearerFormat: JWT
       value: Bearer <JWT token here>
 paths:
+  /catholic-actions/{id}:
+    delete:
+      tags:
+        - Catholic Actions
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Catholic Actions ID
+      summary: delete a Mass Catholic Actions
+      responses:
+        '200':
+          description: Catholic Actions deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Catholic Actions deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Catholic Actions
+      security:
+        - Authorization: []
+      summary: Update a Catholic Actions
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Catholic Actions ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Catholic Actions
+                  description: Catholic Actions title
+                description:
+                  type: string
+                  example: description
+                  description: Catholic Actions description
+                backgroundImageId:
+                  type: number
+                  example: 1
+                  description: Id of the saved image entity
+      responses:
+        '200':
+          description: Catholic Actions saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Catholic Actions updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Catholic Actions not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+  /catholic-actions:
+    get:
+      tags:
+        - Catholic Actions
+      summary: get all Catholic Actions
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The page number
+          minimum: 1
+          example: 1
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: The search text
+        - in: isActive
+          name: is active
+          schema:
+            type: boolean
+          description: if catholic_action is active.
+      responses:
+        '200':
+          description: Get Catholic Actions
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    post:
+      tags:
+        - Catholic Actions
+      security:
+        - Authorization: []
+      summary: Add a Catholic Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Catholic Actions
+                  description: Catholic Actions title
+                description:
+                  type: string
+                  example: description
+                  description: Catholic Actions description
+                backgroundImageId:
+                  type: number
+                  example: description
+                  description: Catholic Actions backgroundImageId
+      responses:
+        '200':
+          description: Catholic Actions saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Catholic Actions  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /Choir/{id}:
     delete:
       tags:
