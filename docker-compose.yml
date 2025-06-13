@@ -42,6 +42,7 @@ services:
       - stmp-net
     volumes:
       - ./Api/src:/app/Api/src # For developmennt purposes
+      - ./upload/images:/app/upload/images # For developmennt purposes
     depends_on:
       - stmp-db
     env_file:

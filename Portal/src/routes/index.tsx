@@ -22,6 +22,7 @@ import {
   CommunityManagement,
   MpuzaMiryangoRemezoManagement,
   MiryangoRemezoManagement,
+  CatholicActionsManagement,
 } from "../pages";
 import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
@@ -125,6 +126,11 @@ const Routes = () => {
           path: "mpuza",
           index: true,
           element: <MpuzaMiryangoRemezoManagement />,
+        },
+        {
+          path: "catholic-actions",
+          index: true,
+          element: <CatholicActionsManagement />,
         },
         {
           path: "miryangoremezo",
