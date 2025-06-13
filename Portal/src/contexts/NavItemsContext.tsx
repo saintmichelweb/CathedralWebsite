@@ -40,8 +40,8 @@ export const NAV_ITEMS = [
     ],
   },
   {
-    name: "Schedules",
-    label: "Open portal schedules nav menu",
+    name: "Schedules & hours",
+    label: "Open portal schedules & hours nav menu",
     icon: AiFillSchedule,
     subNavItems: [
       {
@@ -57,8 +57,8 @@ export const NAV_ITEMS = [
     ],
   },
   {
-    name: "News and events",
-    label: "Open portal news and events nav menu",
+    name: "News & events",
+    label: "Open portal news & events nav menu",
     icon: BiSolidNews,
     subNavItems: [
       {
@@ -91,7 +91,7 @@ export const NAV_ITEMS = [
     ],
   },
   {
-    name: "Services and actions",
+    name: "Services & actions",
     label: "Open Services and Catholic actions nav menu",
     icon: FaHandsHelping,
     subNavItems: [
@@ -108,7 +108,7 @@ export const NAV_ITEMS = [
     ],
   },
   {
-    name: "Committees, Commissions &choirs",
+    name: "Committees, Commissions & choirs",
     label: "Open Committees, Commissions and choirs nav menu",
     icon: TiGroupOutline,
     subNavItems: [
@@ -130,7 +130,7 @@ export const NAV_ITEMS = [
     ],
   },
   {
-    name: "communities, Mpuza & miryango remezo",
+    name: "Communities, Mpuza & miryango remezo",
     label: "Open communities, Mpuza miryango remezo and miryango remezo nav menu",
     icon: RiCommunityFill,
     subNavItems: [
