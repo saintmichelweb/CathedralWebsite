@@ -19,6 +19,7 @@ import UsersManagement from './UsersManagement/UserManagement';
 import CommunityManagement from './Community/Comunities';
 import MpuzaMiryangoRemezoManagement from './MpuzaMiryangoRemezo/Impuzamiryangoremezo';
 import MiryangoRemezoManagement from './ImiryangoRemezo/Imiryangoremezo';
+import CatholicActionsManagement from './CatholicActions/CatholicActions';
 
 export {
   Login,
@@ -41,5 +42,6 @@ export {
   UsersManagement,
   CommunityManagement,
   MpuzaMiryangoRemezoManagement,
-  MiryangoRemezoManagement
+  MiryangoRemezoManagement,
+  CatholicActionsManagement
 }

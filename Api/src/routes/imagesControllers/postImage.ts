@@ -26,7 +26,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   const imageRepository = AppDataSource.getRepository(ImageEntity)
   try {
     const newImage = new ImageEntity();
-    newImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}.png`
+    newImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
     newImage.imagePath = uploadedFile.path
     if (isBannerImage) {
       newImage.isBannerImage = isBannerImage === 'true' 
@@ -42,6 +42,6 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
     return res.status(201).send({ message: 'Image uploaded successfully', image: savedImage });
   } catch (error) {
     logger.error("saving image failed: %s", error);
-    res.status(500).send({ success: false, message: "Internal server error!" });
+    return res.status(500).send({ success: false, message: "Internal server error!" });
   }
 };
