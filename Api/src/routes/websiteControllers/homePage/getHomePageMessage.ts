@@ -3,6 +3,21 @@ import { AppDataSource } from "../../../database/dataSource";
 import { HomePageWelcomeMessageEntity } from "../../../entity/HomePageWelcomeMessageEntity";
 import logger from "../../../services/logger";
 
+/**
+ * @openapi
+ * /homePage/welcomeMessage:
+ *   get:
+ *     tags:
+ *       - Website-Routes
+ *     summary: get all Welcome Message
+ *     responses:
+ *       200:
+ *         description: Get Welcome Message successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
+
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getHomePageMessage(req: Request, res: Response) {
     try {
@@ -13,7 +28,7 @@ export async function getHomePageMessage(req: Request, res: Response) {
         const homePageWelcomeMessage = await queryBuilder.getMany()
 
         res.status(200).send({
-            message: "Parish welcome message retrieved successfully",
+            message: "Welcome message retrieved successfully",
             welcome_message: {
                 welcomeMessage: {
                     welcomeMessage_en: homePageWelcomeMessage[0].welcomeMessage_en,

@@ -5,6 +5,21 @@ import { MassTimesEntity } from "../../../entity/MasstimesEntity";
 import { LocationEntity } from "../../../entity/LocationEntity";
 import { MassDaysEnum_EN } from "../../../../../shared-lib/src";
 
+/**
+ * @openapi
+ * /homePage/mass-times:
+ *   get:
+ *     tags:
+ *       - Website-Routes
+ *     summary: get all Mass Times
+ *     responses:
+ *       200:
+ *         description: Get Mass Times successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
+
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getMassTimes(req: Request, res: Response) {
     try {

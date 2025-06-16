@@ -3,30 +3,20 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { PriestsEntity } from "../../entity/PriestsEntity";
 
-// /**
-//  * @openapi
-//  * /priests:
-//  *   get:
-//  *     tags:
-//  *       - Priests
-//  *     summary: get all priests
-//  *     responses:
-//  *       200:
-//  *         description: Get Priests
-//  *       401:
-//  *         description: Invalid credentials
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 message:
-//  *                   type: string
-//  *                   example: "Invalid credentials"
-//  *       500:
-//  *         description: Internal Server error
-//  *
-//  */
+/**
+ * @openapi
+ * /aboutPage/priests:
+ *   get:
+ *     tags:
+ *       - Website-Routes
+ *     summary: get all Priests
+ *     responses:
+ *       200:
+ *         description: Get Priests successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getWebsitePriests(req: Request, res: Response) {
