@@ -13,7 +13,10 @@ import {
 } from '@chakra-ui/react'
 import { FiMinusCircle, FiPlusCircle } from 'react-icons/fi'
 
-export type Meta = { isConditional: boolean; conditionStatement: string } | undefined
+export type Meta = {
+  isConditional?: boolean;
+  condition?: (rowData: any) => boolean;
+}
 
 interface MobileTableItemProps<T> {
   row: Row<T>
@@ -79,8 +82,8 @@ const MobileTableItem = <T,>({ row, alwaysVisibleColumns }: MobileTableItemProps
               const meta = cell.column.columnDef.meta as Meta
 
               /* c8 ignore next 5 */
-              if (meta?.isConditional) {
-                isVisible = eval(meta.conditionStatement)
+              if (meta?.isConditional && typeof meta.condition === 'function') {
+                isVisible = meta.condition(row.original); // or relevant row data
               }
 
               if (!isVisible) return null

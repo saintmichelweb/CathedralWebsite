@@ -13,6 +13,208 @@ components:
       bearerFormat: JWT
       value: Bearer <JWT token here>
 paths:
+  /catholic-actions/{id}:
+    delete:
+      tags:
+        - Catholic Actions
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Catholic Actions ID
+      summary: delete a Mass Catholic Actions
+      responses:
+        '200':
+          description: Catholic Actions deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Catholic Actions deleted successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Catholic Actions
+      security:
+        - Authorization: []
+      summary: Update a Catholic Actions
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Catholic Actions ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Catholic Actions
+                  description: Catholic Actions title
+                description:
+                  type: string
+                  example: description
+                  description: Catholic Actions description
+                backgroundImageId:
+                  type: number
+                  example: 1
+                  description: Id of the saved image entity
+      responses:
+        '200':
+          description: Catholic Actions saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Catholic Actions updated successfully.
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Catholic Actions not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
+  /catholic-actions:
+    get:
+      tags:
+        - Catholic Actions
+      summary: get all Catholic Actions
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: The page number
+          minimum: 1
+          example: 1
+        - in: query
+          name: search
+          schema:
+            type: string
+          description: The search text
+        - in: isActive
+          name: is active
+          schema:
+            type: boolean
+          description: if catholic_action is active.
+      responses:
+        '200':
+          description: Get Catholic Actions
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '500':
+          description: Internal Server error
+    post:
+      tags:
+        - Catholic Actions
+      security:
+        - Authorization: []
+      summary: Add a Catholic Actions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Catholic Actions
+                  description: Catholic Actions title
+                description:
+                  type: string
+                  example: description
+                  description: Catholic Actions description
+                backgroundImageId:
+                  type: number
+                  example: description
+                  description: Catholic Actions backgroundImageId
+      responses:
+        '200':
+          description: Catholic Actions saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Catholic Actions  saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
   /Choir/{id}:
     delete:
       tags:
@@ -2418,300 +2620,6 @@ paths:
           description: Validation error
         '500':
           description: Internal Server error
-  /roles/delete/{id}:
-    get:
-      tags:
-        - Roles
-      security:
-        - Authorization: []
-      summary: Update if whether Role users are blocked or not
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: number
-          required: true
-          description: Numeric ID of the Role
-      responses:
-        '200':
-          description: User statuses updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The response message
-                    example: OK
-  /roles:
-    get:
-      tags:
-        - Roles
-      security:
-        - Authorization: []
-      summary: GET Roles
-      parameters:
-        - in: query
-          name: id
-          schema:
-            type: number
-          required: false
-          description: Numeric ID of the Role
-        - in: query
-          name: type
-          schema:
-            type: string
-          required: false
-          description: type of role ['Hub', 'DFSP', 'DFSP_USER']
-      responses:
-        '200':
-          description: GET Roles
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The response message
-                    example: OK
-                  data:
-                    type: array
-                    description: The list of roles with their permissions and users
-                    items:
-                      type: object
-    post:
-      tags:
-        - Roles
-      security:
-        - Authorization: []
-      summary: POST Role
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: DFSP Operator
-                  description: The name of the role
-                description:
-                  type: string
-                  example: DFSP Operator
-                  description: The description of the role
-                roleLevel:
-                  type: string
-                  example: DFSP
-                  description: The level of the role
-                permissions:
-                  type: array
-                  items:
-                    type: string
-                    example: View Merchants
-                    description: The permissions for the role
-      responses:
-        '201':
-          description: Role created successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The response message
-                    example: Role created successfully
-  /roles/levels:
-    get:
-      tags:
-        - Roles
-      security:
-        - Authorization: []
-      summary: GET Role Levels
-      responses:
-        '200':
-          description: GET Role Levels
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The response message
-                    example: OK
-                  data:
-                    type: array
-                    description: The list of role levels
-                    items:
-                      type: string
-  /{id}/roles:
-    get:
-      summary: Get user roles
-      description: Retrieve roles for a specific user by ID.
-      tags:
-        - Roles
-      security:
-        - Authorization: []
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: User ID
-      responses:
-        '200':
-          description: Successful retrieval of user roles
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-                    level:
-                      type: string
-        '400':
-          description: Bad request
-        '404':
-          description: User or user role not found
-        '500':
-          description: Internal server error
-  /roles/{id}:
-    put:
-      tags:
-        - Roles
-      security:
-        - Authorization: []
-      summary: Update Permissions for Role
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: number
-          required: true
-          description: Numeric ID of the Role
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: DFSP Operator
-                  description: The name of the role
-                description:
-                  type: string
-                  example: DFSP Operator
-                  description: The description of the role
-                roleLevel:
-                  type: string
-                  example: DFSP
-                  description: The level of the role
-                permissions:
-                  type: array
-                  items:
-                    type: string
-                    example:
-                      - VIEW_MERCHANTS
-                      - REJECT_MERCHANTS
-                    description: The permissions for the role
-      responses:
-        '200':
-          description: Role Updated
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The response message
-                    example: OK
-  /roles/status/{id}:
-    put:
-      tags:
-        - Roles
-      security:
-        - Authorization: []
-      summary: Update status for Role
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: number
-          required: true
-          description: Numeric ID of the Role
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
-                  example: ACTIVATED
-                  description: The status you are updating to
-      responses:
-        '200':
-          description: Role status updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The response message
-                    example: OK
-  /roles/block/{id}:
-    put:
-      tags:
-        - Roles
-      security:
-        - Authorization: []
-      summary: Update if whether Role users are blocked or not
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: number
-          required: true
-          description: Numeric ID of the Role
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                blockStatus:
-                  type: string
-                  example: true
-                  description: The block status
-      responses:
-        '200':
-          description: User statuses updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: The response message
-                    example: OK
   /services/{id}:
     delete:
       tags:
@@ -3468,6 +3376,26 @@ paths:
                     example: Invalid credentials
         '422':
           description: Validation error
+  /about/catholicActions:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all catholic Actions
+      responses:
+        '200':
+          description: Get catholic Actions successful
+        '500':
+          description: Internal Server error
+  /about/communities:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Communities
+      responses:
+        '200':
+          description: Get Communities successful
+        '500':
+          description: Internal Server error
   /welcomeMessage:
     get:
       tags:
@@ -3502,5 +3430,4 @@ paths:
           description: Internal server error
 tags:
   - name: Users
-  - name: Roles
   - name: Portal Users

@@ -1,3 +1,5 @@
+# command to build staging compose file "docker compose -f docker-compose-prod.yml up -d --build"
+
 networks:
   stmp-net:
     name: stmp-net
@@ -13,7 +15,7 @@ services:
       # - "3000:3000" #use if the port is used by an other container
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:3551
+      - NEXT_PUBLIC_API_URL=http://83.147.37.125:3551
     networks:
       - stmp-net
     volumes:
@@ -23,30 +25,25 @@ services:
   portal:
     build:
       context: .
-      dockerfile: ./DockerFile-Portal
+      dockerfile: ./DockerFile-Portal-prod
     restart: unless-stopped
     ports:
       - "3550:3550"
-    volumes:
-      - ./Portal/src:/app/Portal/src # For developmennt purposes
 
   api:
     build:
       context: .
-      dockerfile: DockerFile-Api
+      dockerfile: ./DockerFile-Api-prod
     restart: unless-stopped
-    command: [ "npm", "run", "dev" ]
+    command: [ "npm", "run", "start" ]
     ports:
       - "3551:3551"
     networks:
       - stmp-net
-    volumes:
-      - ./Api/src:/app/Api/src # For developmennt purposes
-      - ./upload/images:/app/upload/images # For developmennt purposes
     depends_on:
       - stmp-db
     env_file:
-      - Api/.env.dev
+      - Api/.env.prod
 
   stmp-db:
     container_name: stmp-db
@@ -54,7 +51,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=U3QgTWljaGVsIEtpZ2FsaSBDYXRoZWRyYWw=
     ports:
       - 3552:3306
     extra_hosts:

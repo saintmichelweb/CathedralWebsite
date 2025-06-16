@@ -12,6 +12,7 @@ import { ServiceEntity } from './ServiceEntity'
 import { ParishComitteCouncilEntity } from './ParishComitteCouncilEntity'
 import { ChoirEntity } from './ChoirEntity'
 import { MpuzaEntity } from './MpuzaEntity'
+import { CatholicActionEntity } from './CatholicActionEntity'
 
 @Entity('images')
 export class ImageEntity {
@@ -92,6 +93,9 @@ export class ImageEntity {
 
   @OneToMany(() => ChoirEntity, (choir: ChoirEntity) => choir.backgroundImage)
   connectedChoir!: ChoirEntity[]
+
+  @OneToMany(() => CatholicActionEntity, (catholicAction: CatholicActionEntity) => catholicAction.backgroundImage)
+  catholicAction!: CatholicActionEntity[]
 
   @OneToMany(() => MpuzaEntity, (mpuza: MpuzaEntity) => mpuza.backgroundImage)
   connectedMpuzas!: MpuzaEntity[]

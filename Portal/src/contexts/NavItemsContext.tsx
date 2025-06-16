@@ -21,71 +21,133 @@ export const NAV_ITEMS = [
     to: "/home-page",
     label: "Go to home page",
     icon: FaHouse,
-    // permissions: ['View Transactions'],
   },
   {
     name: "Locations & languages",
     label: "Open portal location & languages management nav menu",
     icon: CgMoreO,
-    // permissions: ['View Portal Users'],
     subNavItems: [
       {
         name: "Locations",
         to: "/locations",
         shortName: "Locations",
-        // icon: IoTimeOutline,
-        // permissions: ['View Transactions'],
       },
       {
         name: "Mass languages",
         to: "/languages",
         shortName: "Mass languages",
-        // icon: FaLanguage,
-        // permissions: ['View Transactions'],
       },
     ],
   },
   {
-    name: "Schedules",
-    label: "Open portal schedules nav menu",
+    name: "Schedules & hours",
+    label: "Open portal schedules & hours nav menu",
     icon: AiFillSchedule,
-    // permissions: ['View Portal Users'],
     subNavItems: [
       {
         name: "Mass schedule",
         to: "/mass-schedule",
         shortName: "Mass schedule",
-        // icon: IoTimeOutline,
-        // permissions: ['View Transactions'],
       },
       {
         name: "Office hours",
         to: "/OfficeHours",
         shortName: "Offices hours",
-        // icon: FaLanguage,
-        // permissions: ['View Transactions'],
       },
     ],
   },
   {
-    name: "News and events",
-    label: "Open portal news and events nav menu",
+    name: "News & events",
+    label: "Open portal news & events nav menu",
     icon: BiSolidNews,
-    // permissions: ['View Portal Users'],
     subNavItems: [
       {
         name: "Recent events",
         to: "/recent-events",
         shortName: "Recent events",
-        // icon: IoTimeOutline,
-        // permissions: ['View Transactions'],
       },
       {
         name: "Top news and notices",
         to: "/top-news-and-notices",
         shortName: "Top news and notices",
-        // icon: FaLanguage,
-        // permissions: ['View Transactions'],
+      },
+    ],
+  },
+  {
+    name: "History & welcome message",
+    label: "Open portal history & welcome message nav menu",
+    icon: IoTextSharp,
+    subNavItems: [
+      {
+        name: "History, Mission and Vision",
+        to: "/parish-history",
+        shortName: "History, Mission and Vision",
+      },
+      {
+        name: "Welcome message",
+        to: "/welcomeMessage",
+        shortName: "Welcome message",
+      },
+    ],
+  },
+  {
+    name: "Services & actions",
+    label: "Open Services and Catholic actions nav menu",
+    icon: FaHandsHelping,
+    subNavItems: [
+      {
+        name: "Services",
+        to: "/services",
+        shortName: "services",
+      },
+      {
+        name: "catholic actions",
+        to: "/catholic-actions",
+        shortName: "catholic actions",
+      },
+    ],
+  },
+  {
+    name: "Committees, Commissions & choirs",
+    label: "Open Committees, Commissions and choirs nav menu",
+    icon: TiGroupOutline,
+    subNavItems: [
+      {
+        name: "parish committee council",
+        to: "/parishCommitteeCouncil",
+        shortName: "committee council",
+      },
+      {
+        name: "Commissions",
+        to: "/commissions",
+        shortName: "Commissions",
+      },
+      {
+        name: "Choirs",
+        to: "/choirs",
+        shortName: "Choirs",
+      },
+    ],
+  },
+  {
+    name: "Communities, Mpuza & miryango remezo",
+    label: "Open communities, Mpuza miryango remezo and miryango remezo nav menu",
+    icon: RiCommunityFill,
+    subNavItems: [
+      {
+        name: "Communities",
+        to: "/communities",
+        shortName: "Communities",
+      },
+      {
+        name: "Mpuza Miryango Remezo",
+        to: "/mpuza",
+        shortName: "Mpuza miryango remezo",
+      },
+      {
+        name: "Miryango remezo",
+        to: "/miryangoremezo",
+        shortName: "Miryango remezo",
       },
     ],
   },
@@ -94,135 +156,19 @@ export const NAV_ITEMS = [
     to: "/banner-images",
     label: "Go to banner images",
     icon: IoImages,
-    // permissions: ['View Transactions'],
-  },
-  {
-    name: "History & welcome message",
-    label: "Open portal history & welcome message nav menu",
-    icon: IoTextSharp,
-    // permissions: ['View Portal Users'],
-    subNavItems: [
-      {
-        name: "History, Mission and Vision",
-        to: "/parish-history",
-        shortName: "History, Mission and Vision",
-        // icon: IoTimeOutline,
-        // permissions: ['View Transactions'],
-      },
-      {
-        name: "Welcome message",
-        to: "/welcomeMessage",
-        shortName: "Welcome message",
-        // icon: FaLanguage,
-        // permissions: ['View Transactions'],
-      },
-    ],
   },
   {
     name: "Priests information",
     to: "/priests",
     label: "Go to Priests information",
     icon: GiSunPriest,
-    // permissions: ['View Transactions'],
   },
-  {
-    name: "Services",
-    to: "/services",
-    label: "Go to services",
-    icon: FaHandsHelping,
-    // permissions: ['View Transactions'],
-  },
-  {
-    name: "Committees, Commissions and choirs",
-    label: "Open Committees, Commissions and choirs nav menu",
-    icon: TiGroupOutline,
-    // permissions: ['View Portal Users'],
-    subNavItems: [
-      {
-        name: "parish committee council",
-    to: "/parishCommitteeCouncil",
-        shortName: "committee council",
-        // icon: IoTimeOutline,
-        // permissions: ['View Transactions'],
-      },
-      {
-        name: "Commissions",
-    to: "/commissions",
-        shortName: "Commissions",
-        // icon: FaLanguage,
-        // permissions: ['View Transactions'],
-      },
-      {
-        name: "Choirs",
-    to: "/choirs",
-        shortName: "Choirs",
-        // icon: FaLanguage,
-        // permissions: ['View Transactions'],
-      },
-    ],
-  },
-  {
-    name: "communities, Mpuza miryango remezo and miryango remezo",
-    label: "Open communities, Mpuza miryango remezo and miryango remezo nav menu",
-    icon: RiCommunityFill,
-    // permissions: ['View Portal Users'],
-    subNavItems: [
-      {
-        name: "Communities",
-    to: "/communities",
-        shortName: "Communities",
-        // icon: FaLanguage,
-        // permissions: ['View Transactions'],
-      },
-      {
-        name: "Mpuza Miryango Remezo",
-    to: "/mpuza",
-        shortName: "Mpuza miryango remezo",
-        // icon: IoTimeOutline,
-        // permissions: ['View Transactions'],
-      },
-      {
-        name: "Miryango remezo",
-    to: "/miryangoremezo",
-        shortName: "Miryango remezo",
-        // icon: FaLanguage,
-        // permissions: ['View Transactions'],
-      },
-    ],
-  },
-  // {
-  //   name: "Choirs",
-  //   to: "/choirs",
-  //   label: "Go to choirs",
-  //   icon: BsMusicNoteList,
-  //   // permissions: ['View Transactions'],
-  // },
   {
     name: "Users Management",
     label: "Go to users management",
     to: "/users",
-    icon: FaUserCircle ,
+    icon: FaUserCircle,
   },
-  // {
-  //   name: 'Portal User Management',
-  //   label: 'Open portal user management nav menu',
-  //   icon: TbUserSearch,
-  //   // permissions: ['View Portal Users'],
-  //   subNavItems: [
-  //     {
-  //       name: 'User Management',
-  //       shortName: 'User',
-  //       to: '/portal-user-management/user-management',
-  //       // permissions: ['View Portal Users'],
-  //     },
-  //     {
-  //       name: 'Role Management',
-  //       shortName: 'Role',
-  //       to: '/portal-user-management/role-management',
-  //       // permissions: ['View Roles'],
-  //     },
-  //   ],
-  // },
 ];
 
 interface NavItemsContextProps {
@@ -263,38 +209,7 @@ const NavItemsProvider = ({ children }: { children: React.ReactNode }) => {
         logOutFn();
       }
       setLoggedUser(userProfile.data);
-
-      // if (userProfile.name === 'Portal Super Admin') {
       return;
-      // }
-      // Remove navigation item from sidebar if the user doesn't have the required permissions
-
-      // const filteredNavItems = NAV_ITEMS.map(navItem => {
-      //   // Copy the navItem to avoid mutating the original
-      //   const newItem = { ...navItem }
-
-      //   if (newItem.subNavItems) {
-      //     newItem.subNavItems = newItem.subNavItems.filter(subNavItem => {
-      //       return subNavItem.permissions
-      //         ? subNavItem.permissions.some(permission =>
-      //             userPermissions.includes(permission)
-      //           )
-      //         : true
-      //     })
-      //   }
-
-      //   // Check the main navItem
-      //   if (
-      //     newItem.permissions &&
-      //     !newItem.permissions.some(permission => userPermissions.includes(permission))
-      //   ) {
-      //     return null // Exclude the main navItem if user lacks permissions
-      //   }
-
-      //   return newItem
-      // }).filter(item => item !== null) // Remove null items
-
-      // setNavItems(filteredNavItems as typeof NAV_ITEMS)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     });
   };
