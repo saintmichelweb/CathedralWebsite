@@ -3376,6 +3376,26 @@ paths:
                     example: Invalid credentials
         '422':
           description: Validation error
+  /about/catholicActions:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all catholic Actions
+      responses:
+        '200':
+          description: Get catholic Actions successful
+        '500':
+          description: Internal Server error
+  /about/communities:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Communities
+      responses:
+        '200':
+          description: Get Communities successful
+        '500':
+          description: Internal Server error
   /welcomeMessage:
     get:
       tags:
