@@ -3396,6 +3396,143 @@ paths:
           description: Get Communities successful
         '500':
           description: Internal Server error
+  /services/office-hours:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Office hours
+      responses:
+        '200':
+          description: Get Office hours successful
+        '500':
+          description: Internal Server error
+  /aboutPage/parishCommitteeCouncil:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Parish Committee Council
+      responses:
+        '200':
+          description: Get Parish Committee Council successful
+        '500':
+          description: Internal Server error
+  /aboutPage/parish-history:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Parish History
+      responses:
+        '200':
+          description: Get Parish History successful
+        '500':
+          description: Internal Server error
+  /aboutPage/priests:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Priests
+      responses:
+        '200':
+          description: Get Priests successful
+        '500':
+          description: Internal Server error
+  /services/services:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Services
+      responses:
+        '200':
+          description: Get Services successful
+        '500':
+          description: Internal Server error
+  /services/choirs:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Choirs
+      responses:
+        '200':
+          description: Get Choirs successful
+        '500':
+          description: Internal Server error
+  /services/commissions:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Commissions
+      responses:
+        '200':
+          description: Get Commissions successful
+        '500':
+          description: Internal Server error
+  /homePage/bannerImages:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Banner Images
+      responses:
+        '200':
+          description: Get Banner Images successful
+        '500':
+          description: Internal Server error
+  /homePage/welcomeMessage:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Welcome Message
+      responses:
+        '200':
+          description: Get Welcome Message successful
+        '500':
+          description: Internal Server error
+  /homePage/mass-times:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Mass Times
+      responses:
+        '200':
+          description: Get Mass Times successful
+        '500':
+          description: Internal Server error
+  /homePage/recentEvents:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Recent Events
+      responses:
+        '200':
+          description: Get Recent Events successful
+        '500':
+          description: Internal Server error
+  /homePage/recentEvents/:id:
+    get:
+      tags:
+        - Website-Routes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The Id of the recent event
+          schema:
+            type: number
+      summary: get Recent Event by id
+      responses:
+        '200':
+          description: Get Recent Event successful
+        '500':
+          description: Internal Server error
+  /homePage/topParishNewsAndNotices:
+    get:
+      tags:
+        - Website-Routes
+      summary: get all Top Parish News And Notices
+      responses:
+        '200':
+          description: Get Top Parish News And Notices successful
+        '500':
+          description: Internal Server error
   /welcomeMessage:
     get:
       tags:

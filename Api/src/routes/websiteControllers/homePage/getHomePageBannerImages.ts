@@ -3,6 +3,21 @@ import { AppDataSource } from "../../../database/dataSource";
 import logger from "../../../services/logger";
 import { ImageEntity } from "../../../entity/ImagesEntity";
 
+/**
+ * @openapi
+ * /homePage/bannerImages:
+ *   get:
+ *     tags:
+ *       - Website-Routes
+ *     summary: get all Banner Images
+ *     responses:
+ *       200:
+ *         description: Get Banner Images successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
+
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getHomePageBannerImages(req: Request, res: Response) {
     try {

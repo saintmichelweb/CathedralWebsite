@@ -3,30 +3,20 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { CommissionEntity } from "../../entity/CommissionEntity";
 
-// /**
-//  * @openapi
-//  * /commissions:
-//  *   get:
-//  *     tags:
-//  *       - Commission
-//  *     summary: get all Commission
-//  *     responses:
-//  *       200:
-//  *         description: Get Commission
-//  *       401:
-//  *         description: Invalid credentials
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 message:
-//  *                   type: string
-//  *                   example: "Invalid credentials"
-//  *       500:
-//  *         description: Internal Server error
-//  *
-//  */
+/**
+ * @openapi
+ * /services/commissions:
+ *   get:
+ *     tags:
+ *       - Website-Routes
+ *     summary: get all Commissions
+ *     responses:
+ *       200:
+ *         description: Get Commissions successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getWebsiteCommissions(req: Request, res: Response) {
