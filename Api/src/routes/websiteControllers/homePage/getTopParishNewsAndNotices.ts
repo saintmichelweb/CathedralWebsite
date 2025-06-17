@@ -1,8 +1,22 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../../../database/dataSource";
 import logger from "../../../services/logger";
-import { isUndefinedOrNull } from "../../../utils/utils";
 import { TopNewsAndNoticesEntity } from "../../../entity/TopNewsAndNoticesEntity";
+
+/**
+ * @openapi
+ * /homePage/topParishNewsAndNotices:
+ *   get:
+ *     tags:
+ *       - Website-Routes
+ *     summary: get all Top Parish News And Notices
+ *     responses:
+ *       200:
+ *         description: Get Top Parish News And Notices successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getTopParishNewsAndNotices(req: Request, res: Response) {
