@@ -19,7 +19,7 @@ import { CommunityEntity } from "../../entity/CommunityEntity";
  *         schema:
  *            type: integer
  *         description: Community ID
- *     summary: delete a Mass community
+ *     summary: delete a community
  *     responses:
  *       200:
  *         description: Community deleted successfully

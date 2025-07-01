@@ -5,33 +5,21 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { AuthRequest } from "../../types/express";
 import { ParishHistoryEntity } from "../../entity/ParishHistoryEntity";
 
+/**
+ * @openapi
+ * /about-page/parish-history:
+ *   get:
+ *     tags:
+ *       - Front-End
+ *     summary: get all parish history council
+ *     responses:
+ *       200:
+ *         description: Get parish history council successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
 
-// /**
-//  * @openapi
-//  * /parish-history:
-//  *   get:
-//  *     tags:
-//  *       - Parish History
-//  *     security:
-//  *       - Authorization: []
-//  *     summary: get Parish History
-//  *     responses:
-//  *       200:
-//  *         description: Get Parish History
-//  *       401:
-//  *         description: Invalid credentials
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 message:
-//  *                   type: string
-//  *                   example: "Invalid credentials"
-//  *       500:
-//  *         description: Internal Server error
-//  *
-//  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getWebsiteParishHistory(req: AuthRequest, res: Response) {

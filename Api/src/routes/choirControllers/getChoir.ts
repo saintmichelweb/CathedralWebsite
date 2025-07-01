@@ -21,11 +21,6 @@ import { Brackets } from "typeorm";
  *         description: The page number
  *         minimum: 1
  *         example: 1
- *       - in: query
- *         name: search
- *         schema:
- *           type: string
- *         description: The search text
  *       - in: isActive
  *         name: is active
  *         schema:

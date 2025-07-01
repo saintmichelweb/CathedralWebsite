@@ -11,7 +11,7 @@ import logger from '../../services/logger'
  * /users/sendVerificationEmail:
  *   post:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     security:
  *       - Authorization: []
  *     requestBody:

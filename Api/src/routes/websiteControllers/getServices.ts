@@ -5,39 +5,20 @@ import { isUndefinedOrNull } from "../../utils/utils";
 import { AuthRequest } from "../../types/express";
 import { ServiceEntity } from "../../entity/ServiceEntity";
 
-// /**
-//  * @openapi
-//  * /services:
-//  *   get:
-//  *     tags:
-//  *       - Service
-//  *     security:
-//  *       - Authorization: []
-//  *     parameters:
-//  *      - in: query
-//  *        name: isActive
-//  *        schema:
-//  *          type: boolean
-//  *        required: false
-//  *        description: Activity status of service
-//  *     summary: get all Mass services
-//  *     responses:
-//  *       200:
-//  *         description: Get Services
-//  *       401:
-//  *         description: Invalid credentials
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 message:
-//  *                   type: string
-//  *                   example: "Invalid credentials"
-//  *       500:
-//  *         description: Internal Server error
-//  *
-//  */
+/**
+ * @openapi
+ * /services/services:
+ *   get:
+ *     tags:
+ *       - Front-End
+ *     summary: get all services
+ *     responses:
+ *       200:
+ *         description: Get services successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getWebsiteServices(req: AuthRequest, res: Response) {

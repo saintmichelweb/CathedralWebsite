@@ -3,6 +3,21 @@ import { AppDataSource } from "../../../database/dataSource";
 import { HomePageWelcomeMessageEntity } from "../../../entity/HomePageWelcomeMessageEntity";
 import logger from "../../../services/logger";
 
+/**
+ * @openapi
+ * /home-page/welcome-message:
+ *   get:
+ *     tags:
+ *       - Front-End
+ *     summary: get all welcome message
+ *     responses:
+ *       200:
+ *         description: Get welcome message successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
+
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getHomePageMessage(req: Request, res: Response) {
     try {

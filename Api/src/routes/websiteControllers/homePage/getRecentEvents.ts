@@ -4,6 +4,21 @@ import logger from "../../../services/logger";
 import { isUndefinedOrNull } from "../../../utils/utils";
 import { RecentEventsEntity } from "../../../entity/RecentEventsEntity";
 
+/**
+ * @openapi
+ * /home-page/recent-events:
+ *   get:
+ *     tags:
+ *       - Front-End
+ *     summary: get all recent events
+ *     responses:
+ *       200:
+ *         description: Get recent events successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
+
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getRecentEvents(req: Request, res: Response) {
     try {
@@ -33,6 +48,27 @@ export async function getRecentEvents(req: Request, res: Response) {
     }
 }
 
+/**
+ * @openapi
+ * /home-page/recent-events/:id:
+ *   get:
+ *     tags:
+ *       - Front-End
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *            type: integer
+ *         description: Service ID
+ *     summary: get recent event by id 
+ *     responses:
+ *       200:
+ *         description: Get recent event by id successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
 
 export async function getRecentEventById(req: Request, res: Response) {
     const recentEventId = Number(req.params.id)

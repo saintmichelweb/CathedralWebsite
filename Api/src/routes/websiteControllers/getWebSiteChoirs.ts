@@ -3,30 +3,20 @@ import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
 import { ChoirEntity } from "../../entity/ChoirEntity";
 
-// /**
-//  * @openapi
-//  * /Choirs:
-//  *   get:
-//  *     tags:
-//  *       - Choir
-//  *     summary: get all Choir
-//  *     responses:
-//  *       200:
-//  *         description: Get Choir
-//  *       401:
-//  *         description: Invalid credentials
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 message:
-//  *                   type: string
-//  *                   example: "Invalid credentials"
-//  *       500:
-//  *         description: Internal Server error
-//  *
-//  */
+/**
+ * @openapi
+ * /services/choirs:
+ *   get:
+ *     tags:
+ *       - Front-End
+ *     summary: get all choirs
+ *     responses:
+ *       200:
+ *         description: Get choirs successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getWebsiteChoir(req: Request, res: Response) {

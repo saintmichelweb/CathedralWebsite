@@ -20,11 +20,11 @@ import * as fs from 'fs'
  *         required: true
  *         schema:
  *            type: integer
- *         description: Priests ID
- *     summary: delete a Mass priests
+ *         description: Priest's ID
+ *     summary: delete a priest
  *     responses:
  *       200:
- *         description: Priests deleted successfully
+ *         description: Priest deleted successfully
  *         content:
  *           application/json:
  *             schema:

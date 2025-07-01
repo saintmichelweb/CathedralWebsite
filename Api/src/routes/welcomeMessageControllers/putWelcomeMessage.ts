@@ -6,6 +6,86 @@ import { AppDataSource } from "../../database/dataSource";
 import { HomePageWelcomeMessageEntity } from "../../entity/HomePageWelcomeMessageEntity";
 import { ImageEntity } from "../../entity/ImagesEntity";
 
+/**
+ * @openapi
+ * /welcomeMessage/{id}:
+ *   put:
+ *     tags:
+ *       - Welcome Message
+ *     security:
+ *       - Authorization: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *            type: integer
+ *         description: Welcome Message ID
+ *     summary: Update a Welcome Message
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - welcomeMessage_en
+ *               - welcomeMessage_fr
+ *               - welcomeMessage_rw
+ *             properties:
+ *               welcomeMessage_en:
+ *                 type: string
+ *                 example: "We are happy to have you with us at St. Michel Parish."
+ *                 description: "Welcome message in English"
+ *               welcomeMessage_fr:
+ *                 type: string
+ *                 example: "Nous sommes heureux de vous accueillir à la paroisse Saint Michel."
+ *                 description: "Welcome message in French"
+ *               welcomeMessage_rw:
+ *                 type: string
+ *                 example: "Turishimye kubakira muri Paruwasi ya Mutagatifu Mikaheli."
+ *                 description: "Welcome message in Kinyarwanda"
+ *               backgroundImageId:
+ *                 type: number
+ *                 nullable: true
+ *                 example: 106
+ *                 description: "Optional background image ID"
+ *     responses:
+ *       200:
+ *         description: Service saved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Service updated successfully."
+ *       401:
+ *         description: Invalid credentials!
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid credentials!"
+ *       404:
+ *         description: Service not found! 
+ *       422:
+ *         description: Validation error!
+ *       500:
+ *         description: Internal Server error!
+ *
+ */
+
 export async function PutWelcomeMessage(req: AuthRequest, res: Response) {
     const portalUser = req.user;
     const id = req.params.id

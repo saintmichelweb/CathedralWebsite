@@ -20,7 +20,7 @@ import { readEnv } from "../../setup/readEnv";
  *          type: boolean
  *        required: false
  *        description: Activity status of recent event
- *     summary: get all Mass recent events
+ *     summary: get all recent events
  *     responses:
  *       200:
  *         description: Get Recent Events

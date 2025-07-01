@@ -10,7 +10,7 @@ const parishCommitteeCouncilSchema = z.object({
   names: z
     .string()
     .trim()
-    .min(1, { message: "parishCommitteeCouncil day_en is required" }),
+    .min(1, { message: "parishCommitteeCouncil names is required" }),
   position_en: z
     .string()
     .trim()
@@ -70,15 +70,59 @@ const parishCommitteeCouncilSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+*             required:
+ *               - names
+ *               - position_en
+ *               - position_fr
+ *               - position_rw
+ *               - telephone
+ *               - email
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
  *             properties:
- *               parishCommitteeCouncil:
+ *               names:
  *                 type: string
- *                 example: "St Michael Parish"
- *                 description: "parishCommitteeCouncil of the Mass"
- *               isActive:
- *                 type: boolean
- *                 example: "false"
- *                 description: "Activation state of the parishCommitteeCouncil"
+ *                 example: "Rev. John Mbonyumugenzi"
+ *                 description: "Full name of the committee member"
+ *               position_en:
+ *                 type: string
+ *                 example: "Vice Chairperson"
+ *                 description: "Position title in English"
+ *               position_fr:
+ *                 type: string
+ *                 example: "Vice-président"
+ *                 description: "Position title in French"
+ *               position_rw:
+ *                 type: string
+ *                 example: "Umuyobozi wungirije"
+ *                 description: "Position title in Kinyarwanda"
+ *               telephone:
+ *                 type: string
+ *                 example: "+250788123456"
+ *                 description: "Phone number of the committee member"
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "john@example.com"
+ *                 description: "Email address of the committee member"
+ *               description_en:
+ *                 type: string
+ *                 example: "Represents the youth in the parish council."
+ *                 description: "Description in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Représente la jeunesse dans le conseil paroissial."
+ *                 description: "Description in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Ahagarariye urubyiruko mu nama y’itorero."
+ *                 description: "Description in Kinyarwanda"
+ *               backgroundImageId:
+ *                 type: number
+ *                 nullable: true
+ *                 example: 104
+ *                 description: "Optional background image ID"
  *     responses:
  *       200:
  *         description: parishCommitteeCouncil saved successfully

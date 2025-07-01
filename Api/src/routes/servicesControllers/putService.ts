@@ -74,11 +74,64 @@ const ServiceSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name_en
+ *               - name_fr
+ *               - name_rw
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
+ *               - contact_person_name
+ *               - contact_person_phone_number
+ *               - work_days
+ *               - work_hours
+ *               - isActive
  *             properties:
- *               service:
+ *               name_en:
  *                 type: string
- *                 example: "St Michael Parish"
- *                 description: "service of the Mass"
+ *                 example: "Social Support Service"
+ *                 description: "Service name in English"
+ *               name_fr:
+ *                 type: string
+ *                 example: "Service d'assistance sociale"
+ *                 description: "Service name in French"
+ *               name_rw:
+ *                 type: string
+ *                 example: "Serivisi y'ubufasha"
+ *                 description: "Service name in Kinyarwanda"
+ *               description_en:
+ *                 type: string
+ *                 example: "We support parishioners in need"
+ *                 description: "Service description in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Nous soutenons les paroissiens dans le besoin"
+ *                 description: "Service description in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Dufasha abakene n'abari mu kaga"
+ *                 description: "Service description in Kinyarwanda"
+ *               contact_person_name:
+ *                 type: string
+ *                 example: "Sister Marie Claire"
+ *                 description: "Contact person's full name"
+ *               contact_person_phone_number:
+ *                 type: string
+ *                 example: "+250788999888"
+ *                 description: "Contact person's phone number"
+ *               work_days:
+ *                 type: string
+ *                 example: "Monday to Friday"
+ *                 description: "Days the service operates"
+ *               work_hours:
+ *                 type: string
+ *                 example: "09:00 - 16:00"
+ *                 description: "Working hours for the service"
+ *               backgroundImageId:
+ *                 type: number
+ *                 nullable: true
+ *                 example: 106
+ *                 description: "Optional background image ID"
  *               isActive:
  *                 type: boolean
  *                 example: "false"

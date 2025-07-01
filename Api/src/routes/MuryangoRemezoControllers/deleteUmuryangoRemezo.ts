@@ -21,7 +21,7 @@ import * as fs from 'fs'
  *         schema:
  *            type: integer
  *         description: MuryangoRemezo ID
- *     summary: delete a Mass muryangoremezo
+ *     summary: delete a muryangoremezo
  *     responses:
  *       200:
  *         description: MuryangoRemezo deleted successfully

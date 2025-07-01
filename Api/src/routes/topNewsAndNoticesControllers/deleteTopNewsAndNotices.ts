@@ -20,7 +20,7 @@ import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
  *         schema:
  *            type: integer
  *         description: Top News And Notices ID
- *     summary: delete a Mass location
+ *     summary: delete a Top News And Notices
  *     responses:
  *       200:
  *         description: Top News And Notices deleted successfully

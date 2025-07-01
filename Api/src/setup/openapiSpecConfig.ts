@@ -5,7 +5,7 @@ import yaml from 'js-yaml'
 import { cloneDeep } from 'lodash'
 
 const ROUTE_PATH = path.join(__dirname, '../routes/**/*.ts')
-const ENTITY_PATH = path.join(__dirname, '../entities/**/*.ts')
+const ENTITY_PATH = path.join(__dirname, '../entity/**/*.ts')
 
 const options = {
   failOnErrors: true,
@@ -24,14 +24,18 @@ const options = {
     ],
     components: {
       securitySchemes: {
-        Authorization: {
+        bearerAuth: {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
-          value: 'Bearer <JWT token here>'
         }
       }
-    }
+    },
+    security: [
+      {
+        bearerAuth: []
+      }
+    ]
   },
   apis: [ROUTE_PATH, ENTITY_PATH]
 }
@@ -44,6 +48,7 @@ const tagOrder = [
   "Choir",
   "Commission",
   "Community",
+  "Fronted",
   "Images",
   "Language",
   "Location",
@@ -61,11 +66,18 @@ const tagOrder = [
   "parishCommitteeCouncil"
 ];
 
-openAPISpecification.tags.sort((a: any, b: any) => {
+openAPISpecification.tags.sort((a: { name: string }, b: { name: string }) => {
   const indexA = tagOrder.indexOf(a.name)
   const indexB = tagOrder.indexOf(b.name)
-  if (indexA === -1) return 1
-  if (indexB === -1) return -1
+
+  const aNotFound = indexA === -1
+  const bNotFound = indexB === -1
+
+  if (aNotFound && bNotFound) {
+    return a.name.localeCompare(b.name) // fallback alphabetical order
+  }
+  if (aNotFound) return 1  // unknown tags go to the end
+  if (bNotFound) return -1
   return indexA - indexB
 })
 

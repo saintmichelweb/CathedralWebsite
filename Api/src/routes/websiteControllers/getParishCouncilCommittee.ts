@@ -4,39 +4,20 @@ import logger from "../../services/logger";
 import { AuthRequest } from "../../types/express";
 import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEntity";
 
-// /**
-//  * @openapi
-//  * /parishCommitteeCouncil:
-//  *   get:
-//  *     tags:
-//  *       - parishCommitteeCouncil
-//  *     security:
-//  *       - Authorization: []
-//  *     parameters:
-//  *      - in: query
-//  *        name: isActive
-//  *        schema:
-//  *          type: boolean
-//  *        required: false
-//  *        description: Activity status of parishCommitteeCouncil
-//  *     summary: get all Mass parishCommitteeCouncils
-//  *     responses:
-//  *       200:
-//  *         description: Get parishCommitteeCouncil
-//  *       401:
-//  *         description: Invalid credentials
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 message:
-//  *                   type: string
-//  *                   example: "Invalid credentials"
-//  *       500:
-//  *         description: Internal Server error
-//  *
-//  */
+/**
+ * @openapi
+ * /about-page/committee-council:
+ *   get:
+ *     tags:
+ *       - Front-End
+ *     summary: get all committee council
+ *     responses:
+ *       200:
+ *         description: Get committee council successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getWebsiteParishCommitteeCouncil(req: AuthRequest, res: Response) {

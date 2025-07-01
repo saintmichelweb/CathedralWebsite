@@ -55,19 +55,36 @@ const priestSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+*             required:
+ *               - name
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
  *             properties:
  *               name:
  *                 type: string
  *                 example: "Priest"
  *                 description: "Priest title"
- *               description:
+ *               title:
+ *                 type: string
+ *                 example: "Priest"
+ *                 description: "Priest title"
+ *               description_en:
+ *                 type: string
+ *                 example: "Priest"
+ *                 description: "Priest description_en"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Priest"
+ *                 description: "Priest description_fr"
+ *               description_rw:
  *                 type: string
  *                 example: "description"
- *                 description: "Priest description"
+ *                 description: "Priest description_rw"
  *               backgroundImageId:
  *                 type: number
- *                 example: 1
- *                 description: "Id of the saved image entity"
+ *                 example: "description"
+ *                 description: "Priest backgroundImageId"
  *     responses:
  *       200:
  *         description: Priest saved successfully

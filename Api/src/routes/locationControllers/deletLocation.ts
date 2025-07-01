@@ -20,7 +20,7 @@ import { AuthRequest } from "../../types/express";
  *         schema:
  *            type: integer
  *         description: Location ID
- *     summary: delete a Mass location
+ *     summary: delete a location
  *     responses:
  *       200:
  *         description: Location deleted successfully

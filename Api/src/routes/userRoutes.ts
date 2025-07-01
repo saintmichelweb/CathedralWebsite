@@ -12,20 +12,6 @@ import { resendVerificationEmail } from './userControllers/resendVerificationEma
 import { getUsers } from './userControllers/getUsers'
 import { deleteUser } from './userControllers/deleteUser'
 
-// /**
-//  * @openapi
-//  * /users:
-//  *   get:
-//  *     tags:
-//  *       - Portal Users
-//  *     security:
-//  *       - Authorization: []
-//  *     summary: GET Portal Users List
-//  *     responses:
-//  *       200:
-//  *         description: GET Portal Users List
-//  */
-
 const router = express.Router()
 
 router.get('/users/profile', authenticateJWT ,GetUserProfile)

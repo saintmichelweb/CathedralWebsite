@@ -4,6 +4,21 @@ import logger from "../../../services/logger";
 import { isUndefinedOrNull } from "../../../utils/utils";
 import { TopNewsAndNoticesEntity } from "../../../entity/TopNewsAndNoticesEntity";
 
+/**
+ * @openapi
+ * /home-page/top-parish-news-and-notices:
+ *   get:
+ *     tags:
+ *       - Front-End
+ *     summary: get all top parish news and notices
+ *     responses:
+ *       200:
+ *         description: Get top parish news and notices successful
+ *       500:
+ *         description: Internal Server error
+ *
+ */
+
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getTopParishNewsAndNotices(req: Request, res: Response) {
     try {

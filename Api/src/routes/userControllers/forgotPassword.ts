@@ -16,7 +16,7 @@ const JWT_SECRET = readEnv('JWT_SECRET', 'secret') as string
  * /users/forgot-password:
  *   post:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     summary: Reset Forgot Password
  *     requestBody:
  *       required: true

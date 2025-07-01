@@ -55,42 +55,80 @@ const commissionSchema = z.object({
 
 /**
  * @openapi
- * /commissions/{id}:
- *   put:
+ * /commissions:
+ *   post:
  *     tags:
  *       - Commission
  *     security:
  *       - Authorization: []
- *     summary: Update a commission
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *            type: integer
- *         description: commission ID
+ *     summary: Add a Commission
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name_en
+ *               - name_fr
+ *               - name_rw
+ *               - contact_person_name
+ *               - contact_person_role
+ *               - contact_person_phone_number
+ *               - contact_person_email
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
  *             properties:
- *               name:
+ *               name_en:
  *                 type: string
- *                 example: "commission"
- *                 description: "commission title"
- *               description:
+ *                 example: "English name"
+ *                 description: "Community name in English"
+ *               name_fr:
  *                 type: string
- *                 example: "description"
- *                 description: "commission description"
+ *                 example: "Nom en français"
+ *                 description: "Community name in French"
+ *               name_rw:
+ *                 type: string
+ *                 example: "Izina mu Kinyarwanda"
+ *                 description: "Community name in Kinyarwanda"
+ *               contact_person_name:
+ *                 type: string
+ *                 example: "Jane Doe"
+ *                 description: "Contact person's full name"
+ *               contact_person_role:
+ *                 type: string
+ *                 example: "Community Leader"
+ *                 description: "Role of the contact person"
+ *               contact_person_phone_number:
+ *                 type: string
+ *                 example: "+250788000000"
+ *                 description: "Phone number of the contact person"
+ *               contact_person_email:
+ *                 type: string
+ *                 format: email
+ *                 example: "jane@example.com"
+ *                 description: "Email of the contact person"
+ *               description_en:
+ *                 type: string
+ *                 example: "English description"
+ *                 description: "Community description in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Description en français"
+ *                 description: "Community description in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Ibisobanuro mu Kinyarwanda"
+ *                 description: "Community description in Kinyarwanda"
  *               backgroundImageId:
  *                 type: number
- *                 example: 1
- *                 description: "Id of the saved image entity"
+ *                 nullable: true
+ *                 example: 102
+ *                 description: "Optional background image ID"
  *     responses:
  *       200:
- *         description: commission saved successfully
+ *         description: Community saved successfully
  *         content:
  *           application/json:
  *             schema:
@@ -101,9 +139,9 @@ const commissionSchema = z.object({
  *                   example: true
  *                 message:
  *                   type: string
- *                   example: "commission updated successfully."
+ *                   example: "Community saved successfully"
  *       401:
- *         description: Invalid credentials!
+ *         description: Invalid credentials
  *         content:
  *           application/json:
  *             schema:
@@ -114,14 +152,11 @@ const commissionSchema = z.object({
  *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Invalid credentials!"
- *       404:
- *         description: Commission not found! 
+ *                   example: "Invalid credentials"
  *       422:
- *         description: Validation error!
+ *         description: Validation error
  *       500:
- *         description: Internal Server error!
- *
+ *         description: Internal Server error
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -174,9 +209,6 @@ export async function putCommission(req: AuthRequest, res: Response) {
       savedCommission.contact_person_phone_number = parsedBody.data.contact_person_phone_number;
     }
 
-    // if (parsedBody.data.title) {
-    //   savedCommission.title = parsedBody.data.title;
-    // }
     if (parsedBody.data.description_en) {
       savedCommission.description_en = parsedBody.data.description_en;
     }

@@ -14,7 +14,7 @@ import { readEnv } from "../../setup/readEnv";
  *     summary: get all Commission
  *     responses:
  *       200:
- *         description: Get Commission
+ *         description: Get Commissions successful
  *       401:
  *         description: Invalid credentials
  *         content:

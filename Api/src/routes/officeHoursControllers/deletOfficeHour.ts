@@ -20,7 +20,7 @@ import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
  *         schema:
  *            type: integer
  *         description: OfficeHour ID
- *     summary: delete a Mass officeHours
+ *     summary: delete office Hour
  *     responses:
  *       200:
  *         description: OfficeHour deleted successfully

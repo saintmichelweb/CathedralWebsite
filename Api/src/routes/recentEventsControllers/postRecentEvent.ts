@@ -53,19 +53,49 @@ const recentEventSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - title_en
+ *               - title_fr
+ *               - title_rw
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
+ *               - event_date
  *             properties:
- *               title:
+ *               title_en:
  *                 type: string
- *                 example: "Recent event"
- *                 description: "Recent event title"
- *               description:
+ *                 example: "Parish Youth Rally"
+ *                 description: "Title of the event in English"
+ *               title_fr:
  *                 type: string
- *                 example: "description"
- *                 description: "Recent event description"
+ *                 example: "Rassemblement des jeunes de la paroisse"
+ *                 description: "Title of the event in French"
+ *               title_rw:
+ *                 type: string
+ *                 example: "Igiterane cy'urubyiruko rwa paruwasi"
+ *                 description: "Title of the event in Kinyarwanda"
+ *               description_en:
+ *                 type: string
+ *                 example: "A gathering to engage the parish youth"
+ *                 description: "Description of the event in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Un événement pour engager les jeunes de la paroisse"
+ *                 description: "Description of the event in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Igikorwa cyo gukangurira urubyiruko rwa paruwasi kwitabira"
+ *                 description: "Description of the event in Kinyarwanda"
+ *               event_date:
+ *                 type: string
+ *                 format: date
+ *                 example: "2025-08-15"
+ *                 description: "Date of the event (YYYY-MM-DD)"
  *               backgroundImageId:
  *                 type: number
- *                 example: "description"
- *                 description: "Recent event backgroundImageId"
+ *                 nullable: true
+ *                 example: 105
+ *                 description: "Optional background image ID"
  *     responses:
  *       200:
  *         description: Recent Event saved successfully

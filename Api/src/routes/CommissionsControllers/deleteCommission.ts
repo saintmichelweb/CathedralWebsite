@@ -21,7 +21,7 @@ import * as fs from 'fs'
  *         schema:
  *            type: integer
  *         description: Commission ID
- *     summary: delete a Mass commission
+ *     summary: delete a commission
  *     responses:
  *       200:
  *         description: Commission deleted successfully

@@ -21,7 +21,7 @@ import { readEnv } from "../../setup/readEnv";
  *          type: boolean
  *        required: false
  *        description: Activity status of service
- *     summary: get all Mass services
+ *     summary: get all services
  *     responses:
  *       200:
  *         description: Get Services
