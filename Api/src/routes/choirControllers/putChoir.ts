@@ -41,7 +41,7 @@ const ChoirSchema = z.object({
 /**
  * @openapi
  * /Choir:
- *   post:
+ *   put:
  *     tags:
  *       - Choir
  *     security:

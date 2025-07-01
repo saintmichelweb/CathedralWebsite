@@ -109,6 +109,86 @@ paths:
                 - description_rw
                 - leader
                 - telephone
+              properties:
+                name:
+                  type: string
+                  example: Choir
+                  description: Name of the choir
+                description_en:
+                  type: string
+                  example: English description
+                  description: Choir description in English
+                description_fr:
+                  type: string
+                  example: Description en français
+                  description: Choir description in French
+                description_rw:
+                  type: string
+                  example: Ibisobanuro mu Kinyarwanda
+                  description: Choir description in Kinyarwanda
+                leader:
+                  type: string
+                  example: John Doe
+                  description: Leader of the choir
+                telephone:
+                  type: string
+                  example: '+250788123456'
+                  description: Telephone number of the choir leader
+                backgroundImageId:
+                  type: number
+                  example: 101
+                  nullable: true
+                  description: Optional background image ID
+      responses:
+        '200':
+          description: Choir saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Choir saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Choir
+      security:
+        - Authorization: []
+      summary: Add a Choir
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - description_en
+                - description_fr
+                - description_rw
+                - leader
+                - telephone
                 - isActive
               properties:
                 name:
@@ -239,6 +319,107 @@ paths:
         '500':
           description: Internal Server error
     post:
+      tags:
+        - Commission
+      security:
+        - Authorization: []
+      summary: Add a Commission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name_en
+                - name_fr
+                - name_rw
+                - contact_person_name
+                - contact_person_role
+                - contact_person_phone_number
+                - contact_person_email
+                - description_en
+                - description_fr
+                - description_rw
+              properties:
+                name_en:
+                  type: string
+                  example: English name
+                  description: Community name in English
+                name_fr:
+                  type: string
+                  example: Nom en français
+                  description: Community name in French
+                name_rw:
+                  type: string
+                  example: Izina mu Kinyarwanda
+                  description: Community name in Kinyarwanda
+                contact_person_name:
+                  type: string
+                  example: Jane Doe
+                  description: Contact person's full name
+                contact_person_role:
+                  type: string
+                  example: Community Leader
+                  description: Role of the contact person
+                contact_person_phone_number:
+                  type: string
+                  example: '+250788000000'
+                  description: Phone number of the contact person
+                contact_person_email:
+                  type: string
+                  format: email
+                  example: jane@example.com
+                  description: Email of the contact person
+                description_en:
+                  type: string
+                  example: English description
+                  description: Community description in English
+                description_fr:
+                  type: string
+                  example: Description en français
+                  description: Community description in French
+                description_rw:
+                  type: string
+                  example: Ibisobanuro mu Kinyarwanda
+                  description: Community description in Kinyarwanda
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 102
+                  description: Optional background image ID
+      responses:
+        '200':
+          description: Community saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Community saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+    put:
       tags:
         - Commission
       security:

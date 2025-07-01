@@ -56,7 +56,7 @@ const commissionSchema = z.object({
 /**
  * @openapi
  * /commissions:
- *   post:
+ *   put:
  *     tags:
  *       - Commission
  *     security:
