@@ -41,21 +41,24 @@ const generatedSwagger = swaggerJSDoc(options)
 export const openAPISpecification: any = cloneDeep(generatedSwagger)
 
 const tagOrder = [
+  "Choir",
+  "Commission",
+  "Community",
   "Images",
   "Language",
   "Location",
   "Mass Times",
-  "Recent Events",
-  "Top News And Notices",
-  "Users",
+  "Mpuza Miryango Remezo",
+  "Muryango Remezo",
+  "Office Hours",
   "Parish History",
   "Priests",
-  "Welcome Message",
+  "Recent Events",
   "Services",
-  "parishCommitteeCouncil",
-  "Commission",
-  "Office Hours",
-  "Choir"
+  "Top News And Notices",
+  "Users",
+  "Welcome Message",
+  "parishCommitteeCouncil"
 ];
 
 openAPISpecification.tags.sort((a: any, b: any) => {
