@@ -50,7 +50,7 @@ const AddLanguageCard = (props: AddLanguageProps) => {
     if (languageToEdit) {
       setValue("language", languageToEdit.language);
     }
-  }, [languageToEdit]);
+  }, [languageToEdit, setValue]);
 
   const onConfirm = async (payload: LanguageForm | undefined) => {
     setIsOpenModal(false);

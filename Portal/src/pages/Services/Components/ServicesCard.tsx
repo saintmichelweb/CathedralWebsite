@@ -46,7 +46,6 @@ const AddServicesCard = (props: AddServiceProps) => {
 
   useEffect(() => {
     if (serviceToEdit) {
-      console.log(serviceToEdit);
       setValue("name_en", serviceToEdit.name_en);
       setValue("name_fr", serviceToEdit.name_fr);
       setValue("name_rw", serviceToEdit.name_rw);
@@ -62,7 +61,7 @@ const AddServicesCard = (props: AddServiceProps) => {
       );
     }
     setValue("backgroundImageId", serviceToEdit?.backgroundImage?.id || null);
-  }, [serviceToEdit]);
+  }, [serviceToEdit, setValue]);
 
   const onConfirm = async (payload: AddServiceForm | undefined) => {
     setIsOpenModal(false);
@@ -76,6 +75,7 @@ const AddServicesCard = (props: AddServiceProps) => {
                 description: res?.message || "Image updated successfully",
                 status: "success",
               });
+              // @ts-expect-error (undefined type)
               payload.backgroundImageId = res.image.id;
             })
             .catch((error) => {
@@ -249,7 +249,7 @@ const AddServicesCard = (props: AddServiceProps) => {
               name="description_en"
               register={register}
               errors={errors}
-              label="Event description (en)"
+              label="Description (en)"
               placeholder="Enter service description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -258,7 +258,7 @@ const AddServicesCard = (props: AddServiceProps) => {
               name="description_fr"
               register={register}
               errors={errors}
-              label="Event description (fr)"
+              label="Description (fr)"
               placeholder="Enter service description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}
@@ -267,7 +267,7 @@ const AddServicesCard = (props: AddServiceProps) => {
               name="description_rw"
               register={register}
               errors={errors}
-              label="Event description (rw)"
+              label="Description (rw)"
               placeholder="Enter service description"
               textareaProps={{ bg: "white" }}
               maxW={{ base: "25rem", sm: "90vw" }}

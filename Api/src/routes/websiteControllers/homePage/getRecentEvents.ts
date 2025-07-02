@@ -27,6 +27,7 @@ export async function getRecentEvents(req: Request, res: Response) {
         })
 
         const responseRecentEvents = Object.values(recentEvents).map(recentEvent => ({
+            id: recentEvent.id,
             title: {
                 title_en: recentEvent.title_en,
                 title_fr: recentEvent.title_fr,

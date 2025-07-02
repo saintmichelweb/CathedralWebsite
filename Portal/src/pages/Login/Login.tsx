@@ -53,7 +53,6 @@ const Login = () => {
     setIsPending(true);
     await login(values.email, values.password)
       .then((data) => {
-        console.log("data", data);
         if (data.token) {
           cookies.set("token", data.token);
           navigate("/home-page");
@@ -102,7 +101,7 @@ const Login = () => {
             justify="space-between"
             bg='primary'
           >
-            <Image src={stMichelLogo} w="60" />
+            <Image src={stMichelLogo} w="60" loading="lazy"/>
 
             <Heading as="h1" color="white" textAlign="center">
               Portal

@@ -49,6 +49,7 @@ export async function getAllMpuzas(req: Request, res: Response) {
 
   const MpuzaRepository = AppDataSource.getRepository(MpuzaEntity);
   const queryBuilder = MpuzaRepository.createQueryBuilder('Mpuza')
+    .leftJoinAndSelect('Mpuza.community', 'community')
     .leftJoinAndSelect('Mpuza.backgroundImage', 'backgroundImage')
 
   // if (isActive !==null && isActive !== undefined) {

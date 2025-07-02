@@ -18,6 +18,7 @@ import choirs from '../routes/choirsRoutes'
 import communities from '../routes/communitiesRoutes'
 import mpuza from '../routes/MpuzaRoutes'
 import miryangoremezo from '../routes/MiryangoremezoRoutes'
+import catholic_actions from '../routes/catholicActionsRoutes'
 
 
 
@@ -30,7 +31,6 @@ export default function setupRoutes (app: Application): void {
   app.use('/api', top_parish_news_and_notices_routes)
   app.use('/api', mass_times_routes)
   app.use('/api', image_routes)
-  app.use('/api', image_routes)
   app.use('/api', parish_history_routes)
   app.use('/api', priests)
   app.use('/api', welcomeMessage)
@@ -42,6 +42,7 @@ export default function setupRoutes (app: Application): void {
   app.use('/api', communities)
   app.use('/api', mpuza)
   app.use('/api', miryangoremezo)
+  app.use('/api', catholic_actions)
 
   // Catch-all route to handle 404s
   app.use('*', (req, res) => {

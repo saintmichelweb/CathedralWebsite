@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { AppDataSource } from "../../../database/dataSource";
 import logger from "../../../services/logger";
-import { isUndefinedOrNull } from "../../../utils/utils";
 import { TopNewsAndNoticesEntity } from "../../../entity/TopNewsAndNoticesEntity";
 
 /**

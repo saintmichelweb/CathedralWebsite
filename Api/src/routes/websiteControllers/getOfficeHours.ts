@@ -1,7 +1,6 @@
 import { Response } from "express";
 import { AppDataSource } from "../../database/dataSource";
 import logger from "../../services/logger";
-import { isUndefinedOrNull } from "../../utils/utils";
 import { AuthRequest } from "../../types/express";
 import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
 import { LocationEntity } from "../../entity/LocationEntity";

@@ -44,9 +44,9 @@ export async function getWebsiteParishCommitteeCouncil(req: AuthRequest, res: Re
       email: CommitteeCouncil.email,
       telephone: CommitteeCouncil.telephone,
     }))
-    return res.status(200).send({ message: "parishCommitteeCouncil retrieved successfully!", parishCommitteeCouncils: responseCommitteeCouncil });
+    return res.status(200).send({ message: "parish-committee-council retrieved successfully!", parishCommitteeCouncils: responseCommitteeCouncil });
   } catch (error: any) {
-    logger.error("Getting parishCommitteeCouncil failed: %s", error);
+    logger.error("Getting parish-committee-council failed: %s", error);
     res.status(500).send({ success: false, message: "Internal server error!" });
   }
 }

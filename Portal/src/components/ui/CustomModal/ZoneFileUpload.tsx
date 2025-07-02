@@ -16,7 +16,7 @@ interface FileUploadModalProps {
 
 const ZoneFileUpload = ({
   setIsUploading,
-  maxFileSize = 1,
+  maxFileSize = 10,
   isRestFiles,
   isUploading,
   setFile,
@@ -67,11 +67,7 @@ const ZoneFileUpload = ({
       justify='center'
       w='full'
       h='full'
-      // mt='8'
       bg={isDraggingOver ? 'blue.50' : 'white'}
-      // borderWidth='1px'
-      // borderStyle='dashed'
-      // borderColor='#c5c5c5'
       rounded='md'
       className={isDraggingOver ? 'dragging-over' : ''}
       onDrop={e => {
@@ -85,7 +81,7 @@ const ZoneFileUpload = ({
         for (const file of fileList) {
           if (file.size >  maxFileSize *4096 * 1024) {
             setFileError(true)
-            setFileErrorMessage('Sorry, only image size less than 4mb is allowed...')
+            setFileErrorMessage('Sorry, only image size less than 10mb is allowed...')
             return
           }
         }
@@ -201,7 +197,6 @@ const ZoneFileUpload = ({
           ref={fileRef}
           type='file'
           multiple
-          // accept='application/vnd.ms-excel,text/plain, application/pdf, image/*'
           accept='image/*'
           onChange={e => {
             const fileList = e.target.files
@@ -213,7 +208,7 @@ const ZoneFileUpload = ({
             for (const file of fileList) {
               if (file.size >  maxFileSize *4096 * 1024) {
                 setFileError(true)
-                setFileErrorMessage('Sorry, only image size less than 4mb is allowed...')
+                setFileErrorMessage('Sorry, only image size less than 10mb is allowed...')
                 return
               }
             }

@@ -42,6 +42,6 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
     return res.status(201).send({ message: 'Image uploaded successfully', image: savedImage });
   } catch (error) {
     logger.error("saving image failed: %s", error);
-    res.status(500).send({ success: false, message: "Internal server error!" });
+    return res.status(500).send({ success: false, message: "Internal server error!" });
   }
 };

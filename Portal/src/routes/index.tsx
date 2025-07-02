@@ -22,12 +22,11 @@ import {
   CommunityManagement,
   MpuzaMiryangoRemezoManagement,
   MiryangoRemezoManagement,
+  CatholicActionsManagement,
 } from "../pages";
 import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
 const Routes = () => {
-  // const [isLoading, setIsLoading] = useState(false)
-
   const element = useRoutes([
     {
       path: "/",
@@ -129,6 +128,11 @@ const Routes = () => {
           element: <MpuzaMiryangoRemezoManagement />,
         },
         {
+          path: "catholic-actions",
+          index: true,
+          element: <CatholicActionsManagement />,
+        },
+        {
           path: "miryangoremezo",
           index: true,
           element: <MiryangoRemezoManagement />,
@@ -151,9 +155,6 @@ const Routes = () => {
       caseSensitive: true,
     },
   ]);
-  // if (isLoading) {
-  //   return <div></div>
-  // }
   return element;
 };
 

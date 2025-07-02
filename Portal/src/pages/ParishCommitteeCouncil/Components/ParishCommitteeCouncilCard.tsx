@@ -44,7 +44,6 @@ const AddparishCommitteeCouncilCard = (
 
   useEffect(() => {
     if (parishCommitteeCouncilToEdit) {
-      console.log(parishCommitteeCouncilToEdit);
       setValue("names", parishCommitteeCouncilToEdit.names);
       setValue("position_en", parishCommitteeCouncilToEdit.position_en);
       setValue("position_fr", parishCommitteeCouncilToEdit.position_fr);
@@ -59,7 +58,7 @@ const AddparishCommitteeCouncilCard = (
       "backgroundImageId",
       parishCommitteeCouncilToEdit?.backgroundImage?.id || null
     );
-  }, [parishCommitteeCouncilToEdit]);
+  }, [parishCommitteeCouncilToEdit, setValue]);
 
   const onConfirm = async (
     payload: AddParishCommitteeCouncilForm | undefined
@@ -67,7 +66,6 @@ const AddparishCommitteeCouncilCard = (
     setIsOpenModal(false);
     if (payload) {
       if (selectedImage) {
-        console.log("adding new image");
         await addNewImage({ image: selectedImage, isBannerImage: false })
           .then((res) => {
             toast({

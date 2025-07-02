@@ -28,7 +28,7 @@ export async function getHomePageMessage(req: Request, res: Response) {
         const homePageWelcomeMessage = await queryBuilder.getMany()
 
         res.status(200).send({
-            message: "Parish welcome message retrieved successfully",
+            message: "Welcome message retrieved successfully",
             welcome_message: {
                 welcomeMessage: {
                     welcomeMessage_en: homePageWelcomeMessage[0].welcomeMessage_en,

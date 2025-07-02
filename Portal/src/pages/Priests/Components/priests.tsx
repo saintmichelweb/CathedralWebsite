@@ -50,7 +50,7 @@ const AddPriestCard = (props: AddPriestProps) => {
       setValue("description_rw", priestToEdit.description_rw);
       setValue("backgroundImageId", priestToEdit?.backgroundImage?.id || null);
     }
-  }, [priestToEdit]);
+  }, [priestToEdit, setValue]);
 
   const onConfirm = async (payload: AddPriestsForm | undefined) => {
     setIsOpenModal(false);
@@ -64,6 +64,7 @@ const AddPriestCard = (props: AddPriestProps) => {
                 description: res?.message || "Image updated successfully",
                 status: "success",
               });
+              // @ts-expect-error (undefined type)
               payload.backgroundImageId = res.image.id;
             })
             .catch((error) => {

@@ -42,7 +42,6 @@ const AddCommissionCard = (props: AddCommissionProps) => {
 
   useEffect(() => {
     if (CommissionToEdit) {
-      console.log(CommissionToEdit);
       setValue("name_en", CommissionToEdit.name_en);
       setValue("name_fr", CommissionToEdit.name_fr);
       setValue("name_rw", CommissionToEdit.name_rw);
@@ -61,7 +60,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
       "backgroundImageId",
       CommissionToEdit?.backgroundImage?.id || null
     );
-  }, [CommissionToEdit]);
+  }, [CommissionToEdit, setValue]);
 
   const onConfirm = async (payload: AddCommissionForm | undefined) => {
     setIsOpenModal(false);
@@ -75,6 +74,7 @@ const AddCommissionCard = (props: AddCommissionProps) => {
                 description: res?.message || "Image updated successfully",
                 status: "success",
               });
+              // @ts-expect-error (undefined type)
               payload.backgroundImageId = res.image.id;
             })
             .catch((error) => {

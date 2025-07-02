@@ -50,7 +50,6 @@ const OfficeTimesManagement = () => {
     setLoading(true);
     await getAllOfficeHours({page})
       .then((data) => {
-        console.log(data)
         setMassTimesData(data.officeHours);
         setnumberOfPages(data.totalPages);
         setLoading(false);

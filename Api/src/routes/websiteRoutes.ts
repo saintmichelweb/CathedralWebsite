@@ -12,6 +12,8 @@ import { getWebsiteParishHistory } from './websiteControllers/getParishHistory'
 import { getWebsiteServices } from './websiteControllers/getServices'
 import { getWebsiteChoir } from './websiteControllers/getWebSiteChoirs'
 import { getWebsiteCommissions } from './websiteControllers/getWebSiteCommissions'
+import { getWebsitecatholicActions } from './websiteControllers/aboutPage/getCatholicActions'
+import { getWebsitecommunities } from './websiteControllers/aboutPage/getCommunities'
 
 const router = express.Router()
 
@@ -30,10 +32,21 @@ router.get('/about-page/parish-history', getWebsiteParishHistory)
 
 
 //Service page routes 
+<<<<<<< HEAD
 router.get('/services-page/office-hours', getWebsiteOfficeHours)
 router.get('/services-page/services', getWebsiteServices)
 router.get('/services-page/Choirs', getWebsiteChoir)
 router.get('/services-page/commissions', getWebsiteCommissions)
+=======
+router.get('/services/office-hours', getWebsiteOfficeHours)
+router.get('/services/services', getWebsiteServices)
+router.get('/services/choirs', getWebsiteChoir)
+router.get('/services/commissions', getWebsiteCommissions)
+>>>>>>> develop
+
+//about page routes 
+router.get('/about/catholicActions', getWebsitecatholicActions)
+router.get('/about/communities', getWebsitecommunities)
 
 
 export default router

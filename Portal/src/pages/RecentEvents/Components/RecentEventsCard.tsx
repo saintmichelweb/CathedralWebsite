@@ -53,7 +53,6 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
 
   useEffect(() => {
     if (recentEventToEdit) {
-      console.log(recentEventToEdit);
       setValue("title_en", recentEventToEdit.title_en);
       setValue("title_fr", recentEventToEdit.title_fr);
       setValue("title_rw", recentEventToEdit.title_rw);
@@ -69,7 +68,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
       "backgroundImageId",
       recentEventToEdit?.backgroundImage?.id || null
     );
-  }, [recentEventToEdit]);
+  }, [recentEventToEdit, setValue]);
 
   const onConfirm = async (payload: AddRecentEventsForm | undefined) => {
     setIsOpenModal(false);
@@ -83,6 +82,7 @@ const AddRecentEventsCard = (props: AddRecentEventProps) => {
               description: res?.message || "Image updated successfully",
               status: "success",
             });
+            // @ts-expect-error (undefined type)
             payload.backgroundImageId = res.image.id;
           })
           .catch((error) => {

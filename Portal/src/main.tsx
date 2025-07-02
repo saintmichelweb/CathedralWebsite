@@ -13,6 +13,16 @@ import NavItemsProvider from './contexts/NavItemsContext.tsx'
 import DrawerDisclosureProvider from './contexts/DrawerDisclosureContext.tsx'
 const { ToastContainer } = createStandaloneToast(theme)
 
+const AppProviders = ({ children }: { children: React.ReactNode }) => (
+  <UserProvider>
+    <NavItemsProvider>
+      <DrawerDisclosureProvider>
+        {children}
+      </DrawerDisclosureProvider>
+    </NavItemsProvider>
+  </UserProvider>
+);
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -22,14 +32,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           defaultOptions: { variant: 'subtle', position: 'top', isClosable: true },
         }}
       >
-        <UserProvider>
-          <NavItemsProvider>
-            <DrawerDisclosureProvider>
-              <ToastContainer />
-              <App />
-            </DrawerDisclosureProvider>
-          </NavItemsProvider>
-        </UserProvider>
+        <AppProviders>
+          <ToastContainer />
+          <App />
+        </AppProviders>
       </ChakraProvider>
     </BrowserRouter>
   </React.StrictMode>,

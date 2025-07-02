@@ -79,7 +79,7 @@ const Header = () => {
         onClick={onOpen}
       />
 
-      <Image h="9" alt="Logo" src={stMichelLogo} />
+      <Image h="9" alt="Logo" src={stMichelLogo} loading="lazy"/>
       <Drawer />
       <HStack spacing="4">
         <Popover offset={[-125, 0]}>

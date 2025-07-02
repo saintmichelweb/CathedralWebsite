@@ -3,21 +3,8 @@ networks:
     name: stmp-net
 
 services:
-  portal:
-    build: 
-      context: .
-      dockerfile: ./DockerFile-Portal
-    restart: unless-stopped
-    ports:
-      - "3550:3550"
-    environment:
-      - VITE_API_URL=http://localhost:3551/api
-      - VITE_LIMIT_PER_PAGE=10
-    volumes:
-      - ./Portal/src:/app/Portal/src # For developmennt purposes
-
   front-end:
-    build: 
+    build:
       context: ./Front-end
       # dockerfile: ./Portal/DockerFile
       dockerfile: ./DockerFile-Front-End
@@ -28,56 +15,38 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:3551
     networks:
-      - stmp-net  
+      - stmp-net
     volumes:
       - ./Front-end:/app
-      - /app/node_modules
+      # - /app/node_modules
+
+  portal:
+    build:
+      context: .
+      dockerfile: ./DockerFile-Portal
+    restart: unless-stopped
+    ports:
+      - "3550:3550"
+    volumes:
+      - ./Portal/src:/app/Portal/src # For developmennt purposes
 
   api:
     build:
       context: .
-      dockerfile: ./DockerFile-Api
+      dockerfile: DockerFile-Api
     restart: unless-stopped
-    command: ["npm", "run", "dev"] # used in development for nodemon
-    # command: ["npm", "run", "start"] 
+    command: [ "npm", "run", "dev" ]
     ports:
       - "3551:3551"
     networks:
       - stmp-net
     volumes:
       - ./Api/src:/app/Api/src # For developmennt purposes
+      - ./upload/images:/app/upload/images # For developmennt purposes
     depends_on:
       - stmp-db
-    environment:
-      - NODE_ENV=development
-      - APP_URL=http://localhost:3551 # for email verification
-      - HOST=0.0.0.0
-      - PORT=3551
-      - JWT_SECRET=api-stmp-jwt_secret # TODO: change this in production
-      - JWT_EXPIRES_IN=1d
-      - INACTIVITY_LIMIT=15m
-      - PAGINATION_LIMIT=10
-      - DB_HOST=stmp-db
-      - DB_PORT=3306
-      - DB_USERNAME=root
-      - DB_PASSWORD=password
-      - DB_DATABASE=stmp_db
-      - MAIL_HOST=St Michel Portal
-      - MAIL_PORT=465
-      - MAIL_USERNAME=ugashudav@gmail.com
-      - MAIL_PASSWORD=gepd vfrw iaux rdro
-      - LOG_PATH=./logs
-      - LOG_LEVEL=debug
-      - LOG_DISABLED=false
-      - KEY=e41c966f21f9e1577802463f8924e6a3fe3e9751f201304213b2f845d8841d61
-      - ALGORITHM=aes-256-cbc
-      - IVLENGTH=16
-      - IV=ff5ac19190424b1d88f9419ef949ae56
-      - Portal_SUPERADMIN_EMAIL=michelsaint658@gmail.com
-      - Portal_SUPERADMIN_NAME=Portal Super Admin
-      - Portal_SUPERADMIN_PASSWORD=password
-      - Portal_SUPERADMIN_PHONE_NUMBER=0788000000
-      - FRONTEND_SET_PASSWORD_URL=http://localhost:3550/set-password
+    env_file:
+      - Api/.env.dev
 
   stmp-db:
     container_name: stmp-db
