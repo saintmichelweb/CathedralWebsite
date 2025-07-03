@@ -7,18 +7,19 @@ import { ParishHistoryEntity } from "../../entity/ParishHistoryEntity";
 
 /**
  * @openapi
- * /aboutPage/parish-history:
+ * /about-page/parish-history:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Parish History
+ *       - Front-End
+ *     summary: get all parish history council
  *     responses:
  *       200:
- *         description: Get Parish History successful
+ *         description: Get parish history council successful
  *       500:
  *         description: Internal Server error
  *
  */
+
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getWebsiteParishHistory(req: AuthRequest, res: Response) {

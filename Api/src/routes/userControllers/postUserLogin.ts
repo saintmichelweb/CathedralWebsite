@@ -49,9 +49,6 @@ const JWT_EXPIRES_IN_MS = ms(JWT_EXPIRES_IN)
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Login successful"
@@ -64,9 +61,6 @@ const JWT_EXPIRES_IN_MS = ms(JWT_EXPIRES_IN)
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

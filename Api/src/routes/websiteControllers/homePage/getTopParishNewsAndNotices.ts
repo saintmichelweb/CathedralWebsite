@@ -5,14 +5,14 @@ import { TopNewsAndNoticesEntity } from "../../../entity/TopNewsAndNoticesEntity
 
 /**
  * @openapi
- * /homePage/topParishNewsAndNotices:
+ * /home-page/top-parish-news-and-notices:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Top Parish News And Notices
+ *       - Front-End
+ *     summary: get all top parish news and notices
  *     responses:
  *       200:
- *         description: Get Top Parish News And Notices successful
+ *         description: Get top parish news and notices successful
  *       500:
  *         description: Internal Server error
  *

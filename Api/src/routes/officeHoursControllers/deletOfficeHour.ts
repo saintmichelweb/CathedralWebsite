@@ -20,7 +20,7 @@ import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
  *         schema:
  *            type: integer
  *         description: OfficeHour ID
- *     summary: delete a Mass officeHours
+ *     summary: delete office Hour
  *     responses:
  *       200:
  *         description: OfficeHour deleted successfully
@@ -29,9 +29,6 @@ import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "OfficeHour deleted successfully"
@@ -42,9 +39,6 @@ import { OfficeHoursEntity } from "../../entity/OfficeHoursEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

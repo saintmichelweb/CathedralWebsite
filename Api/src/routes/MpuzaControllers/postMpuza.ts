@@ -56,19 +56,48 @@ const mpuzaMiryangoRemezoSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+  *             required:
+ *               - title
+ *               - leader
+ *               - phone
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
+ *               - community
  *             properties:
  *               title:
  *                 type: string
- *                 example: "MpuzaMiryangoRemezo"
- *                 description: "MpuzaMiryangoRemezo title"
- *               description:
+ *                 example: "Commission of Youth Ministry"
+ *                 description: "Title of the commission"
+ *               leader:
  *                 type: string
- *                 example: "description"
- *                 description: "MpuzaMiryangoRemezo description"
+ *                 example: "Fr. Jean Bosco"
+ *                 description: "Leader of the commission"
+ *               phone:
+ *                 type: string
+ *                 example: "+250788111222"
+ *                 description: "Phone number of the leader"
+ *               description_en:
+ *                 type: string
+ *                 example: "This commission coordinates youth-related programs"
+ *                 description: "Description in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Cette commission coordonne les programmes pour les jeunes"
+ *                 description: "Description in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Iyi komisiyo igenzura ibikorwa by'urubyiruko"
+ *                 description: "Description in Kinyarwanda"
+ *               community:
+ *                 type: number
+ *                 example: 5
+ *                 description: "ID of the related community"
  *               backgroundImageId:
  *                 type: number
- *                 example: "description"
- *                 description: "MpuzaMiryangoRemezo backgroundImageId"
+ *                 nullable: true
+ *                 example: 103
+ *                 description: "Optional background image ID"
  *     responses:
  *       200:
  *         description: MpuzaMiryangoRemezo saved successfully
@@ -77,9 +106,6 @@ const mpuzaMiryangoRemezoSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "MpuzaMiryangoRemezo  saved successfully"
@@ -90,9 +116,6 @@ const mpuzaMiryangoRemezoSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

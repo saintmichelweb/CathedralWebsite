@@ -36,7 +36,7 @@ const EditUserSchema = z.object({
  * /users/{userId}/edit:
  *   patch:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     summary: Edit a user by Admin
  *     security:
  *       - Authorization: []
@@ -58,6 +58,10 @@ const EditUserSchema = z.object({
  *                 type: string
  *                 example: "Updated User"
  *                 description: "The updated name of the user"
+ *               status:
+ *                 type: string
+ *                 example: "Active"
+ *                 description: "The updated status of the user"
  *               email:
  *                 type: string
  *                 example: "updated1@email.com"

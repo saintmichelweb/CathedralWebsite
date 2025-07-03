@@ -5,14 +5,14 @@ import { PriestsEntity } from "../../entity/PriestsEntity";
 
 /**
  * @openapi
- * /aboutPage/priests:
+ * /about-page/priests:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Priests
+ *       - Front-End
+ *     summary: get all priests
  *     responses:
  *       200:
- *         description: Get Priests successful
+ *         description: Get priests successful
  *       500:
  *         description: Internal Server error
  *

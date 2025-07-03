@@ -7,14 +7,14 @@ import { MassDaysEnum_EN } from "../../../../../shared-lib/src";
 
 /**
  * @openapi
- * /homePage/mass-times:
+ * /home-page/mass-times:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Mass Times
+ *       - Front-End
+ *     summary: get all mass times
  *     responses:
  *       200:
- *         description: Get Mass Times successful
+ *         description: Get mass times successful
  *       500:
  *         description: Internal Server error
  *

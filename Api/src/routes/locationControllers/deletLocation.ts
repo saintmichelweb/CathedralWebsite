@@ -20,7 +20,7 @@ import { AuthRequest } from "../../types/express";
  *         schema:
  *            type: integer
  *         description: Location ID
- *     summary: delete a Mass location
+ *     summary: delete a location
  *     responses:
  *       200:
  *         description: Location deleted successfully
@@ -29,9 +29,6 @@ import { AuthRequest } from "../../types/express";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Location deleted successfully"
@@ -42,9 +39,6 @@ import { AuthRequest } from "../../types/express";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

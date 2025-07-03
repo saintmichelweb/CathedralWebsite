@@ -14,7 +14,7 @@ import { readEnv } from "../../setup/readEnv";
  *     summary: get all Mpuza
  *     responses:
  *       200:
- *         description: Get Mpuza
+ *         description: Get Mpuza miryango remezo successful
  *       401:
  *         description: Invalid credentials
  *         content:

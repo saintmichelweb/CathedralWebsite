@@ -12,10 +12,6 @@ const choirSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Name is required" }),
-  // title: z
-  //   .string()
-  //   .trim()
-  //   .min(1, { message: "Title is required" }),
   description_en: z
     .string()
     .trim()
@@ -56,19 +52,43 @@ const choirSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
+ *               - leader
+ *               - telephone
  *             properties:
- *               title:
+ *               name:
  *                 type: string
  *                 example: "Choir"
- *                 description: "Choir title"
- *               description:
+ *                 description: "Name of the choir"
+ *               description_en:
  *                 type: string
- *                 example: "description"
- *                 description: "Choir description"
+ *                 example: "English description"
+ *                 description: "Choir description in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Description en français"
+ *                 description: "Choir description in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Ibisobanuro mu Kinyarwanda"
+ *                 description: "Choir description in Kinyarwanda"
+ *               leader:
+ *                 type: string
+ *                 example: "John Doe"
+ *                 description: "Leader of the choir"
+ *               telephone:
+ *                 type: string
+ *                 example: "+250788123456"
+ *                 description: "Telephone number of the choir leader"
  *               backgroundImageId:
  *                 type: number
- *                 example: "description"
- *                 description: "Choir backgroundImageId"
+ *                 example: 101
+ *                 nullable: true
+ *                 description: "Optional background image ID"
  *     responses:
  *       200:
  *         description: Choir saved successfully
@@ -77,12 +97,9 @@ const choirSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Choir  saved successfully"
+ *                   example: "Choir saved successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -90,9 +107,6 @@ const choirSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"
@@ -100,7 +114,6 @@ const choirSchema = z.object({
  *         description: Validation error
  *       500:
  *         description: Internal Server error
- *
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */

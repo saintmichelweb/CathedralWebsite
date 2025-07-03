@@ -16,7 +16,7 @@ const JWT_SECRET = readEnv('JWT_SECRET', 'secret') as string
  * /users/forgot-password:
  *   post:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     summary: Reset Forgot Password
  *     requestBody:
  *       required: true
@@ -46,9 +46,6 @@ const JWT_SECRET = readEnv('JWT_SECRET', 'secret') as string
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

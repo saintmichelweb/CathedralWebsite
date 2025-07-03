@@ -21,7 +21,7 @@ import { readEnv } from "../../setup/readEnv";
  *          type: boolean
  *        required: false
  *        description: Activity status of parishCommitteeCouncil
- *     summary: get all Mass parishCommitteeCouncils
+ *     summary: get all parishCommitteeCouncils
  *     responses:
  *       200:
  *         description: Get parishCommitteeCouncil

@@ -20,19 +20,16 @@ import * as fs from 'fs'
  *         required: true
  *         schema:
  *            type: integer
- *         description: Priests ID
- *     summary: delete a Mass priests
+ *         description: Priest's ID
+ *     summary: delete a priest
  *     responses:
  *       200:
- *         description: Priests deleted successfully
+ *         description: Priest deleted successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Priests deleted successfully"
@@ -43,9 +40,6 @@ import * as fs from 'fs'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

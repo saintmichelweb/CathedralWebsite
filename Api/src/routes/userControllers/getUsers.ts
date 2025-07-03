@@ -10,13 +10,10 @@ import logger from '../../services/logger'
 
 /**
  * @openapi
- * tags:
- *   name: Portal Users
- *
  * /users:
  *   get:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     security:
  *       - Authorization: []
  *     summary: GET Portal Users List

@@ -23,7 +23,7 @@ import catholic_actions from '../routes/catholicActionsRoutes'
 
 
 export default function setupRoutes (app: Application): void {
-  app.use('/', website_routes)
+  app.use('/api', website_routes)
   app.use('/api', user_routes)
   app.use('/api', location_routes)
   app.use('/api', language_routes)

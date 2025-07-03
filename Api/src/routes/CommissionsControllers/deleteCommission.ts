@@ -21,7 +21,7 @@ import * as fs from 'fs'
  *         schema:
  *            type: integer
  *         description: Commission ID
- *     summary: delete a Mass commission
+ *     summary: delete a commission
  *     responses:
  *       200:
  *         description: Commission deleted successfully
@@ -30,9 +30,6 @@ import * as fs from 'fs'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Commission deleted successfully"
@@ -43,9 +40,6 @@ import * as fs from 'fs'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

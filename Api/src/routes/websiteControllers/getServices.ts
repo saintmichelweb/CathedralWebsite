@@ -10,11 +10,11 @@ import { ServiceEntity } from "../../entity/ServiceEntity";
  * /services/services:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Services
+ *       - Front-End
+ *     summary: get all services
  *     responses:
  *       200:
- *         description: Get Services successful
+ *         description: Get services successful
  *       500:
  *         description: Internal Server error
  *

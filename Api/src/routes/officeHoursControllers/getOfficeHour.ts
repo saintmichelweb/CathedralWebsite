@@ -21,7 +21,7 @@ import { readEnv } from "../../setup/readEnv";
  *          type: boolean
  *        required: false
  *        description: Activity status of officeHour
- *     summary: get all Mass officeHours
+ *     summary: get all officeHours
  *     responses:
  *       200:
  *         description: Get OfficeHours

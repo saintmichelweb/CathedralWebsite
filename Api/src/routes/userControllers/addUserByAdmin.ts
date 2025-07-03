@@ -38,7 +38,7 @@ const JWT_SECRET = readEnv('JWT_SECRET', '') as string
  * /users/add:
  *   post:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     summary: Add a user by Admin
  *     security:
  *       - Authorization: []

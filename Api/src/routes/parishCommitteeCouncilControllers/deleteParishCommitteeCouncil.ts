@@ -19,8 +19,8 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  *         required: true
  *         schema:
  *            type: integer
- *         description: parishCommitteeCouncil ID
- *     summary: delete a Mass parishCommitteeCouncil
+ *         description: parish Committee Council ID
+ *     summary: delete parish Committee Council
  *     responses:
  *       200:
  *         description: parishCommitteeCouncil deleted successfully
@@ -29,9 +29,6 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "parishCommitteeCouncil deleted successfully"
@@ -42,9 +39,6 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

@@ -6,14 +6,14 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
 
 /**
  * @openapi
- * /aboutPage/parishCommitteeCouncil:
+ * /about-page/committee-council:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Parish Committee Council
+ *       - Front-End
+ *     summary: get all committee council
  *     responses:
  *       200:
- *         description: Get Parish Committee Council successful
+ *         description: Get committee council successful
  *       500:
  *         description: Internal Server error
  *

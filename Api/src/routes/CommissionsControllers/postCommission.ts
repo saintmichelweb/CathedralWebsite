@@ -36,10 +36,6 @@ const commissionSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "contact_person_email is required" }),
-  // title: z
-  //   .string()
-  //   .trim()
-  //   .min(1, { message: "Title is required" }),
   description_en: z
     .string()
     .trim()
@@ -72,33 +68,75 @@ const commissionSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name_en
+ *               - name_fr
+ *               - name_rw
+ *               - contact_person_name
+ *               - contact_person_role
+ *               - contact_person_phone_number
+ *               - contact_person_email
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
  *             properties:
- *               title:
+ *               name_en:
  *                 type: string
- *                 example: "Commission"
- *                 description: "Commission title"
- *               description:
+ *                 example: "English name"
+ *                 description: "Community name in English"
+ *               name_fr:
  *                 type: string
- *                 example: "description"
- *                 description: "Commission description"
+ *                 example: "Nom en français"
+ *                 description: "Community name in French"
+ *               name_rw:
+ *                 type: string
+ *                 example: "Izina mu Kinyarwanda"
+ *                 description: "Community name in Kinyarwanda"
+ *               contact_person_name:
+ *                 type: string
+ *                 example: "Jane Doe"
+ *                 description: "Contact person's full name"
+ *               contact_person_role:
+ *                 type: string
+ *                 example: "Community Leader"
+ *                 description: "Role of the contact person"
+ *               contact_person_phone_number:
+ *                 type: string
+ *                 example: "+250788000000"
+ *                 description: "Phone number of the contact person"
+ *               contact_person_email:
+ *                 type: string
+ *                 format: email
+ *                 example: "jane@example.com"
+ *                 description: "Email of the contact person"
+ *               description_en:
+ *                 type: string
+ *                 example: "English description"
+ *                 description: "Community description in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Description en français"
+ *                 description: "Community description in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Ibisobanuro mu Kinyarwanda"
+ *                 description: "Community description in Kinyarwanda"
  *               backgroundImageId:
  *                 type: number
- *                 example: "description"
- *                 description: "Commission backgroundImageId"
+ *                 nullable: true
+ *                 example: 102
+ *                 description: "Optional background image ID"
  *     responses:
  *       200:
- *         description: Commission saved successfully
+ *         description: Community saved successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Commission  saved successfully"
+ *                   example: "Community saved successfully"
  *       401:
  *         description: Invalid credentials
  *         content:
@@ -106,9 +144,6 @@ const commissionSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"
@@ -116,7 +151,6 @@ const commissionSchema = z.object({
  *         description: Validation error
  *       500:
  *         description: Internal Server error
- *
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -141,7 +175,6 @@ export async function postCommission(req: AuthRequest, res: Response) {
     newCommission.name_en = parsedBody.data.name_en
     newCommission.name_fr = parsedBody.data.name_fr
     newCommission.name_rw = parsedBody.data.name_rw
-    // newCommission.title = parsedBody.data.title
     newCommission.description_en = parsedBody.data.description_en
     newCommission.description_fr = parsedBody.data.description_fr
     newCommission.description_rw = parsedBody.data.description_rw

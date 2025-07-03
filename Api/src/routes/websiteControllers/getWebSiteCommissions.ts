@@ -8,11 +8,11 @@ import { CommissionEntity } from "../../entity/CommissionEntity";
  * /services/commissions:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Commissions
+ *       - Front-End
+ *     summary: get all commissions
  *     responses:
  *       200:
- *         description: Get Commissions successful
+ *         description: Get commissions successful
  *       500:
  *         description: Internal Server error
  *
