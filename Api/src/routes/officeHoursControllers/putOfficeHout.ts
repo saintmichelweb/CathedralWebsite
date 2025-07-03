@@ -52,11 +52,34 @@ const OfficeHourSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+*             required:
+ *               - day_en
+ *               - day_fr
+ *               - day_rw
+ *               - office_place
+ *               - time
+ *               - isActive
  *             properties:
- *               service:
+ *               day_en:
  *                 type: string
- *                 example: "St Michael Parish"
- *                 description: "service of the Mass"
+ *                 example: "Monday"
+ *                 description: "Day of the week in English"
+ *               day_fr:
+ *                 type: string
+ *                 example: "Lundi"
+ *                 description: "Day of the week in French"
+ *               day_rw:
+ *                 type: string
+ *                 example: "Kuwa Mbere"
+ *                 description: "Day of the week in Kinyarwanda"
+ *               office_place:
+ *                 type: number
+ *                 example: 2
+ *                 description: "ID of the office place"
+ *               time:
+ *                 type: string
+ *                 example: "08:00 - 17:00"
+ *                 description: "Office hours time range"
  *               isActive:
  *                 type: boolean
  *                 example: "false"
@@ -69,9 +92,6 @@ const OfficeHourSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "OfficeHour updated successfully."
@@ -82,9 +102,6 @@ const OfficeHourSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials!"

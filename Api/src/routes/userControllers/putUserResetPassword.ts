@@ -33,7 +33,7 @@ const PutUserResetPasswordSchema = z.object({
  * /users/reset-password:
  *   put:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     summary: Reset Password
  *     security:
  *       - Authorization: []
@@ -70,9 +70,6 @@ const PutUserResetPasswordSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

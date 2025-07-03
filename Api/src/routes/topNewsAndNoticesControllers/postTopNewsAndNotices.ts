@@ -48,15 +48,38 @@ const topNewsAndNoticesSchema = z.object({
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - title_en
+ *               - title_fr
+ *               - title_rw
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
  *             properties:
- *               title:
+ *               title_en:
  *                 type: string
- *                 example: "Recent event"
- *                 description: "Recent event title"
- *               description:
+ *                 example: "Welcome to Our Parish"
+ *                 description: "Title in English"
+ *               title_fr:
  *                 type: string
- *                 example: "description"
- *                 description: "Recent event description"
+ *                 example: "Bienvenue à notre paroisse"
+ *                 description: "Title in French"
+ *               title_rw:
+ *                 type: string
+ *                 example: "Murakaza neza muri Paruwasi yacu"
+ *                 description: "Title in Kinyarwanda"
+ *               description_en:
+ *                 type: string
+ *                 example: "We are happy to have you with us at St. Michel Parish."
+ *                 description: "Description in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Nous sommes heureux de vous accueillir à la paroisse Saint Michel."
+ *                 description: "Description in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Turishimye kubakira muri Paruwasi ya Mutagatifu Mikaheli."
+ *                 description: "Description in Kinyarwanda"
  *     responses:
  *       200:
  *         description: Recent Event saved successfully
@@ -65,9 +88,6 @@ const topNewsAndNoticesSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Recent Event  saved successfully"
@@ -78,9 +98,6 @@ const topNewsAndNoticesSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

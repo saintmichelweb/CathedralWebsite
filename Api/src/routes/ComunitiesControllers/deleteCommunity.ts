@@ -19,7 +19,7 @@ import { CommunityEntity } from "../../entity/CommunityEntity";
  *         schema:
  *            type: integer
  *         description: Community ID
- *     summary: delete a Mass community
+ *     summary: delete a community
  *     responses:
  *       200:
  *         description: Community deleted successfully
@@ -28,9 +28,6 @@ import { CommunityEntity } from "../../entity/CommunityEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Community deleted successfully"
@@ -41,9 +38,6 @@ import { CommunityEntity } from "../../entity/CommunityEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

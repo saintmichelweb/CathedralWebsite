@@ -12,10 +12,6 @@ const ChoirSchema = z.object({
     .string()
     .trim()
     .min(1, { message: "Name is required" }),
-  // title: z
-  //   .string()
-  //   .trim()
-  //   .min(1, { message: "Title is required" }),
   description_en: z
     .string()
     .trim()
@@ -44,39 +40,61 @@ const ChoirSchema = z.object({
 
 /**
  * @openapi
- * /Choir/{id}:
+ * /Choir:
  *   put:
  *     tags:
  *       - Choir
  *     security:
  *       - Authorization: []
- *     summary: Update a Choir
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *            type: integer
- *         description: Choir ID
+ *     summary: Add a Choir
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - name
+ *               - description_en
+ *               - description_fr
+ *               - description_rw
+ *               - leader
+ *               - telephone
+ *               - isActive
  *             properties:
  *               name:
  *                 type: string
  *                 example: "Choir"
- *                 description: "Choir title"
- *               description:
+ *                 description: "Name of the choir"
+ *               description_en:
  *                 type: string
- *                 example: "description"
- *                 description: "Choir description"
+ *                 example: "English description"
+ *                 description: "Choir description in English"
+ *               description_fr:
+ *                 type: string
+ *                 example: "Description en français"
+ *                 description: "Choir description in French"
+ *               description_rw:
+ *                 type: string
+ *                 example: "Ibisobanuro mu Kinyarwanda"
+ *                 description: "Choir description in Kinyarwanda"
+ *               leader:
+ *                 type: string
+ *                 example: "John Doe"
+ *                 description: "Leader of the choir"
+ *               telephone:
+ *                 type: string
+ *                 example: "+250788123456"
+ *                 description: "Telephone number of the choir leader"
  *               backgroundImageId:
  *                 type: number
- *                 example: 1
- *                 description: "Id of the saved image entity"
+ *                 example: 101
+ *                 nullable: true
+ *                 description: "Optional background image ID"
+ *               isActive:
+ *                 type: boolean
+ *                 example: true
+ *                 description: "Whether the choir is active"
  *     responses:
  *       200:
  *         description: Choir saved successfully
@@ -85,32 +103,23 @@ const ChoirSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
- *                   example: "Choir updated successfully."
+ *                   example: "Choir saved successfully"
  *       401:
- *         description: Invalid credentials!
+ *         description: Invalid credentials
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
- *                   example: "Invalid credentials!"
- *       404:
- *         description: Choir not found! 
+ *                   example: "Invalid credentials"
  *       422:
- *         description: Validation error!
+ *         description: Validation error
  *       500:
- *         description: Internal Server error!
- *
+ *         description: Internal Server error
  */
 
 /* eslint-disable @typescript-eslint/explicit-function-return-type */

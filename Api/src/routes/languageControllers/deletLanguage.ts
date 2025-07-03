@@ -19,7 +19,7 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *         schema:
  *            type: integer
  *         description: Language ID
- *     summary: delete a Mass language
+ *     summary: delete a language
  *     responses:
  *       200:
  *         description: Language deleted successfully
@@ -28,9 +28,6 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Language deleted successfully"
@@ -41,9 +38,6 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

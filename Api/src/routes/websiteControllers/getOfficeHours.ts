@@ -10,11 +10,11 @@ import { LocationEntity } from "../../entity/LocationEntity";
  * /services/office-hours:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Office hours
+ *       - Front-End
+ *     summary: get all office hours
  *     responses:
  *       200:
- *         description: Get Office hours successful
+ *         description: Get office hours successful
  *       500:
  *         description: Internal Server error
  *

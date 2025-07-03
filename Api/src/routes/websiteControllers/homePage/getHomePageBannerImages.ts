@@ -5,14 +5,14 @@ import { ImageEntity } from "../../../entity/ImagesEntity";
 
 /**
  * @openapi
- * /homePage/bannerImages:
+ * /home-page/banner-images:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Banner Images
+ *       - Front-End
+ *     summary: get all banner images
  *     responses:
  *       200:
- *         description: Get Banner Images successful
+ *         description: Get banner images successful
  *       500:
  *         description: Internal Server error
  *

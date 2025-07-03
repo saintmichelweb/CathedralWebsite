@@ -18,15 +18,15 @@ const massTimesSchema = z.object({
   day_en: z
     .string()
     .trim()
-    .min(1, { message: "Time is required" }),
+    .min(1, { message: "Day_en is required" }),
   day_fr: z
     .string()
     .trim()
-    .min(1, { message: "Time is required" }),
+    .min(1, { message: "Day_fr is required" }),
   day_rw: z
     .string()
     .trim()
-    .min(1, { message: "Time is required" }),
+    .min(1, { message: "Day_rw is required" }),
   time: z
     .string()
     .trim()
@@ -57,7 +57,15 @@ const massTimesSchema = z.object({
  *                 type: string
  *                 example: "St Michel Parish"
  *                 description: "location of the Mass"
- *               day:
+ *               day_en:
+ *                 type: string
+ *                 example: "Sunday 07 July 2024"
+ *                 description: "day of the Mass"
+ *               day_rw:
+ *                 type: string
+ *                 example: "Sunday 07 July 2024"
+ *                 description: "day of the Mass"
+ *               day_fr:
  *                 type: string
  *                 example: "Sunday 07 July 2024"
  *                 description: "day of the Mass"
@@ -73,9 +81,6 @@ const massTimesSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Mass Time saved successfully"
@@ -86,9 +91,6 @@ const massTimesSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

@@ -7,11 +7,12 @@ servers:
   - url: /api
 components:
   securitySchemes:
-    Authorization:
+    bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      value: Bearer <JWT token here>
+security:
+  - bearerAuth: []
 paths:
   /catholic-actions/{id}:
     delete:
@@ -35,9 +36,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Catholic Actions deleted successfully
@@ -48,9 +46,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -75,19 +70,47 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name
+                - description_en
+                - description_fr
+                - description_rw
+                - leader
+                - telephone
               properties:
                 name:
                   type: string
-                  example: Catholic Actions
-                  description: Catholic Actions title
-                description:
+                  example: Choir
+                  description: Name of the choir
+                description_en:
                   type: string
-                  example: description
-                  description: Catholic Actions description
+                  example: English description
+                  description: Choir description in English
+                description_fr:
+                  type: string
+                  example: Description en français
+                  description: Choir description in French
+                description_rw:
+                  type: string
+                  example: Ibisobanuro mu Kinyarwanda
+                  description: Choir description in Kinyarwanda
+                leader:
+                  type: string
+                  example: John Doe
+                  description: Leader of the choir
+                telephone:
+                  type: string
+                  example: '+250788123456'
+                  description: Telephone number of the choir leader
                 backgroundImageId:
                   type: number
-                  example: 1
-                  description: Id of the saved image entity
+                  example: 101
+                  nullable: true
+                  description: Optional background image ID
+                isActive:
+                  type: boolean
+                  example: true
+                  description: Whether the choir is active
       responses:
         '200':
           description: Catholic Actions saved successfully
@@ -96,9 +119,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Catholic Actions updated successfully.
@@ -109,9 +129,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -171,19 +188,43 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name
+                - description_en
+                - description_fr
+                - description_rw
+                - leader
+                - telephone
               properties:
-                title:
+                name:
                   type: string
-                  example: Catholic Actions
-                  description: Catholic Actions title
-                description:
+                  example: Choir
+                  description: Name of the choir
+                description_en:
                   type: string
-                  example: description
-                  description: Catholic Actions description
+                  example: English description
+                  description: Choir description in English
+                description_fr:
+                  type: string
+                  example: Description en français
+                  description: Choir description in French
+                description_rw:
+                  type: string
+                  example: Ibisobanuro mu Kinyarwanda
+                  description: Choir description in Kinyarwanda
+                leader:
+                  type: string
+                  example: John Doe
+                  description: Leader of the choir
+                telephone:
+                  type: string
+                  example: '+250788123456'
+                  description: Telephone number of the choir leader
                 backgroundImageId:
                   type: number
-                  example: description
-                  description: Catholic Actions backgroundImageId
+                  example: 101
+                  nullable: true
+                  description: Optional background image ID
       responses:
         '200':
           description: Catholic Actions saved successfully
@@ -192,9 +233,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Catholic Actions  saved successfully
@@ -205,9 +243,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -228,7 +263,7 @@ paths:
           schema:
             type: integer
           description: Choir ID
-      summary: delete a Mass Choir
+      summary: delete a Choir
       responses:
         '200':
           description: Choir deleted successfully
@@ -237,9 +272,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Choir deleted successfully
@@ -250,79 +282,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
         '500':
           description: Internal Server error
-    put:
-      tags:
-        - Choir
-      security:
-        - Authorization: []
-      summary: Update a Choir
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: Choir ID
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Choir
-                  description: Choir title
-                description:
-                  type: string
-                  example: description
-                  description: Choir description
-                backgroundImageId:
-                  type: number
-                  example: 1
-                  description: Id of the saved image entity
-      responses:
-        '200':
-          description: Choir saved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: Choir updated successfully.
-        '401':
-          description: Invalid credentials!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Invalid credentials!
-        '404':
-          description: Choir not found!
-        '422':
-          description: Validation error!
-        '500':
-          description: Internal Server error!
   /Choir:
     get:
       tags:
@@ -336,11 +300,6 @@ paths:
           description: The page number
           minimum: 1
           example: 1
-        - in: query
-          name: search
-          schema:
-            type: string
-          description: The search text
         - in: isActive
           name: is active
           schema:
@@ -373,19 +332,43 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name
+                - description_en
+                - description_fr
+                - description_rw
+                - leader
+                - telephone
               properties:
-                title:
+                name:
                   type: string
                   example: Choir
-                  description: Choir title
-                description:
+                  description: Name of the choir
+                description_en:
                   type: string
-                  example: description
-                  description: Choir description
+                  example: English description
+                  description: Choir description in English
+                description_fr:
+                  type: string
+                  example: Description en français
+                  description: Choir description in French
+                description_rw:
+                  type: string
+                  example: Ibisobanuro mu Kinyarwanda
+                  description: Choir description in Kinyarwanda
+                leader:
+                  type: string
+                  example: John Doe
+                  description: Leader of the choir
+                telephone:
+                  type: string
+                  example: '+250788123456'
+                  description: Telephone number of the choir leader
                 backgroundImageId:
                   type: number
-                  example: description
-                  description: Choir backgroundImageId
+                  example: 101
+                  nullable: true
+                  description: Optional background image ID
       responses:
         '200':
           description: Choir saved successfully
@@ -394,12 +377,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
-                    example: Choir  saved successfully
+                    example: Choir saved successfully
         '401':
           description: Invalid credentials
           content:
@@ -407,9 +387,85 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Choir
+      security:
+        - Authorization: []
+      summary: Add a Choir
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - description_en
+                - description_fr
+                - description_rw
+                - leader
+                - telephone
+                - isActive
+              properties:
+                name:
+                  type: string
+                  example: Choir
+                  description: Name of the choir
+                description_en:
+                  type: string
+                  example: English description
+                  description: Choir description in English
+                description_fr:
+                  type: string
+                  example: Description en français
+                  description: Choir description in French
+                description_rw:
+                  type: string
+                  example: Ibisobanuro mu Kinyarwanda
+                  description: Choir description in Kinyarwanda
+                leader:
+                  type: string
+                  example: John Doe
+                  description: Leader of the choir
+                telephone:
+                  type: string
+                  example: '+250788123456'
+                  description: Telephone number of the choir leader
+                backgroundImageId:
+                  type: number
+                  example: 101
+                  nullable: true
+                  description: Optional background image ID
+                isActive:
+                  type: boolean
+                  example: true
+                  description: Whether the choir is active
+      responses:
+        '200':
+          description: Choir saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Choir saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
                   message:
                     type: string
                     example: Invalid credentials
@@ -430,7 +486,7 @@ paths:
           schema:
             type: integer
           description: Commission ID
-      summary: delete a Mass commission
+      summary: delete a commission
       responses:
         '200':
           description: Commission deleted successfully
@@ -439,9 +495,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Commission deleted successfully
@@ -452,79 +505,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
         '500':
           description: Internal Server error
-    put:
-      tags:
-        - Commission
-      security:
-        - Authorization: []
-      summary: Update a commission
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: integer
-          description: commission ID
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: commission
-                  description: commission title
-                description:
-                  type: string
-                  example: description
-                  description: commission description
-                backgroundImageId:
-                  type: number
-                  example: 1
-                  description: Id of the saved image entity
-      responses:
-        '200':
-          description: commission saved successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                  message:
-                    type: string
-                    example: commission updated successfully.
-        '401':
-          description: Invalid credentials!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: false
-                  message:
-                    type: string
-                    example: Invalid credentials!
-        '404':
-          description: Commission not found!
-        '422':
-          description: Validation error!
-        '500':
-          description: Internal Server error!
   /commissions:
     get:
       tags:
@@ -532,7 +517,7 @@ paths:
       summary: get all Commission
       responses:
         '200':
-          description: Get Commission
+          description: Get Commissions successful
         '401':
           description: Invalid credentials
           content:
@@ -557,33 +542,75 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name_en
+                - name_fr
+                - name_rw
+                - contact_person_name
+                - contact_person_role
+                - contact_person_phone_number
+                - contact_person_email
+                - description_en
+                - description_fr
+                - description_rw
               properties:
-                title:
+                name_en:
                   type: string
-                  example: Commission
-                  description: Commission title
-                description:
+                  example: English name
+                  description: Community name in English
+                name_fr:
                   type: string
-                  example: description
-                  description: Commission description
+                  example: Nom en français
+                  description: Community name in French
+                name_rw:
+                  type: string
+                  example: Izina mu Kinyarwanda
+                  description: Community name in Kinyarwanda
+                contact_person_name:
+                  type: string
+                  example: Jane Doe
+                  description: Contact person's full name
+                contact_person_role:
+                  type: string
+                  example: Community Leader
+                  description: Role of the contact person
+                contact_person_phone_number:
+                  type: string
+                  example: '+250788000000'
+                  description: Phone number of the contact person
+                contact_person_email:
+                  type: string
+                  format: email
+                  example: jane@example.com
+                  description: Email of the contact person
+                description_en:
+                  type: string
+                  example: English description
+                  description: Community description in English
+                description_fr:
+                  type: string
+                  example: Description en français
+                  description: Community description in French
+                description_rw:
+                  type: string
+                  example: Ibisobanuro mu Kinyarwanda
+                  description: Community description in Kinyarwanda
                 backgroundImageId:
                   type: number
-                  example: description
-                  description: Commission backgroundImageId
+                  nullable: true
+                  example: 102
+                  description: Optional background image ID
       responses:
         '200':
-          description: Commission saved successfully
+          description: Community saved successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
-                    example: Commission  saved successfully
+                    example: Community saved successfully
         '401':
           description: Invalid credentials
           content:
@@ -591,9 +618,101 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
+        '500':
+          description: Internal Server error
+    put:
+      tags:
+        - Commission
+      security:
+        - Authorization: []
+      summary: Add a Commission
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name_en
+                - name_fr
+                - name_rw
+                - contact_person_name
+                - contact_person_role
+                - contact_person_phone_number
+                - contact_person_email
+                - description_en
+                - description_fr
+                - description_rw
+              properties:
+                name_en:
+                  type: string
+                  example: English name
+                  description: Community name in English
+                name_fr:
+                  type: string
+                  example: Nom en français
+                  description: Community name in French
+                name_rw:
+                  type: string
+                  example: Izina mu Kinyarwanda
+                  description: Community name in Kinyarwanda
+                contact_person_name:
+                  type: string
+                  example: Jane Doe
+                  description: Contact person's full name
+                contact_person_role:
+                  type: string
+                  example: Community Leader
+                  description: Role of the contact person
+                contact_person_phone_number:
+                  type: string
+                  example: '+250788000000'
+                  description: Phone number of the contact person
+                contact_person_email:
+                  type: string
+                  format: email
+                  example: jane@example.com
+                  description: Email of the contact person
+                description_en:
+                  type: string
+                  example: English description
+                  description: Community description in English
+                description_fr:
+                  type: string
+                  example: Description en français
+                  description: Community description in French
+                description_rw:
+                  type: string
+                  example: Ibisobanuro mu Kinyarwanda
+                  description: Community description in Kinyarwanda
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 102
+                  description: Optional background image ID
+      responses:
+        '200':
+          description: Community saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Community saved successfully
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
                   message:
                     type: string
                     example: Invalid credentials
@@ -614,7 +733,7 @@ paths:
           schema:
             type: integer
           description: Community ID
-      summary: delete a Mass community
+      summary: delete a community
       responses:
         '200':
           description: Community deleted successfully
@@ -623,9 +742,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Community deleted successfully
@@ -636,9 +752,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -676,9 +789,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: community updated successfully.
@@ -689,9 +799,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -746,9 +853,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Community  saved successfully
@@ -759,9 +863,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -791,9 +892,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Image deleted successfully
@@ -804,9 +902,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -871,7 +966,7 @@ paths:
           schema:
             type: integer
           description: Language ID
-      summary: delete a Mass language
+      summary: delete a language
       responses:
         '200':
           description: Language deleted successfully
@@ -880,9 +975,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Language deleted successfully
@@ -893,9 +985,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -937,9 +1026,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Language updated successfully.
@@ -950,9 +1036,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -1016,9 +1099,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Language saved successfully
@@ -1029,9 +1109,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1052,7 +1129,7 @@ paths:
           schema:
             type: integer
           description: Location ID
-      summary: delete a Mass location
+      summary: delete a location
       responses:
         '200':
           description: Location deleted successfully
@@ -1061,9 +1138,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Location deleted successfully
@@ -1074,9 +1148,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1122,9 +1193,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Location updated successfully.
@@ -1135,9 +1203,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -1211,9 +1276,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Location saved successfully
@@ -1224,9 +1286,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1290,7 +1349,15 @@ paths:
                   type: string
                   example: St Michel Parish
                   description: location of the Mass
-                day:
+                day_en:
+                  type: string
+                  example: Sunday 07 July 2024
+                  description: day of the Mass
+                day_rw:
+                  type: string
+                  example: Sunday 07 July 2024
+                  description: day of the Mass
+                day_fr:
                   type: string
                   example: Sunday 07 July 2024
                   description: day of the Mass
@@ -1306,9 +1373,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Mass Time saved successfully
@@ -1319,9 +1383,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1358,9 +1419,17 @@ paths:
                   type: number
                   example: 1
                   description: language of the Mass
-                day:
+                day_en:
                   type: string
-                  example: Sunday
+                  example: Sunday 07 July 2024
+                  description: day of the Mass
+                day_rw:
+                  type: string
+                  example: Sunday 07 July 2024
+                  description: day of the Mass
+                day_fr:
+                  type: string
+                  example: Sunday 07 July 2024
                   description: day of the Mass
                 time:
                   type: string
@@ -1378,9 +1447,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Mass Time updated successfully.
@@ -1391,9 +1457,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -1416,7 +1479,7 @@ paths:
           schema:
             type: integer
           description: MpuzaMiryangoRemezo ID
-      summary: delete a Mass commission
+      summary: delete a commission
       responses:
         '200':
           description: MpuzaMiryangoRemezo deleted successfully
@@ -1425,9 +1488,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: MpuzaMiryangoRemezo deleted successfully
@@ -1438,9 +1498,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1448,7 +1505,7 @@ paths:
           description: Internal Server error
     put:
       tags:
-        - Mpuza
+        - Mpuza Miryango Remezo
       security:
         - Authorization: []
       summary: Update a mpuzaMiryangoRemezo
@@ -1460,25 +1517,6 @@ paths:
             type: integer
           description: mpuzaMiryangoRemezo ID
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: mpuzaMiryangoRemezo
-                  description: mpuzaMiryangoRemezo title
-                description:
-                  type: string
-                  example: description
-                  description: mpuzaMiryangoRemezo description
-                backgroundImageId:
-                  type: number
-                  example: 1
-                  description: Id of the saved image entity
-      responses:
         '200':
           description: mpuzaMiryangoRemezo saved successfully
           content:
@@ -1486,9 +1524,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: mpuzaMiryangoRemezo updated successfully.
@@ -1499,9 +1534,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -1511,6 +1543,53 @@ paths:
           description: Validation error!
         '500':
           description: Internal Server error!
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - leader
+                - phone
+                - description_en
+                - description_fr
+                - description_rw
+                - community
+              properties:
+                title:
+                  type: string
+                  example: Commission of Youth Ministry
+                  description: Title of the commission
+                leader:
+                  type: string
+                  example: Fr. Jean Bosco
+                  description: Leader of the commission
+                phone:
+                  type: string
+                  example: '+250788111222'
+                  description: Phone number of the leader
+                description_en:
+                  type: string
+                  example: This commission coordinates youth-related programs
+                  description: Description in English
+                description_fr:
+                  type: string
+                  example: Cette commission coordonne les programmes pour les jeunes
+                  description: Description in French
+                description_rw:
+                  type: string
+                  example: Iyi komisiyo igenzura ibikorwa by'urubyiruko
+                  description: Description in Kinyarwanda
+                community:
+                  type: number
+                  example: 5
+                  description: ID of the related community
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 103
+                  description: Optional background image ID
   /mpuzamiryangoremezo:
     get:
       tags:
@@ -1518,7 +1597,7 @@ paths:
       summary: get all Mpuza
       responses:
         '200':
-          description: Get Mpuza
+          description: Get Mpuza miryango remezo successful
         '401':
           description: Invalid credentials
           content:
@@ -1543,19 +1622,48 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - title
+                - leader
+                - phone
+                - description_en
+                - description_fr
+                - description_rw
+                - community
               properties:
                 title:
                   type: string
-                  example: MpuzaMiryangoRemezo
-                  description: MpuzaMiryangoRemezo title
-                description:
+                  example: Commission of Youth Ministry
+                  description: Title of the commission
+                leader:
                   type: string
-                  example: description
-                  description: MpuzaMiryangoRemezo description
+                  example: Fr. Jean Bosco
+                  description: Leader of the commission
+                phone:
+                  type: string
+                  example: '+250788111222'
+                  description: Phone number of the leader
+                description_en:
+                  type: string
+                  example: This commission coordinates youth-related programs
+                  description: Description in English
+                description_fr:
+                  type: string
+                  example: Cette commission coordonne les programmes pour les jeunes
+                  description: Description in French
+                description_rw:
+                  type: string
+                  example: Iyi komisiyo igenzura ibikorwa by'urubyiruko
+                  description: Description in Kinyarwanda
+                community:
+                  type: number
+                  example: 5
+                  description: ID of the related community
                 backgroundImageId:
                   type: number
-                  example: description
-                  description: MpuzaMiryangoRemezo backgroundImageId
+                  nullable: true
+                  example: 103
+                  description: Optional background image ID
       responses:
         '200':
           description: MpuzaMiryangoRemezo saved successfully
@@ -1564,9 +1672,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: MpuzaMiryangoRemezo  saved successfully
@@ -1577,9 +1682,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1600,7 +1702,7 @@ paths:
           schema:
             type: integer
           description: MuryangoRemezo ID
-      summary: delete a Mass muryangoremezo
+      summary: delete a muryangoremezo
       responses:
         '200':
           description: MuryangoRemezo deleted successfully
@@ -1609,9 +1711,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: MuryangoRemezo deleted successfully
@@ -1622,9 +1721,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1674,9 +1770,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: muryangoRemezo updated successfully.
@@ -1687,9 +1780,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -1756,9 +1846,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: MuryangoRemezo  saved successfully
@@ -1769,9 +1856,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1792,7 +1876,7 @@ paths:
           schema:
             type: integer
           description: OfficeHour ID
-      summary: delete a Mass officeHours
+      summary: delete office Hour
       responses:
         '200':
           description: OfficeHour deleted successfully
@@ -1801,9 +1885,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: OfficeHour deleted successfully
@@ -1814,9 +1895,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1841,11 +1919,34 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - day_en
+                - day_fr
+                - day_rw
+                - office_place
+                - time
+                - isActive
               properties:
-                service:
+                day_en:
                   type: string
-                  example: St Michael Parish
-                  description: service of the Mass
+                  example: Monday
+                  description: Day of the week in English
+                day_fr:
+                  type: string
+                  example: Lundi
+                  description: Day of the week in French
+                day_rw:
+                  type: string
+                  example: Kuwa Mbere
+                  description: Day of the week in Kinyarwanda
+                office_place:
+                  type: number
+                  example: 2
+                  description: ID of the office place
+                time:
+                  type: string
+                  example: 08:00 - 17:00
+                  description: Office hours time range
                 isActive:
                   type: boolean
                   example: 'false'
@@ -1858,9 +1959,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: OfficeHour updated successfully.
@@ -1871,9 +1969,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -1896,7 +1991,7 @@ paths:
             type: boolean
           required: false
           description: Activity status of officeHour
-      summary: get all Mass officeHours
+      summary: get all officeHours
       responses:
         '200':
           description: Get OfficeHours
@@ -1924,11 +2019,33 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - day_en
+                - day_fr
+                - day_rw
+                - office_place
+                - time
               properties:
-                officeHours:
+                day_en:
                   type: string
-                  example: St Michael Parish
-                  description: officeHours of the Mass
+                  example: Monday
+                  description: Day of the week in English
+                day_fr:
+                  type: string
+                  example: Lundi
+                  description: Day of the week in French
+                day_rw:
+                  type: string
+                  example: Kuwa Mbere
+                  description: Day of the week in Kinyarwanda
+                office_place:
+                  type: number
+                  example: 2
+                  description: ID of the office place
+                time:
+                  type: string
+                  example: 08:00 - 17:00
+                  description: Office hours time range
       responses:
         '200':
           description: OfficeHour saved successfully
@@ -1937,9 +2054,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: OfficeHour saved successfully
@@ -1950,9 +2064,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -1972,8 +2083,8 @@ paths:
           required: true
           schema:
             type: integer
-          description: parishCommitteeCouncil ID
-      summary: delete a Mass parishCommitteeCouncil
+          description: parish Committee Council ID
+      summary: delete parish Committee Council
       responses:
         '200':
           description: parishCommitteeCouncil deleted successfully
@@ -1982,9 +2093,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: parishCommitteeCouncil deleted successfully
@@ -1995,9 +2103,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2022,15 +2127,59 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - names
+                - position_en
+                - position_fr
+                - position_rw
+                - telephone
+                - email
+                - description_en
+                - description_fr
+                - description_rw
               properties:
-                parishCommitteeCouncil:
+                names:
                   type: string
-                  example: St Michael Parish
-                  description: parishCommitteeCouncil of the Mass
-                isActive:
-                  type: boolean
-                  example: 'false'
-                  description: Activation state of the parishCommitteeCouncil
+                  example: Rev. John Mbonyumugenzi
+                  description: Full name of the committee member
+                position_en:
+                  type: string
+                  example: Vice Chairperson
+                  description: Position title in English
+                position_fr:
+                  type: string
+                  example: Vice-président
+                  description: Position title in French
+                position_rw:
+                  type: string
+                  example: Umuyobozi wungirije
+                  description: Position title in Kinyarwanda
+                telephone:
+                  type: string
+                  example: '+250788123456'
+                  description: Phone number of the committee member
+                email:
+                  type: string
+                  format: email
+                  example: john@example.com
+                  description: Email address of the committee member
+                description_en:
+                  type: string
+                  example: Represents the youth in the parish council.
+                  description: Description in English
+                description_fr:
+                  type: string
+                  example: Représente la jeunesse dans le conseil paroissial.
+                  description: Description in French
+                description_rw:
+                  type: string
+                  example: Ahagarariye urubyiruko mu nama y’itorero.
+                  description: Description in Kinyarwanda
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 104
+                  description: Optional background image ID
       responses:
         '200':
           description: parishCommitteeCouncil saved successfully
@@ -2039,9 +2188,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: parishCommitteeCouncil updated successfully.
@@ -2052,9 +2198,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -2077,7 +2220,7 @@ paths:
             type: boolean
           required: false
           description: Activity status of parishCommitteeCouncil
-      summary: get all Mass parishCommitteeCouncils
+      summary: get all parishCommitteeCouncils
       responses:
         '200':
           description: Get parishCommitteeCouncil
@@ -2105,11 +2248,59 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - names
+                - position_en
+                - position_fr
+                - position_rw
+                - telephone
+                - email
+                - description_en
+                - description_fr
+                - description_rw
               properties:
-                parishCommitteeCouncil:
+                names:
                   type: string
-                  example: St Michael Parish
-                  description: parishCommitteeCouncil of the Mass
+                  example: Rev. John Mbonyumugenzi
+                  description: Full name of the committee member
+                position_en:
+                  type: string
+                  example: Vice Chairperson
+                  description: Position title in English
+                position_fr:
+                  type: string
+                  example: Vice-président
+                  description: Position title in French
+                position_rw:
+                  type: string
+                  example: Umuyobozi wungirije
+                  description: Position title in Kinyarwanda
+                telephone:
+                  type: string
+                  example: '+250788123456'
+                  description: Phone number of the committee member
+                email:
+                  type: string
+                  format: email
+                  example: john@example.com
+                  description: Email address of the committee member
+                description_en:
+                  type: string
+                  example: Represents the youth in the parish council.
+                  description: Description in English
+                description_fr:
+                  type: string
+                  example: Représente la jeunesse dans le conseil paroissial.
+                  description: Description in French
+                description_rw:
+                  type: string
+                  example: Ahagarariye urubyiruko mu nama y’itorero.
+                  description: Description in Kinyarwanda
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 104
+                  description: Optional background image ID
       responses:
         '200':
           description: parishCommitteeCouncil saved successfully
@@ -2118,9 +2309,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: parishCommitteeCouncil saved successfully
@@ -2131,9 +2319,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2220,9 +2405,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Parish History saved successfully
@@ -2233,9 +2415,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2255,19 +2434,16 @@ paths:
           required: true
           schema:
             type: integer
-          description: Priests ID
-      summary: delete a Mass priests
+          description: Priest's ID
+      summary: delete a priest
       responses:
         '200':
-          description: Priests deleted successfully
+          description: Priest deleted successfully
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Priests deleted successfully
@@ -2278,9 +2454,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2305,19 +2478,36 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name
+                - description_en
+                - description_fr
+                - description_rw
               properties:
                 name:
                   type: string
                   example: Priest
                   description: Priest title
-                description:
+                title:
+                  type: string
+                  example: Priest
+                  description: Priest title
+                description_en:
+                  type: string
+                  example: Priest
+                  description: Priest description_en
+                description_fr:
+                  type: string
+                  example: Priest
+                  description: Priest description_fr
+                description_rw:
                   type: string
                   example: description
-                  description: Priest description
+                  description: Priest description_rw
                 backgroundImageId:
                   type: number
-                  example: 1
-                  description: Id of the saved image entity
+                  example: description
+                  description: Priest backgroundImageId
       responses:
         '200':
           description: Priest saved successfully
@@ -2326,9 +2516,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Priest updated successfully.
@@ -2339,9 +2526,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -2383,15 +2567,33 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name
+                - description_en
+                - description_fr
+                - description_rw
+                - backgroundImageId
               properties:
+                name:
+                  type: string
+                  example: Priest
+                  description: Priest title
                 title:
                   type: string
                   example: Priest
                   description: Priest title
-                description:
+                description_en:
+                  type: string
+                  example: Priest
+                  description: Priest description_en
+                description_fr:
+                  type: string
+                  example: Priest
+                  description: Priest description_fr
+                description_rw:
                   type: string
                   example: description
-                  description: Priest description
+                  description: Priest description_rw
                 backgroundImageId:
                   type: number
                   example: description
@@ -2404,9 +2606,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Recent Event  saved successfully
@@ -2417,9 +2616,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2449,9 +2645,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Recent Event deleted successfully
@@ -2462,9 +2655,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2489,15 +2679,50 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - title_en
+                - title_fr
+                - title_rw
+                - description_en
+                - description_fr
+                - description_rw
+                - event_date
+                - isActive
               properties:
-                title:
+                title_en:
                   type: string
-                  example: Recent event
-                  description: Recent event title
-                description:
+                  example: Parish Youth Rally
+                  description: Title of the event in English
+                title_fr:
                   type: string
-                  example: description
-                  description: Recent event description
+                  example: Rassemblement des jeunes de la paroisse
+                  description: Title of the event in French
+                title_rw:
+                  type: string
+                  example: Igiterane cy'urubyiruko rwa paruwasi
+                  description: Title of the event in Kinyarwanda
+                description_en:
+                  type: string
+                  example: A gathering to engage the parish youth
+                  description: Description of the event in English
+                description_fr:
+                  type: string
+                  example: Un événement pour engager les jeunes de la paroisse
+                  description: Description of the event in French
+                description_rw:
+                  type: string
+                  example: Igikorwa cyo gukangurira urubyiruko rwa paruwasi kwitabira
+                  description: Description of the event in Kinyarwanda
+                event_date:
+                  type: string
+                  format: date
+                  example: '2025-08-15'
+                  description: Date of the event (YYYY-MM-DD)
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 105
+                  description: Optional background image ID
                 isActive:
                   type: boolean
                   example: 'false'
@@ -2510,9 +2735,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Recent Event updated successfully.
@@ -2523,9 +2745,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -2548,7 +2767,7 @@ paths:
             type: boolean
           required: false
           description: Activity status of recent event
-      summary: get all Mass recent events
+      summary: get all recent events
       responses:
         '200':
           description: Get Recent Events
@@ -2576,19 +2795,49 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - title_en
+                - title_fr
+                - title_rw
+                - description_en
+                - description_fr
+                - description_rw
+                - event_date
               properties:
-                title:
+                title_en:
                   type: string
-                  example: Recent event
-                  description: Recent event title
-                description:
+                  example: Parish Youth Rally
+                  description: Title of the event in English
+                title_fr:
                   type: string
-                  example: description
-                  description: Recent event description
+                  example: Rassemblement des jeunes de la paroisse
+                  description: Title of the event in French
+                title_rw:
+                  type: string
+                  example: Igiterane cy'urubyiruko rwa paruwasi
+                  description: Title of the event in Kinyarwanda
+                description_en:
+                  type: string
+                  example: A gathering to engage the parish youth
+                  description: Description of the event in English
+                description_fr:
+                  type: string
+                  example: Un événement pour engager les jeunes de la paroisse
+                  description: Description of the event in French
+                description_rw:
+                  type: string
+                  example: Igikorwa cyo gukangurira urubyiruko rwa paruwasi kwitabira
+                  description: Description of the event in Kinyarwanda
+                event_date:
+                  type: string
+                  format: date
+                  example: '2025-08-15'
+                  description: Date of the event (YYYY-MM-DD)
                 backgroundImageId:
                   type: number
-                  example: description
-                  description: Recent event backgroundImageId
+                  nullable: true
+                  example: 105
+                  description: Optional background image ID
       responses:
         '200':
           description: Recent Event saved successfully
@@ -2597,9 +2846,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Recent Event  saved successfully
@@ -2610,9 +2856,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2633,7 +2876,7 @@ paths:
           schema:
             type: integer
           description: Service ID
-      summary: delete a Mass service
+      summary: delete a service
       responses:
         '200':
           description: Service deleted successfully
@@ -2642,9 +2885,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Service deleted successfully
@@ -2655,9 +2895,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2682,11 +2919,64 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name_en
+                - name_fr
+                - name_rw
+                - description_en
+                - description_fr
+                - description_rw
+                - contact_person_name
+                - contact_person_phone_number
+                - work_days
+                - work_hours
+                - isActive
               properties:
-                service:
+                name_en:
                   type: string
-                  example: St Michael Parish
-                  description: service of the Mass
+                  example: Social Support Service
+                  description: Service name in English
+                name_fr:
+                  type: string
+                  example: Service d'assistance sociale
+                  description: Service name in French
+                name_rw:
+                  type: string
+                  example: Serivisi y'ubufasha
+                  description: Service name in Kinyarwanda
+                description_en:
+                  type: string
+                  example: We support parishioners in need
+                  description: Service description in English
+                description_fr:
+                  type: string
+                  example: Nous soutenons les paroissiens dans le besoin
+                  description: Service description in French
+                description_rw:
+                  type: string
+                  example: Dufasha abakene n'abari mu kaga
+                  description: Service description in Kinyarwanda
+                contact_person_name:
+                  type: string
+                  example: Sister Marie Claire
+                  description: Contact person's full name
+                contact_person_phone_number:
+                  type: string
+                  example: '+250788999888'
+                  description: Contact person's phone number
+                work_days:
+                  type: string
+                  example: Monday to Friday
+                  description: Days the service operates
+                work_hours:
+                  type: string
+                  example: 09:00 - 16:00
+                  description: Working hours for the service
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 106
+                  description: Optional background image ID
                 isActive:
                   type: boolean
                   example: 'false'
@@ -2699,9 +2989,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Service updated successfully.
@@ -2712,9 +2999,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -2737,7 +3021,7 @@ paths:
             type: boolean
           required: false
           description: Activity status of service
-      summary: get all Mass services
+      summary: get all services
       responses:
         '200':
           description: Get Services
@@ -2765,11 +3049,63 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name_en
+                - name_fr
+                - name_rw
+                - description_en
+                - description_fr
+                - description_rw
+                - contact_person_name
+                - contact_person_phone_number
+                - work_days
+                - work_hours
               properties:
-                service:
+                name_en:
                   type: string
-                  example: St Michael Parish
-                  description: service of the Mass
+                  example: Social Support Service
+                  description: Service name in English
+                name_fr:
+                  type: string
+                  example: Service d'assistance sociale
+                  description: Service name in French
+                name_rw:
+                  type: string
+                  example: Serivisi y'ubufasha
+                  description: Service name in Kinyarwanda
+                description_en:
+                  type: string
+                  example: We support parishioners in need
+                  description: Service description in English
+                description_fr:
+                  type: string
+                  example: Nous soutenons les paroissiens dans le besoin
+                  description: Service description in French
+                description_rw:
+                  type: string
+                  example: Dufasha abakene n'abari mu kaga
+                  description: Service description in Kinyarwanda
+                contact_person_name:
+                  type: string
+                  example: Sister Marie Claire
+                  description: Contact person's full name
+                contact_person_phone_number:
+                  type: string
+                  example: '+250788999888'
+                  description: Contact person's phone number
+                work_days:
+                  type: string
+                  example: Monday to Friday
+                  description: Days the service operates
+                work_hours:
+                  type: string
+                  example: 09:00 - 16:00
+                  description: Working hours for the service
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 106
+                  description: Optional background image ID
       responses:
         '200':
           description: Service saved successfully
@@ -2778,9 +3114,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Service saved successfully
@@ -2791,9 +3124,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2814,7 +3144,7 @@ paths:
           schema:
             type: integer
           description: Top News And Notices ID
-      summary: delete a Mass location
+      summary: delete a Top News And Notices
       responses:
         '200':
           description: Top News And Notices deleted successfully
@@ -2823,9 +3153,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Top News And Notices deleted successfully
@@ -2836,9 +3163,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -2863,15 +3187,41 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - title_en
+                - title_fr
+                - title_rw
+                - description_en
+                - description_fr
+                - description_rw
+                - isActive
               properties:
-                title:
+                title_en:
                   type: string
-                  example: Top News And Notices
-                  description: Top News And Notices title
-                description:
+                  example: Welcome to Our Parish
+                  description: Title in English
+                title_fr:
                   type: string
-                  example: description
-                  description: Top News And Notices description
+                  example: Bienvenue à notre paroisse
+                  description: Title in French
+                title_rw:
+                  type: string
+                  example: Murakaza neza muri Paruwasi yacu
+                  description: Title in Kinyarwanda
+                description_en:
+                  type: string
+                  example: We are happy to have you with us at St. Michel Parish.
+                  description: Description in English
+                description_fr:
+                  type: string
+                  example: >-
+                    Nous sommes heureux de vous accueillir à la paroisse Saint
+                    Michel.
+                  description: Description in French
+                description_rw:
+                  type: string
+                  example: Turishimye kubakira muri Paruwasi ya Mutagatifu Mikaheli.
+                  description: Description in Kinyarwanda
                 isActive:
                   type: boolean
                   example: 'false'
@@ -2884,9 +3234,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Top News And Notices updated successfully.
@@ -2897,9 +3244,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials!
@@ -2950,15 +3294,40 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - title_en
+                - title_fr
+                - title_rw
+                - description_en
+                - description_fr
+                - description_rw
               properties:
-                title:
+                title_en:
                   type: string
-                  example: Recent event
-                  description: Recent event title
-                description:
+                  example: Welcome to Our Parish
+                  description: Title in English
+                title_fr:
                   type: string
-                  example: description
-                  description: Recent event description
+                  example: Bienvenue à notre paroisse
+                  description: Title in French
+                title_rw:
+                  type: string
+                  example: Murakaza neza muri Paruwasi yacu
+                  description: Title in Kinyarwanda
+                description_en:
+                  type: string
+                  example: We are happy to have you with us at St. Michel Parish.
+                  description: Description in English
+                description_fr:
+                  type: string
+                  example: >-
+                    Nous sommes heureux de vous accueillir à la paroisse Saint
+                    Michel.
+                  description: Description in French
+                description_rw:
+                  type: string
+                  example: Turishimye kubakira muri Paruwasi ya Mutagatifu Mikaheli.
+                  description: Description in Kinyarwanda
       responses:
         '200':
           description: Recent Event saved successfully
@@ -2967,9 +3336,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Recent Event  saved successfully
@@ -2980,9 +3346,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -3003,7 +3366,7 @@ paths:
   /users/add:
     post:
       tags:
-        - Portal Users
+        - Users
       summary: Add a user by Admin
       security:
         - Authorization: []
@@ -3059,9 +3422,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Users deleted successfully
@@ -3072,9 +3432,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -3083,7 +3440,7 @@ paths:
   /users/{userId}/edit:
     patch:
       tags:
-        - Portal Users
+        - Users
       summary: Edit a user by Admin
       security:
         - Authorization: []
@@ -3105,6 +3462,10 @@ paths:
                   type: string
                   example: Updated User
                   description: The updated name of the user
+                status:
+                  type: string
+                  example: Active
+                  description: The updated status of the user
                 email:
                   type: string
                   example: updated1@email.com
@@ -3131,7 +3492,7 @@ paths:
   /users/forgot-password:
     post:
       tags:
-        - Portal Users
+        - Users
       summary: Reset Forgot Password
       requestBody:
         required: true
@@ -3161,9 +3522,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -3218,7 +3576,7 @@ paths:
   /users:
     get:
       tags:
-        - Portal Users
+        - Users
       security:
         - Authorization: []
       summary: GET Portal Users List
@@ -3253,9 +3611,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Login successful
@@ -3266,9 +3621,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -3287,7 +3639,7 @@ paths:
   /users/reset-password:
     put:
       tags:
-        - Portal Users
+        - Users
       summary: Reset Password
       security:
         - Authorization: []
@@ -3324,16 +3676,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
   /users/sendVerificationEmail:
     post:
       tags:
-        - Portal Users
+        - Users
       security:
         - Authorization: []
       requestBody:
@@ -3355,9 +3704,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: true
                   message:
                     type: string
                     example: Login successful
@@ -3368,9 +3714,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    example: false
                   message:
                     type: string
                     example: Invalid credentials
@@ -3399,138 +3742,138 @@ paths:
   /services/office-hours:
     get:
       tags:
-        - Website-Routes
-      summary: get all Office hours
+        - Front-End
+      summary: get all office hours
       responses:
         '200':
-          description: Get Office hours successful
+          description: Get office hours successful
         '500':
           description: Internal Server error
-  /aboutPage/parishCommitteeCouncil:
+  /about-page/committee-council:
     get:
       tags:
-        - Website-Routes
-      summary: get all Parish Committee Council
+        - Front-End
+      summary: get all committee council
       responses:
         '200':
-          description: Get Parish Committee Council successful
+          description: Get committee council successful
         '500':
           description: Internal Server error
-  /aboutPage/parish-history:
+  /about-page/parish-history:
     get:
       tags:
-        - Website-Routes
-      summary: get all Parish History
+        - Front-End
+      summary: get all parish history council
       responses:
         '200':
-          description: Get Parish History successful
+          description: Get parish history council successful
         '500':
           description: Internal Server error
-  /aboutPage/priests:
+  /about-page/priests:
     get:
       tags:
-        - Website-Routes
-      summary: get all Priests
+        - Front-End
+      summary: get all priests
       responses:
         '200':
-          description: Get Priests successful
+          description: Get priests successful
         '500':
           description: Internal Server error
   /services/services:
     get:
       tags:
-        - Website-Routes
-      summary: get all Services
+        - Front-End
+      summary: get all services
       responses:
         '200':
-          description: Get Services successful
+          description: Get services successful
         '500':
           description: Internal Server error
   /services/choirs:
     get:
       tags:
-        - Website-Routes
-      summary: get all Choirs
+        - Front-End
+      summary: get all choirs
       responses:
         '200':
-          description: Get Choirs successful
+          description: Get choirs successful
         '500':
           description: Internal Server error
   /services/commissions:
     get:
       tags:
-        - Website-Routes
-      summary: get all Commissions
+        - Front-End
+      summary: get all commissions
       responses:
         '200':
-          description: Get Commissions successful
+          description: Get commissions successful
         '500':
           description: Internal Server error
-  /homePage/bannerImages:
+  /home-page/banner-images:
     get:
       tags:
-        - Website-Routes
-      summary: get all Banner Images
+        - Front-End
+      summary: get all banner images
       responses:
         '200':
-          description: Get Banner Images successful
+          description: Get banner images successful
         '500':
           description: Internal Server error
-  /homePage/welcomeMessage:
+  /home-page/welcome-message:
     get:
       tags:
-        - Website-Routes
-      summary: get all Welcome Message
+        - Front-End
+      summary: get all welcome message
       responses:
         '200':
-          description: Get Welcome Message successful
+          description: Get welcome message successful
         '500':
           description: Internal Server error
-  /homePage/mass-times:
+  /home-page/mass-times:
     get:
       tags:
-        - Website-Routes
-      summary: get all Mass Times
+        - Front-End
+      summary: get all mass times
       responses:
         '200':
-          description: Get Mass Times successful
+          description: Get mass times successful
         '500':
           description: Internal Server error
-  /homePage/recentEvents:
+  /home-page/recent-events:
     get:
       tags:
-        - Website-Routes
-      summary: get all Recent Events
+        - Front-End
+      summary: get all recent events
       responses:
         '200':
-          description: Get Recent Events successful
+          description: Get recent events successful
         '500':
           description: Internal Server error
-  /homePage/recentEvents/:id:
+  /home-page/recent-events/:id:
     get:
       tags:
-        - Website-Routes
+        - Front-End
       parameters:
-        - name: id
-          in: path
+        - in: path
+          name: id
           required: true
-          description: The Id of the recent event
           schema:
-            type: number
-      summary: get Recent Event by id
+            type: integer
+          description: Service ID
+      summary: get recent event by id
       responses:
         '200':
-          description: Get Recent Event successful
+          description: Get recent event by id successful
         '500':
           description: Internal Server error
-  /homePage/topParishNewsAndNotices:
+  /home-page/top-parish-news-and-notices:
     get:
       tags:
-        - Website-Routes
-      summary: get all Top Parish News And Notices
+        - Front-End
+      summary: get all top parish news and notices
       responses:
         '200':
-          description: Get Top Parish News And Notices successful
+          description: Get top parish news and notices successful
         '500':
           description: Internal Server error
   /welcomeMessage:
@@ -3555,6 +3898,65 @@ paths:
                     example: Invalid credentials
         '500':
           description: Internal Server error
+    post:
+      tags:
+        - Welcome Message
+      security:
+        - Authorization: []
+      summary: get welcome Message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - welcomeMessage_en
+                - welcomeMessage_fr
+                - welcomeMessage_rw
+              properties:
+                welcomeMessage_en:
+                  type: string
+                  example: We are happy to have you with us at St. Michel Parish.
+                  description: Welcome message in English
+                welcomeMessage_fr:
+                  type: string
+                  example: >-
+                    Nous sommes heureux de vous accueillir à la paroisse Saint
+                    Michel.
+                  description: Welcome message in French
+                welcomeMessage_rw:
+                  type: string
+                  example: Turishimye kubakira muri Paruwasi ya Mutagatifu Mikaheli.
+                  description: Welcome message in Kinyarwanda
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 106
+                  description: Optional background image ID
+      responses:
+        '200':
+          description: Service saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Service saved successfully
+        '400':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials
+        '422':
+          description: Validation error
   /WelcomeMessageFrontend/msg:
     get:
       tags:
@@ -3565,6 +3967,78 @@ paths:
           description: Get welcome message
         '500':
           description: Internal server error
+  /welcomeMessage/{id}:
+    put:
+      tags:
+        - Welcome Message
+      security:
+        - Authorization: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Welcome Message ID
+      summary: Update a Welcome Message
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - welcomeMessage_en
+                - welcomeMessage_fr
+                - welcomeMessage_rw
+              properties:
+                welcomeMessage_en:
+                  type: string
+                  example: We are happy to have you with us at St. Michel Parish.
+                  description: Welcome message in English
+                welcomeMessage_fr:
+                  type: string
+                  example: >-
+                    Nous sommes heureux de vous accueillir à la paroisse Saint
+                    Michel.
+                  description: Welcome message in French
+                welcomeMessage_rw:
+                  type: string
+                  example: Turishimye kubakira muri Paruwasi ya Mutagatifu Mikaheli.
+                  description: Welcome message in Kinyarwanda
+                backgroundImageId:
+                  type: number
+                  nullable: true
+                  example: 106
+                  description: Optional background image ID
+      responses:
+        '200':
+          description: Service saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Service updated successfully.
+        '400':
+          description: Bad request!
+        '401':
+          description: Invalid credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Invalid credentials!
+        '404':
+          description: Not found!
+        '422':
+          description: Validation error!
+        '500':
+          description: Internal Server error!
 tags:
   - name: Users
-  - name: Portal Users

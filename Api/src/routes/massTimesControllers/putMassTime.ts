@@ -64,9 +64,17 @@ const updateMassTimesSchema = z.object({
  *                 type: number
  *                 example: 1
  *                 description: "language of the Mass"
- *               day:
+ *               day_en:
  *                 type: string
- *                 example: "Sunday"
+ *                 example: "Sunday 07 July 2024"
+ *                 description: "day of the Mass"
+ *               day_rw:
+ *                 type: string
+ *                 example: "Sunday 07 July 2024"
+ *                 description: "day of the Mass"
+ *               day_fr:
+ *                 type: string
+ *                 example: "Sunday 07 July 2024"
  *                 description: "day of the Mass"
  *               time:
  *                 type: string
@@ -84,9 +92,6 @@ const updateMassTimesSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Mass Time updated successfully."
@@ -97,9 +102,6 @@ const updateMassTimesSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials!"

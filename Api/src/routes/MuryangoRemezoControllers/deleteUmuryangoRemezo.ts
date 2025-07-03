@@ -21,7 +21,7 @@ import * as fs from 'fs'
  *         schema:
  *            type: integer
  *         description: MuryangoRemezo ID
- *     summary: delete a Mass muryangoremezo
+ *     summary: delete a muryangoremezo
  *     responses:
  *       200:
  *         description: MuryangoRemezo deleted successfully
@@ -30,9 +30,6 @@ import * as fs from 'fs'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "MuryangoRemezo deleted successfully"
@@ -43,9 +40,6 @@ import * as fs from 'fs'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

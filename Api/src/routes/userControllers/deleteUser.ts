@@ -30,9 +30,6 @@ import { PortalUserEntity } from "../../entity/PortalUserEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Users deleted successfully"
@@ -43,9 +40,6 @@ import { PortalUserEntity } from "../../entity/PortalUserEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

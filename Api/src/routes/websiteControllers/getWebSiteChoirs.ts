@@ -8,11 +8,11 @@ import { ChoirEntity } from "../../entity/ChoirEntity";
  * /services/choirs:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Choirs
+ *       - Front-End
+ *     summary: get all choirs
  *     responses:
  *       200:
- *         description: Get Choirs successful
+ *         description: Get choirs successful
  *       500:
  *         description: Internal Server error
  *

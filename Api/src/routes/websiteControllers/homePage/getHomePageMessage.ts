@@ -5,14 +5,14 @@ import logger from "../../../services/logger";
 
 /**
  * @openapi
- * /homePage/welcomeMessage:
+ * /home-page/welcome-message:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Welcome Message
+ *       - Front-End
+ *     summary: get all welcome message
  *     responses:
  *       200:
- *         description: Get Welcome Message successful
+ *         description: Get welcome message successful
  *       500:
  *         description: Internal Server error
  *

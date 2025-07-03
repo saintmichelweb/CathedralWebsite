@@ -6,14 +6,14 @@ import { RecentEventsEntity } from "../../../entity/RecentEventsEntity";
 
 /**
  * @openapi
- * /homePage/recentEvents:
+ * /home-page/recent-events:
  *   get:
  *     tags:
- *       - Website-Routes
- *     summary: get all Recent Events
+ *       - Front-End
+ *     summary: get all recent events
  *     responses:
  *       200:
- *         description: Get Recent Events successful
+ *         description: Get recent events successful
  *       500:
  *         description: Internal Server error
  *
@@ -51,21 +51,21 @@ export async function getRecentEvents(req: Request, res: Response) {
 
 /**
  * @openapi
- * /homePage/recentEvents/:id:
+ * /home-page/recent-events/:id:
  *   get:
  *     tags:
- *       - Website-Routes
-  *     parameters:
- *       - name: id
- *         in: path
+ *       - Front-End
+ *     parameters:
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: The Id of the recent event
  *         schema:
- *           type: number
- *     summary: get Recent Event by id
+ *            type: integer
+ *         description: Service ID
+ *     summary: get recent event by id 
  *     responses:
  *       200:
- *         description: Get Recent Event successful
+ *         description: Get recent event by id successful
  *       500:
  *         description: Internal Server error
  *

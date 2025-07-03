@@ -15,28 +15,27 @@ import { getWebsiteCommissions } from './websiteControllers/getWebSiteCommission
 import { getWebsitecatholicActions } from './websiteControllers/aboutPage/getCatholicActions'
 import { getWebsitecommunities } from './websiteControllers/aboutPage/getCommunities'
 
-
 const router = express.Router()
 
 // Home page routes
-router.get('/homePage/welcomeMessage', getHomePageMessage)
-router.get('/homePage/massTimes', getMassTimes)
-router.get('/homePage/recentEvents', getRecentEvents)
-router.get('/homePage/recentEvents/:id', getRecentEventById)
-router.get('/homePage/topParishNewsAndNotices', getTopParishNewsAndNotices)
-router.get('/homePage/bannerImages', getHomePageBannerImages)
+router.get('/home-page/welcome-message', getHomePageMessage)
+router.get('/home-page/mass-times', getMassTimes)
+router.get('/home-page/recent-events', getRecentEvents)
+router.get('/home-page/recent-events/:id', getRecentEventById)
+router.get('/home-page/top-parish-news-and-notices', getTopParishNewsAndNotices)
+router.get('/home-page/banner-images', getHomePageBannerImages)
 
 //About page routes 
-router.get('/aboutPage/priests', getWebsitePriests)
-router.get('/aboutPage/parishCommitteeCouncil', getWebsiteParishCommitteeCouncil)
-router.get('/aboutPage/parish-history', getWebsiteParishHistory)
+router.get('/about-page/priests', getWebsitePriests)
+router.get('/about-page/committee-council', getWebsiteParishCommitteeCouncil)
+router.get('/about-page/parish-history', getWebsiteParishHistory)
 
 
 //Service page routes 
-router.get('/services/office-hours', getWebsiteOfficeHours)
-router.get('/services/services', getWebsiteServices)
-router.get('/services/choirs', getWebsiteChoir)
-router.get('/services/commissions', getWebsiteCommissions)
+router.get('/services-page/office-hours', getWebsiteOfficeHours)
+router.get('/services-page/services', getWebsiteServices)
+router.get('/services-page/Choirs', getWebsiteChoir)
+router.get('/services-page/commissions', getWebsiteCommissions)
 
 //about page routes 
 router.get('/about/catholicActions', getWebsitecatholicActions)

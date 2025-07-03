@@ -11,7 +11,7 @@ import logger from '../../services/logger'
  * /users/sendVerificationEmail:
  *   post:
  *     tags:
- *       - Portal Users
+ *       - Users
  *     security:
  *       - Authorization: []
  *     requestBody:
@@ -33,9 +33,6 @@ import logger from '../../services/logger'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Login successful"
@@ -48,9 +45,6 @@ import logger from '../../services/logger'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"
