@@ -58,12 +58,11 @@ import { ImageEntity } from "../../entity/ImagesEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Service updated successfully."
+ *       400:
+ *         description: Bad request! 
  *       401:
  *         description: Invalid credentials!
  *         content:
@@ -71,14 +70,11 @@ import { ImageEntity } from "../../entity/ImagesEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials!"
  *       404:
- *         description: Service not found! 
+ *         description: Not found! 
  *       422:
  *         description: Validation error!
  *       500:

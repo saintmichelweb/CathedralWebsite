@@ -29,9 +29,6 @@ import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Top News And Notices deleted successfully"
@@ -42,9 +39,6 @@ import { TopNewsAndNoticesEntity } from "../../entity/TopNewsAndNoticesEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

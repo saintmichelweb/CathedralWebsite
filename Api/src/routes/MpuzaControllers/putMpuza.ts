@@ -112,9 +112,6 @@ const mpuzaMiryangoRemezoSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "mpuzaMiryangoRemezo updated successfully."
@@ -125,9 +122,6 @@ const mpuzaMiryangoRemezoSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials!"

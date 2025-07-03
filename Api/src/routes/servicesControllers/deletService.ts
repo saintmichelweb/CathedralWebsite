@@ -29,9 +29,6 @@ import { ServiceEntity } from "../../entity/ServiceEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Service deleted successfully"
@@ -42,9 +39,6 @@ import { ServiceEntity } from "../../entity/ServiceEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

@@ -125,9 +125,6 @@ const parishCommitteeCouncilSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "parishCommitteeCouncil saved successfully"
@@ -138,9 +135,6 @@ const parishCommitteeCouncilSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

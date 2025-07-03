@@ -30,9 +30,6 @@ import * as fs from 'fs'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Choir deleted successfully"
@@ -43,9 +40,6 @@ import * as fs from 'fs'
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

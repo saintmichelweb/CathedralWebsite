@@ -133,9 +133,6 @@ const ServiceSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Service saved successfully"
@@ -146,9 +143,6 @@ const ServiceSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

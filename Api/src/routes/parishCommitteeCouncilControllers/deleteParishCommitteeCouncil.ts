@@ -29,9 +29,6 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "parishCommitteeCouncil deleted successfully"
@@ -42,9 +39,6 @@ import { ParishComitteCouncilEntity } from "../../entity/ParishComitteCouncilEnt
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

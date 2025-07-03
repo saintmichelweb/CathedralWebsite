@@ -88,9 +88,6 @@ const topNewsAndNoticesSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Recent Event  saved successfully"
@@ -101,9 +98,6 @@ const topNewsAndNoticesSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

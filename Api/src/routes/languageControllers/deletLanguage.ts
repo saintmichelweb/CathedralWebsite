@@ -28,9 +28,6 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
  *                 message:
  *                   type: string
  *                   example: "Language deleted successfully"
@@ -41,9 +38,6 @@ import { LanguageEntity } from "../../entity/languageEntity";
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

@@ -46,9 +46,6 @@ const JWT_SECRET = readEnv('JWT_SECRET', 'secret') as string
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"

@@ -70,9 +70,6 @@ const PutUserResetPasswordSchema = z.object({
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
  *                 message:
  *                   type: string
  *                   example: "Invalid credentials"
