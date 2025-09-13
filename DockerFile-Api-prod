@@ -1,11 +1,11 @@
-# Use an official Node runtime as the base image
 FROM node:20.15.0-alpine AS builder
 WORKDIR /app
-COPY ./shared-lib /app/shared-lib
-COPY ./Api /app/Api
-COPY ./Api/.env.prod /app/Api/.env
+
+COPY shared-lib ./shared-lib
+COPY Api ./Api
+COPY Api/.env.prod ./Api/.env
 
 WORKDIR /app/Api
-RUN npm i 
+RUN npm install
 
-EXPOSE 3551
+CMD ["npm", "run", "start"]
