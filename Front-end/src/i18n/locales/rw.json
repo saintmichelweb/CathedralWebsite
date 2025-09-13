@@ -1,0 +1,227 @@
+{
+    "home": "Ahabanza",
+    "about": "Ibyerekeye",
+    "services": "Serivisi",
+    "announcements": "Amatangazo",
+    "contact": "Twandikire",
+    "menu": "Ibikubiyemo",
+    "followUs": "Dukurikire",
+    
+    "overview": "Incamake",
+    "ourChorals": "Amakorali ya paruwasi",
+    "catholicActions": "Imiryango ya agisiyo gatorika",
+    "community": "Mpuza myiryango remezo",
+    "parishCommittee": "Inama nkuru ya paruwasi",
+    "ourLeaders": "Abayobozi bacu",
+    
+    "massSchedule": "Igihe cya Misa",
+    "sacraments": "Amasakaramentu",
+    "ministries": "Minisiteri",
+    "penitence": "Kwihana",
+
+
+    "baptism": "Kubatizwa",
+    "eucharist": "Ukarisitiya",
+    "confirmation": "Ugukomezwa",
+    "marriage": "Ugushyingirwa",
+    "reconciliation": "Kwihana",
+    "anointingOfTheSick": "Gusigwa kwa abarwayi",
+    "upcoming_events":"Ibikorwa biri imbere",
+    "learn_more":"Menya byinshi",
+    "mainChurch" : "CATHEDRALE",
+    "confessions": "Kwicuza ibyaha: Ku wa Kabiri no ku wa Kane mu gitondo, cya kuri gahunda",
+    "viewFullSchedule": "Reba Gahunda Yuzuye",
+    "noMassTimesAvailable": "Nta masaha ya Misa aboneka",
+    "failedToLoadMassTimes": "Byanze gukurura amasaha ya Misa",
+    "getInvolved": "Ushaka Kw' Itabira",
+
+    
+    "aboutParishDesc1":
+      "Paruwasi ya Mutagatifu Mikayeli yashinzwe mu 1963, ikaba yari imwe muri paruwasi zigize Arkidiyosezi ya Kabgayi. Ku wa 3 Gicurasi 1976, yahawe izina ryemewe rya Paruwasi Katedrali.",
+    "aboutParishDesc2":
+      "Guhera yatangijwe, iyi paruwasi yagize uruhare rukomeye mu iterambere ry'iyobokamana n'imibereho myiza y'abaturage, ikaba ikigo cy'ukwemera n'ibikorwa by'idini.",
+    "learnMore": "Menya Byinshi",
+    "aboutParish": "Ibyerekeye Paruwasi Yacu",
+    "ourPriests": "Abapadiri bacu",
+    "priestsDesc": "Menya abihayimana bitangiye gukorera umuryango wacu wa paruwasi.",
+    "readBio": "Soma ubuzima bwe",
+    "exploreMoreAbout": "Menya Byinshi Kuri CATHEDRALE",
+    "exploreMoreDesc": "Menya byinshi ku buzima bwa CATHEDRALE yacu, serivisi zayo, n’imishinga y’iterambere ry’umuryango.",
+    "choralsDesc": "Menya amakorali yacu atandukanye asusurutsa ibirori byacu bya liturijiya n’umuziki mwiza.",
+    "catholicActionsDesc": "Sura amatsinda n’imishinga itandukanye ya Kiliziya Gatolika ihamya ukwemera binyuze mu bikorwa.",
+    "communityAboutDesc": "Menya ibijyanye n’imishinga yacu igamije gufasha abatishoboye no uko dufasha ababikeneye.",
+    "parishCommitteeAboutDesc": "Menya ibijyanye na Komite ya Paruwasi yacu, itsinda ry’ubuyobozi rituyobora mu muryango wa Paruwasi.",
+    "choirLeader": "Umuyobozi w’ Abaririmbyi",
+    "contact": "Hamagara",
+    "ourCatholicActionGroups": "Imiryango y' agisiyo Gatorika",
+    "ourCatholicActionGroupsDesc": "Menya imiryango itandukanye ishyigikira iyobokamana  muri paruwasi yacu.",
+    "communityDesc1": "Impuza Miryango Remezo bivuga itsinda ry'Itsinda rito ry'Abakristu Gatolika (Imiryango remezo) bifitanye isano rikorera muri paruwasi yacu. Aya matsinda ni yo shingiro ry'ubuzima bwa paruwasi, aho imiryango ihurira mu matsinda mato yo gusenga, kugirana ubusabane, no gufashanya.",
+    "communityDesc2": "Buri Impuza Miryango Remezo igabanyijemo Itsinda rito ry'Abakristu Gatolika (Imiryango remezo) zitandukanye zihura kenshi mu ngo z'abanyamuryango. Izi nama zitanga amahirwe yo gusangira Ijambo ry'Imana, gusenga, no kwita ku bibazo by’umwuka n’iby’imibereho y’abanyamuryango.",
+    "communityDesc": "Umuryango wuzuyemo urukundo n’ukwishimira gukorera hamwe, aho buri wese yumva ari mu rugo, ahabwa inkunga y’ukuri, kandi agatera intambwe mu kwemera.",
+    "aboutParishCommittee": "Ibyerekeye Komite ya Paruwasi",
+    "parishCommitteeDesc1":
+      "Inama ya Komite ya Paruwasi ikora nk'urwego ngishwanama n'urwego rufata ibyemezo by'ingenzi kuri Paruwasi ya Mutagatifu Mikaeli. Ikorana bya hafi na padiri, komite ifasha kuyobora icyerekezo cy'umwuka n'ubuyobozi bw'umuryango wa paruwasi yacu.",
+    "parishCommitteeDesc2":
+      "Abagize komite batorwa n'umuryango wa paruwasi kandi bakora manda y'imyaka itatu. Bahagarariye ibitekerezo bitandukanye, uburambe n'ibitekerezo by'abakristu bacu.",
+    "parishCommitteeDesc3":
+      "Binyuze mu isengesho, gutandukanya no gufatanya, Komite ya Paruwasi ifasha kugenzura ko paruwasi yacu igumana ubuzima, ikurikiza inyigisho za Gatolika, kandi yita ku bikenewe n'umuryango wacu.",
+      "committeeResponsibilities": "Inshingano za Komite",
+      "committeeResp1": "Kugira inama padiri ku bibazo bya paruwasi",
+      "committeeResp2": "Gutegura no gushyira mu bikorwa gahunda ya paruwasi",
+      "committeeResp3": "Kugenzura imari n'ingengo y'imari ya paruwasi",
+      "committeeResp4": "Guhuza ministeri n'ibikorwa bya paruwasi",
+      "committeeResp5": "Gufata neza ibikorwa remezo n'ibibanza bya paruwasi",
+      "committeeResp6": "Guteza imbere ubufatanye n'ubufasha bw'umuryango",
+      "meetCommitteeMembers": "Hura n'Abagize Komite Yacu",
+      "committeeIntro":"Abagize Komite ya Paruwasi yacu ni abakristu biyemeje gutanga igihe n'impano zabo kugira ngo bakorere umuryango wacu.",
+      "parishCommitteeCouncil": "Inama nkuru  ya Paruwasi",
+      "aboutParishCommittee": "Ibyerekeye Imana nkuru ya Paruwasi",
+      "contactUs": "Twandikire",
+      "getInTouch": "Twandikire",
+    "contactDesc": "Twakwishimira kubumva.  Mwuzuze iyi fishi cyangwa utwandikire ukoresha amakuru atanzwe.",
+    "address": "Aderesi",
+    "phone": "Telefoni",
+    "email": "Imeyili",
+    "closed": "Harafunze",
+    "connectWithUs": "Dukomeze Gukorana",
+    "sendMessage": "Duhereze Ubutumwa",
+    "messageSent": "Ubutumwa Bwoherejwe!",
+    "messageSentDesc": "Urakoze kubwo kwandikira Paruwasi ya Mutagatifu Mikaeli. Tuzakugarukira vuba bishoboka.",
+    "sendAnotherMessage": "Ohereza Ubundi Butumwa",
+    "fullName": "Amazina Yose",
+    "subject": "Icyo Birebana",
+    "message": "Ubutumwa",
+    "sending": "Kohereza...",
+    "selectSubject": "Hitamo icyo birebana",
+    "generalInquiry": "Ikibazo Rusange",
+    "massIntentions": "Iby'Imisa",
+    "parishEvents": "Ibirori bya Paruwasi",
+    "volunteering": "Ubukorerabushake",
+    "other": "Ibindi",
+    "findUs": "Dushake",
+    "visitUsDesc": "Uze udusuze ku misa, kwicuza, cyangwa kuvugana na padiri",
+    "mapToParish": "Ikarita ija kuri Paruwasi ya Mutagatifu Mikaeli",
+    "mapDesc":
+      "Paruwasi ya Mutagatifu Mikayile iherereye mu mutima wa Kigali, yoroshye kuyigeraho hakoreshejwe uburyo bwo gutwara abantu rusange  kandi hari parking ihagije.",
+    "getDirections": "Kubona Inzira",
+    "officeHours": "Amasaha y'Akazi",
+    "emailAddress": "Imeyili",
+    "phoneNumber": "Numero ya Telefoni",
+    "clearForm" :"Sukura ifishi",
+    "ourServices" : "Serivisi zacu",
+    "ServiceDescription" :"Menya byinshi kuri serivisi zitangwa muri Katedrale yacu.",
+    "hours": "Amasaha",
+    "quickLinks": {
+  "title": "Inzira Ngufi",
+  "massSchedule": "Isaha y'Igitambo cya Misa",
+  "massScheduleDesc": "Reba amasaha asanzwe n’ayihariye ya misa.",
+  "sacraments": "Amasakaramentu",
+  "sacramentsDesc": "Menya byinshi ku masakaramentu ya Kiliziya Gatolika.",
+  "confession": "Isezera ry'Ibyaha",
+  "confessionDesc": "Reba gahunda y'Isakaramentu ryo kwiyunga.",
+  "parishOffice": "Serivisi z'Ibyangombwa",
+  "parishOfficeDesc": "Serivisi zitangwa n’ibiro bya Katederale."
+},
+"massScheduleTitle": "Gahunda ya Misa",
+"massScheduleDesc":"Kuri Katederale ya Mutagatifu Mikayile habera Missa enye mu ndimi eshatu Ikinyarwanda, Igifaransa n'Icyongereza",
+"sacramentsIntro": "Amasakramentu Arindwi",
+"sacramentsIntroDesc1":
+  "Amasakramentu ni ibimenyetso bitagatifu byashyizweho na Kristu kugira ngo atange ubuntu. Binyuze mu masakramentu, duhura na Kristu kandi twakira ubuntu bwe kugira ngo bidufashe kubaho nk'abigishwa be.",
+"sacramentsIntroDesc2":
+  "Muri Paruwasi ya Mutagatifu Mikaeli, twiyemeje gufasha abakristu kwitegura no kwizihiza amasakramentu bubaha kandi bishimye.",
+"sevenSacraments": "Amasakramentu Arindwi ya Kiliziya Gatolika",
+"sevenSacramentsDesc":
+  "Kiliziya Gatolika yizihiza amasakramentu arindwi, agabanyijemo ibyiciro bitatu: Amasakramentu yo Gutangira, Amasakramentu yo Gukiza, n'Amasakramentu yo Gukorera.",
+"baptism": "Gusenganwa kw'abana (Batisimu)",
+  "baptismDesc": "Batisimu ni isezerano rya mbere ry'ubutumire mu Itorero Gatolika. Ababyeyi bashaka ko umwana wabo asenganwa bagomba kuvugana n'ibiro bya paruwasi kugira ngo bategure amasomo yo kwitegura kubatisimu. Abana bato basenganwa hakurikijwe ukwemera kw'ababyeyi babo buri cyumweru cya kane cy'ukwezi.",
+  "baptismReq1": "Ababyeyi b'abana bashaka kubatisimu bagomba kuba abanyamuryango bemerewe ba paruwasi kandi bagomba kuba barakiriye isezerano ry’ubukwe bwo mu Itorero (Matrimony).",
+  "baptismReq2": "Abana bafite imyaka 7 cyangwa barenga bashobora kwandikisha kubatisimu n'ababyeyi babo. Baza kwitabira amasomo yihariye yo kwitegura kubatisimu.",
+  "baptismReq3": "Guhitamo ababyeyi b’Imana bujuje ibisabwa n’Itorero, harimo kuba barakiriye amasezerano y’ubuzima bwa gikristu, kuba abakristo beza kandi bitabira ibikorwa by’itorero.",
+  "requestBaptism": "Saba Kubatisimu",
+  "firstHolyCommunion": "Umuryango w'Isezerano rya Mbere (First Holy Communion)",
+  "firstHolyCommunionDesc": "Umuryango w'Isezerano rya Mbere ubanzirizwa n’abana bari mu mwaka wa kabiri w’amashuri nyuma yo kurangiza amasomo y’imyaka ibiri y’uburezi bw’idini muri gahunda y’Itorero ryacu.",
+  "firstHolyCommunionReq1": "Gusenganwa mu Itorero Gatolika (Batisimu)",
+  "firstHolyCommunionReq2": "Kuzuza amasomo y’uburezi bw’idini",
+  "firstHolyCommunionReq3": "Kwitabira misa kenshi",
+  "confirmation": "Kwemeza (Confirmation)",
+  "confirmationDesc": "Kwemeza kurangiza isezerano ry’ubutumire. Paruwasi yacu itanga gahunda ihamye yo kwitegura ku rubyiruko n’abakuze bashaka iri sakarameti.",
+  "confirmationReq1": "Kubatisimu no kwakira Umuryango w'Isezerano rya Mbere mu Itorero Gatolika",
+  "confirmationReq2": "Kuzuza amasomo yo kwitegura kwemeza",
+  "confirmationReq3": "Guhitamo umubyeyi w’Imana wujuje ibisabwa n’Itorero",
+  "confirmationReq4": "Kwitabira ikiruhuko cy'iyobokamana (Retreat)",
+  "registerForConfirmation": "Iyandikishe Kwemeza",
+  "reconciliation": "Kwisabira imbabazi (Confession)",
+  "reconciliationDesc": "Isakaramenti yo Kwisabira imbabazi itanga imbabazi z’ibyaha no gusubirana n’Imana n’Itorero. Kwiyunga buri gihe birashishikarizwa mu gukura mu mwuka.",
+  "reconciliationReq1": "Kwiyumvisha ibyaha mbere yo gusaba imbabazi",
+  "reconciliationReq2": "Kuba umunyakuri ku byaha byawe",
+  "confessionSchedule": "Ibihe byo kwisabira imbabazi bikorwa buri wa kabiri n’wa kane nyuma ya misa yo mu gitondo",
+  "marriage": "Ubukwe cyangwa Matrimonyu Yera",
+  "marriageDesc": "Abashaka isezerano ry’ubukwe cyangwa Matrimonyu yera bagomba kuvugana n’umupadiri wa paruwasi nibura amezi atandatu mbere y’itariki y’ubukwe kugira ngo batangire kwitegura.",
+  "marriageReq1": "Byibuze umwe mu bashakanye agomba kuba yatijwe muri Kiliziya Gatolika",
+  "marriageReq2": "Kuzuza gahunda yo kwitegura ubukwe",
+  "marriageReq3": "Kuvugana n’umupadiri wa paruwasi",
+  "marriageReq4": "Impapuro zikenewe (ikarita y’ubutisimu n’inyandiko isaba yavuye mu muryango wa gikristo)",
+  "weddingInquiry": "Kubaza ku Bukwe",
+  "anointingOfSick": "Gushyirwa Amavuta ku Barwayi",
+  "anointingOfSickDesc": "Iri sakarameti ritanga imbaraga z’umwuka n’umubiri mu gihe umuntu arwaye cyane, cyane mbere yo kubagwa cyangwa igihe umuntu ari mu burwayi bukomeye.",
+  "anointingOfSickReq1": "Kuba urwaye cyane, ugomba kubagwa, cyangwa uri mu zabukuru",
+  "anointingOfSickReq2": "Vugana n’ibiro bya paruwasi cyangwa umuyobozi w’umuryango w’abakristo b’ibanze kugira ngo utegure umupadiri uzatanga iri sakarameti",
+  "requestAnointing": "Saba Gushyirwa Amavuta",
+  "holyOrders": "Isezerano rya Bapadiri (Holy Orders)",
+  "holyOrdersDesc": "Binyuze mu isezerano rya bapadiri, abize mu biseminari batijwe nka diakoni, bapadiri, cyangwa babisiporo batangiye umurimo wo gukorera Itorero mu byo kwigisha, gusakaza amasezerano, no kuyobora.",
+  "holyOrdersReq1": "Kumva icyifuzo cyo kuba umupadiri cyangwa diakoni",
+  "holyOrdersReq2": "Gusaba no kwemerwa n’itorero cyangwa umuryango w’idini",
+  "holyOrdersReq3": "Kuzuza amashuri ya seminaryi n’ayiyobokamana",
+  "vocationInquiry": "Kubaza ku Mwuga w'Idini",
+  "requirements": "Ibisabwa",
+  "sacramentalPreparation": "Kwitegura Isezerano",
+  "sacramentalPreparationDesc": "Kwitegura kwakira isezerano ni igihe cy'ingenzi cyo gukura mu mwuka biciye mu masomo ya Katekizimu. Paruwasi yacu itanga gahunda zo kwitegura isezerano mu Kinyarwanda, Igifaransa no mu Cyongereza.",
+  "upcomingClasses": "Ku banyeshuri amasomo ya katekizimu ahuzwa n’umwaka w’amashuri. Amasomo ya katekizimu akorwa ku mpera z'icyumweru. Ku bakuru, amasomo ya katekizimu arakomeza kandi ateganywa hakurikijwe umwanya bafite n’abigisha katekizimu.",
+  "baptismPrep": "Kwitegura Kubatisimu",
+  "firstSaturdayMonth": "Buri wa Gatandatu wa mbere w’ukwezi mu gitondo kuva 09:00 kugeza 10:30 AM; habaho amasengesho no kuramya abamaze kwemezwa mu Cyongereza nk’umwanya wo gukomeza umuriro no gusabana.",
+  "baptismPrepDesc": "Ku babyeyi bafite abana bato bari munsi y’imyaka 3 bashobora kubaza uko babatisimuza mu gihe cyose cy’ukwezi.",
+  "firstCommunionPrep": "Kwitegura Umuryango w'Isezerano rya Mbere",
+  "sundaysAfterMass": "Ku minsi y'Imana nyuma ya misa yo saa 07:00 AM, amasomo ya katekizimu akorwa mu Kinyarwanda.",
+  "firstCommunionPrepDesc": "Gahunda y’imyaka ibiri ku bana bari mu mwaka wa 2 w’amashuri.",
+  "confirmationPrep": "Kwitegura Kwemeza: amasomo ya katekizimu akorwa ku wa Gatandatu mu gitondo kuva saa 10:30 AM kugeza saa 12:00 PM mu Gifaransa; saa 02:00 PM kugeza saa 04:00 PM mu Kinyarwanda; no ku Cyumweru nyuma ya misa yo saa 07:00 AM; hanyuma saa 10:30 AM kugeza saa 12:00 PM mu Cyongereza.",
+  "wednesdayEvenings": "NTA BIKWIRWA",
+  "confirmationPrepDesc": "Ku rubyiruko ruri mu mwaka wa 4-5 bitegura Kwemeza.",
+  "marriagePrep": "Kwitegura Ubukwe",
+  "byAppointment": "Amasomo yo kwitegura isezerano ry’ubukwe akorwa buri wa kabiri nijoro kuva saa 05:30 PM kugeza saa 07:30 PM.",
+  "marriagePrepDesc": "Ku bashakanye bateganya gukora ubukwe mu Itorero Gatolika.",
+  "sacramentalPrepContact": "Kubindi bisobanuro ku myiteguro y’isezerano, nyamuneka hamagara Nyakubahwa Christine UWIRINGIYIMANA; Umuyobozi wa gahunda ya katekizimu.",
+  "contactReligiousEd": "+250 780 339 646",
+  "backToServices" :"Subira kuri paje ya Serivisi",
+  "officeServiceDescription": "Menya serivisi zitandukanye zitangwa n'ibiro bya paruwasi kuri kiliziya nk'inkunga mu buyobozi, impapuro zemewe n'izindi serivisi.",
+  "office": "Ibiro"  
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  }
