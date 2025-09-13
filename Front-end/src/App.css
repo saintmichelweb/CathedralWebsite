@@ -1,0 +1,48 @@
+/* BCC Card Hover Effects */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(34, 59, 125, 0.15) !important;
+}
+
+/* BCC Card Animations */
+.bcc-card-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.hover-underline-animation:hover {
+  text-decoration: underline;
+}
+
+.bcc-card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Community Card Enhancements */
+.community-card {
+  transition: all 0.3s ease;
+}
+
+.community-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 59, 125, 0.1) !important;
+}
+
+/* BCC Grid Responsive */
+@media (max-width: 576px) {
+  .bcc-grid {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .bcc-grid {
+    gap: 2rem;
+  }
+}
+
