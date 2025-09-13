@@ -1,4 +1,4 @@
-# command to build staging compose file "docker compose -f docker-compose-prod.yml up -d --build"
+version: "3.9"
 
 networks:
   stmp-net:
@@ -8,42 +8,37 @@ services:
   front-end:
     build:
       context: ./Front-end
-      # dockerfile: ./Portal/DockerFile
-      dockerfile: ./DockerFile-Front-End
+      dockerfile: ../DockerFile-Front-End
+      args:
+        VITE_API_BASE_URL: /api
     restart: unless-stopped
-    ports:
-      # - "3000:3000" #use if the port is used by an other container
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://93.127.134.28:3551
     networks:
       - stmp-net
-    volumes:
-      - ./Front-end:/app
-      # - /app/node_modules
+    # Static nginx serves on 80 inside container
 
   portal:
     build:
       context: .
-      dockerfile: ./DockerFile-Portal-prod
+      dockerfile: DockerFile-Portal-prod
     restart: unless-stopped
-    ports:
-      - "3550:3550"
+    networks:
+      - stmp-net
+    environment:
+      - PORT=3550
+      - HOST=0.0.0.0
 
   api:
     build:
       context: .
-      dockerfile: ./DockerFile-Api-prod
+      dockerfile: DockerFile-Api-prod
     restart: unless-stopped
-    command: [ "npm", "run", "start" ]
-    ports:
-      - "3551:3551"
+    command: ["npm", "run", "start"]
     networks:
       - stmp-net
     depends_on:
       - stmp-db
     env_file:
-      - Api/.env.prod
+      - ./Api/.env.prod
 
   stmp-db:
     container_name: stmp-db
@@ -51,12 +46,23 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=U3QgTWljaGVsIEtpZ2FsaSBDYXRoZWRyYWw=
-    ports:
-      - 3552:3306
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - MYSQL_ROOT_PASSWORD=U3QgTWljaGVsIEtpZ2FsaGVy
     volumes:
       - ./mysql-init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - stmp-net
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8080:80"   # HTTP
+      - "8443:443"  # HTTPS
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - front-end
+      - portal
+      - api
     networks:
       - stmp-net

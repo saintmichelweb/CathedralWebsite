@@ -1,11 +1,38 @@
-FROM node:20.15.0-alpine AS builder
+# 1. Build stage
+FROM node:20-alpine AS builder
+
 WORKDIR /app
-# COPY ./shared-lib /app/shared-lib
-COPY ./Front-end /app/Front-end
 
-WORKDIR /app/Front-end
-RUN npm i 
-# RUN npm install vite --save-dev
-EXPOSE 3000
+# Build args for Vite env vars (provide defaults)
+ARG VITE_API_BASE_URL=/api
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
-CMD [ "npm", "run", "dev", "--", "--host"]
+# Copy package.json and lock file from context (context is ./Front-end)
+COPY package*.json ./
+
+# Install dependencies (use npm install to avoid lockfile sync issues in CI)
+RUN npm install
+
+# Copy frontend source code (relative to context)
+COPY . ./
+
+# Build the frontend
+RUN npm run build
+
+# 2. Nginx stage
+FROM nginx:stable-alpine AS runner
+
+# Remove default Nginx static files
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy build files from builder
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy custom Nginx config stored in Front-end/nginx.conf (relative to context)
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

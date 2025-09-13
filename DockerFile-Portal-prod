@@ -1,19 +1,16 @@
 FROM node:20.15.0-alpine AS builder
-
 WORKDIR /app
-COPY ./shared-lib /app/shared-lib
-COPY ./Portal /app/Portal
-COPY ./Portal/.env.prod /app/Portal/.env
+
+COPY Portal ./Portal
+COPY shared-lib ./shared-lib
+COPY Portal/.env.prod ./Portal/.env
 
 WORKDIR /app/Portal
-RUN npm i 
+RUN npm install
 RUN npm run build
 
 FROM nginx:stable-alpine
 COPY --from=builder /app/Portal/dist /usr/share/nginx/html
-COPY ./Portal/nginx.conf /etc/nginx/conf.d/default.conf
-
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3550
-
 CMD ["nginx", "-g", "daemon off;"]
-# CMD [ "npm", "run", "preview", "--", "--host"]

@@ -22,9 +22,12 @@ import { RecentEventsEntity } from "../../../entity/RecentEventsEntity";
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export async function getRecentEvents(req: Request, res: Response) {
     try {
-        const recentEvents = await AppDataSource.manager.find(RecentEventsEntity, {
-            where: { isActive: true }
-        })
+        const recentEventsRepository = AppDataSource.getRepository(RecentEventsEntity);
+        const queryBuilder = recentEventsRepository.createQueryBuilder('recent_events')
+            .leftJoinAndSelect('recent_events.backgroundImage', 'backgroundImage')
+            .where('recent_events.isActive = :isActive', { isActive: true });
+
+        const recentEvents = await queryBuilder.getMany();
 
         const responseRecentEvents = Object.values(recentEvents).map(recentEvent => ({
             id: recentEvent.id,
@@ -78,9 +81,12 @@ export async function getRecentEventById(req: Request, res: Response) {
     }
 
     try {
-        const recentEvent = await AppDataSource.manager.find(RecentEventsEntity, {
-            where: { id: recentEventId }
-        })
+        const recentEventsRepository = AppDataSource.getRepository(RecentEventsEntity);
+        const queryBuilder = recentEventsRepository.createQueryBuilder('recent_events')
+            .leftJoinAndSelect('recent_events.backgroundImage', 'backgroundImage')
+            .where('recent_events.id = :id', { id: recentEventId });
+
+        const recentEvent = await queryBuilder.getMany();
 
         if (!recentEvent.length) {
             return res.status(404).send({ message: 'recent event not found' })
@@ -97,7 +103,7 @@ export async function getRecentEventById(req: Request, res: Response) {
                 description_fr: recentEvent[0].description_fr,
                 description_rw: recentEvent[0].description_rw
             },
-            backgroundImage: recentEvent[0].backgroundImage,
+            backgroundImage: recentEvent[0].backgroundImage?.imageUrl || null,
             event_date: recentEvent[0].event_date
         }
 

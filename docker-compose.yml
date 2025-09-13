@@ -6,29 +6,25 @@ services:
   front-end:
     build:
       context: ./Front-end
-      # dockerfile: ./Portal/DockerFile
-      dockerfile: ./DockerFile-Front-End
+      dockerfile: ../DockerFile-Front-End
+      args:
+        VITE_API_BASE_URL: http://localhost:3551/api
     restart: unless-stopped
     ports:
-      # - "3000:3000" #use if the port is used by an other container
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:3551
+      - "3000:80"
     networks:
       - stmp-net
-    volumes:
-      - ./Front-end:/app
-      # - /app/node_modules
+    # Static build; no live mount needed
 
   portal:
     build:
       context: .
-      dockerfile: ./DockerFile-Portal
+      dockerfile: DockerFile-Portal
     restart: unless-stopped
     ports:
       - "3550:3550"
     volumes:
-      - ./Portal/src:/app/Portal/src # For developmennt purposes
+      - ./Portal/src:/app/Portal/src
 
   api:
     build:
@@ -41,8 +37,8 @@ services:
     networks:
       - stmp-net
     volumes:
-      - ./Api/src:/app/Api/src # For developmennt purposes
-      - ./upload/images:/app/upload/images # For developmennt purposes
+      - ./Api/src:/app/Api/src
+      - ./upload/images:/app/upload/images
     depends_on:
       - stmp-db
     env_file:
