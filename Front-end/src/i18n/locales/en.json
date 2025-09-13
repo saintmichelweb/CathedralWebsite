@@ -1,0 +1,226 @@
+{
+    
+     "home": "Home",
+     "about": "About",
+     "services": "Services",
+     "announcements": "Announcements",
+     "contact": "Contact",
+     "menu": "Menu",
+     "followUs": "Follow Us",
+
+     "overview": "Overview",
+     "ourChorals": "Our Choirs",
+     "catholicActions": "Catholic Actions movements",
+     "community": "Community",
+     "parishCommittee": "Parish Committee",
+     "ourLeaders": "Our Leaders",
+
+
+     "massSchedule": "Mass Schedule",
+     "sacraments": "Sacraments",
+     "ministries": "Ministries",
+     "penitence": "Penitence",
+
+    "baptism": "Baptism",
+    "eucharist": "Eucharist",
+    "confirmation": "Confirmation",
+    "marriage": "Marriage",
+    "reconciliation": "Reconciliation",
+    "anointingOfTheSick": "Anointing of the Sick",
+    "upcoming_events":"Upcoming Events",
+    "learn_more":"Learn More",
+    "mainChurch" : "CATHEDRAL",
+    "confessions": "Confessions: Tuesday and Thursday in the morning  or by appointment",
+    "viewFullSchedule": "View Full Schedule",
+    "noMassTimesAvailable": "No Mass times available",
+    "failedToLoadMassTimes": "Failed to load Mass times",
+    "getInvolved": "Get Involved",
+    
+
+    "aboutParishDesc1":
+      "The parish of Saint Michel was founded in 1963 and was one of the parishes of the Archdiocese of Kabgayi. On May 3, 1976, it was officially named Cathedral Parish.",
+    "aboutParishDesc2":
+      "Since its establishment, the parish has played a significant role in the spiritual and social development of the community, serving as a center of faith and religious activities.",
+    "learnMore": "Learn More",
+    "aboutParish": "About Our Parish",
+    "ourPriests": "Our Priests",
+    "priestsDesc": "Meet the dedicated clergy who serve our parish community",
+    "readBio": "Read Bio",
+    "exploreMoreAbout": "Explore More About Us",
+    "exploreMoreDesc": "Learn more about our parish life, ministries, and community initiatives",
+    "choralsDesc": "Discover our various choir groups that enhance our liturgical celebrations with beautiful music.",
+    "catholicActionsDesc": "Explore the various Catholic action groups and initiatives that promote faith in action.",
+    "communityAboutDesc": "Learn about our community outreach programs and how we serve those in need.",
+    "parishCommitteeAboutDesc": "Learn about our Parish Council members, the leadership team that guides our parish community.",
+    "choirLeader": "Choir Leader",
+    "contact": "Contact",
+    "ourCatholicActionGroups": "Our Catholic Action Groups",
+    "ourCatholicActionGroupsDesc": "Discover the various groups that promote faith in action at our parish.",
+    "communityDesc1": "The Basic Christian Communities (BCCs) refer to a group of interconnected Catholic Christian groups operating within our parish. These communities form the foundation of our parish life, bringing families together in smaller groups for prayer, fellowship, and mutual support.",
+    "communityDesc2": "Each Basic Christian Community (BCC) members meet regularly in members' homes. These gatherings provide opportunities for Bible sharing, prayer, and addressing the spiritual and material needs of the members.",
+    "communityDesc": "We cultivate a warm and inclusive community where everyone feels a true sense of belonging, finds genuine support, and embarks on a meaningful journey of faith and personal growth.",
+    "aboutParishCommittee": "About the Parish Council",
+    "parishCommitteeDesc1":
+      "The Parish Council serves as the primary advisory and decision-making body for Saint Michel Parish. Working closely with the Parish Priest, the committee helps guide the spiritual and administrative direction of our parish community.",
+    "parishCommitteeDesc2":
+      "Parish council members are selected by the Parish Priest among different Basic Christian Communities leaders, choirs leaders, liturgy support team leaders and Catholic action movement leaders and serve three-year terms. Once selected, they meet up for a general assembly called by the Parish Priest and elect leaders of different commissions.They represent the diverse backgrounds, experiences, and perspectives of our parishioners.",
+    "parishCommitteeDesc3":
+      "Through prayer, discernment, and collaboration, the Parish Council helps ensure that our parish remains vibrant, faithful to Catholic teaching, and responsive to the needs of our community.",
+      "committeeResponsibilities": "Parish Council members Responsibilities",
+      "committeeResp1": "Advising the pastor on parish matters",
+      "committeeResp2": "Developing and implementing the parish strategic plan",
+      "committeeResp3": "Overseeing parish finances and budgeting",
+      "committeeResp4": "Coordinating parish activities",
+      "committeeResp5": "Maintaining parish facilities and grounds",
+      "committeeResp6": "Fostering community engagement and outreach",
+      "meetCommitteeMembers": "Meet Our Parish council Members",
+      "committeeIntro":"Our Parish Council members are dedicated parishioners who volunteer their time and talents to serve our community.",
+      "parishCommitteeCouncil": "Parish Council",
+      "aboutParishCommittee": "About the Parish Council",
+      "contactUs": "Contact Us",
+      "getInTouch": "Get in Touch",
+    "contactDesc":
+      "We'd love to hear from you. Please fill out the form below or contact us directly using the information provided.",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "closed": "Closed",
+    "connectWithUs": "Connect With Us",
+    "sendMessage": "Send Us a Message",
+    "messageSent": "Message Sent!",
+    "messageSentDesc": "Thank you for contacting Saint Michel Parish. We will get back to you as soon as possible.",
+    "sendAnotherMessage": "Send Another Message",
+    "fullName": "Full Name",
+    "subject": "Subject",
+    "message": "Message",
+    "sending": "Sending...",
+    "selectSubject": "Select a subject",
+    "generalInquiry": "General Inquiry",
+    "massIntentions": "Mass Intentions",
+    "parishEvents": "Parish Events",
+    "volunteering": "Volunteering",
+    "other": "Other",
+    "findUs": "Find Us",
+    "visitUsDesc": "Visit us for Mass, confession, or to speak with a priest",
+    "mapToParish": "Map to Saint Michel Parish",
+    "mapDesc":
+      "Saint Michel Parish is located in the heart of Kigali, easily accessible by public transportation and with ample parking available.",
+    "getDirections": "Get Directions",
+    "officeHours": "Office Hours",
+    "emailAddress": "Email Address",
+    "phoneNumber": "Phone Number",
+    "clearForm" :"Reset the form",
+    "ourServices" : "Our Services",
+    "ServiceDescription" :"Learn more about the services offered at our Cathedral.",
+    "hours": "Hours",
+    "quickLinks": {
+  "title": "Quick Links",
+  "massSchedule": "Mass Schedule",
+  "massScheduleDesc": "View regular and special mass times.",
+  "sacraments": "Sacraments",
+  "sacramentsDesc": "Learn about the sacraments of our Cathedral.",
+  "confession": "Confession",
+  "confessionDesc": "See reconciliation and confession times.",
+  "parishOffice": "Cathedral Office Services",
+  "parishOfficeDesc": "Access various services provided by the Cathedral office."
+},
+"massScheduleTitle": "Mass Schedule",
+"massScheduleDesc":"At Saint Michael's Cathedral, four Masses are held in three languages: Kinyarwanda, French, and English.",
+"sacramentsIntro": "The Seven Sacraments",
+"sacramentsIntroDesc1":
+  "Sacraments are sacred signs instituted by Christ to give grace. Through the sacraments, we encounter Christ and receive His grace to help us live as His disciples.",
+"sacramentsIntroDesc2":
+  "At Saint Michel Cathedral, we are committed to helping parishioners prepare for and celebrate the sacraments with reverence and joy.",
+"sevenSacraments": "The Seven Sacraments of the Catholic Church",
+"sevenSacramentsDesc":
+  "The Catholic Church celebrates seven sacraments, which are divided into three categories: Sacraments of Initiation to christian life, Sacraments of Healing, and Sacraments of Service.",
+"baptism": "Baptism",
+  "baptismDesc": "Baptism is the first sacrament of initiation into the Catholic Church. Parents wishing to have their child baptized should contact the parish secretariate to schedule a baptism preparation class. Babies are baptised following the faith of their parents every fourth sunday of the month",
+  "baptismReq1": "Parents of babies seeking for baptism must be registered members of the parish and must have received the sacrament of the Holy matrimony",
+  "baptismReq2": "Children from 7 years of age can be registered by parents. They individually attend baptism preparation class",
+  "baptismReq3": "Selection of godparents who meet Church requirements i.e having received the sacraments of initiation to christian life, being an exemplary christian and participating in church activities",
+  "requestBaptism": "Request Baptism",
+  "firstHolyCommunion": "First Holy Communion",
+  "firstHolyCommunionDesc": "First Holy Communion is typically received by children in the second grade after completing a two-year preparation program through our Religious Education program.",
+  "firstHolyCommunionReq1": "Baptism in the Catholic Church",
+  "firstHolyCommunionReq2": "Completion of religious education classes",
+  "firstHolyCommunionReq3": "Regular attendance at Mass",
+  "confirmation": "Confirmation",
+  "confirmationDesc": "Confirmation completes the sacraments of initiation. Our parish offers a comprehensive preparation program for teens and adults seeking this sacrament.",
+  "confirmationReq1": "Baptism and First Holy Communion in the Catholic Church",
+  "confirmationReq2": "Completion of confirmation preparation classes",
+  "confirmationReq3": "Selection of a godparent who meets Church requirements",
+  "confirmationReq4": "Participation in a retreat",
+  "registerForConfirmation": "Register for Confirmation",
+  "reconciliation": "Reconciliation (Confession)",
+  "reconciliationDesc": "The Sacrament of Reconciliation offers forgiveness of sins and reconciliation with God and the Church. Regular confession is encouraged for spiritual growth.",
+  "reconciliationReq1": "Examination of conscience before confession",
+  "reconciliationReq2": "Sincere contrition for sins",
+  "confessionSchedule": "Confession sessions are conducted every tuesday and thursday after morning Mass",
+  "marriage": "Marriage or Holy matrimony",
+  "marriageDesc": "Couples seeking the Sacrament of Marriage or Holy matrimony should contact the parish priest at least six months before their desired wedding date to begin the preparation process.",
+  "marriageReq1": "At least one person must be a baptized Catholic",
+  "marriageReq2": "Completion of marriage preparation program",
+  "marriageReq3": "Meeting with the Parish Priest",
+  "marriageReq4": "Necessary documentation (baptismal card and recommendation from the basic christian community)",
+  "weddingInquiry": "Wedding Inquiry",
+  "anointingOfSick": "Anointing of the Sick",
+  "anointingOfSickDesc": "This sacrament brings spiritual and physical strength during illness, especially before surgery or when seriously ill.",
+  "anointingOfSickReq1": "Being seriously ill, facing surgery, or at advanced age",
+  "anointingOfSickReq2": "Contact the parish secretariate or the neighboring basic christian community leader to arrange for a priest to administer the sacrament",
+  "requestAnointing": "Request Anointing",
+  "holyOrders": "Holy Orders",
+  "holyOrdersDesc": "Through the Sacrament of Holy Orders, seminarians are ordained as deacons, priests, or bishops to serve the Church through ministry of word, sacrament, and leadership.",
+  "holyOrdersReq1": "Discernment of a vocation to the priesthood or diaconate",
+  "holyOrdersReq2": "Application to and acceptance by a diocese or religious order",
+  "holyOrdersReq3": "Completion of seminary formation and theological studies",
+  "vocationInquiry": "Vocation Inquiry",
+  "requirements": "Requirements",
+  "sacramentalPreparation": "Sacramental Preparation",
+  "sacramentalPreparationDesc": "Preparing to receive a sacrament is an important time of spiritual growth through cathechism classes. Our parish offers preparation programs for each sacrament in Kinyarwanda, in French and in English.",
+  "upcomingClasses": "For students catechism classes are matched with academic year. Catechism classes are conducted on week-ends. For adults, catechism classes are ongoing and are scheduled taking into consideration both their availability as well as the one of catechists.",
+  "baptismPrep": "Baptism Preparation",
+  "firstSaturdayMonth": "Every first Saturday of the month in the morning from 09:00 to 10:30 AM; there is a prayer and worship conducted for confirmed young christians in French as a way to keep the fire burning and fellowshipping",
+  "baptismPrepDesc": "For parents with babies and young children under 3 years of age inquire for their baptism throughout the month.",
+  "firstCommunionPrep": "First Holy Communion Preparation",
+  "sundaysAfterMass": "Sundays after 07:00 AM Mass, catechism classes are conducted in Kinyarwanda",
+  "firstCommunionPrepDesc": "Two-year program for children in grade 2.",
+  "confirmationPrep": "Confirmation Preparation catechism classes are conducted on Saturday morning from 10:30 AM - 12:00 PM in French; 02:00PM- 04:00 PM in Kinyarwanda; and on Sunday after 07:00 AM Mass; then 10:30 AM- 12:00 PM in English ",
+  "wednesdayEvenings": "NOT APPLICABLE",
+  "confirmationPrepDesc": "For youth in grades 4-5 preparing for Confirmation.",
+  "marriagePrep": "Marriage Preparation",
+  "byAppointment": "Catechism for the preparation to the sacrament of Holy matrimony are conducted every tuesday evening from 05:30 PM- 07:30 PM",
+  "marriagePrepDesc": "For engaged couples planning to marry in the Catholic Church.",
+  "sacramentalPrepContact": "For more information about sacramental preparation, please contact Sr Christine UWIRINGIYIMANA; the Coordinator of catechism program.",
+  "contactReligiousEd": "+250 780 339 646",
+  "backToServices" :"Back to Services",
+  "officeServiceDescription": "Explore the various parish office services offered at the cathedral, including administrative support, official documentation, and more.",
+  "office": " Office"  
+
+
+
+
+
+
+
+
+
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+}
