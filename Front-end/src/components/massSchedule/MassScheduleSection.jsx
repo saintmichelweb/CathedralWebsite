@@ -147,13 +147,15 @@ export const MassScheduleSection = () => {
         <Row className="justify-content-center">
         <Col lg={6}>
         <div className="sacraments-card p-4 text-center mt-4">
-          <p className="section-title fw-medium">{t('confessions')}</p>
-          <Link 
-            to="/services/mass-schedule" 
-            className="text-customBlue hover-underline-animation mt-2 d-inline-block"
+          <p className="section-title">{t('confessions')} <br/> {t('Adoration')} </p>
+          <Link
+            to="/services/mass-schedule"
+            className="inline-block px-4 py-2 mt-2 text-customBlue font-medium border border-customBlue rounded-lg no-underline hover:bg-customBlue hover:text-white transition-colors duration-200"
           >
             {t('viewFullSchedule')}
           </Link>
+
+
         </div>
         </Col>
         </Row>
