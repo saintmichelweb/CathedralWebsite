@@ -1,11 +1,27 @@
-FROM node:20.15.0-alpine AS builder
-WORKDIR /app
-
-COPY shared-lib ./shared-lib
-COPY Api ./Api
-COPY Api/.env.prod ./Api/.env
-
-WORKDIR /app/Api
-RUN npm install
-
-CMD ["npm", "run", "start"]
+# ---------- Build Stage ----------
+    FROM node:20.15.0-alpine AS builder
+    WORKDIR /app
+    
+    # Copy shared-lib and build it
+    COPY ./shared-lib /app/shared-lib
+    WORKDIR /app/shared-lib
+    RUN npm ci && npm run build
+    
+    # Copy API and install deps
+    COPY ./Api /app/Api
+    COPY ./Api/.env.prod /app/Api/.env
+    WORKDIR /app/Api
+    RUN npm ci --omit=dev && npm run build
+    
+    # ---------- Runtime Stage ----------
+    FROM node:20.15.0-alpine
+    WORKDIR /app/Api
+    
+    # Copy only built files + node_modules for minimal runtime image
+    COPY --from=builder /app/Api/node_modules ./node_modules
+    COPY --from=builder /app/Api/dist ./dist
+    COPY --from=builder /app/Api/.env .env
+    
+    EXPOSE 3551
+    CMD ["node", "dist/main.js"]
+    

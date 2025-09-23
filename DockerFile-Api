@@ -1,9 +1,8 @@
-# Use an official Node runtime as the base image
 FROM node:20.15.0-alpine AS builder
 WORKDIR /app
 COPY ./shared-lib /app/shared-lib
 COPY ./Api /app/Api
-# .env is provided by docker-compose env_file; do not copy non-existent dev env here
+COPY ./Api/.env.dev /app/Api/.env
 
 WORKDIR /app/Api
 RUN npm i 

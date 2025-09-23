@@ -1,8 +1,8 @@
-FROM node:20.15.0-alpine AS builder
+FROM node:20.19.0-alpine AS builder
 WORKDIR /app
 COPY ./shared-lib /app/shared-lib
 COPY ./Portal /app/Portal
-# .env is provided by docker-compose env_file; do not copy non-existent dev env here
+COPY ./Portal/.env.dev /app/Portal/.env
 
 WORKDIR /app/Portal
 RUN npm i 
