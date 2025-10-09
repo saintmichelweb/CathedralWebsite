@@ -67,7 +67,7 @@ const CustomButton = forwardRef<HTMLButtonElement, CustomButtonProps>(
         ref={ref}
         type={type}
         size='sm'
-        rounded= "x" 
+        rounded= "md" 
         transition='all 0.3s ease-out'
         {...variants[colorVariant]}
         {...props}

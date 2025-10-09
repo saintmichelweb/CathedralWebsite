@@ -41,7 +41,7 @@ const FormInput = <T extends FieldValues>({
           {...register(name)}
           placeholder={placeholder}
           type='text'
-          rounded= "x"  
+          rounded= "md"  
           {...inputProps}
         />
         {isUrl && (

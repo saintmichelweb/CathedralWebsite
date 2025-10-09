@@ -62,7 +62,7 @@ const ForgotPassword = () => {
       bg={'blue'}
     >
       <Flex w="full" h="100vh" justify="center" align="center">
-        <Flex w="30vw" maxW="900px" rounded="xl" shadow="md" overflow="hidden">
+        <Flex w="30vw" maxW="900px" rounded= "md"   shadow="md" overflow="hidden">
           <Stack
             w={{ base: "100%", md: "100%" }}
             py={'6'}
@@ -89,7 +89,6 @@ const ForgotPassword = () => {
                   mb="4"
                   inputProps={{
                     type: "email",
-                    rounded: "xl"
                   }}
                 />
               </Box>
@@ -101,7 +100,6 @@ const ForgotPassword = () => {
                 my="4"
                 w='full'
                 alignSelf="center"
-                rounded="xl"
               >
                 Send Reset Password Link
               </CustomButton>
@@ -114,7 +112,6 @@ const ForgotPassword = () => {
                 mb="4"
                 w='full'
                 alignSelf="center"
-                rounded="xl"
               >
                 Cancel
               </CustomButton>

@@ -23,7 +23,7 @@ const UpdateHomePage = () => {
         <Image
           border={'dashed'}
           borderColor={'gray.200'}
-          rounded={10}
+          rounded={'md'}
           mt={'-20'}
           loading="lazy"
           height={'10rem'}

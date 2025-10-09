@@ -94,7 +94,7 @@ const SetPassword = () => {
       bg={'blue'}
     >
       <Flex w="full" h="100vh" justify="center" align="center">
-        <Flex w="30vw" maxW="900px" rounded="xl" shadow="md" overflow="hidden">
+        <Flex w="30vw" maxW="900px" rounded= "md"   shadow="md" overflow="hidden">
           <Stack
             w={{ base: "100%", md: "100%" }}
             py={'6'}
@@ -252,7 +252,7 @@ export const SetPasswordBody = (props: Props) => {
             placeholder="Enter password"
             maxW="full"
             mb={isChangePassword ? "2" : "4"}
-            inputProps={{ type: isOldPasswordShown ? "text" : "password", rounded: "xl" }}
+            inputProps={{ type: isOldPasswordShown ? "text" : "password" }}
           />
 
           {isOldPasswordShown ? (
@@ -282,7 +282,7 @@ export const SetPasswordBody = (props: Props) => {
           placeholder="Enter password"
           maxW="full"
           mb={isChangePassword ? "2" : "4"}
-          inputProps={{ type: isNewPasswordShown ? "text" : "password", rounded: "xl" }}
+          inputProps={{ type: isNewPasswordShown ? "text" : "password" }}
         />
 
         {isNewPasswordShown ? (
@@ -309,7 +309,7 @@ export const SetPasswordBody = (props: Props) => {
           errors={errors}
           label="Confirm Password"
           placeholder="Enter password"
-          inputProps={{ type: isConfirmPasswordShown ? "text" : "password", rounded: "xl" }}
+          inputProps={{ type: isConfirmPasswordShown ? "text" : "password" }}
           maxW="full"
           mb='4'
         />
@@ -337,7 +337,6 @@ export const SetPasswordBody = (props: Props) => {
         my="8"
         w='full'
         alignSelf="center"
-        rounded="xl"
         isLoading={false}
       >
         Confirm

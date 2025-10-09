@@ -335,7 +335,7 @@ const BannerImagesManagement = () => {
         }
         showFooter={false}
         isCentered={true}
-        widthSize="40vw"
+        widthSize="50vw"
       />
       <AlertDialog
         alertText={`Are you sure you want to delete this Image?`}

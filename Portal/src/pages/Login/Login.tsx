@@ -93,7 +93,7 @@ const Login = () => {
       bg={'blue'}
     >
       <Flex w="full" h="100vh" justify="center" align="center">
-        <Flex w="30vw" maxW="900px" rounded="xl" shadow="md" overflow="hidden">
+        <Flex w="30vw" maxW="900px" rounded= "md"   shadow="md" overflow="hidden">
           {showOtpComponent ? (
             <TwoFactorAuth
               userEmail={userEmail}
@@ -127,7 +127,6 @@ const Login = () => {
                   label="Email"
                   placeholder="Enter email"
                   maxW="full"
-                  inputProps={{rounded: "xl" }}
                   mb="4"
                 />
 
@@ -138,7 +137,7 @@ const Login = () => {
                     errors={errors}
                     label="Password"
                     placeholder="Enter password"
-                    inputProps={{ type: isPasswordShown ? "text" : "password", rounded: "xl" }}
+                    inputProps={{ type: isPasswordShown ? "text" : "password" }}
                     maxW="full"
                   />
 

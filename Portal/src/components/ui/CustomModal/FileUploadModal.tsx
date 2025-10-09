@@ -22,7 +22,7 @@ const FileUploadModal = (props: FileUploadModalProps) => {
         <Stack
             width={props.width || '30rem'}
             height={props.height || '30rem'}
-            // bg={'secondary'}
+            rounded='md'
             alignItems={'center'}
             justifyContent={"center"}
             borderWidth='1px'
