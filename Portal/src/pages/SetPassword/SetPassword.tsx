@@ -334,7 +334,7 @@ export const SetPasswordBody = (props: Props) => {
       <CustomButton
         type="submit"
         size="md"
-        my="8"
+        my="4"
         w='full'
         alignSelf="center"
         isLoading={false}
