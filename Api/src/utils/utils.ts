@@ -53,3 +53,12 @@ export function generateJwtToken(user: PortalUserEntity): string {
 export function isUndefinedOrNull(value: any): boolean {
   return value === undefined || value === null
 }
+
+export function ensurePngExtension(fileName: string): string {
+  const pngRegex = /\.png$/i;
+  if (pngRegex.test(fileName)) {
+    return fileName;
+  } else {
+    return fileName + '.png';
+  }
+}

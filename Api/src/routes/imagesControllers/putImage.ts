@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { AuthRequest } from "../../types/express";
 import logger from "../../services/logger";
-import { isUndefinedOrNull } from "../../utils/utils";
+import { ensurePngExtension, isUndefinedOrNull } from "../../utils/utils";
 import { readEnv } from "../../setup/readEnv";
 import { ImageEntity } from "../../entity/ImagesEntity";
 import { AppDataSource } from "../../database/dataSource";
@@ -61,7 +61,7 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
                     return res.status(500).send('Error deleting the old Image');
                 }
             });
-            oldImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
+            oldImage.imageUrl = `${APP_URL}/api/image/${ensurePngExtension(uploadedFile.filename)}`
             oldImage.imagePath = uploadedFile.path
             oldImage.filename = uploadedFile.filename
         }

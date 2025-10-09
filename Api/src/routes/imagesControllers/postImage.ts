@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { AuthRequest } from "../../types/express";
 import logger from "../../services/logger";
-import { isUndefinedOrNull } from "../../utils/utils";
+import { ensurePngExtension, isUndefinedOrNull } from "../../utils/utils";
 import { readEnv } from "../../setup/readEnv";
 import { ImageEntity } from "../../entity/ImagesEntity";
 import { AppDataSource } from "../../database/dataSource";
@@ -26,7 +26,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
   const imageRepository = AppDataSource.getRepository(ImageEntity)
   try {
     const newImage = new ImageEntity();
-    newImage.imageUrl = `${APP_URL}/api/image/${uploadedFile.filename}`
+    newImage.imageUrl = `${APP_URL}/api/image/${ensurePngExtension(uploadedFile.filename)}`
     newImage.imagePath = uploadedFile.path
     if (isBannerImage) {
       newImage.isBannerImage = isBannerImage === 'true' 
