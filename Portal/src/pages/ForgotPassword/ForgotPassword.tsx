@@ -43,14 +43,14 @@ const ForgotPassword = () => {
       });
       window.location.replace("/login");
     })
-    .catch((error) => {
-      toast({
-        title: "Forgot password Message",
-        description:
-          error.response.data?.message || "Error sening your reset password link!",
-        status: "error",
+      .catch((error) => {
+        toast({
+          title: "Forgot password Message",
+          description:
+            error.response.data?.message || "Error sening your reset password link!",
+          status: "error",
+        });
       });
-    });
   };
 
   return (
@@ -58,44 +58,24 @@ const ForgotPassword = () => {
       id="main"
       position="relative"
       as="main"
-      w={{ base: "full", lg: "calc(100vw - 6rem)" }}
+      w={"100vw"}
+      bg={'blue'}
     >
       <Flex w="full" h="100vh" justify="center" align="center">
-        <Flex w="90vw" maxW="900px" rounded="xl" shadow="md" overflow="hidden">
-          <VStack
-            w="50%"
-            py="12"
-            px="10"
-            display={{ base: "none", md: "flex" }}
-            justify="space-between"
-            bg="primary"
-          >
-            <Image src={stMichelLogo} w="60" loading="lazy"/>
-
-            <Heading as="h1" color="white" textAlign="center">
-              Portal
-            </Heading>
-
-            <Box
-              alignSelf="center"
-              color="warning"
-              fontSize="sm"
-              fontWeight="medium"
-            >
-              <Text>Hotline: +250-788-387-632</Text>
-              <Text>Email: info@St Michael Parish.co.rw</Text>
-            </Box>
-          </VStack>
-
+        <Flex w="30vw" maxW="900px" rounded= "md"   shadow="md" overflow="hidden">
           <Stack
-            w={{ base: "100%", md: "50%" }}
-            py={{ base: "8", sm: "12" }}
-            px={{ base: "6", sm: "10" }}
-            bg={'primaryBackground'}
+            w={{ base: "100%", md: "100%" }}
+            py={'6'}
+            px={'6'}
+            bg='primaryBackground'
           >
-            <Heading fontSize="2xl" mb="6">
-              Enter your email address to reset your password
+            <Image src={stMichelLogo} w="40" loading="lazy" bg='blue' rounded='xl' alignSelf='center' />
+            <Heading fontSize="2xl" mt="4" alignSelf='center'>
+              Enter your email address to 
             </Heading>
+            <Heading fontSize="2xl" mb='4' alignSelf='center'>
+              reset your password
+            </Heading> 
 
             <Stack as="form" onSubmit={handleSubmit(onSubmit)} w="full">
               <Box position="relative">
@@ -103,7 +83,7 @@ const ForgotPassword = () => {
                   name="email"
                   register={register}
                   errors={errors}
-                  label="Your Email"
+                  label="Email"
                   placeholder="Enter your email address"
                   maxW="full"
                   mb="4"
@@ -116,18 +96,22 @@ const ForgotPassword = () => {
               <CustomButton
                 type="submit"
                 size="md"
-                mt="8"
                 loadingText="Sending..."
+                my="4"
+                w='full'
+                alignSelf="center"
               >
-                Send Reset Password Link
+                Reset Password
               </CustomButton>
 
               <CustomButton
                 size="md"
-                mt="2"
                 variant="outline"
                 onClick={() => navigate("/login")}
                 colorVariant="accent-outline"
+                mb="4"
+                w='full'
+                alignSelf="center"
               >
                 Cancel
               </CustomButton>

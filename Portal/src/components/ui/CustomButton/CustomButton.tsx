@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import { Button, type ButtonProps } from '@chakra-ui/react'
 
 interface CustomButtonProps extends ButtonProps {
-  colorVariant?: 'accent' | 'accent-outline' | 'success' | 'danger' | 'info' | 'info-outline' | 'black-outline'
+  colorVariant?: 'accent' | 'accent-outline' | 'success' | 'danger' | 'info' | 'info-outline' | 'black-outline' | 'gray-outline'
 }
 
 const CustomButton = forwardRef<HTMLButtonElement, CustomButtonProps>(
@@ -53,6 +53,13 @@ const CustomButton = forwardRef<HTMLButtonElement, CustomButtonProps>(
         borderColor: 'black',
         _hover: { opacity: 0.6, bg: 'transparent' },
       },
+      'gray-outline': {
+        color: 'gray',
+        bg: 'transparent',
+        border: '1px',
+        borderColor: 'gray',
+        _hover: { opacity: 0.6, bg: 'transparent' },
+      },
     }
 
     return (
@@ -60,6 +67,7 @@ const CustomButton = forwardRef<HTMLButtonElement, CustomButtonProps>(
         ref={ref}
         type={type}
         size='sm'
+        rounded= "md" 
         transition='all 0.3s ease-out'
         {...variants[colorVariant]}
         {...props}

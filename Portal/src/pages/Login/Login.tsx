@@ -89,35 +89,11 @@ const Login = () => {
       id="main"
       position="relative"
       as="main"
-      w={{ base: "full", lg: "calc(100vw - 6rem)" }}
+      w={"100vw"}
+      bg={'blue'}
     >
       <Flex w="full" h="100vh" justify="center" align="center">
-        <Flex w="90vw" maxW="900px" rounded="xl" shadow="md" overflow="hidden">
-          <VStack
-            w="50%"
-            py="12"
-            px="10"
-            display={{ base: "none", md: "flex" }}
-            justify="space-between"
-            bg='primary'
-          >
-            <Image src={stMichelLogo} w="60" loading="lazy"/>
-
-            <Heading as="h1" color="white" textAlign="center">
-              Portal
-            </Heading>
-
-            <Box
-              alignSelf="center"
-              color="warning"
-              fontSize="sm"
-              fontWeight="medium"
-            >
-              <Text>Hotline: +250-788-387-632</Text>
-              <Text>Email: info@St Michael Parish.co.rw</Text>
-            </Box>
-          </VStack>
-
+        <Flex w="30vw" maxW="900px" rounded= "md"   shadow="md" overflow="hidden">
           {showOtpComponent ? (
             <TwoFactorAuth
               userEmail={userEmail}
@@ -128,13 +104,14 @@ const Login = () => {
             />
           ) : (
             <Stack
-              w={{ base: "100%", md: "50%" }}
-              py={{ base: "8", sm: "12" }}
-              px={{ base: "6", sm: "10" }}
-              bg={'primaryBackground'}
+              w={{ base: "100%", md: "100%" }}
+              py={'6'}
+              px={'6'}
+              bg='primaryBackground'
             >
-              <Heading fontSize="2xl" mb="6">
-                Log in to your account
+              <Image src={stMichelLogo} w="40" loading="lazy" bg='blue' rounded='xl' alignSelf='center'/>
+              <Heading fontSize="3xl" my="4" alignSelf='center'>
+                Website Portal 
               </Heading>
 
               <Stack
@@ -194,8 +171,11 @@ const Login = () => {
                 <CustomButton
                   type="submit"
                   size="md"
-                  mt="8"
+                  my="4"
+                  w='full'
+                  alignSelf="center"
                   isLoading={isPending}
+                  rounded= "x"  
                 >
                   Log In
                 </CustomButton>

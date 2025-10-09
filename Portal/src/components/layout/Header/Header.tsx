@@ -190,7 +190,7 @@ const Header = () => {
           child={<SetPasswordBody isChangePassword={changePasswordPopup} />}
           isCentered
           scrollInside={false}
-          widthSize="22vw"
+          widthSize="30vw"
           showFooter={false}
         />
       </HStack>
