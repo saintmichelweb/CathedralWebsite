@@ -172,7 +172,7 @@ const Login = () => {
                   type="submit"
                   size="md"
                   my="4"
-                  w='10vw'
+                  w='full'
                   alignSelf="center"
                   isLoading={isPending}
                   rounded= "x"  

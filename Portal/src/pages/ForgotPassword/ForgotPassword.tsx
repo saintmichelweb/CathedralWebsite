@@ -71,11 +71,11 @@ const ForgotPassword = () => {
           >
             <Image src={stMichelLogo} w="40" loading="lazy" bg='blue' rounded='xl' alignSelf='center' />
             <Heading fontSize="2xl" mt="4" alignSelf='center'>
-              Enter your email address to reset
+              Enter your email address to 
             </Heading>
             <Heading fontSize="2xl" mb='4' alignSelf='center'>
-              your password
-            </Heading>
+              reset your password
+            </Heading> 
 
             <Stack as="form" onSubmit={handleSubmit(onSubmit)} w="full">
               <Box position="relative">
@@ -101,7 +101,7 @@ const ForgotPassword = () => {
                 w='full'
                 alignSelf="center"
               >
-                Send Reset Password Link
+                Reset Password
               </CustomButton>
 
               <CustomButton
