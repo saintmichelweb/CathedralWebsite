@@ -90,73 +90,53 @@ const SetPassword = () => {
       id="main"
       position="relative"
       as="main"
-      w={{ base: "full", lg: "calc(100vw - 6rem)" }}
+      w={"100vw"}
+      bg={'blue'}
     >
       <Flex w="full" h="100vh" justify="center" align="center">
-        <Flex w="90vw" maxW="900px" rounded="xl" shadow="md" overflow="hidden">
-          <VStack
-            w="50%"
-            py="12"
-            px="10"
-            display={{ base: "none", md: "flex" }}
-            justify="space-between"
-            bg="primary"
-          >
-            <Image src={stMichelLogo} w="60" loading="lazy"/>
-
-            <Heading as="h1" color="white" textAlign="center">
-              Portal
-            </Heading>
-
-            <Box
-              alignSelf="center"
-              color="warning"
-              fontSize="sm"
-              fontWeight="medium"
-            >
-              <Text>Hotline: +250-788-387-632</Text>
-              <Text>Email: info@St Michael Parish.co.rw</Text>
-            </Box>
-          </VStack>
-
+        <Flex w="30vw" maxW="900px" rounded="xl" shadow="md" overflow="hidden">
           <Stack
-            w={{ base: "100%", md: "50%" }}
-            py={{ base: "8", sm: "12" }}
-            px={{ base: "6", sm: "10" }}
+            w={{ base: "100%", md: "100%" }}
+            py={'6'}
+            px={'6'}
+            bg='primaryBackground'
           >
+            <Image src={stMichelLogo} w="40" loading="lazy" bg='blue' rounded='xl' alignSelf='center' />
             {isTokenNotExpired ? (
               <Box
                 alignSelf="center"
                 color={"red.600"}
                 fontSize="sm"
+                m='2'
                 fontWeight="medium"
               >
-                <Flex justify="center" align="center">
-                  <Icon
-                    aria-label="Hide password"
-                    as={AiFillWarning}
-                    background={"white"}
-                    mb={"4"}
-                    width={"5rem"}
-                    height={"5rem"}
-                  />
-                </Flex>
-                <VStack w="100%" justify="space-between">
-                  <Text color={"black"} fontSize={"xl"} mx={"2"}>
-                    Please, logout from your other session first and then to set
-                    your password
-                  </Text>
-                </VStack>
+                <Stack flexDir='row' my='10' mx='4'>
+                  <Flex justify="center" align="center">
+                    <Icon
+                      aria-label="Hide password"
+                      as={AiFillWarning}
+                      mb={"4"}
+                      width={"5rem"}
+                      height={"5rem"}
+                    />
+                  </Flex>
+                  <VStack w="100%" justify="space-between">
+                    <Text color={"black"} fontSize={"17"} mx={"2"} mt='4'>
+                      Please, logout from your other session first and then to set
+                      your password
+                    </Text>
+                  </VStack>
+                </Stack>
                 <VStack
                   flexDir={"row"}
                   justify="center"
                   align="center"
-                  mt={"6"}
+                  my={"6"}
                   mx={"6"}
                 >
                   <CustomButton
                     type="button"
-                    size="md"
+                    w='10rem'
                     mx={"6"}
                     onClick={() => {
                       logoutPrevSession();
@@ -166,9 +146,9 @@ const SetPassword = () => {
                   </CustomButton>
                   <CustomButton
                     type="button"
-                    size="md"
+                    w='10rem'
                     mx={"6"}
-                    colorVariant="accent-outline"
+                    colorVariant="gray-outline"
                     onClick={() => navigate("/")}
                   >
                     cancel
@@ -177,7 +157,7 @@ const SetPassword = () => {
               </Box>
             ) : (
               <>
-                <Heading fontSize={"3xl"} mb={"6"}>
+                <Heading fontSize={"3xl"} my={"4"} alignSelf={'center'}>
                   Set your password
                 </Heading>
                 <SetPasswordBody isChangePassword={false} token={token} />
@@ -272,7 +252,7 @@ export const SetPasswordBody = (props: Props) => {
             placeholder="Enter password"
             maxW="full"
             mb={isChangePassword ? "2" : "4"}
-            inputProps={{ type: isOldPasswordShown ? "text" : "password" }}
+            inputProps={{ type: isOldPasswordShown ? "text" : "password", rounded: "xl" }}
           />
 
           {isOldPasswordShown ? (
@@ -302,7 +282,7 @@ export const SetPasswordBody = (props: Props) => {
           placeholder="Enter password"
           maxW="full"
           mb={isChangePassword ? "2" : "4"}
-          inputProps={{ type: isNewPasswordShown ? "text" : "password" }}
+          inputProps={{ type: isNewPasswordShown ? "text" : "password", rounded: "xl" }}
         />
 
         {isNewPasswordShown ? (
@@ -329,8 +309,9 @@ export const SetPasswordBody = (props: Props) => {
           errors={errors}
           label="Confirm Password"
           placeholder="Enter password"
-          inputProps={{ type: isConfirmPasswordShown ? "text" : "password" }}
+          inputProps={{ type: isConfirmPasswordShown ? "text" : "password", rounded: "xl" }}
           maxW="full"
+          mb='4'
         />
 
         {isConfirmPasswordShown ? (
@@ -353,7 +334,10 @@ export const SetPasswordBody = (props: Props) => {
       <CustomButton
         type="submit"
         size="md"
-        mt={isChangePassword ? "4" : "8"}
+        my="8"
+        w='full'
+        alignSelf="center"
+        rounded="xl"
         isLoading={false}
       >
         Confirm

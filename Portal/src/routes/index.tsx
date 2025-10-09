@@ -23,6 +23,8 @@ import {
   MpuzaMiryangoRemezoManagement,
   MiryangoRemezoManagement,
   CatholicActionsManagement,
+  UnauthorizedPage,
+  NotFoundPage,
 } from "../pages";
 import UpdateHomePage from "../pages/UpdateHomePage/updateHomePage";
 
@@ -154,6 +156,14 @@ const Routes = () => {
       element: <SetPassword />,
       caseSensitive: true,
     },
+    { 
+      path: '/unauthorized', 
+      element: <UnauthorizedPage /> 
+    },
+    { 
+      path: '*', 
+      element: <NotFoundPage /> 
+    } 
   ]);
   return element;
 };

@@ -20,6 +20,8 @@ import CommunityManagement from './Community/Comunities';
 import MpuzaMiryangoRemezoManagement from './MpuzaMiryangoRemezo/Impuzamiryangoremezo';
 import MiryangoRemezoManagement from './ImiryangoRemezo/Imiryangoremezo';
 import CatholicActionsManagement from './CatholicActions/CatholicActions';
+import NotFoundPage from './ErrorPages/NotFoundPage';
+import UnauthorizedPage from './ErrorPages/UnauthorizedPage'
 
 export {
   Login,
@@ -43,5 +45,7 @@ export {
   CommunityManagement,
   MpuzaMiryangoRemezoManagement,
   MiryangoRemezoManagement,
-  CatholicActionsManagement
+  CatholicActionsManagement,  
+  NotFoundPage,
+  UnauthorizedPage
 }

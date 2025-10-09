@@ -27,13 +27,20 @@ const UpdateHomePage = () => {
           mt={'-20'}
           loading="lazy"
           height={'10rem'}
-          bg={'gray.200'}
+          bg={'primary'}
           maxH={'fit-content'}
           alt="Image"
           objectFit={'contain'}
           src={logo}
           crossOrigin="anonymous"
         />
+        <Heading
+          size={"3xl"}
+          color={"secondary"}
+          width={'fit-content'}
+        >
+          Welcome to the 
+        </Heading>
         <Heading
           size={"3xl"}
           color={"primary"}
