@@ -36,7 +36,7 @@ export async function ImageUpload(req: AuthRequest, res: Response) {
       newImage.bannerDescription_fr = bannerDescription_fr
       newImage.bannerDescription_rw = bannerDescription_rw
     }
-    newImage.filename = uploadedFile.filename
+    newImage.filename = ensurePngExtension(uploadedFile.filename)
     newImage.isActive = true
     const savedImage = await imageRepository.save(newImage)
     return res.status(201).send({ message: 'Image uploaded successfully', image: savedImage });

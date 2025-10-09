@@ -63,7 +63,7 @@ export async function ImageUpdate(req: AuthRequest, res: Response) {
             });
             oldImage.imageUrl = `${APP_URL}/api/image/${ensurePngExtension(uploadedFile.filename)}`
             oldImage.imagePath = uploadedFile.path
-            oldImage.filename = uploadedFile.filename
+            oldImage.filename = ensurePngExtension(uploadedFile.filename)
         }
 
         await imageRepository.save(oldImage)
